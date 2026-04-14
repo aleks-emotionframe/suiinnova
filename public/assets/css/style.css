@@ -687,16 +687,17 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
 }
 .trust-logos {
-    display: flex; align-items: center; gap: var(--space-lg); flex: 1;
+    display: flex; align-items: center; gap: var(--space-xl); flex: 1;
     overflow-x: auto;
 }
-.trust-logo-item {
-    font-size: var(--fs-lg); font-weight: var(--fw-extrabold);
-    color: var(--c-lightgrey); letter-spacing: 0.05em;
-    white-space: nowrap; user-select: none;
-    transition: color var(--transition);
+.trust-logo-img {
+    height: 28px; width: auto;
+    opacity: 0.35;
+    filter: grayscale(100%);
+    transition: opacity var(--transition), filter var(--transition);
+    flex-shrink: 0;
 }
-.trust-logo-item:hover { color: var(--c-text-light); }
+.trust-logo-img:hover { opacity: 0.8; filter: grayscale(0%); }
 
 /* Intro Split (image + text) */
 .intro-split {
