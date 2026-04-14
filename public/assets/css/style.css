@@ -663,9 +663,9 @@ h1, h2, h3, h4, h5, h6 {
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid { grid-template-columns: 1fr; }
     .about-image-col { order: -1; max-width: 360px; }
-    .komp-feature { grid-template-columns: 1fr; gap: var(--space-lg); }
-    .komp-feature-reverse { direction: ltr; }
-    .komp-vorteile-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+    .komp-text-cols { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .komp-highlight { grid-template-columns: 1fr; }
+    .komp-cards-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
     :root { --header-h: 60px; --space-3xl: 4.5rem; --space-2xl: 3rem; }
@@ -1055,58 +1055,90 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.8;
 }
 
-/* Kompetenzen Feature Blocks */
-.komp-feature {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl); align-items: center;
+/* Kompetenzen — Abwechslungsreiche Layouts */
+
+/* Vollbreites Bild (randlos) */
+.komp-fullwidth-img {
+    width: 100%; overflow: hidden;
     margin-bottom: var(--space-xl);
 }
-.komp-feature:last-child { margin-bottom: 0; }
-.komp-feature-reverse { direction: rtl; }
-.komp-feature-reverse > * { direction: ltr; }
-.komp-feature-img {
-    border-radius: var(--radius-lg); overflow: hidden;
-}
-.komp-feature-img img {
-    width: 100%; aspect-ratio: 4 / 3;
+.komp-fullwidth-img img {
+    width: 100%; height: 420px;
     object-fit: cover; display: block;
-    transition: transform 0.5s ease;
 }
-.komp-feature:hover .komp-feature-img img { transform: scale(1.03); }
-.komp-feature-title {
+
+/* 3-Spalten Text */
+.komp-text-cols {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+.komp-text-cols-title {
+    font-size: var(--fs-lg); font-weight: var(--fw-bold);
+    color: var(--c-anthrazit); margin-bottom: 0.5em;
+}
+.komp-text-cols p {
+    font-size: var(--fs-sm); color: var(--c-text-light);
+    line-height: 1.8;
+}
+
+/* Highlight-Karte (Bild links, Text rechts, volle Breite) */
+.komp-highlight {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    background: var(--c-offwhite); border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+.komp-highlight-img img {
+    width: 100%; height: 100%; min-height: 320px;
+    object-fit: cover; display: block;
+}
+.komp-highlight-body {
+    padding: var(--space-xl);
+    display: flex; flex-direction: column; justify-content: center;
+}
+.komp-highlight-title {
     font-size: var(--fs-xl); font-weight: var(--fw-bold);
     color: var(--c-anthrazit); margin-bottom: 0.5em;
 }
-.komp-feature-desc {
+.komp-highlight-desc {
     font-size: var(--fs-sm); color: var(--c-text-light);
-    line-height: 1.8; margin-bottom: var(--space-sm);
+    line-height: 1.8; margin-bottom: var(--space-md);
 }
-.komp-feature-list {
-    list-style: none;
+.komp-highlight-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
 }
-.komp-feature-list li {
-    position: relative; padding-left: 1.4em;
-    font-size: var(--fs-sm); color: var(--c-text);
-    margin-bottom: 0.4em; font-weight: var(--fw-medium);
-}
-.komp-feature-list li::before {
-    content: ''; position: absolute; left: 0; top: 0.55em;
-    width: 6px; height: 6px; background: var(--c-red); border-radius: 50%;
+.komp-tag {
+    font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+    color: var(--c-red); background: var(--c-red-soft);
+    padding: 0.35em 0.8em; border-radius: 20px;
 }
 
-/* Kompetenzen Vorteile Banner */
-.komp-vorteile-grid {
+/* Kompakte 3er-Karten */
+.komp-cards-row {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg); text-align: center;
+    gap: var(--space-md);
 }
-.komp-vorteil-number {
-    display: block; font-size: var(--fs-4xl);
-    font-weight: var(--fw-extrabold); color: var(--c-red);
-    line-height: 1; margin-bottom: 0.2em;
+.komp-card-compact {
+    background: var(--c-offwhite);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: all var(--transition);
 }
-.komp-vorteil-text {
-    font-size: var(--fs-sm); color: rgba(255,255,255,0.85);
-    line-height: 1.5;
+.komp-card-compact:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+}
+.komp-card-compact-icon {
+    width: 36px; height: 36px; color: var(--c-red);
+    margin-bottom: var(--space-sm);
+}
+.komp-card-compact-icon svg { width: 100%; height: 100%; }
+.komp-card-compact h3 {
+    font-size: var(--fs-base); font-weight: var(--fw-bold);
+    color: var(--c-anthrazit); margin-bottom: 0.3em;
+}
+.komp-card-compact p {
+    font-size: var(--fs-sm); color: var(--c-text-light);
+    line-height: 1.7;
 }
 
 /* Karriere Section */
