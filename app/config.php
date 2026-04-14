@@ -14,12 +14,12 @@ define('DB_USER', 'bifitudo_sui');
 define('DB_PASS', 'Novitr@vnik1');
 define('DB_CHARSET', 'utf8mb4');
 
-// Application paths
-define('APP_ROOT', dirname(__DIR__));
-define('APP_PATH', APP_ROOT . '/app');
-define('PUBLIC_PATH', APP_ROOT);
-define('UPLOAD_PATH', APP_ROOT . '/uploads');
-define('UPLOAD_URL', '/uploads');
+// Application paths (only define if not already set)
+if (!defined('APP_ROOT')) define('APP_ROOT', dirname(__DIR__));
+if (!defined('APP_PATH')) define('APP_PATH', APP_ROOT . '/app');
+if (!defined('PUBLIC_PATH')) define('PUBLIC_PATH', APP_ROOT);
+if (!defined('UPLOAD_PATH')) define('UPLOAD_PATH', APP_ROOT . '/uploads');
+if (!defined('UPLOAD_URL')) define('UPLOAD_URL', '/uploads');
 
 // Site URL (without trailing slash)
 define('SITE_URL', 'https://www.sui-innova.ch');

@@ -3,9 +3,14 @@
  * Application bootstrap — loaded by the front controller.
  */
 
-if (!defined('DB_HOST')) {
-    require_once APP_PATH . '/config.php';
+if (!defined('APP_ROOT')) {
+    define('APP_ROOT', dirname(__DIR__));
 }
+if (!defined('APP_PATH')) {
+    define('APP_PATH', APP_ROOT . '/app');
+}
+
+require_once APP_PATH . '/config.php';
 
 // Error handling
 if (APP_DEBUG) {

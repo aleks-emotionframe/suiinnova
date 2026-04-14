@@ -1,9 +1,6 @@
 # Uploads
-public/uploads/*
-!public/uploads/.gitkeep
-
-# Environment / secrets
-.env
+uploads/*
+!uploads/.gitkeep
 
 # OS files
 .DS_Store
@@ -13,4 +10,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
-*.swo
+
+# Test files
+test.php
+info.php
