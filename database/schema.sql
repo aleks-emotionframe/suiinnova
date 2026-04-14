@@ -120,37 +120,64 @@ INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `co
 (1, 'hero', 'Präzision in jeder Verbindung', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.', 1),
 (1, 'intro', 'Ihr Spezialist für Sanitär-Vorfabrikation', 'Über uns', 'Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.\n\nUnsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.', 2),
 (1, 'quote', NULL, NULL, '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»', 3),
-(1, 'cta', 'Ihr nächstes Projekt?', NULL, 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.', 9);
+(1, 'services_header', 'Was wir für Sie tun', NULL, 'Von der Planung bis zur Fertigstellung – wir bieten Ihnen das komplette Leistungsspektrum im Bereich Sanitär-Vorfabrikation und Montage.', 4),
+(1, 'service_vorfab', 'Vorfabrikation', NULL, 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.', 5),
+(1, 'service_montage', 'Montage vor Ort', NULL, 'Unser erfahrenes Team sorgt für die fachgerechte Installation direkt auf der Baustelle – von der Vorwand bis zur Spachtelung.', 6),
+(1, 'details_header', 'Komplettlösungen aus einer Hand', NULL, 'Von der Vorfabrikation bis zur fertigen Oberfläche – wir decken alle Gewerke im Bereich Sanitärinstallation ab.', 7),
+(1, 'detail_gis', 'GIS-Elemente', NULL, 'Vorfabrikation und Montage von Geberit Installationssystemen – normgerecht, präzise und bereit für die schnelle Baustellenmontage.', 8),
+(1, 'detail_rohr', 'Rohrleitungsbau', NULL, 'Professioneller Leitungsbau für Trinkwasser, Heizung und Abwasser. Alle Materialien, alle Verbindungstechniken.', 9),
+(1, 'detail_sto', 'STOClick', NULL, 'Schnell- und Sicherheitsbefestigung für optimierte Baustellenabläufe. Effizient vorgefertigt in unserer Werkstatt.', 10),
+(1, 'detail_duofix', 'Duofix & Vorwände', NULL, 'Montage aller Sanitärvorwandsysteme – Geberit Duofix und weitere. Auch geschweisste Ausführungen.', 11),
+(1, 'detail_beplan', 'Beplankungen', NULL, '1x 18mm oder 2x 12.5mm – professionelle Beplankung von Vorwandinstallationen für perfekte Oberflächen.', 12),
+(1, 'detail_aqua', 'AquaPanel', NULL, 'Zementgebundene Bauplatten für Feuchträume. Geberit AquaPanel und AquaPanel 2x 12mm – dauerhaft und belastbar.', 13),
+(1, 'why_header', 'Ihr Vorteil mit uns', NULL, 'Wir kombinieren handwerkliches Können mit effizienter Vorfabrikation. Das Ergebnis: kürzere Bauzeiten, tiefere Kosten und konstant hohe Qualität.', 14),
+(1, 'why_1', 'Kostensicherheit', NULL, 'Transparente Preise und präzise Kalkulationen – keine Überraschungen.', 15),
+(1, 'why_2', 'Termintreue', NULL, 'Durch Vorfabrikation verkürzen wir die Bauzeit um bis zu 40%.', 16),
+(1, 'why_3', 'Erstklassige Qualität', NULL, 'Qualitätskontrolle in jeder Phase – von der Werkstatt bis zur Abnahme.', 17),
+(1, 'why_4', 'Ein Team – ein Ansprechpartner', NULL, 'Von der Beratung bis zur Abnahme haben Sie einen persönlichen Projektleiter.', 18),
+(1, 'karriere', '<strong>Werde Teil unseres Teams</strong> – und bewege Grosses', NULL, 'Unsere Mitarbeitenden sind das Fundament unseres Erfolgs. Wir bieten ein Arbeitsumfeld, in dem Respekt, Teamgeist und Eigenverantwortung gelebt werden – und in dem sich alle Mitarbeitenden wertgeschätzt fühlen.\n\nEntdecke die Chancen bei SUI Innova und gestalte die Zukunft der Gebäudetechnik aktiv mit. Wir suchen motivierte Fachkräfte, die mit Leidenschaft dabei sind.', 19),
+(1, 'cta', 'Ihr nächstes Projekt?', NULL, 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.', 20);
 
 -- Content for Kompetenzen
 INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `content`, `sort_order`) VALUES
-(2, 'hero', 'Unsere Kompetenzen', NULL, 'Von der Werkstatt auf die Baustelle – wir beherrschen das gesamte Spektrum der Sanitär-Vorfabrikation und -Montage.', 1),
-(2, 'vorfabrikation_intro', 'Vorfabrikation', 'Präzision aus der Werkstatt', 'In unserer modern ausgestatteten Werkstatt fertigen wir Komponenten vor, die auf der Baustelle zeit- und kostensparend installiert werden können. Höchste Qualitätsstandards und massgeschneiderte Lösungen sind dabei selbstverständlich.', 2),
-(2, 'vorfab_gis', 'GIS-Elemente', NULL, 'Vorfabrikation von GIS-Installationssystemen für eine effiziente und normgerechte Sanitärinstallation. Unsere vorgefertigten GIS-Elemente garantieren eine schnelle Montage und gleichbleibend hohe Qualität.', 3),
-(2, 'vorfab_rohr', 'Rohrleitungsbau', NULL, 'Professioneller Rohrleitungsbau für Trinkwasser-, Heizungs- und Abwasserleitungen. Wir verarbeiten alle gängigen Materialien und Verbindungstechniken nach aktuellen Normen und Vorschriften.', 4),
-(2, 'vorfab_sto', 'STOClick', NULL, 'STOClick Montagesystem für eine schnelle und sichere Befestigung. Effiziente Vorfabrikation für optimierte Baustellenabläufe.', 5),
-(2, 'montage_intro', 'Montage vor Ort', 'Fachgerecht und termingerecht', 'Unser erfahrenes Montageteam sorgt für die fachgerechte Installation direkt auf der Baustelle. Von der Vorwandinstallation bis zur fertigen Spachtelung – wir liefern Qualität aus einer Hand.', 6),
-(2, 'montage_gis', 'GIS-Elemente', NULL, 'Fachgerechte Montage von GIS-Installationselementen nach Herstellervorgaben. Schnell, präzise und zuverlässig.', 7),
-(2, 'montage_duofix', 'Duofix & Vorwandsysteme', NULL, 'Montage von Geberit Duofix und allen gängigen Sanitärvorwandsystemen – auch geschweisste Ausführungen. Für jede Anforderung die passende Lösung.', 8),
-(2, 'montage_beplan', 'Beplankungen', NULL, 'Professionelle Beplankung von Vorwandinstallationen mit 1x 18mm oder 2x 12.5mm Platten. Saubere Ausführung für perfekte Oberflächen.', 9),
-(2, 'montage_aqua', 'Geberit AquaPanel', NULL, 'Montage von Geberit AquaPanel und AquaPanel 2x 12mm – die ideale Lösung für Feuchträume. Zementgebundene Bauplatten für dauerhafte Qualität.', 10),
-(2, 'montage_spachtel', 'Spachtelungen & Ausflockungen', NULL, 'Fachgerechte Spachtelungen an Vorwänden und Ausflockungen für eine perfekte Oberfläche. Bereit für Fliesen, Putz oder Anstrich.', 11);
+(2, 'page_title', 'Vorfabrikation & Montage', NULL, 'Ein Ansprechpartner, durchgängige Qualität, optimierte Abläufe – von der Werkstatt bis zur fertigen Oberfläche.', 1),
+(2, 'vorfab_header', 'Präzision aus der Werkstatt', NULL, 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient installiert werden. Das spart Zeit, senkt Kosten und garantiert gleichbleibende Qualität.', 2),
+(2, 'vorfab_gis', 'GIS-Elemente', NULL, 'Geberit Installationssysteme massgenau vorfabriziert – bereit für die schnelle Montage.', 3),
+(2, 'vorfab_rohr', 'Rohrleitungsbau', NULL, 'Trinkwasser, Heizung, Abwasser – alle Materialien und Verbindungstechniken nach SIA-Normen.', 4),
+(2, 'vorfab_sto', 'STOClick', NULL, 'Schnellmontage-System für sichere Befestigung und optimierte Baustellenabläufe.', 5),
+(2, 'montage_header', 'Fachgerecht auf der Baustelle', NULL, 'Unser erfahrenes Team montiert direkt vor Ort – von der Vorwandinstallation bis zur fertigen Oberfläche, koordiniert mit allen Gewerken.', 6),
+(2, 'montage_duofix', 'Duofix & Vorwände', NULL, 'Geberit Duofix, geschweisste Vorwände und alle gängigen Sanitärvorwandsysteme.', 7),
+(2, 'montage_beplan', 'Beplankungen & AquaPanel', NULL, '1x 18mm oder 2x 12.5mm Platten. AquaPanel 2x 12mm für Feuchträume.', 8),
+(2, 'montage_spachtel', 'Spachtelungen', NULL, 'Fachgerechte Spachtelungen und Ausflockungen – bereit für Fliesen oder Anstrich.', 9),
+(2, 'details_header', 'Alle Leistungen auf einen Blick', NULL, NULL, 10),
+(2, 'detail_gis', 'GIS-Elemente vorfabrizieren', NULL, 'Geberit Installationssysteme massgenau in der Werkstatt vorbereiten. Qualitätskontrolle vor Auslieferung, termingerechte Lieferung.', 11),
+(2, 'detail_gis_montage', 'GIS-Elemente montieren', NULL, 'Fachgerechte Montage nach Herstellervorgaben direkt auf der Baustelle. Koordiniert mit allen beteiligten Gewerken.', 12),
+(2, 'detail_rohr', 'Rohrleitungsbau', NULL, 'Trinkwasser-, Heizungs- und Abwasserleitungen. Edelstahl, Kupfer, Kunststoff – alle Verbindungstechniken nach SIA-Normen.', 13),
+(2, 'detail_sto', 'STOClick', NULL, 'Schnellmontage-System für sichere Befestigung. Effiziente Vorfabrikation verkürzt Montagezeiten auf der Baustelle.', 14),
+(2, 'detail_duofix', 'Duofix & Vorwände', NULL, 'Geberit Duofix und alle gängigen Sanitärvorwandsysteme – auch geschweisst. Für Wohnbau, Gewerbe und Spitäler.', 15),
+(2, 'detail_beplan', 'Beplankungen', NULL, 'Vorwände beplanken mit 1x 18mm oder 2x 12.5mm Platten. Saubere Ausführung für perfekte Oberflächen.', 16),
+(2, 'detail_aqua', 'AquaPanel', NULL, 'Geberit AquaPanel 2x 12mm für Feuchträume. Zementgebundene Bauplatten – wasserfest, schimmelfrei, dauerhaft.', 17),
+(2, 'detail_spachtel', 'Spachtelungen & Ausflockungen', NULL, 'Fachgerechte Spachtelungen an Vorwänden. Perfekte Oberflächen, bereit für Fliesen, Putz oder Anstrich.', 18),
+(2, 'cta', 'Haben Sie ein Projekt?', NULL, 'Wir beraten Sie gerne – von der Vorfabrikation bis zur Montage.', 19);
 
 -- Content for Unternehmen
 INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `content`, `sort_order`) VALUES
-(4, 'hero', 'Unser Unternehmen', NULL, 'Qualität, Zuverlässigkeit und Leidenschaft für die Gebäudetechnik – das ist SUI Innova.', 1),
-(4, 'about', 'Über uns', 'SUI Innova GmbH', 'Die SUI Innova GmbH ist ein spezialisiertes Unternehmen im Bereich der Sanitär-Vorfabrikation und -Montage. Mit einem Team aus erfahrenen Fachkräften realisieren wir Projekte jeder Grösse – von Wohnbauten bis zu komplexen Gewerbebauten. Unser Anspruch: höchste Qualität, termingerechte Ausführung und eine partnerschaftliche Zusammenarbeit mit unseren Kunden.', 2),
-(4, 'values', 'Unsere Werte', NULL, 'Qualität, Zuverlässigkeit, Innovation und Teamarbeit bilden das Fundament unseres Unternehmens. Wir investieren kontinuierlich in die Weiterbildung unserer Mitarbeitenden und in moderne Fertigungstechnologien.', 3),
-(4, 'quality', 'Qualitätsmanagement', NULL, 'Strenge Qualitätskontrollen in jeder Projektphase garantieren die Einhaltung aller relevanten Normen und Standards. Von der Vorfabrikation bis zur finalen Abnahme – Qualität ist bei uns kein Zufall.', 4),
-(4, 'team', 'Unser Team', NULL, 'Unser grösstes Kapital sind unsere Mitarbeitenden. Erfahrene Projektleiter, qualifizierte Monteure und engagierte Fachkräfte arbeiten Hand in Hand für den Erfolg jedes Projekts.', 5);
+(4, 'page_title', 'Über die SUI Innova GmbH', NULL, 'Qualität, Zuverlässigkeit und Leidenschaft für die Gebäudetechnik – das ist SUI Innova.', 1),
+(4, 'about', 'Über uns', 'SUI Innova GmbH', 'Die SUI Innova GmbH ist ein führendes Unternehmen im Bereich der Vorfabrikation und Montage von Sanitärinstallationen. Mit über 85 Fachkräften und langjähriger Erfahrung realisieren wir anspruchsvolle Projekte in der ganzen Schweiz.\n\nVon der Planung über die Vorfabrikation in unserer modernen Werkstatt bis zur fachgerechten Montage auf der Baustelle bieten wir alles aus einer Hand. Dabei setzen wir auf höchste Qualitätsstandards, termingerechte Ausführung und eine partnerschaftliche Zusammenarbeit mit unseren Kunden.', 2),
+(4, 'values', 'Unsere Werte', NULL, 'Diese Grundsätze leiten unser tägliches Handeln und bilden das Fundament unserer Arbeit.', 3),
+(4, 'value_1', 'Präzision', NULL, 'Höchste Genauigkeit in jeder Vorfabrikation und Montage – für dauerhaft zuverlässige Installationen.', 4),
+(4, 'value_2', 'Zuverlässigkeit', NULL, 'Termingerecht und verantwortungsbewusst. Unsere Kunden können sich auf uns verlassen.', 5),
+(4, 'value_3', 'Innovation', NULL, 'Moderne Fertigungstechnologien und effiziente Arbeitsabläufe für bessere Ergebnisse.', 6),
+(4, 'value_4', 'Teamarbeit', NULL, 'Gemeinsam stark – unsere Teams arbeiten Hand in Hand für den Projekterfolg.', 7),
+(4, 'quality', 'Qualitätsmanagement', NULL, 'Qualität ist kein Zufall, sondern das Ergebnis konsequenter Prozesse und hoher Ansprüche. Unser Qualitätsmanagement stellt sicher, dass jedes Projekt unseren Standards entspricht.', 8),
+(4, 'team', 'Unser Team', NULL, 'Über 85 engagierte Fachkräfte bilden das Rückgrat unseres Unternehmens. Mit Erfahrung, Fachwissen und Teamgeist meistern wir jede Herausforderung.', 9),
+(4, 'cta', 'Teil unseres Teams werden?', NULL, 'Wir suchen engagierte Fachkräfte. Kontaktieren Sie uns für offene Stellen.', 10);
 
 -- Content for Kontakt
 INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `content`, `sort_order`) VALUES
-(5, 'hero', 'Kontakt', NULL, 'Wir freuen uns auf Ihre Anfrage. Kontaktieren Sie uns für eine unverbindliche Beratung.', 1),
-(5, 'address', 'SUI Innova GmbH', 'Standort', 'Musterstrasse 42\n8000 Zürich\nSchweiz', 2),
-(5, 'phone', 'Telefon', NULL, '+41 44 000 00 00', 3),
-(5, 'email', 'E-Mail', NULL, 'info@suiinnova.ch', 4),
-(5, 'hours', 'Öffnungszeiten', NULL, 'Montag – Freitag: 07:00 – 17:00 Uhr', 5);
+(5, 'page_title', 'Kontaktieren Sie uns', NULL, 'Wir freuen uns auf Ihre Anfrage. Kontaktieren Sie uns für eine unverbindliche Beratung.', 1),
+(5, 'form_header', 'Schreiben Sie uns', NULL, NULL, 2),
+(5, 'info_header', 'Kontaktdaten', NULL, NULL, 3);
 
 -- Default references/projects
 INSERT INTO `references_projects` (`title`, `slug`, `description`, `client`, `location`, `year`, `category`, `is_featured`, `sort_order`) VALUES
@@ -169,6 +196,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`) VALUES
 ('site_phone', '+41 44 000 00 00', 'general'),
 ('site_address', 'Musterstrasse 42, 8000 Zürich', 'general'),
 ('footer_text', '© SUI Innova GmbH. Alle Rechte vorbehalten.', 'general'),
+('site_hours', 'Mo – Fr: 07:00 – 17:00 Uhr', 'general'),
 ('contact_email', 'info@suiinnova.ch', 'contact'),
 ('google_maps_embed', '', 'contact'),
 ('maintenance_mode', '0', 'system'),

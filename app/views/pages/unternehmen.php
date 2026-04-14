@@ -3,8 +3,8 @@
         <div class="container">
             <div class="page-title-content" data-reveal>
                 <span class="section-label">Unternehmen</span>
-                <h1 class="page-title">Über die SUI Innova GmbH</h1>
-                <p class="page-title-desc">Qualität, Zuverlässigkeit und Leidenschaft für die Gebäudetechnik – das ist SUI Innova.</p>
+                <h1 class="page-title"><?= e(cms($blockMap, 'page_title', 'title', 'Über die SUI Innova GmbH')) ?></h1>
+                <p class="page-title-desc"><?= e(cms($blockMap, 'page_title', 'content', 'Qualität, Zuverlässigkeit und Leidenschaft für die Gebäudetechnik – das ist SUI Innova.')) ?></p>
             </div>
         </div>
     </section>
@@ -28,11 +28,10 @@
                     </div>
                 </div>
                 <div class="about-content-col">
-                    <span class="section-label">SUI Innova GmbH</span>
-                    <h2 class="section-title" id="about-heading">Über uns</h2>
+                    <span class="section-label"><?= e(cms($blockMap, 'about', 'subtitle', 'SUI Innova GmbH')) ?></span>
+                    <h2 class="section-title" id="about-heading"><?= e(cms($blockMap, 'about', 'title', 'Über uns')) ?></h2>
                     <div class="about-text">
-                        <p>Die SUI Innova GmbH ist ein führendes Unternehmen im Bereich der Vorfabrikation und Montage von Sanitärinstallationen. Mit über 85 Fachkräften und langjähriger Erfahrung realisieren wir anspruchsvolle Projekte in der ganzen Schweiz.</p>
-                        <p>Von der Planung über die Vorfabrikation in unserer modernen Werkstatt bis zur fachgerechten Montage auf der Baustelle bieten wir alles aus einer Hand. Dabei setzen wir auf höchste Qualitätsstandards, termingerechte Ausführung und eine partnerschaftliche Zusammenarbeit mit unseren Kunden.</p>
+                        <?= nl2p(cms($blockMap, 'about', 'content', "Die SUI Innova GmbH ist ein führendes Unternehmen im Bereich der Vorfabrikation und Montage von Sanitärinstallationen. Mit über 85 Fachkräften und langjähriger Erfahrung realisieren wir anspruchsvolle Projekte in der ganzen Schweiz.\n\nVon der Planung über die Vorfabrikation in unserer modernen Werkstatt bis zur fachgerechten Montage auf der Baustelle bieten wir alles aus einer Hand. Dabei setzen wir auf höchste Qualitätsstandards, termingerechte Ausführung und eine partnerschaftliche Zusammenarbeit mit unseren Kunden.")) ?>
                     </div>
                 </div>
             </div>
@@ -45,9 +44,9 @@
         <div class="container">
             <div class="section-header" data-reveal>
                 <span class="section-label">Was uns antreibt</span>
-                <h2 class="section-title" id="values-heading">Unsere Werte</h2>
+                <h2 class="section-title" id="values-heading"><?= e(cms($blockMap, 'values', 'title', 'Unsere Werte')) ?></h2>
                 <div class="section-desc">
-                    <p>Diese Grundsätze leiten unser tägliches Handeln und bilden das Fundament unserer Arbeit.</p>
+                    <p><?= e(cms($blockMap, 'values', 'content', 'Diese Grundsätze leiten unser tägliches Handeln und bilden das Fundament unserer Arbeit.')) ?></p>
                 </div>
             </div>
             <div class="values-grid">
@@ -55,29 +54,29 @@
                     <div class="value-icon" aria-hidden="true">
                         <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="2" fill="currentColor"/><path d="M20 4v4M20 32v4M4 20h4M32 20h4" stroke="currentColor" stroke-width="1.5"/></svg>
                     </div>
-                    <h3 class="value-title">Präzision</h3>
-                    <p class="value-desc">Höchste Genauigkeit in jeder Vorfabrikation und Montage – für dauerhaft zuverlässige Installationen.</p>
+                    <h3 class="value-title"><?= e(cms($blockMap, 'value_1', 'title', 'Präzision')) ?></h3>
+                    <p class="value-desc"><?= e(cms($blockMap, 'value_1', 'content', 'Höchste Genauigkeit in jeder Vorfabrikation und Montage – für dauerhaft zuverlässige Installationen.')) ?></p>
                 </div>
                 <div class="value-card" data-reveal data-delay="1">
                     <div class="value-icon" aria-hidden="true">
                         <svg viewBox="0 0 40 40" fill="none"><path d="M20 4l14 6v10c0 8-6 14-14 18C12 34 6 28 6 20V10l14-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 20l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
-                    <h3 class="value-title">Zuverlässigkeit</h3>
-                    <p class="value-desc">Termingerecht und verantwortungsbewusst. Unsere Kunden können sich auf uns verlassen.</p>
+                    <h3 class="value-title"><?= e(cms($blockMap, 'value_2', 'title', 'Zuverlässigkeit')) ?></h3>
+                    <p class="value-desc"><?= e(cms($blockMap, 'value_2', 'content', 'Termingerecht und verantwortungsbewusst. Unsere Kunden können sich auf uns verlassen.')) ?></p>
                 </div>
                 <div class="value-card" data-reveal data-delay="2">
                     <div class="value-icon" aria-hidden="true">
                         <svg viewBox="0 0 40 40" fill="none"><path d="M20 6a10 10 0 00-4 19.17V28a2 2 0 002 2h4a2 2 0 002-2v-2.83A10 10 0 0020 6z" stroke="currentColor" stroke-width="1.5"/><path d="M16 34h8M18 30v4M22 30v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                     </div>
-                    <h3 class="value-title">Innovation</h3>
-                    <p class="value-desc">Moderne Fertigungstechnologien und effiziente Arbeitsabläufe für bessere Ergebnisse.</p>
+                    <h3 class="value-title"><?= e(cms($blockMap, 'value_3', 'title', 'Innovation')) ?></h3>
+                    <p class="value-desc"><?= e(cms($blockMap, 'value_3', 'content', 'Moderne Fertigungstechnologien und effiziente Arbeitsabläufe für bessere Ergebnisse.')) ?></p>
                 </div>
                 <div class="value-card" data-reveal data-delay="3">
                     <div class="value-icon" aria-hidden="true">
                         <svg viewBox="0 0 40 40" fill="none"><circle cx="14" cy="14" r="6" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="14" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M6 32c0-4.42 3.58-8 8-8h2M24 24h2c4.42 0 8 3.58 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="26" r="6" stroke="currentColor" stroke-width="1.5"/></svg>
                     </div>
-                    <h3 class="value-title">Teamarbeit</h3>
-                    <p class="value-desc">Gemeinsam stark – unsere Teams arbeiten Hand in Hand für den Projekterfolg.</p>
+                    <h3 class="value-title"><?= e(cms($blockMap, 'value_4', 'title', 'Teamarbeit')) ?></h3>
+                    <p class="value-desc"><?= e(cms($blockMap, 'value_4', 'content', 'Gemeinsam stark – unsere Teams arbeiten Hand in Hand für den Projekterfolg.')) ?></p>
                 </div>
             </div>
         </div>
@@ -89,9 +88,9 @@
             <div class="quality-grid" data-reveal>
                 <div class="quality-content">
                     <span class="section-label">Standards</span>
-                    <h2 class="section-title" id="quality-heading">Qualitätsmanagement</h2>
+                    <h2 class="section-title" id="quality-heading"><?= e(cms($blockMap, 'quality', 'title', 'Qualitätsmanagement')) ?></h2>
                     <div class="quality-text">
-                        <p>Qualität ist kein Zufall, sondern das Ergebnis konsequenter Prozesse und hoher Ansprüche. Unser Qualitätsmanagement stellt sicher, dass jedes Projekt unseren Standards entspricht.</p>
+                        <?= nl2p(cms($blockMap, 'quality', 'content', 'Qualität ist kein Zufall, sondern das Ergebnis konsequenter Prozesse und hoher Ansprüche. Unser Qualitätsmanagement stellt sicher, dass jedes Projekt unseren Standards entspricht.')) ?>
                     </div>
                     <ul class="quality-list">
                         <li>Qualitätskontrolle in jeder Projektphase</li>
@@ -120,9 +119,9 @@
         <div class="container">
             <div class="section-header" data-reveal>
                 <span class="section-label">Menschen</span>
-                <h2 class="section-title" id="team-heading">Unser Team</h2>
+                <h2 class="section-title" id="team-heading"><?= e(cms($blockMap, 'team', 'title', 'Unser Team')) ?></h2>
                 <div class="section-desc">
-                    <p>Über 85 engagierte Fachkräfte bilden das Rückgrat unseres Unternehmens. Mit Erfahrung, Fachwissen und Teamgeist meistern wir jede Herausforderung.</p>
+                    <p><?= e(cms($blockMap, 'team', 'content', 'Über 85 engagierte Fachkräfte bilden das Rückgrat unseres Unternehmens. Mit Erfahrung, Fachwissen und Teamgeist meistern wir jede Herausforderung.')) ?></p>
                 </div>
             </div>
         </div>
@@ -133,8 +132,8 @@
         <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content" data-reveal>
-                <h2 class="cta-title">Teil unseres Teams werden?</h2>
-                <p class="cta-text">Wir suchen engagierte Fachkräfte. Kontaktieren Sie uns für offene Stellen.</p>
+                <h2 class="cta-title"><?= e(cms($blockMap, 'cta', 'title', 'Teil unseres Teams werden?')) ?></h2>
+                <p class="cta-text"><?= e(cms($blockMap, 'cta', 'content', 'Wir suchen engagierte Fachkräfte. Kontaktieren Sie uns für offene Stellen.')) ?></p>
                 <div class="cta-actions">
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt bewerben</a>
                 </div>

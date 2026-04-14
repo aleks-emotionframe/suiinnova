@@ -3,8 +3,8 @@
         <div class="container">
             <div class="page-title-content" data-reveal>
                 <span class="section-label">Kontakt</span>
-                <h1 class="page-title">Kontaktieren Sie uns</h1>
-                <p class="page-title-desc">Wir freuen uns auf Ihre Anfrage. Kontaktieren Sie uns für eine unverbindliche Beratung.</p>
+                <h1 class="page-title"><?= e(cms($blockMap, 'page_title', 'title', 'Kontaktieren Sie uns')) ?></h1>
+                <p class="page-title-desc"><?= e(cms($blockMap, 'page_title', 'content', 'Wir freuen uns auf Ihre Anfrage. Kontaktieren Sie uns für eine unverbindliche Beratung.')) ?></p>
             </div>
         </div>
     </section>
@@ -20,7 +20,7 @@
             <div class="contact-grid">
                 <!-- Contact Form -->
                 <div class="contact-form-col" data-reveal>
-                    <h2 class="contact-form-title">Schreiben Sie uns</h2>
+                    <h2 class="contact-form-title"><?= e(cms($blockMap, 'form_header', 'title', 'Schreiben Sie uns')) ?></h2>
                     <form action="<?= pageUrl('kontakt') ?>" method="post" class="contact-form" novalidate>
                         <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= Auth::generateCsrfToken() ?>">
 
@@ -74,7 +74,7 @@
                 <!-- Contact Info -->
                 <div class="contact-info-col" data-reveal data-delay="1">
                     <div class="contact-info-card">
-                        <h2 class="contact-info-title">Kontaktdaten</h2>
+                        <h2 class="contact-info-title"><?= e(cms($blockMap, 'info_header', 'title', 'Kontaktdaten')) ?></h2>
 
                         <div class="contact-info-item">
                             <div class="contact-info-icon" aria-hidden="true">
@@ -83,7 +83,7 @@
                             <div>
                                 <h3 class="contact-info-label">Adresse</h3>
                                 <address class="contact-info-value">
-                                    Musterstrasse 42<br>8000 Zürich
+                                    <?= e(setting('site_address', 'Musterstrasse 42, 8000 Zürich')) ?>
                                 </address>
                             </div>
                         </div>
@@ -94,8 +94,8 @@
                             </div>
                             <div>
                                 <h3 class="contact-info-label">Telefon</h3>
-                                <a href="tel:+41440000000" class="contact-info-value contact-info-link">
-                                    +41 44 000 00 00
+                                <a href="tel:<?= e(setting('site_phone', '+41 44 000 00 00')) ?>" class="contact-info-value contact-info-link">
+                                    <?= e(setting('site_phone', '+41 44 000 00 00')) ?>
                                 </a>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                             </div>
                             <div>
                                 <h3 class="contact-info-label">E-Mail</h3>
-                                <a href="mailto:info@suiinnova.ch" class="contact-info-value contact-info-link">
-                                    info@suiinnova.ch
+                                <a href="mailto:<?= e(setting('site_email', 'info@suiinnova.ch')) ?>" class="contact-info-value contact-info-link">
+                                    <?= e(setting('site_email', 'info@suiinnova.ch')) ?>
                                 </a>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                             </div>
                             <div>
                                 <h3 class="contact-info-label">Öffnungszeiten</h3>
-                                <p class="contact-info-value">Mo – Fr: 07:00 – 17:00 Uhr</p>
+                                <p class="contact-info-value"><?= e(setting('site_hours', 'Mo – Fr: 07:00 – 17:00 Uhr')) ?></p>
                             </div>
                         </div>
                     </div>
