@@ -31,3 +31,31 @@ require_once APP_PATH . '/helpers.php';
 if (!is_dir(UPLOAD_PATH)) {
     @mkdir(UPLOAD_PATH, 0755, true);
 }
+
+/**
+ * Check maintenance mode — show maintenance page for non-admin visitors.
+ */
+function checkMaintenance(): void
+{
+    // Skip for admin routes and logged-in admins
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    if (str_contains($uri, '/admin') || Auth::check()) {
+        return;
+    }
+
+    try {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT setting_value FROM settings WHERE setting_key = 'maintenance_mode'");
+        $stmt->execute();
+        $val = $stmt->fetchColumn();
+
+        if ($val === '1') {
+            http_response_code(503);
+            header('Retry-After: 3600');
+            require APP_PATH . '/views/pages/maintenance.php';
+            exit;
+        }
+    } catch (Exception $e) {
+        // DB not yet set up — skip
+    }
+}

@@ -5,9 +5,8 @@
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-col footer-brand">
-                        <a href="<?= SITE_URL ?>/" class="footer-logo" aria-label="SUI Innova GmbH – Startseite">
-                            <span class="logo-mark">SUI</span>
-                            <span class="logo-text">Innova</span>
+                        <a href="<?= SITE_URL ?>/" class="footer-logo" aria-label="SUI Innova GmbH">
+                            <img src="<?= SITE_URL ?>/assets/img/SUI-Innova_Logo.webp" alt="SUI Innova GmbH" class="footer-logo-img">
                         </a>
                         <p class="footer-tagline"><?= e(setting('site_tagline', 'Vorfabrikation & Montage für die Gebäudetechnik')) ?></p>
                     </div>

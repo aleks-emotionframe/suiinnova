@@ -8,10 +8,10 @@
 define('APP_DEBUG', false);
 
 // Database configuration (Hostpoint MySQL)
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'suiinnova');
-define('DB_USER', 'suiinnova_user');
-define('DB_PASS', '');
+define('DB_HOST', 'bifitudo.mysql.db.internal');
+define('DB_NAME', 'bifitudo_bauterm');
+define('DB_USER', 'bifitudo_skoba');
+define('DB_PASS', 'K@meleon1');
 define('DB_CHARSET', 'utf8mb4');
 
 // Application paths
@@ -22,7 +22,7 @@ define('UPLOAD_PATH', PUBLIC_PATH . '/uploads');
 define('UPLOAD_URL', '/uploads');
 
 // Site URL (without trailing slash)
-define('SITE_URL', '');
+define('SITE_URL', 'https://www.sui-innova.ch');
 
 // Admin path
 define('ADMIN_PATH', '/admin');

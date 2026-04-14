@@ -175,4 +175,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`) VALUES
 ('site_address', 'Musterstrasse 42, 8000 Zürich', 'general'),
 ('footer_text', '© SUI Innova GmbH. Alle Rechte vorbehalten.', 'general'),
 ('contact_email', 'info@suiinnova.ch', 'contact'),
-('google_maps_embed', '', 'contact');
+('google_maps_embed', '', 'contact'),
+('maintenance_mode', '0', 'system'),
+('maintenance_title', 'Wartungsarbeiten', 'system'),
+('maintenance_message', 'Unsere Website wird gerade aktualisiert. Wir sind in Kürze wieder für Sie da.', 'system');

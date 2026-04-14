@@ -9,6 +9,9 @@ require_once APP_PATH . '/bootstrap.php';
 require_once APP_PATH . '/controllers/PageController.php';
 require_once APP_PATH . '/controllers/AdminController.php';
 
+// Check maintenance mode before routing
+checkMaintenance();
+
 $router = new Router();
 $pages = new PageController();
 $admin = new AdminController();

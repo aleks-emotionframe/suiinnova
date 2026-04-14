@@ -500,7 +500,12 @@ class AdminController
             redirect(SITE_URL . ADMIN_PATH . '/settings');
         }
 
-        $fields = ['site_name', 'site_tagline', 'site_email', 'site_phone', 'site_address', 'footer_text', 'contact_email', 'google_maps_embed'];
+        $fields = ['site_name', 'site_tagline', 'site_email', 'site_phone', 'site_address', 'footer_text', 'contact_email', 'google_maps_embed', 'maintenance_mode', 'maintenance_title', 'maintenance_message'];
+
+        // Checkbox: if not sent, set to '0'
+        if (!isset($_POST['maintenance_mode'])) {
+            $_POST['maintenance_mode'] = '0';
+        }
         foreach ($fields as $field) {
             if (isset($_POST[$field])) {
                 $stmt = $this->db->prepare(

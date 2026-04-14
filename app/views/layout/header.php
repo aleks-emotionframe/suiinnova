@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= e($metaDescription ?? '') ?>">
+    <?php if (!empty($metaKeywords)): ?><meta name="keywords" content="<?= e($metaKeywords) ?>"><?php endif; ?>
     <title><?= e($pageTitle ?? 'SUI Innova GmbH') ?></title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
-
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?= SITE_URL ?>/assets/img/favicon.svg">
 </head>
 <body>
@@ -23,8 +19,8 @@
     <header class="site-header" id="site-header">
         <div class="header-inner">
             <a href="<?= SITE_URL ?>/" class="logo" aria-label="SUI Innova GmbH – Startseite">
-                <span class="logo-mark">SUI</span>
-                <span class="logo-text">Innova</span>
+                <img src="<?= SITE_URL ?>/assets/img/logo-white.svg" alt="SUI Innova GmbH" class="logo-img logo-img-white">
+                <img src="<?= SITE_URL ?>/assets/img/SUI-Innova_Logo.webp" alt="SUI Innova GmbH" class="logo-img logo-img-dark">
             </a>
 
             <nav class="main-nav" id="main-nav" aria-label="Hauptnavigation">

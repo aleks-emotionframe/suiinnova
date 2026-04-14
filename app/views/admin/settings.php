@@ -55,6 +55,26 @@
         </div>
     </div>
 
+    <div class="form-card">
+        <h2 class="form-card-title">Wartungsmodus</h2>
+        <div class="form-field">
+            <label class="form-checkbox">
+                <input type="checkbox" name="maintenance_mode" value="1" <?= ($settings['maintenance_mode'] ?? '0') === '1' ? 'checked' : '' ?>>
+                <span>Website im Wartungsmodus (Besucher sehen die Wartungsseite)</span>
+            </label>
+            <small class="form-hint">Admins sehen die Website normal. Nur Besucher sehen die Wartungsseite.</small>
+        </div>
+        <div class="form-field">
+            <label for="maintenance_title" class="form-label">Wartungsseite – Titel</label>
+            <input type="text" id="maintenance_title" name="maintenance_title" class="form-input" value="<?= e($settings['maintenance_title'] ?? 'Wartungsarbeiten') ?>">
+        </div>
+        <div class="form-field">
+            <label for="maintenance_message" class="form-label">Wartungsseite – Nachricht</label>
+            <textarea id="maintenance_message" name="maintenance_message" class="form-input" rows="3"><?= e($settings['maintenance_message'] ?? '') ?></textarea>
+            <small class="form-hint">Wird auf der Wartungsseite angezeigt.</small>
+        </div>
+    </div>
+
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Einstellungen speichern</button>
     </div>
