@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <!-- Vertikale Linien -->
+  <rect x="0" y="2" width="5" height="56" rx="1" fill="#E30613"/>
+  <rect x="9" y="2" width="5" height="56" rx="1" fill="#E30613"/>
+  <rect x="18" y="2" width="5" height="56" rx="1" fill="#1A1A1A"/>
+  <!-- SUI -->
+  <text x="32" y="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#1A1A1A" letter-spacing="2">SUI</text>
+  <!-- INNOVA -->
+  <text x="32" y="54" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="24" fill="#1A1A1A" letter-spacing="3">INNOVA</text>
+</svg>
