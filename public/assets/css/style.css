@@ -255,9 +255,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===================== PAGE TITLE (subpages — kein Hero) ===================== */
 .page-title-section {
-    padding-top: calc(var(--header-h) + var(--space-xl));
-    padding-bottom: var(--space-lg);
+    padding-top: calc(var(--header-h) + var(--space-lg));
+    padding-bottom: var(--space-md);
     background: var(--c-white);
+}
+.page-title-section + .section {
+    padding-top: var(--space-lg);
 }
 .page-title {
     font-size: clamp(var(--fs-2xl), 4vw, var(--fs-3xl));
@@ -494,7 +497,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .filter-btn:hover { border-color: var(--c-anthrazit); color: var(--c-anthrazit); }
 .filter-btn.is-active { background: var(--c-red); color: #fff; border-color: var(--c-red); }
-.section-filter { padding-top: var(--space-lg); padding-bottom: 0; background: var(--c-white); }
+.section-filter { padding-top: var(--space-sm); padding-bottom: 0; background: var(--c-white); }
 
 .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
 .project-card {
