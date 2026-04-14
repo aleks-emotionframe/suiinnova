@@ -4,6 +4,17 @@
  */
 
 /**
+ * Get CMS content with fallback to default.
+ */
+function cms(array $blockMap, string $key, string $field = 'content', string $default = ''): string
+{
+    if (isset($blockMap[$key][$field]) && $blockMap[$key][$field] !== '') {
+        return $blockMap[$key][$field];
+    }
+    return $default;
+}
+
+/**
  * Get a setting value from the database.
  */
 function setting(string $key, string $default = ''): string

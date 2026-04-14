@@ -117,14 +117,9 @@ INSERT INTO `pages` (`slug`, `title`, `meta_description`, `is_in_nav`, `sort_ord
 
 -- Default content blocks for Startseite
 INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `content`, `sort_order`) VALUES
-(1, 'hero', 'Präzision in jeder Verbindung', 'Vorfabrikation & Montage für die Gebäudetechnik', 'Wir sind Ihr zuverlässiger Partner für die Vorfabrikation und Montage von Sanitärinstallationen – termingerecht, qualitätsbewusst und effizient.', 1),
-(1, 'intro', 'SUI Innova GmbH', 'Ihr Spezialist für Sanitär-Vorfabrikation', 'Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.', 2),
-(1, 'service_1', 'Vorfabrikation', NULL, 'GIS-Elemente, Rohrleitungsbau und STOClick – präzise vorgefertigt in unserer Werkstatt für höchste Qualität und Effizienz auf der Baustelle.', 3),
-(1, 'service_2', 'Montage vor Ort', NULL, 'Fachgerechte Montage von GIS-Elementen, Duofix, Vorwandsystemen, Beplankungen, AquaPanel und Spachtelarbeiten – alles aus einer Hand.', 4),
-(1, 'service_3', 'Qualität & Termintreue', NULL, 'Zuverlässige Ausführung, termingerechte Lieferung und höchste Qualitätsstandards – darauf können Sie sich verlassen.', 5),
-(1, 'figures_employees', '85+', 'Fachkräfte', 'Erfahrene Spezialisten im Einsatz', 6),
-(1, 'figures_projects', '500+', 'Projekte', 'Erfolgreich realisierte Projekte', 7),
-(1, 'figures_years', '15+', 'Jahre', 'Erfahrung in der Branche', 8),
+(1, 'hero', 'Präzision in jeder Verbindung', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.', 1),
+(1, 'intro', 'Ihr Spezialist für Sanitär-Vorfabrikation', 'Über uns', 'Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.\n\nUnsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.', 2),
+(1, 'quote', NULL, NULL, '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»', 3),
 (1, 'cta', 'Ihr nächstes Projekt?', NULL, 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.', 9);
 
 -- Content for Kompetenzen

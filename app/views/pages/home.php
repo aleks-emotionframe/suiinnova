@@ -8,10 +8,10 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-text">
-                    <p class="hero-label" data-reveal>SUI Innova GmbH</p>
-                    <h1 class="hero-title" data-reveal data-delay="1">Präzision in<br>jeder Verbindung</h1>
-                    <p class="hero-subtitle" data-reveal data-delay="2">GIS-Elemente, Rohrleitungsbau, Sanitärvorwände &amp; mehr</p>
-                    <p class="hero-desc" data-reveal data-delay="3">Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.</p>
+                    <p class="hero-label" data-reveal><?= e(setting('site_name', 'SUI Innova GmbH')) ?></p>
+                    <h1 class="hero-title" data-reveal data-delay="1"><?= e(cms($blockMap, 'hero', 'title', 'Präzision in jeder Verbindung')) ?></h1>
+                    <p class="hero-subtitle" data-reveal data-delay="2"><?= e(cms($blockMap, 'hero', 'subtitle', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr')) ?></p>
+                    <p class="hero-desc" data-reveal data-delay="3"><?= e(cms($blockMap, 'hero', 'content', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.')) ?></p>
                     <div class="hero-actions" data-reveal data-delay="4">
                         <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary btn-lg">Unsere Kompetenzen</a>
                         <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline btn-lg">Kontakt aufnehmen</a>
@@ -39,9 +39,8 @@
                 </div>
                 <div class="intro-content" data-reveal data-delay="1">
                     <span class="section-label">Über uns</span>
-                    <h2 class="section-title" id="intro-heading">Ihr Spezialist für Sanitär-Vorfabrikation</h2>
-                    <p class="intro-text">Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.</p>
-                    <p class="intro-text">Unsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.</p>
+                    <h2 class="section-title" id="intro-heading"><?= e(cms($blockMap, 'intro', 'title', 'Ihr Spezialist für Sanitär-Vorfabrikation')) ?></h2>
+                    <div class="intro-text"><?= nl2p(cms($blockMap, 'intro', 'content', "Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.\n\nUnsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.")) ?></div>
                     <div class="intro-highlights">
                         <div class="intro-highlight">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -69,7 +68,7 @@
         <div class="fullwidth-banner-content" data-reveal>
             <div class="container">
                 <blockquote class="banner-quote">
-                    <p>«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»</p>
+                    <p><?= e(cms($blockMap, 'quote', 'content', '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»')) ?></p>
                 </blockquote>
             </div>
         </div>
@@ -378,8 +377,8 @@
         <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content" data-reveal>
-                <h2 class="cta-title">Ihr nächstes Projekt?</h2>
-                <p class="cta-text">Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.</p>
+                <h2 class="cta-title"><?= e(cms($blockMap, 'cta', 'title', 'Ihr nächstes Projekt?')) ?></h2>
+                <p class="cta-text"><?= e(cms($blockMap, 'cta', 'content', 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.')) ?></p>
                 <div class="cta-actions">
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt anfragen</a>
                     <a href="tel:+41440000000" class="btn btn-ghost btn-lg">
