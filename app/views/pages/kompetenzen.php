@@ -4,8 +4,8 @@
         <div class="container">
             <div class="page-title-content" data-reveal>
                 <span class="section-label">Kompetenzen</span>
-                <h1 class="page-title">Vorfabrikation &amp; Montage</h1>
-                <p class="page-title-desc">Ein Ansprechpartner, durchgängige Qualität, optimierte Abläufe – von der Werkstatt bis zur fertigen Oberfläche.</p>
+                <h1 class="page-title"><?= e(cms($blockMap, 'page_title', 'title', 'Vorfabrikation & Montage')) ?></h1>
+                <p class="page-title-desc"><?= e(cms($blockMap, 'page_title', 'content', 'Ein Ansprechpartner, durchgängige Qualität, optimierte Abläufe – von der Werkstatt bis zur fertigen Oberfläche.')) ?></p>
             </div>
         </div>
     </section>
@@ -19,8 +19,8 @@
                 </div>
                 <div class="komp-split-body">
                     <span class="section-label">01 — Vorfabrikation</span>
-                    <h2 class="section-title" id="vorfab-heading">Präzision aus der Werkstatt</h2>
-                    <p>In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient installiert werden. Das spart Zeit, senkt Kosten und garantiert gleichbleibende Qualität.</p>
+                    <h2 class="section-title" id="vorfab-heading"><?= e(cms($blockMap, 'vorfab_header', 'title', 'Präzision aus der Werkstatt')) ?></h2>
+                    <p><?= e(cms($blockMap, 'vorfab_header', 'content', 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient installiert werden. Das spart Zeit, senkt Kosten und garantiert gleichbleibende Qualität.')) ?></p>
                     <div class="komp-services">
                         <div class="komp-service">
                             <h3>GIS-Elemente</h3>
