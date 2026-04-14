@@ -133,14 +133,14 @@ h1, h2, h3, h4, h5, h6 {
 .logo-img-white { display: none; }
 .logo-img-dark {
     display: block;
-    filter: brightness(10) drop-shadow(0 0 0 #fff);
+    filter: grayscale(1) brightness(10);
 }
 .is-scrolled .logo-img-dark {
     filter: none;
 }
 .footer-logo-img {
     height: 30px; width: auto;
-    filter: brightness(10) drop-shadow(0 0 0 #fff);
+    filter: grayscale(1) brightness(10);
 }
 .logo-mark {
     font-family: var(--ff-main);
