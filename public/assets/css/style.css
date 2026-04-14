@@ -319,7 +319,7 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Services --- */
 .section-services {
     background: var(--c-offwhite);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-xl);
 }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
 .service-card-inner {
@@ -806,7 +806,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Detail Cards Grid */
-.section-details { background: var(--c-offwhite); padding-top: 0; }
+.section-details { background: var(--c-offwhite); padding-top: var(--space-xl); }
 .section-header-center { text-align: center; }
 .section-header-center .section-title { margin-left: auto; margin-right: auto; }
 .section-desc-center { margin-left: auto; margin-right: auto; }
