@@ -253,7 +253,24 @@ h1, h2, h3, h4, h5, h6 {
     50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ===================== PAGE HERO (subpages) ===================== */
+/* ===================== PAGE TITLE (subpages — kein Hero) ===================== */
+.page-title-section {
+    padding-top: calc(var(--header-h) + var(--space-xl));
+    padding-bottom: var(--space-lg);
+    background: var(--c-white);
+    border-bottom: 1px solid var(--c-lightgrey);
+}
+.page-title {
+    font-size: clamp(var(--fs-2xl), 4vw, var(--fs-3xl));
+    color: var(--c-anthrazit);
+    margin-top: 0.3em; margin-bottom: 0.4em;
+}
+.page-title-desc {
+    font-size: var(--fs-md); color: var(--c-text-light);
+    line-height: 1.75; max-width: 650px;
+}
+
+/* ===================== PAGE HERO (subpages, legacy) ===================== */
 .page-hero {
     position: relative;
     padding: calc(var(--header-h) + var(--space-2xl)) 0 var(--space-2xl);
