@@ -7,11 +7,16 @@
     // --- Header scroll effect ---
     const header = document.getElementById('site-header');
     if (header) {
-        let lastScroll = 0;
+        // If page has no dark hero, keep header solid from start
+        var hasHero = document.querySelector('.hero');
+        if (!hasHero) {
+            header.classList.add('is-scrolled');
+        }
         window.addEventListener('scroll', function () {
-            const y = window.scrollY;
-            header.classList.toggle('is-scrolled', y > 40);
-            lastScroll = y;
+            var y = window.scrollY;
+            if (hasHero) {
+                header.classList.toggle('is-scrolled', y > 40);
+            }
         }, { passive: true });
     }
 
