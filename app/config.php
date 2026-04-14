@@ -9,9 +9,9 @@ define('APP_DEBUG', false);
 
 // Database configuration (Hostpoint MySQL)
 define('DB_HOST', 'bifitudo.mysql.db.internal');
-define('DB_NAME', 'bifitudo_bauterm');
-define('DB_USER', 'bifitudo_skoba');
-define('DB_PASS', 'K@meleon1');
+define('DB_NAME', 'bifitudo_suiinnova');
+define('DB_USER', 'bifitudo_sui');
+define('DB_PASS', 'Novitr@vnik1');
 define('DB_CHARSET', 'utf8mb4');
 
 // Application paths
