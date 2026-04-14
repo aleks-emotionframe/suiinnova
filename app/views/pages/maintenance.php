@@ -35,7 +35,7 @@ try {
         }
         .maintenance { max-width: 540px; }
         .maintenance-logo { margin-bottom: 2.5rem; }
-        .maintenance-logo img { height: 40px; filter: brightness(10) drop-shadow(0 0 0 #fff); }
+        .maintenance-logo img { height: 40px; filter: grayscale(1) brightness(10); }
         .maintenance h1 {
             font-size: 2rem; font-weight: 800;
             margin-bottom: 1rem; line-height: 1.2;
