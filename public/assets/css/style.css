@@ -984,6 +984,52 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover; border-radius: var(--radius-lg);
 }
 
+/* FAQ Section */
+.section-faq { background: var(--c-offwhite); }
+.faq-layout {
+    display: grid; grid-template-columns: 1fr 1.6fr;
+    gap: var(--space-xl); align-items: start;
+}
+.faq-intro-text {
+    font-size: var(--fs-md); color: var(--c-text-light);
+    line-height: 1.7; margin-top: var(--space-sm);
+}
+.faq-list {
+    display: flex; flex-direction: column; gap: 0;
+}
+.faq-item {
+    border-bottom: 1px solid var(--c-lightgrey);
+}
+.faq-item:first-child { border-top: 1px solid var(--c-lightgrey); }
+.faq-question {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--space-md) 0;
+    font-size: var(--fs-base); font-weight: var(--fw-semibold);
+    color: var(--c-anthrazit);
+    cursor: pointer; list-style: none;
+    transition: color var(--transition);
+}
+.faq-question:hover { color: var(--c-red); }
+.faq-question::-webkit-details-marker { display: none; }
+.faq-question::after {
+    content: '+';
+    font-size: var(--fs-xl); font-weight: var(--fw-regular);
+    color: var(--c-red);
+    transition: transform var(--transition);
+    flex-shrink: 0; margin-left: var(--space-sm);
+}
+.faq-item[open] .faq-question::after {
+    content: '−';
+}
+.faq-item[open] .faq-question { color: var(--c-red); }
+.faq-answer {
+    padding: 0 0 var(--space-md) 0;
+}
+.faq-answer p {
+    font-size: var(--fs-sm); color: var(--c-text-light);
+    line-height: 1.8;
+}
+
 /* Karriere Section */
 .section-karriere {
     padding: 0; overflow: hidden;
@@ -1061,6 +1107,7 @@ h1, h2, h3, h4, h5, h6 {
     .figures-hero-grid { grid-template-columns: repeat(2, 1fr); }
     .why-grid { grid-template-columns: 1fr; }
     .why-img-col { max-width: 400px; order: -1; }
+    .faq-layout { grid-template-columns: 1fr; }
     .karriere-grid { grid-template-columns: 1fr; }
     .karriere-content-inner { margin-left: 0; padding-right: 0; max-width: 100%; }
     .karriere-img { min-height: 300px; }
