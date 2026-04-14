@@ -16,9 +16,9 @@ define('DB_CHARSET', 'utf8mb4');
 
 // Application paths
 define('APP_ROOT', dirname(__DIR__));
-define('APP_PATH', __DIR__);
-define('PUBLIC_PATH', APP_ROOT . '/public');
-define('UPLOAD_PATH', PUBLIC_PATH . '/uploads');
+define('APP_PATH', APP_ROOT . '/app');
+define('PUBLIC_PATH', APP_ROOT);
+define('UPLOAD_PATH', APP_ROOT . '/uploads');
 define('UPLOAD_URL', '/uploads');
 
 // Site URL (without trailing slash)
