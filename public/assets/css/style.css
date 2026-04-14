@@ -494,7 +494,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .filter-btn:hover { border-color: var(--c-anthrazit); color: var(--c-anthrazit); }
 .filter-btn.is-active { background: var(--c-red); color: #fff; border-color: var(--c-red); }
-.section-filter { padding-top: var(--space-lg); padding-bottom: 0; background: var(--c-offwhite); }
+.section-filter { padding-top: var(--space-lg); padding-bottom: 0; background: var(--c-white); }
 
 .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
 .project-card {
