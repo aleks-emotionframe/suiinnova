@@ -646,6 +646,9 @@ h1, h2, h3, h4, h5, h6 {
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid { grid-template-columns: 1fr; }
     .about-image-col { order: -1; max-width: 360px; }
+    .komp-feature { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .komp-feature-reverse { direction: ltr; }
+    .komp-vorteile-grid { grid-template-columns: 1fr; gap: var(--space-md); }
 }
 @media (max-width: 768px) {
     :root { --header-h: 60px; --space-3xl: 4.5rem; --space-2xl: 3rem; }
@@ -1033,6 +1036,60 @@ h1, h2, h3, h4, h5, h6 {
 .faq-answer p {
     font-size: var(--fs-sm); color: var(--c-text-light);
     line-height: 1.8;
+}
+
+/* Kompetenzen Feature Blocks */
+.komp-feature {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl); align-items: center;
+    margin-bottom: var(--space-xl);
+}
+.komp-feature:last-child { margin-bottom: 0; }
+.komp-feature-reverse { direction: rtl; }
+.komp-feature-reverse > * { direction: ltr; }
+.komp-feature-img {
+    border-radius: var(--radius-lg); overflow: hidden;
+}
+.komp-feature-img img {
+    width: 100%; aspect-ratio: 4 / 3;
+    object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+}
+.komp-feature:hover .komp-feature-img img { transform: scale(1.03); }
+.komp-feature-title {
+    font-size: var(--fs-xl); font-weight: var(--fw-bold);
+    color: var(--c-anthrazit); margin-bottom: 0.5em;
+}
+.komp-feature-desc {
+    font-size: var(--fs-sm); color: var(--c-text-light);
+    line-height: 1.8; margin-bottom: var(--space-sm);
+}
+.komp-feature-list {
+    list-style: none;
+}
+.komp-feature-list li {
+    position: relative; padding-left: 1.4em;
+    font-size: var(--fs-sm); color: var(--c-text);
+    margin-bottom: 0.4em; font-weight: var(--fw-medium);
+}
+.komp-feature-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; background: var(--c-red); border-radius: 50%;
+}
+
+/* Kompetenzen Vorteile Banner */
+.komp-vorteile-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg); text-align: center;
+}
+.komp-vorteil-number {
+    display: block; font-size: var(--fs-4xl);
+    font-weight: var(--fw-extrabold); color: var(--c-red);
+    line-height: 1; margin-bottom: 0.2em;
+}
+.komp-vorteil-text {
+    font-size: var(--fs-sm); color: rgba(255,255,255,0.85);
+    line-height: 1.5;
 }
 
 /* Karriere Section */
