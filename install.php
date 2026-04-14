@@ -39,7 +39,7 @@ if ($step === 'install') {
             $pdo->exec("USE `{$name}`");
 
             // Read and execute schema (without the CREATE DATABASE and USE lines, and without the INSERT for default admin)
-            $schemaFile = dirname(__DIR__) . '/database/schema.sql';
+            $schemaFile = __DIR__ . '/database/schema.sql';
             if (!file_exists($schemaFile)) {
                 throw new Exception('schema.sql nicht gefunden. Stellen Sie sicher, dass die Datei unter /database/schema.sql liegt.');
             }
@@ -67,7 +67,7 @@ if ($step === 'install') {
             $insertAdmin->execute([$adminUser, $adminEmail, $hash, 'Administrator']);
 
             // Update config file with DB settings
-            $configFile = dirname(__DIR__) . '/app/config.php';
+            $configFile = __DIR__ . '/app/config.php';
             if (file_exists($configFile)) {
                 $config = file_get_contents($configFile);
                 $config = preg_replace("/define\('DB_HOST',\s*'[^']*'\)/", "define('DB_HOST', '{$host}')", $config);
