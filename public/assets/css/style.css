@@ -863,6 +863,47 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.7;
 }
 
+/* Einsatzgebiete */
+.section-einsatz { background: var(--c-black); }
+.section-einsatz .section-label { color: rgba(255,255,255,0.4); }
+.section-einsatz .section-title { color: #fff; }
+.section-einsatz .section-desc { color: rgba(255,255,255,0.5); }
+.einsatz-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+}
+.einsatz-card {
+    position: relative; border-radius: var(--radius-lg);
+    overflow: hidden; aspect-ratio: 3 / 4;
+    display: flex; align-items: flex-end;
+    text-decoration: none; color: #fff;
+}
+.einsatz-card-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; transition: transform 0.5s ease;
+}
+.einsatz-card:hover .einsatz-card-img { transform: scale(1.06); }
+.einsatz-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    transition: background var(--transition);
+}
+.einsatz-card:hover .einsatz-card-overlay {
+    background: linear-gradient(to top, rgba(227,6,19,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+}
+.einsatz-card-content {
+    position: relative; z-index: 1;
+    padding: var(--space-md);
+}
+.einsatz-card-title {
+    font-size: var(--fs-lg); font-weight: var(--fw-bold);
+    margin-bottom: 0.2em;
+}
+.einsatz-card-desc {
+    font-size: var(--fs-xs); color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+}
+
 /* Figures Hero (with background image) */
 .section-figures-hero {
     position: relative; padding: var(--space-3xl) 0;
@@ -995,6 +1036,7 @@ h1, h2, h3, h4, h5, h6 {
     .intro-img-col { max-width: 400px; }
     .services-grid-2col { grid-template-columns: 1fr; }
     .details-grid { grid-template-columns: repeat(2, 1fr); }
+    .einsatz-grid { grid-template-columns: repeat(2, 1fr); }
     .figures-hero-grid { grid-template-columns: repeat(2, 1fr); }
     .why-grid { grid-template-columns: 1fr; }
     .why-img-col { max-width: 400px; order: -1; }
