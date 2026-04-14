@@ -1,94 +1,139 @@
-    <?php $hero = $blockMap['hero'] ?? null; ?>
 
-    <!-- Page Hero -->
-    <section class="page-hero" aria-label="Kompetenzen">
-        <div class="page-hero-bg"></div>
+    <!-- Page Title -->
+    <section class="section page-title-section" aria-label="Kompetenzen">
         <div class="container">
-            <div class="page-hero-content" data-reveal>
+            <div class="page-title-content" data-reveal>
                 <span class="section-label">Kompetenzen</span>
-                <h1 class="page-hero-title"><?= e($hero['title'] ?? 'Unsere Kompetenzen') ?></h1>
-                <p class="page-hero-desc"><?= e($hero['content'] ?? '') ?></p>
+                <h1 class="page-title">Vorfabrikation &amp; Montage</h1>
+                <p class="page-title-desc">Ein Ansprechpartner, durchgängige Qualität, optimierte Abläufe – von der Werkstatt bis zur fertigen Oberfläche.</p>
             </div>
         </div>
     </section>
 
-    <!-- Vorfabrikation Section -->
-    <section class="section section-kompetenz" id="vorfabrikation" aria-labelledby="vorfab-heading">
+    <!-- Vorfabrikation: Bild links, Text rechts -->
+    <section class="section" id="vorfabrikation" aria-labelledby="vorfab-heading">
         <div class="container">
-            <?php $vfIntro = $blockMap['vorfabrikation_intro'] ?? null; ?>
-            <div class="kompetenz-header" data-reveal>
-                <div class="kompetenz-number" aria-hidden="true">01</div>
-                <div class="kompetenz-intro">
-                    <span class="section-label"><?= e($vfIntro['subtitle'] ?? 'Präzision aus der Werkstatt') ?></span>
-                    <h2 class="section-title" id="vorfab-heading"><?= e($vfIntro['title'] ?? 'Vorfabrikation') ?></h2>
-                    <div class="kompetenz-text">
-                        <?= nl2p($vfIntro['content'] ?? '') ?>
+            <div class="komp-split" data-reveal>
+                <div class="komp-split-img">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Vorfabrikation in der Werkstatt" loading="lazy">
+                </div>
+                <div class="komp-split-body">
+                    <span class="section-label">01 — Vorfabrikation</span>
+                    <h2 class="section-title" id="vorfab-heading">Präzision aus der Werkstatt</h2>
+                    <p>In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient installiert werden. Das spart Zeit, senkt Kosten und garantiert gleichbleibende Qualität.</p>
+                    <div class="komp-services">
+                        <div class="komp-service">
+                            <h3>GIS-Elemente</h3>
+                            <p>Geberit Installationssysteme massgenau vorfabriziert – bereit für die schnelle Montage.</p>
+                        </div>
+                        <div class="komp-service">
+                            <h3>Rohrleitungsbau</h3>
+                            <p>Trinkwasser, Heizung, Abwasser – alle Materialien und Verbindungstechniken nach SIA-Normen.</p>
+                        </div>
+                        <div class="komp-service">
+                            <h3>STOClick</h3>
+                            <p>Schnellmontage-System für sichere Befestigung und optimierte Baustellenabläufe.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="kompetenz-cards">
-                <?php
-                $vorfabItems = [
-                    ['key' => 'vorfab_gis', 'default' => 'GIS-Elemente'],
-                    ['key' => 'vorfab_rohr', 'default' => 'Rohrleitungsbau'],
-                    ['key' => 'vorfab_sto', 'default' => 'STOClick'],
-                ];
-                foreach ($vorfabItems as $i => $item):
-                    $block = $blockMap[$item['key']] ?? null;
-                ?>
-                <article class="kompetenz-card" data-reveal data-delay="<?= $i ?>">
-                    <div class="kompetenz-card-accent"></div>
-                    <h3 class="kompetenz-card-title"><?= e($block['title'] ?? $item['default']) ?></h3>
-                    <div class="kompetenz-card-content">
-                        <?= nl2p($block['content'] ?? '') ?>
-                    </div>
-                </article>
-                <?php endforeach; ?>
             </div>
         </div>
     </section>
 
-    <!-- Divider -->
-    <div class="section-divider" aria-hidden="true">
-        <div class="container"><div class="divider-line"></div></div>
-    </div>
-
-    <!-- Montage Section -->
-    <section class="section section-kompetenz" id="montage" aria-labelledby="montage-heading">
+    <!-- Montage: Text links, Bild rechts -->
+    <section class="section" id="montage" aria-labelledby="montage-heading">
         <div class="container">
-            <?php $mIntro = $blockMap['montage_intro'] ?? null; ?>
-            <div class="kompetenz-header kompetenz-header-reverse" data-reveal>
-                <div class="kompetenz-intro">
-                    <span class="section-label"><?= e($mIntro['subtitle'] ?? 'Fachgerecht und termingerecht') ?></span>
-                    <h2 class="section-title" id="montage-heading"><?= e($mIntro['title'] ?? 'Montage vor Ort') ?></h2>
-                    <div class="kompetenz-text">
-                        <?= nl2p($mIntro['content'] ?? '') ?>
+            <div class="komp-split komp-split-reverse" data-reveal>
+                <div class="komp-split-img">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Montage auf der Baustelle" loading="lazy">
+                </div>
+                <div class="komp-split-body">
+                    <span class="section-label">02 — Montage vor Ort</span>
+                    <h2 class="section-title" id="montage-heading">Fachgerecht auf der Baustelle</h2>
+                    <p>Unser erfahrenes Team montiert direkt vor Ort – von der Vorwandinstallation bis zur fertigen Oberfläche, koordiniert mit allen Gewerken.</p>
+                    <div class="komp-services">
+                        <div class="komp-service">
+                            <h3>Duofix &amp; Vorwände</h3>
+                            <p>Geberit Duofix, geschweisste Vorwände und alle gängigen Sanitärvorwandsysteme.</p>
+                        </div>
+                        <div class="komp-service">
+                            <h3>Beplankungen &amp; AquaPanel</h3>
+                            <p>1x 18mm oder 2x 12.5mm Platten. AquaPanel 2x 12mm für Feuchträume.</p>
+                        </div>
+                        <div class="komp-service">
+                            <h3>Spachtelungen</h3>
+                            <p>Fachgerechte Spachtelungen und Ausflockungen – bereit für Fliesen oder Anstrich.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="kompetenz-number" aria-hidden="true">02</div>
             </div>
+        </div>
+    </section>
 
-            <div class="kompetenz-cards kompetenz-cards-wide">
-                <?php
-                $montageItems = [
-                    ['key' => 'montage_gis', 'default' => 'GIS-Elemente'],
-                    ['key' => 'montage_duofix', 'default' => 'Duofix & Vorwandsysteme'],
-                    ['key' => 'montage_beplan', 'default' => 'Beplankungen'],
-                    ['key' => 'montage_aqua', 'default' => 'Geberit AquaPanel'],
-                    ['key' => 'montage_spachtel', 'default' => 'Spachtelungen & Ausflockungen'],
-                ];
-                foreach ($montageItems as $i => $item):
-                    $block = $blockMap[$item['key']] ?? null;
-                ?>
-                <article class="kompetenz-card" data-reveal data-delay="<?= $i ?>">
-                    <div class="kompetenz-card-accent"></div>
-                    <h3 class="kompetenz-card-title"><?= e($block['title'] ?? $item['default']) ?></h3>
-                    <div class="kompetenz-card-content">
-                        <?= nl2p($block['content'] ?? '') ?>
+    <!-- Alle Leistungen im Detail -->
+    <section class="section" aria-labelledby="detail-heading">
+        <div class="container">
+            <div class="section-header section-header-center" data-reveal>
+                <span class="section-label">Im Detail</span>
+                <h2 class="section-title" id="detail-heading">Alle Leistungen auf einen Blick</h2>
+            </div>
+            <div class="details-grid" data-reveal>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="22" width="40" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 22V12a10 10 0 0120 0v10" stroke="currentColor" stroke-width="2"/><path d="M20 33h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
-                </article>
-                <?php endforeach; ?>
+                    <h3 class="detail-card-title">GIS-Elemente vorfabrizieren</h3>
+                    <p class="detail-card-desc">Geberit Installationssysteme massgenau in der Werkstatt vorbereiten. Qualitätskontrolle vor Auslieferung, termingerechte Lieferung.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/><path d="M24 12v12l8 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">GIS-Elemente montieren</h3>
+                    <p class="detail-card-desc">Fachgerechte Montage nach Herstellervorgaben direkt auf der Baustelle. Koordiniert mit allen beteiligten Gewerken.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 44V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 12h20a4 4 0 010 8H8" stroke="currentColor" stroke-width="2"/><path d="M8 28h28a4 4 0 010 8H8" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Rohrleitungsbau</h3>
+                    <p class="detail-card-desc">Trinkwasser-, Heizungs- und Abwasserleitungen. Edelstahl, Kupfer, Kunststoff – alle Verbindungstechniken nach SIA-Normen.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M18 6v36" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">STOClick</h3>
+                    <p class="detail-card-desc">Schnellmontage-System für sichere Befestigung. Effiziente Vorfabrikation verkürzt Montagezeiten auf der Baustelle.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M12 44V14a2 2 0 012-2h20a2 2 0 012 2v30" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 12V6h8v6" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Duofix &amp; Vorwände</h3>
+                    <p class="detail-card-desc">Geberit Duofix und alle gängigen Sanitärvorwandsysteme – auch geschweisst. Für Wohnbau, Gewerbe und Spitäler.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="32" rx="3" stroke="currentColor" stroke-width="2"/><path d="M2 20h44" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Beplankungen</h3>
+                    <p class="detail-card-desc">Vorwände beplanken mit 1x 18mm oder 2x 12.5mm Platten. Saubere Ausführung für perfekte Oberflächen.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="4" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="2"/><path d="M24 18v12M18 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">AquaPanel</h3>
+                    <p class="detail-card-desc">Geberit AquaPanel 2x 12mm für Feuchträume. Zementgebundene Bauplatten – wasserfest, schimmelfrei, dauerhaft.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M6 38h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 38V18l14-10 14 10v20" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 38v-10h12v10" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Spachtelungen &amp; Ausflockungen</h3>
+                    <p class="detail-card-desc">Fachgerechte Spachtelungen an Vorwänden. Perfekte Oberflächen, bereit für Fliesen, Putz oder Anstrich.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -99,10 +144,9 @@
         <div class="container">
             <div class="cta-content" data-reveal>
                 <h2 class="cta-title">Haben Sie ein Projekt?</h2>
-                <p class="cta-text">Wir beraten Sie gerne zu den passenden Lösungen für Ihr Bauvorhaben.</p>
-                <div class="cta-actions">
-                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Kontakt aufnehmen</a>
-                </div>
+                <p class="cta-text">Wir beraten Sie gerne – von der Vorfabrikation bis zur Montage.</p>
+                <div class="cta-actions"><a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Kontakt aufnehmen</a></div>
             </div>
         </div>
     </section>
+

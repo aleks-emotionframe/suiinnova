@@ -1,30 +1,20 @@
-    <?php
-    $hero = $blockMap['hero'] ?? null;
-    $intro = $blockMap['intro'] ?? null;
-    ?>
 
-    <!-- Hero -->
+    <!-- ============ HERO ============ -->
     <section class="hero" aria-label="Willkommen">
         <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80" alt="" class="hero-bg-img" loading="eager">
             <div class="hero-overlay"></div>
-            <div class="hero-pattern"></div>
         </div>
         <div class="hero-content">
             <div class="container">
                 <div class="hero-text">
                     <p class="hero-label" data-reveal>SUI Innova GmbH</p>
-                    <h1 class="hero-title" data-reveal data-delay="1">
-                        <?= e($hero['title'] ?? 'Präzision in jeder Verbindung') ?>
-                    </h1>
-                    <p class="hero-subtitle" data-reveal data-delay="2">
-                        <?= e($hero['subtitle'] ?? 'Vorfabrikation & Montage für die Gebäudetechnik') ?>
-                    </p>
-                    <p class="hero-desc" data-reveal data-delay="3">
-                        <?= e($hero['content'] ?? '') ?>
-                    </p>
+                    <h1 class="hero-title" data-reveal data-delay="1">Präzision in<br>jeder Verbindung</h1>
+                    <p class="hero-subtitle" data-reveal data-delay="2">GIS-Elemente, Rohrleitungsbau, Sanitärvorwände &amp; mehr</p>
+                    <p class="hero-desc" data-reveal data-delay="3">Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.</p>
                     <div class="hero-actions" data-reveal data-delay="4">
-                        <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary">Unsere Kompetenzen</a>
-                        <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline">Kontakt aufnehmen</a>
+                        <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary btn-lg">Unsere Kompetenzen</a>
+                        <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline btn-lg">Kontakt aufnehmen</a>
                     </div>
                 </div>
             </div>
@@ -34,93 +24,221 @@
         </div>
     </section>
 
-    <!-- Intro Section -->
+    <!-- ============ INTRO / ÜBER UNS ============ -->
     <section class="section section-intro" aria-labelledby="intro-heading">
         <div class="container">
-            <div class="intro-grid">
-                <div class="intro-label" data-reveal>
-                    <span class="section-label"><?= e($intro['subtitle'] ?? 'Ihr Spezialist für Sanitär-Vorfabrikation') ?></span>
+            <div class="intro-split" data-reveal>
+                <div class="intro-img-col">
+                    <div class="intro-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Sanitärinstallation – Facharbeit" class="intro-img" loading="lazy">
+                        <div class="intro-img-badge">
+                            <span class="intro-badge-number">15+</span>
+                            <span class="intro-badge-text">Jahre Erfahrung</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="intro-content" data-reveal data-delay="1">
-                    <h2 class="section-title" id="intro-heading"><?= e($intro['title'] ?? 'SUI Innova GmbH') ?></h2>
-                    <div class="intro-text">
-                        <?= nl2p($intro['content'] ?? '') ?>
+                    <span class="section-label">Über uns</span>
+                    <h2 class="section-title" id="intro-heading">Ihr Spezialist für Sanitär-Vorfabrikation</h2>
+                    <p class="intro-text">Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.</p>
+                    <p class="intro-text">Unsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.</p>
+                    <div class="intro-highlights">
+                        <div class="intro-highlight">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>Schweizweit im Einsatz</span>
+                        </div>
+                        <div class="intro-highlight">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>Alles aus einer Hand</span>
+                        </div>
+                        <div class="intro-highlight">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>Termingerecht &amp; zuverlässig</span>
+                        </div>
                     </div>
-                    <a href="<?= pageUrl('unternehmen') ?>" class="link-arrow">
-                        Mehr über uns
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
+                    <a href="<?= pageUrl('unternehmen') ?>" class="btn btn-primary" style="margin-top: 1.5rem;">Mehr über uns</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Overview -->
+    <!-- ============ FULL-WIDTH IMAGE BANNER ============ -->
+    <section class="fullwidth-banner" aria-label="Impressionen">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80" alt="Baustelle – professionelle Sanitärinstallation" class="fullwidth-banner-img" loading="lazy">
+        <div class="fullwidth-banner-overlay"></div>
+        <div class="fullwidth-banner-content" data-reveal>
+            <div class="container">
+                <blockquote class="banner-quote">
+                    <p>«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»</p>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
     <section class="section section-services" aria-labelledby="services-heading">
-        <div class="services-bg"></div>
         <div class="container">
-            <div class="section-header" data-reveal>
+            <div class="section-header section-header-center" data-reveal>
                 <span class="section-label">Leistungen</span>
                 <h2 class="section-title" id="services-heading">Was wir für Sie tun</h2>
+                <p class="section-desc section-desc-center">Von der Planung bis zur Fertigstellung – wir bieten Ihnen das komplette Leistungsspektrum im Bereich Sanitär-Vorfabrikation und Montage.</p>
             </div>
-            <div class="services-grid">
-                <?php
-                $services = [
-                    ['key' => 'service_1', 'icon' => 'fabrication', 'default_title' => 'Vorfabrikation'],
-                    ['key' => 'service_2', 'icon' => 'installation', 'default_title' => 'Montage vor Ort'],
-                    ['key' => 'service_3', 'icon' => 'quality', 'default_title' => 'Qualität & Termintreue'],
-                ];
-                foreach ($services as $i => $svc):
-                    $block = $blockMap[$svc['key']] ?? null;
-                ?>
-                <article class="service-card" data-reveal data-delay="<?= $i ?>">
-                    <div class="service-card-inner">
-                        <div class="service-icon" aria-hidden="true">
-                            <?php if ($svc['icon'] === 'fabrication'): ?>
-                            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="20" width="36" height="22" rx="2" stroke="currentColor" stroke-width="2"/><path d="M14 20V12a10 10 0 0120 0v8" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="31" r="4" stroke="currentColor" stroke-width="2"/><path d="M24 35v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                            <?php elseif ($svc['icon'] === 'installation'): ?>
-                            <svg viewBox="0 0 48 48" fill="none"><path d="M20 8l-4 12h16L28 8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 20v20h16V20" stroke="currentColor" stroke-width="2"/><path d="M8 40h32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M24 28v8M20 32h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                            <?php else: ?>
-                            <svg viewBox="0 0 48 48" fill="none"><path d="M24 4l18 10v20L24 44 6 34V14L24 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M24 4v40M6 14l18 10 18-10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                            <?php endif; ?>
-                        </div>
-                        <h3 class="service-title"><?= e($block['title'] ?? $svc['default_title']) ?></h3>
-                        <p class="service-desc"><?= e($block['content'] ?? '') ?></p>
-                        <a href="<?= pageUrl('kompetenzen') ?>" class="service-link" aria-label="Mehr zu <?= e($block['title'] ?? $svc['default_title']) ?>">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="services-grid services-grid-2col">
+                <!-- Vorfabrikation -->
+                <article class="service-card-large" data-reveal>
+                    <div class="service-card-large-img">
+                        <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80" alt="Vorfabrikation in der Werkstatt" loading="lazy">
+                    </div>
+                    <div class="service-card-large-body">
+                        <span class="section-label">01</span>
+                        <h3 class="service-card-large-title">Vorfabrikation</h3>
+                        <p class="service-card-large-desc">In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.</p>
+                        <ul class="service-card-list">
+                            <li>GIS-Elemente</li>
+                            <li>Rohrleitungsbau</li>
+                            <li>STOClick Montagesystem</li>
+                        </ul>
+                        <a href="<?= pageUrl('kompetenzen') ?>#vorfabrikation" class="link-arrow">
+                            Mehr erfahren
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </a>
                     </div>
                 </article>
-                <?php endforeach; ?>
+                <!-- Montage -->
+                <article class="service-card-large" data-reveal data-delay="1">
+                    <div class="service-card-large-img">
+                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80" alt="Montage vor Ort auf der Baustelle" loading="lazy">
+                    </div>
+                    <div class="service-card-large-body">
+                        <span class="section-label">02</span>
+                        <h3 class="service-card-large-title">Montage vor Ort</h3>
+                        <p class="service-card-large-desc">Unser erfahrenes Team sorgt für die fachgerechte Installation direkt auf der Baustelle – von der Vorwand bis zur Spachtelung.</p>
+                        <ul class="service-card-list">
+                            <li>GIS-Elemente &amp; Duofix</li>
+                            <li>Beplankungen &amp; AquaPanel</li>
+                            <li>Spachtelungen &amp; Ausflockungen</li>
+                        </ul>
+                        <a href="<?= pageUrl('kompetenzen') ?>#montage" class="link-arrow">
+                            Mehr erfahren
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Key Figures -->
-    <section class="section section-figures" aria-label="Kennzahlen">
+    <!-- ============ LEISTUNGEN IM DETAIL ============ -->
+    <section class="section section-details" aria-labelledby="details-heading">
         <div class="container">
-            <div class="figures-grid">
-                <?php
-                $figures = [
-                    ['key' => 'figures_employees', 'def_num' => '85+', 'def_label' => 'Fachkräfte'],
-                    ['key' => 'figures_projects', 'def_num' => '500+', 'def_label' => 'Projekte'],
-                    ['key' => 'figures_years', 'def_num' => '15+', 'def_label' => 'Jahre Erfahrung'],
-                ];
-                foreach ($figures as $i => $fig):
-                    $block = $blockMap[$fig['key']] ?? null;
-                ?>
-                <div class="figure-item" data-reveal data-delay="<?= $i ?>">
-                    <span class="figure-number"><?= e($block['title'] ?? $fig['def_num']) ?></span>
-                    <span class="figure-label"><?= e($block['subtitle'] ?? $fig['def_label']) ?></span>
-                    <span class="figure-desc"><?= e($block['content'] ?? '') ?></span>
+            <div class="section-header section-header-center" data-reveal>
+                <span class="section-label">Unser Leistungsspektrum</span>
+                <h2 class="section-title" id="details-heading">Komplettlösungen aus einer Hand</h2>
+                <p class="section-desc section-desc-center">Von der Vorfabrikation bis zur fertigen Oberfläche – wir decken alle Gewerke im Bereich Sanitärinstallation ab.</p>
+            </div>
+            <div class="details-grid">
+                <div class="detail-card" data-reveal data-delay="0">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="22" width="40" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 22V12a10 10 0 0120 0v10" stroke="currentColor" stroke-width="2"/><path d="M20 33h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">GIS-Elemente</h3>
+                    <p class="detail-card-desc">Vorfabrikation und Montage von Geberit Installationssystemen – normgerecht, präzise und bereit für die schnelle Baustellenmontage.</p>
                 </div>
-                <?php endforeach; ?>
+                <div class="detail-card" data-reveal data-delay="1">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 44V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 12h20a4 4 0 014 4v0a4 4 0 01-4 4H8" stroke="currentColor" stroke-width="2"/><path d="M8 28h28a4 4 0 014 4v0a4 4 0 01-4 4H8" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Rohrleitungsbau</h3>
+                    <p class="detail-card-desc">Professioneller Leitungsbau für Trinkwasser, Heizung und Abwasser. Alle Materialien, alle Verbindungstechniken.</p>
+                </div>
+                <div class="detail-card" data-reveal data-delay="2">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M18 6v36" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">STOClick</h3>
+                    <p class="detail-card-desc">Schnell- und Sicherheitsbefestigung für optimierte Baustellenabläufe. Effizient vorgefertigt in unserer Werkstatt.</p>
+                </div>
+                <div class="detail-card" data-reveal data-delay="0">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M12 44V14a2 2 0 012-2h20a2 2 0 012 2v30" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 12V6h8v6" stroke="currentColor" stroke-width="2"/><path d="M20 24h8M20 32h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Duofix &amp; Vorwände</h3>
+                    <p class="detail-card-desc">Montage aller Sanitärvorwandsysteme – Geberit Duofix und weitere. Auch geschweisste Ausführungen.</p>
+                </div>
+                <div class="detail-card" data-reveal data-delay="1">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="32" rx="3" stroke="currentColor" stroke-width="2"/><path d="M2 20h44" stroke="currentColor" stroke-width="2"/><path d="M16 8v32M32 8v32" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">Beplankungen</h3>
+                    <p class="detail-card-desc">1x 18mm oder 2x 12.5mm – professionelle Beplankung von Vorwandinstallationen für perfekte Oberflächen.</p>
+                </div>
+                <div class="detail-card" data-reveal data-delay="2">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 40l8-16 8 10 6-8 10 14H8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="34" cy="14" r="6" stroke="currentColor" stroke-width="2"/><rect x="2" y="4" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2"/></svg>
+                    </div>
+                    <h3 class="detail-card-title">AquaPanel</h3>
+                    <p class="detail-card-desc">Zementgebundene Bauplatten für Feuchträume. Geberit AquaPanel und AquaPanel 2x 12mm – dauerhaft und belastbar.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured References Teaser -->
-    <section class="section section-refs-teaser" aria-labelledby="refs-heading">
+    <!-- ============ WHY CHOOSE US ============ -->
+    <section class="section section-why" aria-labelledby="why-heading">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-content" data-reveal>
+                    <span class="section-label">Warum SUI Innova</span>
+                    <h2 class="section-title" id="why-heading">Ihr Vorteil mit uns</h2>
+                    <p class="why-text">Wir kombinieren handwerkliches Können mit effizienter Vorfabrikation. Das Ergebnis: kürzere Bauzeiten, tiefere Kosten und konstant hohe Qualität.</p>
+                    <div class="why-items">
+                        <div class="why-item">
+                            <div class="why-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="why-item-title">Kostensicherheit</h3>
+                                <p class="why-item-desc">Transparente Preise und präzise Kalkulationen – keine Überraschungen.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="why-item-title">Termintreue</h3>
+                                <p class="why-item-desc">Durch Vorfabrikation verkürzen wir die Bauzeit um bis zu 40%.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="why-item-title">Erstklassige Qualität</h3>
+                                <p class="why-item-desc">Qualitätskontrolle in jeder Phase – von der Werkstatt bis zur Abnahme.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="why-item-title">Ein Team – ein Ansprechpartner</h3>
+                                <p class="why-item-desc">Von der Beratung bis zur Abnahme haben Sie einen persönlichen Projektleiter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="why-img-col" data-reveal data-delay="1">
+                    <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80" alt="Professionelle Sanitärinstallation" class="why-img" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ REFERENCES ============ -->
+    <section class="section section-refs-teaser" style="background: var(--c-offwhite);" aria-labelledby="refs-heading">
         <div class="container">
             <div class="section-header section-header-split" data-reveal>
                 <div>
@@ -133,57 +251,143 @@
                 </a>
             </div>
             <div class="refs-teaser-grid">
-                <?php
-                try {
-                    $db = Database::getInstance();
-                    $stmt = $db->query('SELECT * FROM references_projects WHERE is_featured = 1 AND is_active = 1 ORDER BY sort_order LIMIT 3');
-                    $featured = $stmt->fetchAll();
-                } catch (Exception $e) {
-                    $featured = [];
-                }
-                foreach ($featured as $i => $ref):
-                ?>
-                <article class="ref-card" data-reveal data-delay="<?= $i ?>">
+                <article class="ref-card" data-reveal data-delay="0">
                     <div class="ref-card-image">
-                        <?php if (!empty($ref['image_path'])): ?>
-                            <img src="<?= e($ref['image_path']) ?>" alt="<?= e($ref['title']) ?>" loading="lazy">
-                        <?php else: ?>
-                            <div class="ref-card-placeholder">
-                                <svg viewBox="0 0 80 60" fill="none" aria-hidden="true"><rect width="80" height="60" rx="4" fill="currentColor" opacity="0.1"/><path d="M30 40l10-14 8 10 6-6 8 10H18l12-16z" fill="currentColor" opacity="0.2"/><circle cx="58" cy="18" r="6" fill="currentColor" opacity="0.15"/></svg>
-                            </div>
-                        <?php endif; ?>
-                        <div class="ref-card-overlay">
-                            <span class="ref-card-category"><?= e($ref['category'] ?? '') ?></span>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Wohnüberbauung Limmatfeld" loading="lazy">
+                        <div class="ref-card-overlay"><span class="ref-card-category">Wohnbau</span></div>
                     </div>
                     <div class="ref-card-body">
-                        <h3 class="ref-card-title"><?= e($ref['title']) ?></h3>
-                        <p class="ref-card-meta">
-                            <?= e($ref['location'] ?? '') ?>
-                            <?php if (!empty($ref['year'])): ?> · <?= e($ref['year']) ?><?php endif; ?>
-                        </p>
+                        <h3 class="ref-card-title">Wohnüberbauung Limmatfeld</h3>
+                        <p class="ref-card-meta">Dietikon ZH · 2024</p>
                     </div>
                 </article>
-                <?php endforeach; ?>
+                <article class="ref-card" data-reveal data-delay="1">
+                    <div class="ref-card-image">
+                        <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?w=600&q=80" alt="Geschäftshaus Europaallee" loading="lazy">
+                        <div class="ref-card-overlay"><span class="ref-card-category">Gewerbebau</span></div>
+                    </div>
+                    <div class="ref-card-body">
+                        <h3 class="ref-card-title">Geschäftshaus Europaallee</h3>
+                        <p class="ref-card-meta">Zürich · 2023</p>
+                    </div>
+                </article>
+                <article class="ref-card" data-reveal data-delay="2">
+                    <div class="ref-card-image">
+                        <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=600&q=80" alt="Spital Limmattal Erweiterung" loading="lazy">
+                        <div class="ref-card-overlay"><span class="ref-card-category">Spitalbau</span></div>
+                    </div>
+                    <div class="ref-card-body">
+                        <h3 class="ref-card-title">Spital Limmattal Erweiterung</h3>
+                        <p class="ref-card-meta">Schlieren ZH · 2023</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <?php $cta = $blockMap['cta'] ?? null; ?>
+    <!-- ============ FAQ ============ -->
+    <section class="section section-faq" aria-labelledby="faq-heading">
+        <div class="container">
+            <div class="faq-layout">
+                <div class="faq-intro" data-reveal>
+                    <span class="section-label">Häufige Fragen</span>
+                    <h2 class="section-title" id="faq-heading">Gut zu wissen</h2>
+                    <p class="faq-intro-text">Antworten auf die wichtigsten Fragen rund um Sanitär-Vorfabrikation, Vorwandmontage und unsere Arbeitsweise.</p>
+                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary" style="margin-top: var(--space-md);">Weitere Fragen? Kontakt</a>
+                </div>
+                <div class="faq-list" data-reveal data-delay="1">
+                    <details class="faq-item">
+                        <summary class="faq-question">Was bedeutet GIS-Elemente vorfabrizieren?</summary>
+                        <div class="faq-answer">
+                            <p>Beim GIS-Elemente vorfabrizieren werden Geberit Installationssysteme in unserer Werkstatt massgenau vorbereitet. Die fertigen GIS-Elemente werden anschliessend auf die Baustelle geliefert und dort montiert. Durch die Vorfabrikation sparen Sie Bauzeit und profitieren von gleichbleibend hoher Qualität.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Wie läuft die Montage von GIS-Elementen vor Ort ab?</summary>
+                        <div class="faq-answer">
+                            <p>Unsere Fachkräfte montieren die vorgefertigten GIS-Elemente direkt auf der Baustelle nach Herstellervorgaben. Die Montage umfasst die Befestigung, den Anschluss an bestehende Leitungen und die Qualitätskontrolle. GIS-Elemente montieren wir schnell, präzise und termingerecht.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Was umfasst euer Rohrleitungsbau?</summary>
+                        <div class="faq-answer">
+                            <p>Unser Rohrleitungsbau deckt Trinkwasser-, Heizungs- und Abwasserleitungen ab. Wir verarbeiten alle gängigen Materialien wie Edelstahl, Kupfer und Kunststoff. Von der Planung über die Vorfabrikation bis zur Montage vor Ort – alles aus einer Hand.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Was ist STOClick und wofür wird es eingesetzt?</summary>
+                        <div class="faq-answer">
+                            <p>STOClick ist ein innovatives Montagesystem für die schnelle und sichere Befestigung im Sanitärbereich. Wir setzen STOClick für effiziente Vorfabrikation ein, die den Arbeitsaufwand auf der Baustelle deutlich reduziert.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Welche Vorwandsysteme montiert ihr (Duofix, etc.)?</summary>
+                        <div class="faq-answer">
+                            <p>Wir montieren alle gängigen Sanitärvorwandsysteme: Geberit Duofix und weitere Duofix-Varianten, sowie geschweisste Vorwände. Eine Sanitärvorwand montieren wir inkl. Beplankung, AquaPanel und Spachtelung – alles aus einer Hand. Ob Duofix &amp; Vorwände für Neubauten oder Sanierungen, wir haben die Erfahrung.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Was bedeutet Vorwände beplanken?</summary>
+                        <div class="faq-answer">
+                            <p>Vorwände beplanken bedeutet, die Sanitärvorwand-Konstruktion mit Platten zu verkleiden. Wir bieten Beplankungen mit 1x 18mm oder 2x 12.5mm Gipskartonplatten sowie Geberit AquaPanel (2x 12mm) für Feuchträume. Nach dem Beplanken folgen Spachtelungen und Ausflockungen für eine perfekte Oberfläche.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Wann ist AquaPanel die richtige Wahl?</summary>
+                        <div class="faq-answer">
+                            <p>AquaPanel von Geberit ist die ideale Lösung für Feuchträume wie Bäder und Duschen. Die zementgebundenen Bauplatten sind wasserfest, schimmelfrei und extrem belastbar. Wir montieren AquaPanel in der Variante 2x 12mm für maximalen Schutz und Langlebigkeit.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Was ist der Vorteil einer Sanitärvorwand-Vorfabrikation?</summary>
+                        <div class="faq-answer">
+                            <p>Sanitärvorwand vorfabrizieren spart bis zu 40% Bauzeit auf der Baustelle. Die Elemente werden in unserer Werkstatt unter kontrollierten Bedingungen gefertigt, was zu höherer Qualität und weniger Nacharbeit führt. Die Kosten sind planbarer und die Baustellenlogistik wird vereinfacht.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ KARRIERE / TEAM ============ -->
+    <section class="section section-karriere" aria-labelledby="karriere-heading">
+        <div class="karriere-grid">
+            <div class="karriere-content">
+                <div class="karriere-content-inner" data-reveal>
+                    <span class="section-label" style="color: rgba(255,255,255,0.4);">Karriere</span>
+                    <h2 class="karriere-title" id="karriere-heading"><strong>Werde Teil unseres Teams</strong> – und bewege Grosses</h2>
+                    <p class="karriere-text">Unsere Mitarbeitenden sind das Fundament unseres Erfolgs. Wir bieten ein Arbeitsumfeld, in dem Respekt, Teamgeist und Eigenverantwortung gelebt werden – und in dem sich alle Mitarbeitenden wertgeschätzt fühlen.</p>
+                    <p class="karriere-text">Entdecke die Chancen bei SUI Innova und gestalte die Zukunft der Gebäudetechnik aktiv mit. Wir suchen motivierte Fachkräfte, die mit Leidenschaft dabei sind.</p>
+                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline-light">
+                        Menschen &amp; Karriere
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="karriere-img-col">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="Unser Team bei der Arbeit" class="karriere-img" loading="lazy">
+                <div class="karriere-badge" aria-hidden="true">
+                    <span>gemeinsam stark</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
     <section class="section section-cta" aria-label="Kontakt aufnehmen">
         <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content" data-reveal>
-                <h2 class="cta-title"><?= e($cta['title'] ?? 'Ihr nächstes Projekt?') ?></h2>
-                <p class="cta-text"><?= e($cta['content'] ?? 'Kontaktieren Sie uns für eine unverbindliche Beratung.') ?></p>
+                <h2 class="cta-title">Ihr nächstes Projekt?</h2>
+                <p class="cta-text">Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.</p>
                 <div class="cta-actions">
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt anfragen</a>
-                    <a href="tel:<?= e(str_replace(' ', '', setting('site_phone', '+41 44 000 00 00'))) ?>" class="btn btn-ghost btn-lg">
+                    <a href="tel:+41440000000" class="btn btn-ghost btn-lg">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5a2 2 0 012-2h2.28a1 1 0 01.95.68l1.05 3.16a1 1 0 01-.24 1.02l-1.3 1.3a10.06 10.06 0 004.1 4.1l1.3-1.3a1 1 0 011.02-.24l3.16 1.05a1 1 0 01.68.95V17a2 2 0 01-2 2A15 15 0 013 5z" stroke="currentColor" stroke-width="1.5"/></svg>
-                        <?= e(setting('site_phone', '+41 44 000 00 00')) ?>
+                        +41 44 000 00 00
                     </a>
                 </div>
             </div>
         </div>
     </section>
+

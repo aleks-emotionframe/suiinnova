@@ -1,13 +1,10 @@
-    <?php $hero = $blockMap['hero'] ?? null; ?>
 
-    <!-- Page Hero -->
-    <section class="page-hero page-hero-compact" aria-label="Kontakt">
-        <div class="page-hero-bg"></div>
+    <section class="section page-title-section" aria-label="Kontakt">
         <div class="container">
-            <div class="page-hero-content" data-reveal>
+            <div class="page-title-content" data-reveal>
                 <span class="section-label">Kontakt</span>
-                <h1 class="page-hero-title"><?= e($hero['title'] ?? 'Kontakt') ?></h1>
-                <p class="page-hero-desc"><?= e($hero['content'] ?? 'Wir freuen uns auf Ihre Anfrage.') ?></p>
+                <h1 class="page-title">Kontaktieren Sie uns</h1>
+                <p class="page-title-desc">Wir freuen uns auf Ihre Anfrage. Kontaktieren Sie uns für eine unverbindliche Beratung.</p>
             </div>
         </div>
     </section>
@@ -17,9 +14,7 @@
         <div class="container">
             <?php $flash = getFlash(); ?>
             <?php if ($flash): ?>
-            <div class="alert alert-<?= e($flash['type']) ?>" role="alert">
-                <?= e($flash['message']) ?>
-            </div>
+            <div class="alert alert-<?= e($flash['type']) ?>" role="alert"><?= e($flash['message']) ?></div>
             <?php endif; ?>
 
             <div class="contact-grid">
@@ -88,7 +83,7 @@
                             <div>
                                 <h3 class="contact-info-label">Adresse</h3>
                                 <address class="contact-info-value">
-                                    <?= nl2br(e(setting('site_address', "Musterstrasse 42\n8000 Zürich"))) ?>
+                                    Musterstrasse 42<br>8000 Zürich
                                 </address>
                             </div>
                         </div>
@@ -99,8 +94,8 @@
                             </div>
                             <div>
                                 <h3 class="contact-info-label">Telefon</h3>
-                                <a href="tel:<?= e(str_replace(' ', '', setting('site_phone', '+41 44 000 00 00'))) ?>" class="contact-info-value contact-info-link">
-                                    <?= e(setting('site_phone', '+41 44 000 00 00')) ?>
+                                <a href="tel:+41440000000" class="contact-info-value contact-info-link">
+                                    +41 44 000 00 00
                                 </a>
                             </div>
                         </div>
@@ -111,8 +106,8 @@
                             </div>
                             <div>
                                 <h3 class="contact-info-label">E-Mail</h3>
-                                <a href="mailto:<?= e(setting('site_email', 'info@suiinnova.ch')) ?>" class="contact-info-value contact-info-link">
-                                    <?= e(setting('site_email', 'info@suiinnova.ch')) ?>
+                                <a href="mailto:info@suiinnova.ch" class="contact-info-value contact-info-link">
+                                    info@suiinnova.ch
                                 </a>
                             </div>
                         </div>
@@ -131,3 +126,4 @@
             </div>
         </div>
     </section>
+
