@@ -125,7 +125,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Logo */
-.logo, .footer-logo { display: flex; align-items: baseline; gap: 0.2em; }
+.logo, .footer-logo { display: flex; align-items: center; gap: 0.2em; }
+.logo-img {
+    height: 42px; width: auto;
+    filter: brightness(0) invert(1);
+    transition: filter var(--transition);
+}
+.is-scrolled .logo-img { filter: none; }
+.footer-logo-img {
+    height: 36px; width: auto;
+    filter: brightness(0) invert(1);
+}
 .logo-mark {
     font-family: var(--ff-main);
     font-weight: var(--fw-extrabold);
