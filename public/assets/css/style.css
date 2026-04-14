@@ -128,14 +128,19 @@ h1, h2, h3, h4, h5, h6 {
 .logo, .footer-logo { display: flex; align-items: center; gap: 0.2em; }
 .logo-img {
     height: 34px; width: auto;
-    transition: opacity var(--transition);
+    transition: filter var(--transition);
 }
-.logo-img-dark { display: none; }
-.logo-img-white { display: block; }
-.is-scrolled .logo-img-dark { display: block; }
-.is-scrolled .logo-img-white { display: none; }
+.logo-img-white { display: none; }
+.logo-img-dark {
+    display: block;
+    filter: brightness(10) drop-shadow(0 0 0 #fff);
+}
+.is-scrolled .logo-img-dark {
+    filter: none;
+}
 .footer-logo-img {
     height: 30px; width: auto;
+    filter: brightness(10) drop-shadow(0 0 0 #fff);
 }
 .logo-mark {
     font-family: var(--ff-main);
