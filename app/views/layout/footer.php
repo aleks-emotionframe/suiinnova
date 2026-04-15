@@ -56,5 +56,9 @@
     </footer>
 
     <script src="<?= SITE_URL ?>/assets/js/main.js"></script>
+    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/inline-editor.css">
+    <script src="<?= SITE_URL ?>/assets/js/inline-editor.js"></script>
+    <?php endif; ?>
 </body>
 </html>

@@ -26,6 +26,9 @@ $router->get('/kontakt', [$pages, 'kontakt']);
 $router->post('/kontakt', [$pages, 'kontaktSubmit']);
 
 // ── Admin Routes ──
+$router->post('/admin/api/save', [$admin, 'apiSave']);
+$router->post('/admin/api/upload', [$admin, 'apiUpload']);
+
 $router->get('/admin', [$admin, 'dashboard']);
 $router->get('/admin/login', [$admin, 'loginForm']);
 $router->post('/admin/login', [$admin, 'loginSubmit']);

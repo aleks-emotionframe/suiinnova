@@ -16,6 +16,10 @@
 <body>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
 
+    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+    <?php require APP_PATH . '/views/layout/admin_bar.php'; ?>
+    <?php endif; ?>
+
     <header class="site-header" id="site-header">
         <div class="header-inner">
             <a href="<?= SITE_URL ?>/" class="logo" aria-label="SUI Innova GmbH – Startseite">

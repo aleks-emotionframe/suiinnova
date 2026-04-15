@@ -2,16 +2,16 @@
     <!-- ============ HERO ============ -->
     <section class="hero" aria-label="Willkommen">
         <div class="hero-bg">
-            <img src="<?= e(cms($blockMap, 'hero', 'image_path', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80')) ?>" alt="" class="hero-bg-img" loading="eager">
+            <img src="<?= e(cms($blockMap, 'hero', 'image_path', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80')) ?>" alt="" class="hero-bg-img" loading="eager"<?= cmsAttr($blockMap, 'hero', 'image_path') ?>>
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
             <div class="container">
                 <div class="hero-text">
                     <p class="hero-label" data-reveal><?= e(setting('site_name', 'SUI Innova GmbH')) ?></p>
-                    <h1 class="hero-title" data-reveal data-delay="1"><?= e(cms($blockMap, 'hero', 'title', 'Präzision in jeder Verbindung')) ?></h1>
-                    <p class="hero-subtitle" data-reveal data-delay="2"><?= e(cms($blockMap, 'hero', 'subtitle', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr')) ?></p>
-                    <p class="hero-desc" data-reveal data-delay="3"><?= e(cms($blockMap, 'hero', 'content', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.')) ?></p>
+                    <h1 class="hero-title" data-reveal data-delay="1"<?= cmsAttr($blockMap, 'hero', 'title') ?>><?= e(cms($blockMap, 'hero', 'title', 'Präzision in jeder Verbindung')) ?></h1>
+                    <p class="hero-subtitle" data-reveal data-delay="2"<?= cmsAttr($blockMap, 'hero', 'subtitle') ?>><?= e(cms($blockMap, 'hero', 'subtitle', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr')) ?></p>
+                    <p class="hero-desc" data-reveal data-delay="3"<?= cmsAttr($blockMap, 'hero', 'content') ?>><?= e(cms($blockMap, 'hero', 'content', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.')) ?></p>
                     <div class="hero-actions" data-reveal data-delay="4">
                         <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary btn-lg">Unsere Kompetenzen</a>
                         <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline btn-lg">Kontakt aufnehmen</a>
@@ -30,7 +30,7 @@
             <div class="intro-split" data-reveal>
                 <div class="intro-img-col">
                     <div class="intro-img-wrapper">
-                        <img src="<?= e(cms($blockMap, 'intro', 'image_path', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80')) ?>" alt="Sanitärinstallation – Facharbeit" class="intro-img" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'intro', 'image_path', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80')) ?>" alt="Sanitärinstallation – Facharbeit" class="intro-img" loading="lazy"<?= cmsAttr($blockMap, 'intro', 'image_path') ?>>
                         <div class="intro-img-badge">
                             <span class="intro-badge-number">15+</span>
                             <span class="intro-badge-text">Jahre Erfahrung</span>
@@ -38,9 +38,9 @@
                     </div>
                 </div>
                 <div class="intro-content" data-reveal data-delay="1">
-                    <span class="section-label"><?= e(cms($blockMap, 'intro', 'subtitle', 'Über uns')) ?></span>
-                    <h2 class="section-title" id="intro-heading"><?= e(cms($blockMap, 'intro', 'title', 'Ihr Spezialist für Sanitär-Vorfabrikation')) ?></h2>
-                    <div class="intro-text"><?= nl2p(cms($blockMap, 'intro', 'content', 'Mit langjähriger Erfahrung realisieren wir Projekte in der ganzen Schweiz.')) ?></div>
+                    <span class="section-label"<?= cmsAttr($blockMap, 'intro', 'subtitle') ?>><?= e(cms($blockMap, 'intro', 'subtitle', 'Über uns')) ?></span>
+                    <h2 class="section-title" id="intro-heading"<?= cmsAttr($blockMap, 'intro', 'title') ?>><?= e(cms($blockMap, 'intro', 'title', 'Ihr Spezialist für Sanitär-Vorfabrikation')) ?></h2>
+                    <div class="intro-text"<?= cmsAttr($blockMap, 'intro', 'content') ?>><?= nl2p(cms($blockMap, 'intro', 'content', 'Mit langjähriger Erfahrung realisieren wir Projekte in der ganzen Schweiz.')) ?></div>
                     <?php
                     $highlights = cms($blockMap, 'intro_highlights', 'content', "Schweizweit im Einsatz\nAlles aus einer Hand\nTermingerecht & zuverlässig");
                     $highlightItems = array_filter(array_map('trim', explode("\n", $highlights)));
@@ -62,12 +62,12 @@
 
     <!-- ============ FULL-WIDTH IMAGE BANNER ============ -->
     <section class="fullwidth-banner" aria-label="Impressionen">
-        <img src="<?= e(cms($blockMap, 'quote', 'image_path', 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80')) ?>" alt="Baustelle" class="fullwidth-banner-img" loading="lazy">
+        <img src="<?= e(cms($blockMap, 'quote', 'image_path', 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80')) ?>" alt="Baustelle" class="fullwidth-banner-img" loading="lazy"<?= cmsAttr($blockMap, 'quote', 'image_path') ?>>
         <div class="fullwidth-banner-overlay"></div>
         <div class="fullwidth-banner-content" data-reveal>
             <div class="container">
                 <blockquote class="banner-quote">
-                    <p><?= e(cms($blockMap, 'quote', 'content', '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»')) ?></p>
+                    <p<?= cmsAttr($blockMap, 'quote', 'content') ?>><?= e(cms($blockMap, 'quote', 'content', '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»')) ?></p>
                 </blockquote>
             </div>
         </div>
@@ -78,19 +78,19 @@
         <div class="container">
             <div class="section-header section-header-center" data-reveal>
                 <span class="section-label">Leistungen</span>
-                <h2 class="section-title" id="services-heading"><?= e(cms($blockMap, 'services_header', 'title', 'Was wir für Sie tun')) ?></h2>
-                <p class="section-desc section-desc-center"><?= e(cms($blockMap, 'services_header', 'content', 'Von der Planung bis zur Fertigstellung – wir bieten Ihnen das komplette Leistungsspektrum im Bereich Sanitär-Vorfabrikation und Montage.')) ?></p>
+                <h2 class="section-title" id="services-heading"<?= cmsAttr($blockMap, 'services_header', 'title') ?>><?= e(cms($blockMap, 'services_header', 'title', 'Was wir für Sie tun')) ?></h2>
+                <p class="section-desc section-desc-center"<?= cmsAttr($blockMap, 'services_header', 'content') ?>><?= e(cms($blockMap, 'services_header', 'content', 'Von der Planung bis zur Fertigstellung – wir bieten Ihnen das komplette Leistungsspektrum im Bereich Sanitär-Vorfabrikation und Montage.')) ?></p>
             </div>
             <div class="services-grid services-grid-2col">
                 <!-- Vorfabrikation -->
                 <article class="service-card-large" data-reveal>
                     <div class="service-card-large-img">
-                        <img src="<?= e(cms($blockMap, 'service_vorfab', 'image_path', 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80')) ?>" alt="Vorfabrikation in der Werkstatt" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'service_vorfab', 'image_path', 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80')) ?>" alt="Vorfabrikation in der Werkstatt" loading="lazy"<?= cmsAttr($blockMap, 'service_vorfab', 'image_path') ?>>
                     </div>
                     <div class="service-card-large-body">
                         <span class="section-label">01</span>
-                        <h3 class="service-card-large-title"><?= e(cms($blockMap, 'service_vorfab', 'title', 'Vorfabrikation')) ?></h3>
-                        <p class="service-card-large-desc"><?= e(cms($blockMap, 'service_vorfab', 'content', 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.')) ?></p>
+                        <h3 class="service-card-large-title"<?= cmsAttr($blockMap, 'service_vorfab', 'title') ?>><?= e(cms($blockMap, 'service_vorfab', 'title', 'Vorfabrikation')) ?></h3>
+                        <p class="service-card-large-desc"<?= cmsAttr($blockMap, 'service_vorfab', 'content') ?>><?= e(cms($blockMap, 'service_vorfab', 'content', 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.')) ?></p>
                         <ul class="service-card-list">
                             <li>GIS-Elemente</li>
                             <li>Rohrleitungsbau</li>
@@ -105,12 +105,12 @@
                 <!-- Montage -->
                 <article class="service-card-large" data-reveal data-delay="1">
                     <div class="service-card-large-img">
-                        <img src="<?= e(cms($blockMap, 'service_montage', 'image_path', 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80')) ?>" alt="Montage vor Ort" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'service_montage', 'image_path', 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80')) ?>" alt="Montage vor Ort" loading="lazy"<?= cmsAttr($blockMap, 'service_montage', 'image_path') ?>>
                     </div>
                     <div class="service-card-large-body">
                         <span class="section-label">02</span>
-                        <h3 class="service-card-large-title"><?= e(cms($blockMap, 'service_montage', 'title', 'Montage vor Ort')) ?></h3>
-                        <p class="service-card-large-desc"><?= e(cms($blockMap, 'service_montage', 'content', 'Unser erfahrenes Team sorgt für die fachgerechte Installation direkt auf der Baustelle – von der Vorwand bis zur Spachtelung.')) ?></p>
+                        <h3 class="service-card-large-title"<?= cmsAttr($blockMap, 'service_montage', 'title') ?>><?= e(cms($blockMap, 'service_montage', 'title', 'Montage vor Ort')) ?></h3>
+                        <p class="service-card-large-desc"<?= cmsAttr($blockMap, 'service_montage', 'content') ?>><?= e(cms($blockMap, 'service_montage', 'content', 'Unser erfahrenes Team sorgt für die fachgerechte Installation direkt auf der Baustelle – von der Vorwand bis zur Spachtelung.')) ?></p>
                         <ul class="service-card-list">
                             <li>GIS-Elemente &amp; Duofix</li>
                             <li>Beplankungen &amp; AquaPanel</li>
@@ -131,51 +131,51 @@
         <div class="container">
             <div class="section-header section-header-center" data-reveal>
                 <span class="section-label">Unser Leistungsspektrum</span>
-                <h2 class="section-title" id="details-heading"><?= e(cms($blockMap, 'details_header', 'title', 'Komplettlösungen aus einer Hand')) ?></h2>
-                <p class="section-desc section-desc-center"><?= e(cms($blockMap, 'details_header', 'content', 'Von der Vorfabrikation bis zur fertigen Oberfläche – wir decken alle Gewerke im Bereich Sanitärinstallation ab.')) ?></p>
+                <h2 class="section-title" id="details-heading"<?= cmsAttr($blockMap, 'details_header', 'title') ?>><?= e(cms($blockMap, 'details_header', 'title', 'Komplettlösungen aus einer Hand')) ?></h2>
+                <p class="section-desc section-desc-center"<?= cmsAttr($blockMap, 'details_header', 'content') ?>><?= e(cms($blockMap, 'details_header', 'content', 'Von der Vorfabrikation bis zur fertigen Oberfläche – wir decken alle Gewerke im Bereich Sanitärinstallation ab.')) ?></p>
             </div>
             <div class="details-grid">
                 <div class="detail-card" data-reveal data-delay="0">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="22" width="40" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 22V12a10 10 0 0120 0v10" stroke="currentColor" stroke-width="2"/><path d="M20 33h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_gis', 'title', 'GIS-Elemente')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_gis', 'content', 'Vorfabrikation und Montage von Geberit Installationssystemen – normgerecht, präzise und bereit für die schnelle Baustellenmontage.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_gis', 'title') ?>><?= e(cms($blockMap, 'detail_gis', 'title', 'GIS-Elemente')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_gis', 'content') ?>><?= e(cms($blockMap, 'detail_gis', 'content', 'Vorfabrikation und Montage von Geberit Installationssystemen – normgerecht, präzise und bereit für die schnelle Baustellenmontage.')) ?></p>
                 </div>
                 <div class="detail-card" data-reveal data-delay="1">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><path d="M8 44V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 12h20a4 4 0 014 4v0a4 4 0 01-4 4H8" stroke="currentColor" stroke-width="2"/><path d="M8 28h28a4 4 0 014 4v0a4 4 0 01-4 4H8" stroke="currentColor" stroke-width="2"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_rohr', 'title', 'Rohrleitungsbau')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_rohr', 'content', 'Professioneller Leitungsbau für Trinkwasser, Heizung und Abwasser. Alle Materialien, alle Verbindungstechniken.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_rohr', 'title') ?>><?= e(cms($blockMap, 'detail_rohr', 'title', 'Rohrleitungsbau')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_rohr', 'content') ?>><?= e(cms($blockMap, 'detail_rohr', 'content', 'Professioneller Leitungsbau für Trinkwasser, Heizung und Abwasser. Alle Materialien, alle Verbindungstechniken.')) ?></p>
                 </div>
                 <div class="detail-card" data-reveal data-delay="2">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M18 6v36" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_sto', 'title', 'STOClick')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_sto', 'content', 'Schnell- und Sicherheitsbefestigung für optimierte Baustellenabläufe. Effizient vorgefertigt in unserer Werkstatt.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_sto', 'title') ?>><?= e(cms($blockMap, 'detail_sto', 'title', 'STOClick')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_sto', 'content') ?>><?= e(cms($blockMap, 'detail_sto', 'content', 'Schnell- und Sicherheitsbefestigung für optimierte Baustellenabläufe. Effizient vorgefertigt in unserer Werkstatt.')) ?></p>
                 </div>
                 <div class="detail-card" data-reveal data-delay="0">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><path d="M12 44V14a2 2 0 012-2h20a2 2 0 012 2v30" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 12V6h8v6" stroke="currentColor" stroke-width="2"/><path d="M20 24h8M20 32h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_duofix', 'title', 'Duofix & Vorwände')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_duofix', 'content', 'Montage aller Sanitärvorwandsysteme – Geberit Duofix und weitere. Auch geschweisste Ausführungen.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_duofix', 'title') ?>><?= e(cms($blockMap, 'detail_duofix', 'title', 'Duofix & Vorwände')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_duofix', 'content') ?>><?= e(cms($blockMap, 'detail_duofix', 'content', 'Montage aller Sanitärvorwandsysteme – Geberit Duofix und weitere. Auch geschweisste Ausführungen.')) ?></p>
                 </div>
                 <div class="detail-card" data-reveal data-delay="1">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="32" rx="3" stroke="currentColor" stroke-width="2"/><path d="M2 20h44" stroke="currentColor" stroke-width="2"/><path d="M16 8v32M32 8v32" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_beplan', 'title', 'Beplankungen')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_beplan', 'content', '1x 18mm oder 2x 12.5mm – professionelle Beplankung von Vorwandinstallationen für perfekte Oberflächen.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_beplan', 'title') ?>><?= e(cms($blockMap, 'detail_beplan', 'title', 'Beplankungen')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_beplan', 'content') ?>><?= e(cms($blockMap, 'detail_beplan', 'content', '1x 18mm oder 2x 12.5mm – professionelle Beplankung von Vorwandinstallationen für perfekte Oberflächen.')) ?></p>
                 </div>
                 <div class="detail-card" data-reveal data-delay="2">
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><path d="M8 40l8-16 8 10 6-8 10 14H8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="34" cy="14" r="6" stroke="currentColor" stroke-width="2"/><rect x="2" y="4" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2"/></svg>
                     </div>
-                    <h3 class="detail-card-title"><?= e(cms($blockMap, 'detail_aqua', 'title', 'AquaPanel')) ?></h3>
-                    <p class="detail-card-desc"><?= e(cms($blockMap, 'detail_aqua', 'content', 'Zementgebundene Bauplatten für Feuchträume. Geberit AquaPanel und AquaPanel 2x 12mm – dauerhaft und belastbar.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_aqua', 'title') ?>><?= e(cms($blockMap, 'detail_aqua', 'title', 'AquaPanel')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_aqua', 'content') ?>><?= e(cms($blockMap, 'detail_aqua', 'content', 'Zementgebundene Bauplatten für Feuchträume. Geberit AquaPanel und AquaPanel 2x 12mm – dauerhaft und belastbar.')) ?></p>
                 </div>
             </div>
         </div>
@@ -187,16 +187,16 @@
             <div class="why-grid">
                 <div class="why-content" data-reveal>
                     <span class="section-label">Warum SUI Innova</span>
-                    <h2 class="section-title" id="why-heading"><?= e(cms($blockMap, 'why_header', 'title', 'Ihr Vorteil mit uns')) ?></h2>
-                    <p class="why-text"><?= e(cms($blockMap, 'why_header', 'content', 'Wir kombinieren handwerkliches Können mit effizienter Vorfabrikation. Das Ergebnis: kürzere Bauzeiten, tiefere Kosten und konstant hohe Qualität.')) ?></p>
+                    <h2 class="section-title" id="why-heading"<?= cmsAttr($blockMap, 'why_header', 'title') ?>><?= e(cms($blockMap, 'why_header', 'title', 'Ihr Vorteil mit uns')) ?></h2>
+                    <p class="why-text"<?= cmsAttr($blockMap, 'why_header', 'content') ?>><?= e(cms($blockMap, 'why_header', 'content', 'Wir kombinieren handwerkliches Können mit effizienter Vorfabrikation. Das Ergebnis: kürzere Bauzeiten, tiefere Kosten und konstant hohe Qualität.')) ?></p>
                     <div class="why-items">
                         <div class="why-item">
                             <div class="why-item-icon">
                                 <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div>
-                                <h3 class="why-item-title"><?= e(cms($blockMap, 'why_1', 'title', 'Kostensicherheit')) ?></h3>
-                                <p class="why-item-desc"><?= e(cms($blockMap, 'why_1', 'content', 'Transparente Preise und präzise Kalkulationen – keine Überraschungen.')) ?></p>
+                                <h3 class="why-item-title"<?= cmsAttr($blockMap, 'why_1', 'title') ?>><?= e(cms($blockMap, 'why_1', 'title', 'Kostensicherheit')) ?></h3>
+                                <p class="why-item-desc"<?= cmsAttr($blockMap, 'why_1', 'content') ?>><?= e(cms($blockMap, 'why_1', 'content', 'Transparente Preise und präzise Kalkulationen – keine Überraschungen.')) ?></p>
                             </div>
                         </div>
                         <div class="why-item">
@@ -204,8 +204,8 @@
                                 <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div>
-                                <h3 class="why-item-title"><?= e(cms($blockMap, 'why_2', 'title', 'Termintreue')) ?></h3>
-                                <p class="why-item-desc"><?= e(cms($blockMap, 'why_2', 'content', 'Durch Vorfabrikation verkürzen wir die Bauzeit um bis zu 40%.')) ?></p>
+                                <h3 class="why-item-title"<?= cmsAttr($blockMap, 'why_2', 'title') ?>><?= e(cms($blockMap, 'why_2', 'title', 'Termintreue')) ?></h3>
+                                <p class="why-item-desc"<?= cmsAttr($blockMap, 'why_2', 'content') ?>><?= e(cms($blockMap, 'why_2', 'content', 'Durch Vorfabrikation verkürzen wir die Bauzeit um bis zu 40%.')) ?></p>
                             </div>
                         </div>
                         <div class="why-item">
@@ -213,8 +213,8 @@
                                 <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
                             </div>
                             <div>
-                                <h3 class="why-item-title"><?= e(cms($blockMap, 'why_3', 'title', 'Erstklassige Qualität')) ?></h3>
-                                <p class="why-item-desc"><?= e(cms($blockMap, 'why_3', 'content', 'Qualitätskontrolle in jeder Phase – von der Werkstatt bis zur Abnahme.')) ?></p>
+                                <h3 class="why-item-title"<?= cmsAttr($blockMap, 'why_3', 'title') ?>><?= e(cms($blockMap, 'why_3', 'title', 'Erstklassige Qualität')) ?></h3>
+                                <p class="why-item-desc"<?= cmsAttr($blockMap, 'why_3', 'content') ?>><?= e(cms($blockMap, 'why_3', 'content', 'Qualitätskontrolle in jeder Phase – von der Werkstatt bis zur Abnahme.')) ?></p>
                             </div>
                         </div>
                         <div class="why-item">
@@ -222,14 +222,14 @@
                                 <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div>
-                                <h3 class="why-item-title"><?= e(cms($blockMap, 'why_4', 'title', 'Ein Team – ein Ansprechpartner')) ?></h3>
-                                <p class="why-item-desc"><?= e(cms($blockMap, 'why_4', 'content', 'Von der Beratung bis zur Abnahme haben Sie einen persönlichen Projektleiter.')) ?></p>
+                                <h3 class="why-item-title"<?= cmsAttr($blockMap, 'why_4', 'title') ?>><?= e(cms($blockMap, 'why_4', 'title', 'Ein Team – ein Ansprechpartner')) ?></h3>
+                                <p class="why-item-desc"<?= cmsAttr($blockMap, 'why_4', 'content') ?>><?= e(cms($blockMap, 'why_4', 'content', 'Von der Beratung bis zur Abnahme haben Sie einen persönlichen Projektleiter.')) ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="why-img-col" data-reveal data-delay="1">
-                    <img src="<?= e(cms($blockMap, 'why_header', 'image_path', 'https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80')) ?>" alt="Professionelle Sanitärinstallation" class="why-img" loading="lazy">
+                    <img src="<?= e(cms($blockMap, 'why_header', 'image_path', 'https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80')) ?>" alt="Professionelle Sanitärinstallation" class="why-img" loading="lazy"<?= cmsAttr($blockMap, 'why_header', 'image_path') ?>>
                 </div>
             </div>
         </div>
@@ -300,8 +300,8 @@
                         if (!empty($faqQ)):
                     ?>
                     <details class="faq-item">
-                        <summary class="faq-question"><?= e($faqQ) ?></summary>
-                        <div class="faq-answer"><p><?= e($faqA) ?></p></div>
+                        <summary class="faq-question"<?= cmsAttr($blockMap, 'faq_' . $i, 'title') ?>><?= e($faqQ) ?></summary>
+                        <div class="faq-answer"><p<?= cmsAttr($blockMap, 'faq_' . $i, 'content') ?>><?= e($faqA) ?></p></div>
                     </details>
                     <?php endif; endfor; ?>
                 </div>
@@ -315,8 +315,8 @@
             <div class="karriere-content">
                 <div class="karriere-content-inner" data-reveal>
                     <span class="section-label" style="color: rgba(255,255,255,0.4);">Karriere</span>
-                    <h2 class="karriere-title" id="karriere-heading"><?= cms($blockMap, 'karriere', 'title', '<strong>Werde Teil unseres Teams</strong> – und bewege Grosses') ?></h2>
-                    <div class="karriere-text"><?= nl2p(cms($blockMap, 'karriere', 'content', "Unsere Mitarbeitenden sind das Fundament unseres Erfolgs. Wir bieten ein Arbeitsumfeld, in dem Respekt, Teamgeist und Eigenverantwortung gelebt werden – und in dem sich alle Mitarbeitenden wertgeschätzt fühlen.\n\nEntdecke die Chancen bei SUI Innova und gestalte die Zukunft der Gebäudetechnik aktiv mit. Wir suchen motivierte Fachkräfte, die mit Leidenschaft dabei sind.")) ?></div>
+                    <h2 class="karriere-title" id="karriere-heading"<?= cmsAttr($blockMap, 'karriere', 'title') ?>><?= cms($blockMap, 'karriere', 'title', '<strong>Werde Teil unseres Teams</strong> – und bewege Grosses') ?></h2>
+                    <div class="karriere-text"<?= cmsAttr($blockMap, 'karriere', 'content') ?>><?= nl2p(cms($blockMap, 'karriere', 'content', "Unsere Mitarbeitenden sind das Fundament unseres Erfolgs. Wir bieten ein Arbeitsumfeld, in dem Respekt, Teamgeist und Eigenverantwortung gelebt werden – und in dem sich alle Mitarbeitenden wertgeschätzt fühlen.\n\nEntdecke die Chancen bei SUI Innova und gestalte die Zukunft der Gebäudetechnik aktiv mit. Wir suchen motivierte Fachkräfte, die mit Leidenschaft dabei sind.")) ?></div>
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline-light">
                         Menschen &amp; Karriere
                         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -324,7 +324,7 @@
                 </div>
             </div>
             <div class="karriere-img-col">
-                <img src="<?= e(cms($blockMap, 'karriere', 'image_path', 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80')) ?>" alt="Unser Team" class="karriere-img" loading="lazy">
+                <img src="<?= e(cms($blockMap, 'karriere', 'image_path', 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80')) ?>" alt="Unser Team" class="karriere-img" loading="lazy"<?= cmsAttr($blockMap, 'karriere', 'image_path') ?>>
                 <div class="karriere-badge" aria-hidden="true">
                     <span>gemeinsam stark</span>
                 </div>
@@ -337,8 +337,8 @@
         <div class="cta-bg"></div>
         <div class="container">
             <div class="cta-content" data-reveal>
-                <h2 class="cta-title"><?= e(cms($blockMap, 'cta', 'title', 'Ihr nächstes Projekt?')) ?></h2>
-                <p class="cta-text"><?= e(cms($blockMap, 'cta', 'content', 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.')) ?></p>
+                <h2 class="cta-title"<?= cmsAttr($blockMap, 'cta', 'title') ?>><?= e(cms($blockMap, 'cta', 'title', 'Ihr nächstes Projekt?')) ?></h2>
+                <p class="cta-text"<?= cmsAttr($blockMap, 'cta', 'content') ?>><?= e(cms($blockMap, 'cta', 'content', 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.')) ?></p>
                 <div class="cta-actions">
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt anfragen</a>
                     <a href="tel:+41440000000" class="btn btn-ghost btn-lg">

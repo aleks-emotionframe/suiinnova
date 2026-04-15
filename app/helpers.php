@@ -15,6 +15,17 @@ function cms(array $blockMap, string $key, string $field = 'content', string $de
 }
 
 /**
+ * Output data-cms attributes for inline editing (admin only).
+ */
+function cmsAttr(array $blockMap, string $key, string $field): string
+{
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) return '';
+    $id = $blockMap[$key]['id'] ?? '';
+    if (!$id) return '';
+    return ' data-cms-id="' . (int)$id . '" data-cms-field="' . htmlspecialchars($field, ENT_QUOTES, 'UTF-8') . '"';
+}
+
+/**
  * Get a setting value from the database.
  */
 function setting(string $key, string $default = ''): string

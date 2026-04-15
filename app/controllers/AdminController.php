@@ -566,6 +566,69 @@ class AdminController
         redirect(SITE_URL . ADMIN_PATH);
     }
 
+    // ── API Endpoints (JSON) ──
+
+    public function apiSave(): void
+    {
+        if (!Auth::check()) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'Nicht eingeloggt']);
+            return;
+        }
+
+        $id = (int)($_POST['id'] ?? 0);
+        $field = $_POST['field'] ?? '';
+        $value = $_POST['value'] ?? '';
+
+        $allowed = ['title', 'subtitle', 'content'];
+        if (!in_array($field, $allowed) || $id < 1) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Ungültige Anfrage']);
+            return;
+        }
+
+        try {
+            $stmt = $this->db->prepare("UPDATE content_blocks SET {$field} = ? WHERE id = ?");
+            $stmt->execute([$value, $id]);
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => 'Datenbankfehler']);
+        }
+    }
+
+    public function apiUpload(): void
+    {
+        if (!Auth::check()) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'Nicht eingeloggt']);
+            return;
+        }
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id < 1 || empty($_FILES['image']['name'])) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Ungültige Anfrage']);
+            return;
+        }
+
+        $uploaded = $this->handleUpload($_FILES['image']);
+        if (!$uploaded) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Upload fehlgeschlagen']);
+            return;
+        }
+
+        try {
+            $stmt = $this->db->prepare('UPDATE content_blocks SET image_path = ? WHERE id = ?');
+            $stmt->execute([$uploaded, $id]);
+            echo json_encode(['success' => true, 'url' => $uploaded]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => 'Datenbankfehler']);
+        }
+    }
+
     // ── File Upload Helper ──
 
     private function handleUpload(array $file): ?string
