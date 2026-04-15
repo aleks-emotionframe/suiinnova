@@ -80,63 +80,72 @@
             <div class="details-grid" data-reveal>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="22" width="40" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 22V12a10 10 0 0120 0v10" stroke="currentColor" stroke-width="2"/><path d="M20 33h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        <!-- GIS vorfabrizieren: Rahmen/Modul in Werkstatt -->
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="2" stroke="currentColor" stroke-width="2"/><path d="M6 20h36M20 10v28M34 10v28" stroke="currentColor" stroke-width="2"/><circle cx="13" cy="15" r="2" fill="currentColor"/><circle cx="27" cy="15" r="2" fill="currentColor"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_gis', 'title') ?>><?= e(cms($blockMap, 'detail_gis', 'title', 'GIS-Elemente vorfabrizieren')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_gis', 'content') ?>><?= e(cms($blockMap, 'detail_gis', 'content', 'Geberit Installationssysteme massgenau in der Werkstatt vorbereiten. Qualitätskontrolle vor Auslieferung, termingerechte Lieferung.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/><path d="M24 12v12l8 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <!-- GIS montieren: Schraubenschlüssel -->
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M30 6a12 12 0 00-11.3 16.1L6 34.8 13.2 42l12.7-12.7A12 12 0 1030 6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="30" cy="18" r="4" stroke="currentColor" stroke-width="2"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_gis_montage', 'title') ?>><?= e(cms($blockMap, 'detail_gis_montage', 'title', 'GIS-Elemente montieren')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_gis_montage', 'content') ?>><?= e(cms($blockMap, 'detail_gis_montage', 'content', 'Fachgerechte Montage nach Herstellervorgaben direkt auf der Baustelle. Koordiniert mit allen beteiligten Gewerken.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 44V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 12h20a4 4 0 010 8H8" stroke="currentColor" stroke-width="2"/><path d="M8 28h28a4 4 0 010 8H8" stroke="currentColor" stroke-width="2"/></svg>
+                        <!-- Rohrleitungsbau: Rohr mit Verbindung -->
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M4 20h12v8H4zM32 20h12v8H32z" stroke="currentColor" stroke-width="2"/><path d="M16 16h16v16H16z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 24h-4M36 24h-4" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="3" stroke="currentColor" stroke-width="2"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_rohr', 'title') ?>><?= e(cms($blockMap, 'detail_rohr', 'title', 'Rohrleitungsbau')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_rohr', 'content') ?>><?= e(cms($blockMap, 'detail_rohr', 'content', 'Trinkwasser-, Heizungs- und Abwasserleitungen. Edelstahl, Kupfer, Kunststoff – alle Verbindungstechniken nach SIA-Normen.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M18 6v36" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                        <!-- STOClick: Klick-Befestigung -->
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M24 4v16M16 12l8 8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="24" width="32" height="20" rx="2" stroke="currentColor" stroke-width="2"/><path d="M18 32h12M18 38h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_sto', 'title') ?>><?= e(cms($blockMap, 'detail_sto', 'title', 'STOClick')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_sto', 'content') ?>><?= e(cms($blockMap, 'detail_sto', 'content', 'Schnellmontage-System für sichere Befestigung. Effiziente Vorfabrikation verkürzt Montagezeiten auf der Baustelle.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><path d="M12 44V14a2 2 0 012-2h20a2 2 0 012 2v30" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 12V6h8v6" stroke="currentColor" stroke-width="2"/></svg>
+                        <!-- Duofix/Vorwände: Wandinstallation mit WC -->
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="4" width="32" height="40" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 4h32v12H8z" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="28" r="6" stroke="currentColor" stroke-width="2"/><path d="M24 34v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_duofix', 'title') ?>><?= e(cms($blockMap, 'detail_duofix', 'title', 'Duofix & Vorwände')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_duofix', 'content') ?>><?= e(cms($blockMap, 'detail_duofix', 'content', 'Geberit Duofix und alle gängigen Sanitärvorwandsysteme – auch geschweisst. Für Wohnbau, Gewerbe und Spitäler.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="32" rx="3" stroke="currentColor" stroke-width="2"/><path d="M2 20h44" stroke="currentColor" stroke-width="2"/></svg>
+                        <!-- Beplankungen: Platten übereinander -->
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="40" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="22" width="40" height="12" rx="2" stroke="currentColor" stroke-width="2"/><path d="M4 38h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 6v12M30 6v12M14 22v12M30 22v12" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_beplan', 'title') ?>><?= e(cms($blockMap, 'detail_beplan', 'title', 'Beplankungen')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_beplan', 'content') ?>><?= e(cms($blockMap, 'detail_beplan', 'content', 'Vorwände beplanken mit 1x 18mm oder 2x 12.5mm Platten. Saubere Ausführung für perfekte Oberflächen.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><rect x="2" y="4" width="44" height="40" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="2"/><path d="M24 18v12M18 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        <!-- AquaPanel: Wassertropfen + Platte -->
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="28" rx="2" stroke="currentColor" stroke-width="2"/><path d="M24 4c-3 4-6 7-6 10a6 6 0 0012 0c0-3-3-6-6-10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 28h20M14 34h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_aqua', 'title') ?>><?= e(cms($blockMap, 'detail_aqua', 'title', 'AquaPanel')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_aqua', 'content') ?>><?= e(cms($blockMap, 'detail_aqua', 'content', 'Geberit AquaPanel 2x 12mm für Feuchträume. Zementgebundene Bauplatten – wasserfest, schimmelfrei, dauerhaft.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><path d="M6 38h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 38V18l14-10 14 10v20" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 38v-10h12v10" stroke="currentColor" stroke-width="2"/></svg>
+                        <!-- Spachtelungen: Spachtel/Kelle -->
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 40l6-6M14 34l20-20a4 4 0 00-5.6-5.6L8 28.4V40h6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M28 14l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_spachtel', 'title') ?>><?= e(cms($blockMap, 'detail_spachtel', 'title', 'Spachtelungen')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_spachtel', 'content') ?>><?= e(cms($blockMap, 'detail_spachtel', 'content', 'Fachgerechte Spachtelungen an Vorwänden für perfekte, glatte Oberflächen. Bereit für Fliesen, Putz oder Anstrich.')) ?></p>
                 </div>
                 <div class="detail-card">
                     <div class="detail-card-icon">
-                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 40h32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 40V22h8v18M28 40V16h8v24" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        <!-- Ausflockungen: Füllung/Isolierung -->
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="4" width="12" height="40" rx="1" stroke="currentColor" stroke-width="2"/><rect x="28" y="4" width="12" height="40" rx="1" stroke="currentColor" stroke-width="2"/><path d="M20 12h8M20 20h8M20 28h8M20 36h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 3"/><circle cx="24" cy="16" r="2" fill="currentColor" opacity="0.4"/><circle cx="24" cy="24" r="2" fill="currentColor" opacity="0.4"/><circle cx="24" cy="32" r="2" fill="currentColor" opacity="0.4"/></svg>
                     </div>
                     <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_ausflockung', 'title') ?>><?= e(cms($blockMap, 'detail_ausflockung', 'title', 'Ausflockungen')) ?></h3>
                     <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_ausflockung', 'content') ?>><?= e(cms($blockMap, 'detail_ausflockung', 'content', 'Ausflockungen an Installationswänden für einen sauberen Abschluss. Belegfertige Oberflächen für jeden Belag.')) ?></p>
