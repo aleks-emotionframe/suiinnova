@@ -13,7 +13,7 @@
                     <p class="hero-subtitle" data-reveal data-delay="2"<?= cmsAttr($blockMap, 'hero', 'subtitle') ?>><?= e(cms($blockMap, 'hero', 'subtitle', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr')) ?></p>
                     <p class="hero-desc" data-reveal data-delay="3"<?= cmsAttr($blockMap, 'hero', 'content') ?>><?= e(cms($blockMap, 'hero', 'content', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.')) ?></p>
                     <div class="hero-actions" data-reveal data-delay="4">
-                        <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary btn-lg">Unsere Kompetenzen</a>
+                        <a href="<?= pageUrl('kompetenzen') ?>" class="btn btn-primary btn-lg"<?= cmsAttr($blockMap, 'hero', 'link_text') ?>><?= e(cms($blockMap, 'hero', 'link_text', 'Unsere Kompetenzen')) ?></a>
                         <a href="<?= pageUrl('kontakt') ?>" class="btn btn-outline btn-lg">Kontakt aufnehmen</a>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-                    <a href="<?= pageUrl('unternehmen') ?>" class="btn btn-primary" style="margin-top: 1.5rem;">Mehr über uns</a>
+                    <a href="<?= pageUrl('unternehmen') ?>" class="btn btn-primary" style="margin-top: 1.5rem;"<?= cmsAttr($blockMap, 'intro', 'link_text') ?>><?= e(cms($blockMap, 'intro', 'link_text', 'Mehr über uns')) ?></a>
                 </div>
             </div>
         </div>
@@ -91,10 +91,10 @@
                         <span class="section-label">01</span>
                         <h3 class="service-card-large-title"<?= cmsAttr($blockMap, 'service_vorfab', 'title') ?>><?= e(cms($blockMap, 'service_vorfab', 'title', 'Vorfabrikation')) ?></h3>
                         <p class="service-card-large-desc"<?= cmsAttr($blockMap, 'service_vorfab', 'content') ?>><?= e(cms($blockMap, 'service_vorfab', 'content', 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.')) ?></p>
-                        <ul class="service-card-list">
-                            <li>GIS-Elemente</li>
-                            <li>Rohrleitungsbau</li>
-                            <li>STOClick Montagesystem</li>
+                        <?php $vfList = cms($blockMap, 'service_vorfab', 'link_text', "GIS-Elemente\nRohrleitungsbau\nSTOClick Montagesystem");
+                        $vfItems = array_filter(array_map('trim', explode("\n", $vfList))); ?>
+                        <ul class="service-card-list"<?= cmsAttr($blockMap, 'service_vorfab', 'link_text') ?>>
+                            <?php foreach ($vfItems as $item): ?><li><?= e($item) ?></li><?php endforeach; ?>
                         </ul>
                         <a href="<?= pageUrl('kompetenzen') ?>#vorfabrikation" class="link-arrow">
                             Mehr erfahren
@@ -111,10 +111,10 @@
                         <span class="section-label">02</span>
                         <h3 class="service-card-large-title"<?= cmsAttr($blockMap, 'service_montage', 'title') ?>><?= e(cms($blockMap, 'service_montage', 'title', 'Montage vor Ort')) ?></h3>
                         <p class="service-card-large-desc"<?= cmsAttr($blockMap, 'service_montage', 'content') ?>><?= e(cms($blockMap, 'service_montage', 'content', 'Unser erfahrenes Team sorgt für die fachgerechte Installation direkt auf der Baustelle – von der Vorwand bis zur Spachtelung.')) ?></p>
-                        <ul class="service-card-list">
-                            <li>GIS-Elemente &amp; Duofix</li>
-                            <li>Beplankungen &amp; AquaPanel</li>
-                            <li>Spachtelungen &amp; Ausflockungen</li>
+                        <?php $mList = cms($blockMap, 'service_montage', 'link_text', "GIS-Elemente & Duofix\nBeplankungen & AquaPanel\nSpachtelungen & Ausflockungen");
+                        $mItems = array_filter(array_map('trim', explode("\n", $mList))); ?>
+                        <ul class="service-card-list"<?= cmsAttr($blockMap, 'service_montage', 'link_text') ?>>
+                            <?php foreach ($mItems as $item): ?><li><?= e($item) ?></li><?php endforeach; ?>
                         </ul>
                         <a href="<?= pageUrl('kompetenzen') ?>#montage" class="link-arrow">
                             Mehr erfahren
@@ -340,7 +340,7 @@
                 <h2 class="cta-title"<?= cmsAttr($blockMap, 'cta', 'title') ?>><?= e(cms($blockMap, 'cta', 'title', 'Ihr nächstes Projekt?')) ?></h2>
                 <p class="cta-text"<?= cmsAttr($blockMap, 'cta', 'content') ?>><?= e(cms($blockMap, 'cta', 'content', 'Kontaktieren Sie uns für eine unverbindliche Beratung. Wir freuen uns auf Ihre Anfrage.')) ?></p>
                 <div class="cta-actions">
-                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt anfragen</a>
+                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg"<?= cmsAttr($blockMap, 'cta', 'link_text') ?>><?= e(cms($blockMap, 'cta', 'link_text', 'Jetzt anfragen')) ?></a>
                     <a href="tel:+41440000000" class="btn btn-ghost btn-lg">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5a2 2 0 012-2h2.28a1 1 0 01.95.68l1.05 3.16a1 1 0 01-.24 1.02l-1.3 1.3a10.06 10.06 0 004.1 4.1l1.3-1.3a1 1 0 011.02-.24l3.16 1.05a1 1 0 01.68.95V17a2 2 0 01-2 2A15 15 0 013 5z" stroke="currentColor" stroke-width="1.5"/></svg>
                         +41 44 000 00 00

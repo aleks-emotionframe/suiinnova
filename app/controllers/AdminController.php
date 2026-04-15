@@ -580,7 +580,7 @@ class AdminController
         $field = $_POST['field'] ?? '';
         $value = $_POST['value'] ?? '';
 
-        $allowed = ['title', 'subtitle', 'content'];
+        $allowed = ['title', 'subtitle', 'content', 'link_text'];
         if (!in_array($field, $allowed) || $id < 1) {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Ungültige Anfrage']);

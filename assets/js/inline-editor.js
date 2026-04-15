@@ -95,6 +95,22 @@
 
     // Handle clicks on editable elements
     document.addEventListener('click', function(e) {
+        // Check for image behind overlay (fullwidth-banner, hero)
+        var overlay = e.target.closest('.fullwidth-banner-overlay, .fullwidth-banner-content, .hero-overlay');
+        if (overlay) {
+            var section = overlay.closest('.fullwidth-banner, .hero-bg');
+            if (section) {
+                var img = section.querySelector('img[data-cms-id]');
+                if (img) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    currentImageEl = img;
+                    fileInput.click();
+                    return;
+                }
+            }
+        }
+
         var el = e.target.closest('[data-cms-id]');
         if (!el) return;
 
@@ -111,7 +127,7 @@
         }
 
         // Text fields: make contenteditable
-        if (el.getAttribute('contenteditable') === 'true') return; // already editing
+        if (el.getAttribute('contenteditable') === 'true') return;
 
         e.preventDefault();
         e.stopPropagation();
@@ -120,7 +136,6 @@
         el.classList.add('cms-editing');
         el.focus();
 
-        // Save on blur
         function onBlur() {
             el.removeAttribute('contenteditable');
             el.classList.remove('cms-editing');

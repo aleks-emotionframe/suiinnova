@@ -92,11 +92,10 @@
                     <div class="quality-text"<?= cmsAttr($blockMap, 'quality', 'content') ?>>
                         <?= nl2p(cms($blockMap, 'quality', 'content', 'Qualität ist kein Zufall, sondern das Ergebnis konsequenter Prozesse und hoher Ansprüche. Unser Qualitätsmanagement stellt sicher, dass jedes Projekt unseren Standards entspricht.')) ?>
                     </div>
-                    <ul class="quality-list">
-                        <li>Qualitätskontrolle in jeder Projektphase</li>
-                        <li>Einhaltung aller relevanten SIA-Normen</li>
-                        <li>Dokumentierte Prozesse und Abnahmen</li>
-                        <li>Kontinuierliche Weiterbildung des Teams</li>
+                    <?php $qList = cms($blockMap, 'quality', 'link_text', "Qualitätskontrolle in jeder Projektphase\nEinhaltung aller relevanten SIA-Normen\nDokumentierte Prozesse und Abnahmen\nKontinuierliche Weiterbildung des Teams");
+                    $qItems = array_filter(array_map('trim', explode("\n", $qList))); ?>
+                    <ul class="quality-list"<?= cmsAttr($blockMap, 'quality', 'link_text') ?>>
+                        <?php foreach ($qItems as $item): ?><li><?= e($item) ?></li><?php endforeach; ?>
                     </ul>
                 </div>
                 <div class="quality-visual" aria-hidden="true">
@@ -135,7 +134,7 @@
                 <h2 class="cta-title"<?= cmsAttr($blockMap, 'cta', 'title') ?>><?= e(cms($blockMap, 'cta', 'title', 'Teil unseres Teams werden?')) ?></h2>
                 <p class="cta-text"<?= cmsAttr($blockMap, 'cta', 'content') ?>><?= e(cms($blockMap, 'cta', 'content', 'Wir suchen engagierte Fachkräfte. Kontaktieren Sie uns für offene Stellen.')) ?></p>
                 <div class="cta-actions">
-                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Jetzt bewerben</a>
+                    <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg"<?= cmsAttr($blockMap, 'cta', 'link_text') ?>><?= e(cms($blockMap, 'cta', 'link_text', 'Jetzt bewerben')) ?></a>
                 </div>
             </div>
         </div>

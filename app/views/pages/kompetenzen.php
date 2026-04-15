@@ -145,7 +145,7 @@
             <div class="cta-content" data-reveal>
                 <h2 class="cta-title"<?= cmsAttr($blockMap, 'cta', 'title') ?>><?= e(cms($blockMap, 'cta', 'title', 'Haben Sie ein Projekt?')) ?></h2>
                 <p class="cta-text"<?= cmsAttr($blockMap, 'cta', 'content') ?>><?= e(cms($blockMap, 'cta', 'content', 'Wir beraten Sie gerne – von der Vorfabrikation bis zur Montage.')) ?></p>
-                <div class="cta-actions"><a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg">Kontakt aufnehmen</a></div>
+                <div class="cta-actions"><a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary btn-lg"<?= cmsAttr($blockMap, 'cta', 'link_text') ?>><?= e(cms($blockMap, 'cta', 'link_text', 'Kontakt aufnehmen')) ?></a></div>
             </div>
         </div>
     </section>
