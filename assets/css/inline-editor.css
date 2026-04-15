@@ -45,7 +45,6 @@ body.cms-active .site-header { top: 44px !important; }
 
 /* Editable elements */
 [data-cms-id] {
-    position: relative;
     transition: outline 0.15s, box-shadow 0.15s;
     cursor: pointer;
 }
@@ -57,6 +56,11 @@ body.cms-active .site-header { top: 44px !important; }
     outline: 2px solid #E30613;
     outline-offset: 2px;
     background: rgba(227,6,19,0.03);
+}
+.fullwidth-banner img[data-cms-id],
+.hero-bg img[data-cms-id] {
+    outline-offset: -2px;
+}
 }
 [data-cms-id][data-cms-field="image_path"]:hover {
     opacity: 0.8;
