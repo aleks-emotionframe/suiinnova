@@ -4,8 +4,8 @@
  * Adjust these settings for your Hostpoint hosting environment.
  */
 
-// Error reporting (disable in production)
-define('APP_DEBUG', false);
+// Error reporting (show errors to find problems)
+define('APP_DEBUG', true);
 
 // Database configuration (Hostpoint MySQL)
 define('DB_HOST', 'bifitudo.mysql.db.internal');
