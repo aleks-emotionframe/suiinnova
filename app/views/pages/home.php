@@ -38,23 +38,22 @@
                     </div>
                 </div>
                 <div class="intro-content" data-reveal data-delay="1">
-                    <span class="section-label">Über uns</span>
+                    <span class="section-label"><?= e(cms($blockMap, 'intro', 'subtitle', 'Über uns')) ?></span>
                     <h2 class="section-title" id="intro-heading"><?= e(cms($blockMap, 'intro', 'title', 'Ihr Spezialist für Sanitär-Vorfabrikation')) ?></h2>
-                    <div class="intro-text"><?= nl2p(cms($blockMap, 'intro', 'content', "Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.\n\nUnsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.")) ?></div>
+                    <div class="intro-text"><?= nl2p(cms($blockMap, 'intro', 'content', 'Mit langjähriger Erfahrung realisieren wir Projekte in der ganzen Schweiz.')) ?></div>
+                    <?php
+                    $highlights = cms($blockMap, 'intro_highlights', 'content', "Schweizweit im Einsatz\nAlles aus einer Hand\nTermingerecht & zuverlässig");
+                    $highlightItems = array_filter(array_map('trim', explode("\n", $highlights)));
+                    if (!empty($highlightItems)): ?>
                     <div class="intro-highlights">
+                        <?php foreach ($highlightItems as $item): ?>
                         <div class="intro-highlight">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <span>Schweizweit im Einsatz</span>
+                            <span><?= e($item) ?></span>
                         </div>
-                        <div class="intro-highlight">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <span>Alles aus einer Hand</span>
-                        </div>
-                        <div class="intro-highlight">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.7 5.3l-8.4 8.4L4.3 9.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <span>Termingerecht &amp; zuverlässig</span>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
                     <a href="<?= pageUrl('unternehmen') ?>" class="btn btn-primary" style="margin-top: 1.5rem;">Mehr über uns</a>
                 </div>
             </div>

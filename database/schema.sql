@@ -119,6 +119,7 @@ INSERT INTO `pages` (`slug`, `title`, `meta_description`, `is_in_nav`, `sort_ord
 INSERT INTO `content_blocks` (`page_id`, `section_key`, `title`, `subtitle`, `content`, `sort_order`) VALUES
 (1, 'hero', 'Präzision in jeder Verbindung', 'GIS-Elemente, Rohrleitungsbau, Sanitärvorwände & mehr', 'Ihr zuverlässiger Partner für die Vorfabrikation und Montage von GIS-Elementen, Duofix-Vorwänden, Beplankungen, AquaPanel und Rohrleitungsbau – termingerecht und in der ganzen Schweiz.', 1),
 (1, 'intro', 'Ihr Spezialist für Sanitär-Vorfabrikation', 'Über uns', 'Mit langjähriger Erfahrung und einem eingespielten Team realisieren wir anspruchsvolle Projekte in der ganzen Schweiz. Von der Vorfabrikation in unserer Werkstatt bis zur Montage auf der Baustelle – alles aus einer Hand.\n\nUnsere Stärke liegt in der effizienten Vorfertigung, die Bauzeiten verkürzt und Kosten optimiert – ohne Kompromisse bei der Qualität.', 2),
+(1, 'intro_highlights', NULL, NULL, 'Schweizweit im Einsatz\nAlles aus einer Hand\nTermingerecht & zuverlässig', 2),
 (1, 'quote', NULL, NULL, '«Qualität ist kein Zufall – sie ist das Ergebnis von Erfahrung, Präzision und Leidenschaft.»', 3),
 (1, 'services_header', 'Was wir für Sie tun', NULL, 'Von der Planung bis zur Fertigstellung – wir bieten Ihnen das komplette Leistungsspektrum im Bereich Sanitär-Vorfabrikation und Montage.', 4),
 (1, 'service_vorfab', 'Vorfabrikation', NULL, 'In unserer Werkstatt fertigen wir massgeschneiderte Komponenten, die auf der Baustelle effizient und präzise installiert werden.', 5),

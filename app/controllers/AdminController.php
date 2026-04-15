@@ -232,7 +232,7 @@ class AdminController
         $block = $block->fetch();
 
         setFlash('success', 'Inhalt aktualisiert.');
-        redirect(SITE_URL . ADMIN_PATH . '/pages/' . ($block['page_id'] ?? ''));
+        redirect(SITE_URL . ADMIN_PATH . '/content/' . $id);
     }
 
     public function contentCreate(string $pageId): void
