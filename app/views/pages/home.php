@@ -2,7 +2,7 @@
     <!-- ============ HERO ============ -->
     <section class="hero" aria-label="Willkommen">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80" alt="" class="hero-bg-img" loading="eager">
+            <img src="<?= e(cms($blockMap, 'hero', 'image_path', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80')) ?>" alt="" class="hero-bg-img" loading="eager">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
@@ -30,7 +30,7 @@
             <div class="intro-split" data-reveal>
                 <div class="intro-img-col">
                     <div class="intro-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Sanitärinstallation – Facharbeit" class="intro-img" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'intro', 'image_path', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80')) ?>" alt="Sanitärinstallation – Facharbeit" class="intro-img" loading="lazy">
                         <div class="intro-img-badge">
                             <span class="intro-badge-number">15+</span>
                             <span class="intro-badge-text">Jahre Erfahrung</span>
@@ -63,7 +63,7 @@
 
     <!-- ============ FULL-WIDTH IMAGE BANNER ============ -->
     <section class="fullwidth-banner" aria-label="Impressionen">
-        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80" alt="Baustelle – professionelle Sanitärinstallation" class="fullwidth-banner-img" loading="lazy">
+        <img src="<?= e(cms($blockMap, 'quote', 'image_path', 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80')) ?>" alt="Baustelle" class="fullwidth-banner-img" loading="lazy">
         <div class="fullwidth-banner-overlay"></div>
         <div class="fullwidth-banner-content" data-reveal>
             <div class="container">
@@ -86,7 +86,7 @@
                 <!-- Vorfabrikation -->
                 <article class="service-card-large" data-reveal>
                     <div class="service-card-large-img">
-                        <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80" alt="Vorfabrikation in der Werkstatt" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'service_vorfab', 'image_path', 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80')) ?>" alt="Vorfabrikation in der Werkstatt" loading="lazy">
                     </div>
                     <div class="service-card-large-body">
                         <span class="section-label">01</span>
@@ -106,7 +106,7 @@
                 <!-- Montage -->
                 <article class="service-card-large" data-reveal data-delay="1">
                     <div class="service-card-large-img">
-                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80" alt="Montage vor Ort auf der Baustelle" loading="lazy">
+                        <img src="<?= e(cms($blockMap, 'service_montage', 'image_path', 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80')) ?>" alt="Montage vor Ort" loading="lazy">
                     </div>
                     <div class="service-card-large-body">
                         <span class="section-label">02</span>
@@ -230,7 +230,7 @@
                     </div>
                 </div>
                 <div class="why-img-col" data-reveal data-delay="1">
-                    <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80" alt="Professionelle Sanitärinstallation" class="why-img" loading="lazy">
+                    <img src="<?= e(cms($blockMap, 'why_header', 'image_path', 'https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80')) ?>" alt="Professionelle Sanitärinstallation" class="why-img" loading="lazy">
                 </div>
             </div>
         </div>
@@ -363,7 +363,7 @@
                 </div>
             </div>
             <div class="karriere-img-col">
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="Unser Team bei der Arbeit" class="karriere-img" loading="lazy">
+                <img src="<?= e(cms($blockMap, 'karriere', 'image_path', 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80')) ?>" alt="Unser Team" class="karriere-img" loading="lazy">
                 <div class="karriere-badge" aria-hidden="true">
                     <span>gemeinsam stark</span>
                 </div>

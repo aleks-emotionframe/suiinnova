@@ -15,7 +15,7 @@
         <div class="container">
             <div class="komp-split" data-reveal>
                 <div class="komp-split-img">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Vorfabrikation in der Werkstatt" loading="lazy">
+                    <img src="<?= e(cms($blockMap, 'vorfab_header', 'image_path', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80')) ?>" alt="Vorfabrikation" loading="lazy">
                 </div>
                 <div class="komp-split-body">
                     <span class="section-label">01 — Vorfabrikation</span>
@@ -45,7 +45,7 @@
         <div class="container">
             <div class="komp-split komp-split-reverse" data-reveal>
                 <div class="komp-split-img">
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Montage auf der Baustelle" loading="lazy">
+                    <img src="<?= e(cms($blockMap, 'montage_header', 'image_path', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80')) ?>" alt="Montage" loading="lazy">
                 </div>
                 <div class="komp-split-body">
                     <span class="section-label">02 — Montage vor Ort</span>
