@@ -131,8 +131,15 @@
                     <div class="detail-card-icon">
                         <svg viewBox="0 0 48 48" fill="none"><path d="M6 38h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 38V18l14-10 14 10v20" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 38v-10h12v10" stroke="currentColor" stroke-width="2"/></svg>
                     </div>
-                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_spachtel', 'title') ?>><?= e(cms($blockMap, 'detail_spachtel', 'title', 'Spachtelungen & Ausflockungen')) ?></h3>
-                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_spachtel', 'content') ?>><?= e(cms($blockMap, 'detail_spachtel', 'content', 'Fachgerechte Spachtelungen an Vorwänden. Perfekte Oberflächen, bereit für Fliesen, Putz oder Anstrich.')) ?></p>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_spachtel', 'title') ?>><?= e(cms($blockMap, 'detail_spachtel', 'title', 'Spachtelungen')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_spachtel', 'content') ?>><?= e(cms($blockMap, 'detail_spachtel', 'content', 'Fachgerechte Spachtelungen an Vorwänden für perfekte, glatte Oberflächen. Bereit für Fliesen, Putz oder Anstrich.')) ?></p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-card-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 40h32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 40V22h8v18M28 40V16h8v24" stroke="currentColor" stroke-width="2"/><path d="M4 44h40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="detail-card-title"<?= cmsAttr($blockMap, 'detail_ausflockung', 'title') ?>><?= e(cms($blockMap, 'detail_ausflockung', 'title', 'Ausflockungen')) ?></h3>
+                    <p class="detail-card-desc"<?= cmsAttr($blockMap, 'detail_ausflockung', 'content') ?>><?= e(cms($blockMap, 'detail_ausflockung', 'content', 'Ausflockungen an Installationswänden für einen sauberen Abschluss. Belegfertige Oberflächen für jeden Belag.')) ?></p>
                 </div>
             </div>
         </div>
