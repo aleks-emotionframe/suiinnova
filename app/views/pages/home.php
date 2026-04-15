@@ -294,54 +294,16 @@
                     <a href="<?= pageUrl('kontakt') ?>" class="btn btn-primary" style="margin-top: var(--space-md);">Weitere Fragen? Kontakt</a>
                 </div>
                 <div class="faq-list" data-reveal data-delay="1">
+                    <?php for ($i = 1; $i <= 8; $i++):
+                        $faqQ = cms($blockMap, 'faq_' . $i, 'title', '');
+                        $faqA = cms($blockMap, 'faq_' . $i, 'content', '');
+                        if (!empty($faqQ)):
+                    ?>
                     <details class="faq-item">
-                        <summary class="faq-question">Was bedeutet GIS-Elemente vorfabrizieren?</summary>
-                        <div class="faq-answer">
-                            <p>Beim GIS-Elemente vorfabrizieren werden Geberit Installationssysteme in unserer Werkstatt massgenau vorbereitet. Die fertigen GIS-Elemente werden anschliessend auf die Baustelle geliefert und dort montiert. Durch die Vorfabrikation sparen Sie Bauzeit und profitieren von gleichbleibend hoher Qualität.</p>
-                        </div>
+                        <summary class="faq-question"><?= e($faqQ) ?></summary>
+                        <div class="faq-answer"><p><?= e($faqA) ?></p></div>
                     </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Wie läuft die Montage von GIS-Elementen vor Ort ab?</summary>
-                        <div class="faq-answer">
-                            <p>Unsere Fachkräfte montieren die vorgefertigten GIS-Elemente direkt auf der Baustelle nach Herstellervorgaben. Die Montage umfasst die Befestigung, den Anschluss an bestehende Leitungen und die Qualitätskontrolle. GIS-Elemente montieren wir schnell, präzise und termingerecht.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Was umfasst euer Rohrleitungsbau?</summary>
-                        <div class="faq-answer">
-                            <p>Unser Rohrleitungsbau deckt Trinkwasser-, Heizungs- und Abwasserleitungen ab. Wir verarbeiten alle gängigen Materialien wie Edelstahl, Kupfer und Kunststoff. Von der Planung über die Vorfabrikation bis zur Montage vor Ort – alles aus einer Hand.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Was ist STOClick und wofür wird es eingesetzt?</summary>
-                        <div class="faq-answer">
-                            <p>STOClick ist ein innovatives Montagesystem für die schnelle und sichere Befestigung im Sanitärbereich. Wir setzen STOClick für effiziente Vorfabrikation ein, die den Arbeitsaufwand auf der Baustelle deutlich reduziert.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Welche Vorwandsysteme montiert ihr (Duofix, etc.)?</summary>
-                        <div class="faq-answer">
-                            <p>Wir montieren alle gängigen Sanitärvorwandsysteme: Geberit Duofix und weitere Duofix-Varianten, sowie geschweisste Vorwände. Eine Sanitärvorwand montieren wir inkl. Beplankung, AquaPanel und Spachtelung – alles aus einer Hand. Ob Duofix &amp; Vorwände für Neubauten oder Sanierungen, wir haben die Erfahrung.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Was bedeutet Vorwände beplanken?</summary>
-                        <div class="faq-answer">
-                            <p>Vorwände beplanken bedeutet, die Sanitärvorwand-Konstruktion mit Platten zu verkleiden. Wir bieten Beplankungen mit 1x 18mm oder 2x 12.5mm Gipskartonplatten sowie Geberit AquaPanel (2x 12mm) für Feuchträume. Nach dem Beplanken folgen Spachtelungen und Ausflockungen für eine perfekte Oberfläche.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Wann ist AquaPanel die richtige Wahl?</summary>
-                        <div class="faq-answer">
-                            <p>AquaPanel von Geberit ist die ideale Lösung für Feuchträume wie Bäder und Duschen. Die zementgebundenen Bauplatten sind wasserfest, schimmelfrei und extrem belastbar. Wir montieren AquaPanel in der Variante 2x 12mm für maximalen Schutz und Langlebigkeit.</p>
-                        </div>
-                    </details>
-                    <details class="faq-item">
-                        <summary class="faq-question">Was ist der Vorteil einer Sanitärvorwand-Vorfabrikation?</summary>
-                        <div class="faq-answer">
-                            <p>Sanitärvorwand vorfabrizieren spart bis zu 40% Bauzeit auf der Baustelle. Die Elemente werden in unserer Werkstatt unter kontrollierten Bedingungen gefertigt, was zu höherer Qualität und weniger Nacharbeit führt. Die Kosten sind planbarer und die Baustellenlogistik wird vereinfacht.</p>
-                        </div>
-                    </details>
+                    <?php endif; endfor; ?>
                 </div>
             </div>
         </div>
