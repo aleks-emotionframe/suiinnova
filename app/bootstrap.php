@@ -44,9 +44,14 @@ if (!is_dir(UPLOAD_PATH)) {
  */
 function checkMaintenance(): void
 {
-    // Skip for admin routes and logged-in admins
+    // Skip for admin routes
     $uri = $_SERVER['REQUEST_URI'] ?? '/';
-    if (str_contains($uri, '/admin') || Auth::check()) {
+    if (str_contains($uri, '/admin')) {
+        return;
+    }
+
+    // Skip for logged-in admins
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         return;
     }
 
