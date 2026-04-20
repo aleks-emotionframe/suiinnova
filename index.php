@@ -26,9 +26,11 @@ if (!$page) {
 }
 
 // Seiten-Meta fuers Layout bereitstellen
-$pageTitle = $page['title'] ?? '';
-$pageDesc  = $page['meta_description'] ?? '';
-$sections  = loadSections((int)$page['id']);
+$pageTitle   = $page['title'] ?? '';
+$pageDesc    = $page['meta_description'] ?? '';
+$currentSlug = $page['slug'] ?? '';
+$isHomepage  = !empty($page['is_homepage']);
+$sections    = loadSections((int)$page['id']);
 
 // Besuch tracken (DSGVO-konform)
 trackVisit($page['slug'] ?? '');
