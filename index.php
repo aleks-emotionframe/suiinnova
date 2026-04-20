@@ -1,69 +1,37 @@
 <?php
 /**
  * SUI Innova GmbH — Front Controller
- * All requests are routed through this file.
+ *
+ * Laedt Bootstrap, ermittelt die aktuelle Seite und rendert das Layout.
  */
 
-define('APP_PATH', __DIR__ . '/app');
-require_once APP_PATH . '/bootstrap.php';
-require_once APP_PATH . '/controllers/PageController.php';
-require_once APP_PATH . '/controllers/AdminController.php';
+define('BASE_PATH', __DIR__);
 
-// Check maintenance mode before routing
-checkMaintenance();
+require_once BASE_PATH . '/core/bootstrap.php';
+require_once BASE_PATH . '/core/router.php';
 
-$router = new Router();
-$pages = new PageController();
-$admin = new AdminController();
+// Wartungsmodus (Admin wird bereits in bootstrap.php erkannt und umgangen)
+if (setting('maintenance_mode') === '1' && !isLoggedIn()) {
+    http_response_code(503);
+    header('Retry-After: 3600');
+    include BASE_PATH . '/templates/maintenance.php';
+    exit;
+}
 
-// ── Public Routes ──
-$router->get('/', [$pages, 'home']);
-$router->get('/startseite', [$pages, 'home']);
-$router->get('/kompetenzen', [$pages, 'kompetenzen']);
-$router->get('/referenzen', [$pages, 'referenzen']);
-$router->get('/unternehmen', [$pages, 'unternehmen']);
-$router->get('/kontakt', [$pages, 'kontakt']);
-$router->post('/kontakt', [$pages, 'kontaktSubmit']);
+// Aktuelle Seite ermitteln
+$page = resolveCurrentPage();
 
-// ── Admin Routes ──
-$router->post('/admin/api/save', [$admin, 'apiSave']);
-$router->post('/admin/api/upload', [$admin, 'apiUpload']);
+if (!$page) {
+    render404();
+}
 
-$router->get('/admin', [$admin, 'dashboard']);
-$router->get('/admin/login', [$admin, 'loginForm']);
-$router->post('/admin/login', [$admin, 'loginSubmit']);
-$router->get('/admin/logout', [$admin, 'logout']);
+// Seiten-Meta fuers Layout bereitstellen
+$pageTitle = $page['title'] ?? '';
+$pageDesc  = $page['meta_description'] ?? '';
+$sections  = loadSections((int)$page['id']);
 
-$router->get('/admin/pages', [$admin, 'pagesList']);
-$router->get('/admin/pages/new', [$admin, 'pageCreate']);
-$router->post('/admin/pages/new', [$admin, 'pageStore']);
-$router->get('/admin/pages/{id}', [$admin, 'pageEdit']);
-$router->post('/admin/pages/{id}', [$admin, 'pageUpdate']);
-$router->post('/admin/pages/{id}/toggle', [$admin, 'pageToggle']);
-$router->post('/admin/pages/{id}/delete', [$admin, 'pageDelete']);
+// Besuch tracken (DSGVO-konform)
+trackVisit($page['slug'] ?? '');
 
-$router->get('/admin/content/{id}', [$admin, 'contentEdit']);
-$router->post('/admin/content/{id}', [$admin, 'contentUpdate']);
-$router->get('/admin/pages/{pageId}/content/new', [$admin, 'contentCreate']);
-$router->post('/admin/pages/{pageId}/content/new', [$admin, 'contentStore']);
-$router->post('/admin/content/{id}/delete', [$admin, 'contentDelete']);
-
-$router->get('/admin/references', [$admin, 'referencesList']);
-$router->get('/admin/references/new', [$admin, 'referenceCreate']);
-$router->post('/admin/references/new', [$admin, 'referenceStore']);
-$router->get('/admin/references/{id}', [$admin, 'referenceEdit']);
-$router->post('/admin/references/{id}', [$admin, 'referenceUpdate']);
-$router->post('/admin/references/{id}/delete', [$admin, 'referenceDelete']);
-
-$router->get('/admin/messages', [$admin, 'messagesList']);
-$router->get('/admin/messages/{id}', [$admin, 'messageView']);
-$router->post('/admin/messages/{id}/delete', [$admin, 'messageDelete']);
-
-$router->get('/admin/settings', [$admin, 'settings']);
-$router->post('/admin/settings', [$admin, 'settingsUpdate']);
-
-$router->get('/admin/password', [$admin, 'passwordForm']);
-$router->post('/admin/password', [$admin, 'passwordUpdate']);
-
-// Dispatch
-$router->dispatch($_SERVER['REQUEST_URI'] ?? '/', $_SERVER['REQUEST_METHOD'] ?? 'GET');
+// Layout rendern
+include BASE_PATH . '/templates/layout.php';
