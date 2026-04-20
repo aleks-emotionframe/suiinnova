@@ -18,14 +18,16 @@ $formLoadedAt   = time();
      x-show="open"
      x-cloak
      class="career-overlay"
-     style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);">
+     style="position:fixed;top:0;right:0;bottom:0;left:0;z-index:100;overflow-y:auto;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);">
 
-    <div @click.away="open = false; document.body.style.overflow = '';"
-         x-transition:enter="career-enter"
-         x-transition:enter-start="career-enter-start"
-         x-transition:enter-end="career-enter-end"
-         class="career-card"
-         style="background:#fff;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;border-radius:6px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);position:relative;">
+    <div style="min-height:100%;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;">
+
+        <div @click.away="open = false; document.body.style.overflow = '';"
+             x-transition:enter="career-enter"
+             x-transition:enter-start="career-enter-start"
+             x-transition:enter-end="career-enter-end"
+             class="career-card"
+             style="background:#fff;width:100%;max-width:640px;margin:auto;border-radius:6px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);position:relative;">
 
         <!-- Roter Akzent-Strich oben -->
         <div style="height:3px;background:#C41018;"></div>
@@ -166,6 +168,7 @@ $formLoadedAt   = time();
                 Ihre Daten werden vertraulich behandelt.
             </p>
         </form>
+    </div>
     </div>
 </div>
 
