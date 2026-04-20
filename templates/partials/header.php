@@ -79,17 +79,14 @@ $showCareer    = $careerVisible && $careerText !== '';
                 <?php if ($showCareer): ?>
                     <button type="button"
                             @click="$dispatch('open-career-modal')"
-                            class="career-badge inline-flex items-center gap-2.5 h-10 px-4 text-white transition-opacity hover:opacity-90"
-                            style="background:#C41018;"
+                            class="career-badge inline-flex items-center gap-2.5 h-10 px-5 rounded-md text-white transition-all duration-200 hover:opacity-90"
+                            style="background:#C41018;box-shadow:0 2px 8px rgba(196,16,24,0.25);"
                             title="<?= e($careerText) ?>">
-                        <span class="career-pulse" style="width:8px;height:8px;border-radius:50%;background:#fff;flex-shrink:0;"></span>
-                        <span class="text-[11px] font-semibold uppercase tracking-[0.1em] whitespace-nowrap">
+                        <span class="career-pulse" style="width:7px;height:7px;border-radius:50%;background:#fff;flex-shrink:0;"></span>
+                        <span class="text-[11px] font-semibold uppercase tracking-[0.12em] whitespace-nowrap">
                             <span class="hidden xl:inline"><?= e($careerText) ?></span>
                             <span class="xl:hidden"><?= e($careerBtn) ?></span>
                         </span>
-                        <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
                     </button>
                 <?php endif; ?>
 
