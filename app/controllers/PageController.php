@@ -7,6 +7,7 @@ class PageController
     public function home(): void
     {
         $page = getPage('startseite');
+        enforcePageActive($page);
         $blocks = getContentBlocks($page['id'] ?? 1);
         $blockMap = [];
         foreach ($blocks as $b) {
@@ -26,6 +27,7 @@ class PageController
     public function kompetenzen(): void
     {
         $page = getPage('kompetenzen');
+        enforcePageActive($page);
         $blocks = getContentBlocks($page['id'] ?? 2);
         $blockMap = [];
         foreach ($blocks as $b) {
@@ -45,6 +47,7 @@ class PageController
     public function referenzen(): void
     {
         $page = getPage('referenzen');
+        enforcePageActive($page);
         $db = Database::getInstance();
         $stmt = $db->query('SELECT * FROM references_projects WHERE is_active = 1 ORDER BY sort_order');
         $projects = $stmt->fetchAll();
@@ -64,6 +67,7 @@ class PageController
     public function unternehmen(): void
     {
         $page = getPage('unternehmen');
+        enforcePageActive($page);
         $blocks = getContentBlocks($page['id'] ?? 4);
         $blockMap = [];
         foreach ($blocks as $b) {
@@ -83,6 +87,7 @@ class PageController
     public function kontakt(): void
     {
         $page = getPage('kontakt');
+        enforcePageActive($page);
         $blocks = getContentBlocks($page['id'] ?? 5);
         $blockMap = [];
         foreach ($blocks as $b) {

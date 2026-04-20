@@ -154,6 +154,32 @@ class AdminController
         redirect(SITE_URL . ADMIN_PATH . '/pages/' . $newId);
     }
 
+    public function pageToggle(string $id): void
+    {
+        Auth::requireLogin();
+        if (!Auth::verifyCsrfToken($_POST[CSRF_TOKEN_NAME] ?? '')) {
+            redirect(SITE_URL . ADMIN_PATH . '/pages');
+        }
+
+        $stmt = $this->db->prepare('UPDATE pages SET is_active = 1 - is_active WHERE id = ?');
+        $stmt->execute([$id]);
+
+        $page = $this->db->prepare('SELECT is_active, title FROM pages WHERE id = ?');
+        $page->execute([$id]);
+        $page = $page->fetch();
+
+        $msg = $page && (int)$page['is_active'] === 1
+            ? 'Seite „' . $page['title'] . '" ist jetzt online.'
+            : 'Seite „' . ($page['title'] ?? '') . '" ist jetzt offline – Besucher sehen eine Überarbeitungs-Meldung.';
+        setFlash('success', $msg);
+
+        $return = $_POST['return'] ?? '';
+        if ($return !== '' && str_starts_with($return, '/')) {
+            redirect(SITE_URL . $return);
+        }
+        redirect(SITE_URL . ADMIN_PATH . '/pages');
+    }
+
     public function pageDelete(string $id): void
     {
         Auth::requireLogin();

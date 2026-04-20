@@ -91,8 +91,55 @@ body.cms-active .site-header { top: 44px !important; }
 /* Hidden file input */
 .cms-file-input { display: none; }
 
+/* Offline-banner when viewing an inactive page as admin */
+.cms-offline-banner {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10001;
+    background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 12px, #d97706 12px, #d97706 24px);
+    color: #111; font-size: 13px; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.cms-offline-banner-inner {
+    max-width: 100%; padding: 10px 16px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+}
+.cms-offline-banner-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #111;
+    animation: cms-pulse 1.6s ease-in-out infinite;
+}
+.cms-offline-banner strong { letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+.cms-offline-banner span { font-weight: 500; color: rgba(0,0,0,0.75); }
+.cms-offline-banner-form { margin-left: auto; }
+.cms-offline-banner-btn {
+    background: #111; color: #fff; border: 0;
+    padding: 6px 14px; border-radius: 2px;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.03em;
+    cursor: pointer; transition: background 0.15s;
+}
+.cms-offline-banner-btn:hover { background: #E30613; }
+@keyframes cms-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* Inline form inside toolbar (no extra margin, blend with text links) */
+.cms-toolbar-inline-form { display: inline-flex; margin: 0; padding: 0; }
+.cms-toolbar-inline-form .cms-toolbar-btn {
+    background: transparent; border: 0;
+    font: inherit; cursor: pointer;
+}
+.cms-toolbar-btn-offline { color: #f59e0b !important; }
+.cms-toolbar-btn-offline:hover { background: rgba(245, 158, 11, 0.15) !important; color: #fbbf24 !important; }
+
+/* Push page further down when both banner and toolbar are visible */
+body.cms-active:has(.cms-offline-banner) { padding-top: 84px !important; }
+body.cms-active:has(.cms-offline-banner) .site-header { top: 84px !important; }
+body.cms-active:has(.cms-offline-banner) .cms-toolbar { top: 40px; }
+
 @media (max-width: 768px) {
     .cms-toolbar-nav { display: none; }
     .cms-toolbar-actions { gap: 2px; }
     .cms-toolbar-btn { font-size: 11px; padding: 4px 6px; }
+    .cms-offline-banner-inner { padding: 8px 12px; font-size: 12px; }
+    .cms-offline-banner span { display: none; }
 }

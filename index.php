@@ -39,6 +39,7 @@ $router->get('/admin/pages/new', [$admin, 'pageCreate']);
 $router->post('/admin/pages/new', [$admin, 'pageStore']);
 $router->get('/admin/pages/{id}', [$admin, 'pageEdit']);
 $router->post('/admin/pages/{id}', [$admin, 'pageUpdate']);
+$router->post('/admin/pages/{id}/toggle', [$admin, 'pageToggle']);
 $router->post('/admin/pages/{id}/delete', [$admin, 'pageDelete']);
 
 $router->get('/admin/content/{id}', [$admin, 'contentEdit']);
