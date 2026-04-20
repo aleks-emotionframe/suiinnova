@@ -28,19 +28,21 @@
 <body class="font-sans text-gray-900 bg-white antialiased">
 
     <?php if (isLoggedIn() && isset($page) && (int)($page['is_active'] ?? 1) === 0): ?>
-        <div class="fixed top-0 left-0 right-0 z-[60] bg-amber-500 text-gray-900 text-sm font-medium shadow-lg" id="admin-offline-banner">
-            <div class="max-w-container-wide mx-auto px-4 md:px-6 py-2.5 flex flex-wrap items-center gap-3">
-                <span class="inline-flex items-center gap-2">
-                    <span class="w-2 h-2 bg-gray-900 rounded-full animate-pulse"></span>
-                    <strong class="uppercase tracking-wider text-[11px]">Offline für Besucher</strong>
+        <div id="admin-offline-banner" style="position:fixed;top:0;left:0;right:0;z-index:60;background:#f59e0b;color:#111827;font-size:14px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+            <div class="max-w-container-wide mx-auto px-4 md:px-6" style="padding-top:10px;padding-bottom:10px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+                <span style="display:inline-flex;align-items:center;gap:8px;">
+                    <span style="width:8px;height:8px;background:#111827;border-radius:50%;display:inline-block;animation:admin-offline-pulse 1.4s ease-in-out infinite;"></span>
+                    <strong style="text-transform:uppercase;letter-spacing:0.05em;font-size:11px;">Offline für Besucher</strong>
                 </span>
-                <span class="text-gray-900/80 hidden sm:inline">Diese Seite ist deaktiviert. Nur Sie als Admin sehen sie.</span>
-                <a href="<?= url('admin/pages') ?>" class="ml-auto inline-flex items-center bg-gray-900 text-white px-3 py-1 text-[11px] uppercase tracking-wider font-semibold hover:bg-gray-700 transition-colors">
+                <span class="hidden sm:inline" style="color:rgba(17,24,39,0.8);">Diese Seite ist deaktiviert. Nur Sie als Admin sehen sie.</span>
+                <a href="<?= url('admin/pages') ?>" style="margin-left:auto;display:inline-flex;align-items:center;background:#111827;color:#fff;padding:4px 12px;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;text-decoration:none;transition:background 0.2s;"
+                   onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#111827'">
                     Im CMS verwalten
                 </a>
             </div>
         </div>
         <style>
+            @keyframes admin-offline-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
             #admin-offline-banner ~ header { top: 41px !important; }
             body { padding-top: 41px; }
         </style>
