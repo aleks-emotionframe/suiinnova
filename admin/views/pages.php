@@ -43,8 +43,8 @@ $pages = $db->fetchAll("SELECT * FROM pages ORDER BY sort_order ASC");
                                   class="inline-flex items-center px-1.5 py-0.5 bg-gray-900 text-white text-[10px] font-medium"
                                   <?= !$page['is_active'] ? 'style="display:none"' : '' ?>>ONLINE</span>
                             <span x-show="inactiveIds.includes(<?= (int)$page['id'] ?>)"
-                                  class="inline-flex items-center px-1.5 py-0.5 bg-amber-500 text-white text-[10px] font-medium"
-                                  <?= $page['is_active'] ? 'style="display:none"' : '' ?>>OFFLINE</span>
+                                  class="inline-flex items-center px-1.5 py-0.5 text-white text-[10px] font-medium"
+                                  style="background:#f59e0b;<?= $page['is_active'] ? 'display:none' : '' ?>">OFFLINE</span>
                         </td>
                         <td class="py-3 text-gray-500"><?= $sectionCount ?></td>
                         <td class="py-3 text-gray-400 text-xs"><?= formatDateTime($page['updated_at']) ?></td>
@@ -58,10 +58,8 @@ $pages = $db->fetchAll("SELECT * FROM pages ORDER BY sort_order ASC");
                                 <?php else: ?>
                                     <button type="button"
                                             @click="togglePage(<?= (int)$page['id'] ?>, $event)"
-                                            class="text-xs h-7 px-3 inline-flex items-center font-medium uppercase tracking-wider border transition-colors"
-                                            :class="inactiveIds.includes(<?= (int)$page['id'] ?>)
-                                                ? 'bg-green-600 text-white border-green-600 hover:bg-green-700'
-                                                : 'bg-amber-500 text-white border-amber-500 hover:bg-amber-600'">
+                                            class="text-xs h-7 px-3 inline-flex items-center font-medium uppercase tracking-wider text-white border-0 cursor-pointer transition-opacity hover:opacity-85"
+                                            :style="inactiveIds.includes(<?= (int)$page['id'] ?>) ? 'background:#16a34a' : 'background:#f59e0b'">
                                         <span x-show="!inactiveIds.includes(<?= (int)$page['id'] ?>)" <?= !$page['is_active'] ? 'style="display:none"' : '' ?>>Offline nehmen</span>
                                         <span x-show="inactiveIds.includes(<?= (int)$page['id'] ?>)" <?= $page['is_active'] ? 'style="display:none"' : '' ?>>Online stellen</span>
                                     </button>
@@ -79,8 +77,8 @@ $pages = $db->fetchAll("SELECT * FROM pages ORDER BY sort_order ASC");
 
     <!-- Toast -->
     <div x-show="toast.show" x-transition x-cloak
-         class="fixed bottom-6 right-6 px-4 py-3 text-sm font-medium shadow-lg z-50"
-         :class="toast.type === 'error' ? 'bg-red-600 text-white' : 'bg-gray-900 text-white'"
+         class="fixed bottom-6 right-6 px-4 py-3 text-sm font-medium shadow-lg z-50 text-white"
+         :style="toast.type === 'error' ? 'background:#dc2626' : 'background:#111827'"
          x-text="toast.message"></div>
 </div>
 
