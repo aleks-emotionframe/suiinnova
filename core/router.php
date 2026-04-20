@@ -13,12 +13,15 @@ function resolveCurrentPage(): ?array
     $slug = $_GET['page'] ?? '';
     $slug = trim($slug, '/');
 
+    // Admins duerfen auch inaktive Seiten oeffnen (zum Bearbeiten)
+    $activeFilter = isLoggedIn() ? '' : ' AND is_active = 1';
+
     // Leerer Slug = Startseite
     if ($slug === '' || $slug === 'index.php') {
-        $page = $db->fetch("SELECT * FROM pages WHERE is_homepage = 1 AND is_active = 1 LIMIT 1");
+        $page = $db->fetch("SELECT * FROM pages WHERE is_homepage = 1{$activeFilter} LIMIT 1");
     } else {
         $page = $db->fetch(
-            "SELECT * FROM pages WHERE slug = :slug AND is_active = 1",
+            "SELECT * FROM pages WHERE slug = :slug{$activeFilter}",
             ['slug' => $slug]
         );
     }
