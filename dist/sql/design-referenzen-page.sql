@@ -38,76 +38,21 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     1, 1, NOW(), NOW()
 ),
 
--- ── 2) INTRO ──────────────────────────────────
-(
-    @page_id,
-    'text-block',
-    JSON_OBJECT(
-        'heading',   'Unsere Referenzen',
-        'body',      '<p>Qualität zeigt sich erst in der Umsetzung. Ein Auszug aus Projekten, bei denen wir in den letzten Jahren mit Vorfabrikation und Montage beteiligt waren.</p>',
-        'alignment', 'left'
-    ),
-    2, 1, NOW(), NOW()
-),
-
--- ── 3) REFERENCES-GRID ───────────────────────
+-- ── 2) REFERENCES-GRID (Titel + Intro direkt integriert) ──
 (
     @page_id,
     'references-grid',
     JSON_OBJECT(
-        'heading',  '',
-        'subtitle', '',
-        'items', JSON_ARRAY(
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Wohnüberbauung Limmatfeld',
-                'desc',      'Sanitär-Vorfabrikation und Montage für 120 Wohneinheiten. GIS-Elemente, Vorwandsysteme, Beplankungen – komplett aus einer Hand.',
-                'location',  'Wohnbau',
-                'year',      'Dietikon ZH'
-            ),
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Geschäftshaus Europaallee',
-                'desc',      'Vorfabrikation und Montage von Sanitärinstallationen im modernen Geschäftshaus. Enge Terminplanung, präzise Umsetzung.',
-                'location',  'Gewerbebau',
-                'year',      'Zürich'
-            ),
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Spital Limmattal Erweiterung',
-                'desc',      'Spezialisierte Sanitärinstallationen im Spitalbau. AquaPanel-Montage und Vorwandsysteme in Nassräumen und OP-Bereichen.',
-                'location',  'Spitalbau',
-                'year',      'Schlieren ZH'
-            ),
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Schulanlage Leutschenbach',
-                'desc',      'Sanitär-Vorfabrikation für den Neubau einer modernen Schulanlage. Effiziente GIS-Montage in enger Terminplanung.',
-                'location',  'Bildungsbau',
-                'year',      'Zürich'
-            ),
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Alterszentrum Grünau',
-                'desc',      'Barrierefreie Sanitärinstallationen für 80 Pflegezimmer. Duofix-Systeme und spezielle Anforderungen an die Zugänglichkeit.',
-                'location',  'Gesundheitsbau',
-                'year',      'Winterthur ZH'
-            ),
-            JSON_OBJECT(
-                'image_id',  0,
-                'title',     'Industriepark Glattbrugg',
-                'desc',      'Rohrleitungsbau und Sanitärmontage für einen modernen Industriekomplex. STOClick-Systeme und komplexe Leitungsführung.',
-                'location',  'Industriebau',
-                'year',      'Glattbrugg ZH'
-            )
-        ),
+        'heading',  'Unsere Referenzen',
+        'subtitle', 'Qualität zeigt sich erst in der Umsetzung. Ein Auszug aus Projekten, bei denen wir in den letzten Jahren mit Vorfabrikation und Montage beteiligt waren.',
+        'items', JSON_ARRAY(),
         'button_text', '',
         'button_url',  ''
     ),
-    3, 1, NOW(), NOW()
+    2, 1, NOW(), NOW()
 ),
 
--- ── 4) STATS-BAR ─────────────────────────────
+-- ── 3) STATS-BAR ─────────────────────────────
 (
     @page_id,
     'stats-bar',
@@ -120,10 +65,10 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
             JSON_OBJECT('number', 'CH',    'label', 'Schweizweit tätig')
         )
     ),
-    4, 1, NOW(), NOW()
+    3, 1, NOW(), NOW()
 ),
 
--- ── 5) PARALLAX-IMAGE ────────────────────────
+-- ── 4) PARALLAX-IMAGE ────────────────────────
 (
     @page_id,
     'parallax-image',
@@ -133,10 +78,10 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'height',       'medium',
         'overlay_text', 'Präzision in jeder Verbindung'
     ),
-    5, 1, NOW(), NOW()
+    4, 1, NOW(), NOW()
 ),
 
--- ── 6) CTA-BANNER ────────────────────────────
+-- ── 5) CTA-BANNER ────────────────────────────
 (
     @page_id,
     'cta-banner',
@@ -146,7 +91,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'button_text', 'Projekt besprechen',
         'button_url',  '/kontakt'
     ),
-    6, 1, NOW(), NOW()
+    5, 1, NOW(), NOW()
 );
 
 -- ============================================
