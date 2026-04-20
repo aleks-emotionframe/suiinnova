@@ -11,6 +11,13 @@ $subtitle = $content['subtitle'] ?? '';
 $items    = $content['items'] ?? [];
 $btnText  = $content['button_text'] ?? '';
 $btnUrl   = $content['button_url'] ?? '';
+$limit    = (int) ($content['limit'] ?? 0);
+
+// Wenn keine Items manuell gesetzt sind → globale Referenzen aus DB laden
+// → eine Aenderung wirkt auf allen Seiten gleichzeitig
+if (empty($items)) {
+    $items = getGlobalReferences($limit > 0 ? $limit : null);
+}
 ?>
 
 <section class="section bg-white" id="referenzen">

@@ -62,6 +62,7 @@ requireAuth();
 $adminView = match ($path) {
     '', 'dashboard'   => 'dashboard',
     'pages'           => 'pages',
+    'references'      => 'references',
     'media'           => 'media',
     'seo'             => 'seo',
     'settings'        => 'settings',

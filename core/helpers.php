@@ -182,6 +182,38 @@ function getFlash(): ?array
 }
 
 /**
+ * Globale Referenzen aus der DB holen.
+ * Fuer alle references-grid-Sektionen, damit eine Aenderung ueberall greift.
+ */
+function getGlobalReferences(?int $limit = null): array
+{
+    global $db;
+
+    try {
+        $sql = "SELECT id, title, description, category, city, year, image_id
+                FROM ref_items
+                WHERE is_active = 1
+                ORDER BY sort_order ASC";
+        if ($limit && $limit > 0) {
+            $sql .= " LIMIT " . (int)$limit;
+        }
+        $rows = $db->fetchAll($sql);
+
+        // Auf Template-Felder mappen (title, desc, location, year, image_id)
+        return array_map(fn($r) => [
+            'id'       => $r['id'],
+            'title'    => $r['title'],
+            'desc'     => $r['description'],
+            'location' => $r['category'],   // erster Tag
+            'year'     => $r['city'],       // zweiter Tag (im Template "year" genannt, zeigt die Stadt)
+            'image_id' => $r['image_id'],
+        ], $rows);
+    } catch (Exception $e) {
+        return [];
+    }
+}
+
+/**
  * Richtext rendern: Wenn der Text schon HTML enthaelt (<p>, <ul> etc.)
  * wird er direkt ausgegeben. Sonst werden Absaetze (Leerzeilen) zu <p>-Tags.
  */
