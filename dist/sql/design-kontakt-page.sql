@@ -1,17 +1,16 @@
 -- ============================================
--- SUI Innova GmbH — Kontakt-Seite DESIGN
+-- SUI Innova GmbH — Kontakt-Seite DESIGN v2
 -- ============================================
--- Fuellt die bestehende Kontakt-Seite mit dem finalen Design:
--- 1) Hero-Banner (Kontakt-Titel + 2 Buttons)
--- 2) Kontaktformular (mit Adresse, Telefon)
--- 3) Werte / Reassurance (3 USPs)
--- 4) Parallax-Bild (Werkstatt, als Abschluss)
+-- Struktur passend zu den anderen Unterseiten (z.B. „Ueber uns"):
+-- 1) Parallax-Image als Banner oben (mittlere Hoehe)
+-- 2) Kontaktformular mit Adresse + Telefon
+-- 3) Werte / USPs (3 Reassurance-Punkte)
 --
--- Ausfuehren in phpMyAdmin: Datenbank auswaehlen → Tab "SQL" → einfuegen → OK
--- Idempotent: kann beliebig oft ausgefuehrt werden, ersetzt jedes Mal die Sektionen.
+-- Ausfuehren in phpMyAdmin: DB auswaehlen → Tab "SQL" → einfuegen → OK
+-- Idempotent: kann beliebig oft ausgefuehrt werden.
 -- ============================================
 
--- 1) Sicherstellen, dass die Kontakt-Seite existiert (anlegen falls nicht)
+-- 1) Seite sicherstellen
 INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order, created_at, updated_at)
 SELECT 'Kontakt', 'kontakt', 'Kontakt',
        'Kontaktieren Sie SUI Innova GmbH. Wir freuen uns auf Ihre Anfrage und melden uns innerhalb eines Werktages bei Ihnen.',
@@ -21,36 +20,31 @@ WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'kontakt');
 
 SET @kontakt_id = (SELECT id FROM pages WHERE slug = 'kontakt' LIMIT 1);
 
--- 2) Alte Sektionen wegraeumen (kompletter Reset fuer sauberes Design)
+-- 2) Sektionen ersetzen
 DELETE FROM sections WHERE page_id = @kontakt_id;
 
--- 3) Finales Design in 4 Sektionen anlegen
 INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at, updated_at) VALUES
--- ── HERO ──────────────────────────────────────────
+
+-- ── BANNER (parallax-image, mittlere Hoehe, wie „Ueber uns") ─────
 (
     @kontakt_id,
-    'hero',
+    'parallax-image',
     JSON_OBJECT(
-        'heading',         'Lassen Sie uns sprechen',
-        'tagline',         'Kontakt',
-        'subheading',      'Ob erste Idee, konkrete Offerte oder technische Frage – wir hören zu und melden uns in der Regel innerhalb eines Werktages zurück.',
-        'button_text',     'Zum Formular',
-        'button_url',      '#kontakt',
-        'button2_text',    'Direkt anrufen',
-        'button2_url',     'tel:+41554201990',
-        'overlay_opacity', '0.75',
-        'image_id',        0
+        'image_id',     0,
+        'image_url',    '/assets/img/parallax-werkstatt.jpg',
+        'height',       'medium',
+        'overlay_text', ''
     ),
     1, 1, NOW(), NOW()
 ),
 
--- ── KONTAKTFORMULAR ───────────────────────────────
+-- ── KONTAKTFORMULAR ──────────────────────────────────────────────
 (
     @kontakt_id,
     'contact-form',
     JSON_OBJECT(
-        'heading',       'Nachricht senden',
-        'subtitle',      'Gerne dürfen Sie uns unverbindlich kontaktieren. Wir freuen uns auf Ihre Anfrage.',
+        'heading',       'Lassen Sie uns sprechen',
+        'subtitle',      'Ob erste Idee, konkrete Offerte oder technische Frage – schreiben Sie uns. Wir melden uns in der Regel innerhalb eines Werktages zurueck.',
         'email_target',  '',
         'show_address',  '1',
         'show_phone',    '1',
@@ -59,7 +53,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     2, 1, NOW(), NOW()
 ),
 
--- ── WERTE / USPS (Reassurance nach dem Formular) ──
+-- ── WERTE / USPs (Reassurance nach dem Formular) ─────────────────
 (
     @kontakt_id,
     'values',
@@ -84,25 +78,12 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         )
     ),
     3, 1, NOW(), NOW()
-),
-
--- ── PARALLAX-BILD (visueller Abschluss) ───────────
-(
-    @kontakt_id,
-    'parallax-image',
-    JSON_OBJECT(
-        'image_id',     0,
-        'image_url',    '/assets/img/parallax-werkstatt.jpg',
-        'height',       'medium',
-        'overlay_text', 'Qualität aus einer Hand'
-    ),
-    4, 1, NOW(), NOW()
 );
 
 -- ============================================
--- Fertig! Die Seite ist live unter:
--- https://sui-innova.ch/kontakt
+-- Fertig! https://sui-innova.ch/kontakt
 --
--- Anpassen geht im Admin:
---   /admin/pages → Kontakt → Bearbeiten
+-- Hinweis: Das Banner-Bild ist derzeit parallax-werkstatt.jpg.
+-- Falls ein passenderes Bild gewuenscht: Admin → Seiten → Kontakt
+--   → Banner-Sektion bearbeiten → Bild aus Medien-Bibliothek waehlen.
 -- ============================================
