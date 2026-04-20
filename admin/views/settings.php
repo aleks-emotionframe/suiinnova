@@ -34,12 +34,6 @@ $settingGroups = [
             'created_by_url'  => ['label' => 'Created by (Link)', 'type' => 'text'],
         ],
     ],
-    'seo' => [
-        'label' => 'SEO',
-        'fields' => [
-            'meta_title_suffix' => ['label' => 'Title Suffix',   'type' => 'text'],
-        ],
-    ],
     '404' => [
         'label' => '404-Seite (Seite nicht gefunden)',
         'fields' => [

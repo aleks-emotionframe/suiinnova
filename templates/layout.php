@@ -5,13 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO -->
-    <title><?= e($pageTitle ?? 'SUI Innova GmbH') ?> - <?= e(setting('site_name', SITE_NAME)) ?></title>
-    <?php if (!empty($pageDesc)): ?>
-        <meta name="description" content="<?= e($pageDesc) ?>">
+    <title><?= e($pageTitle ?? 'SUI Innova GmbH') ?> - <?= e(setting('site_name', SITE_NAME)) ?><?= ($suffix = setting('meta_title_suffix')) ? ' | ' . e($suffix) : '' ?></title>
+    <?php $effectiveDesc = $pageDesc ?? '' ?: setting('default_meta_description'); ?>
+    <?php if (!empty($effectiveDesc)): ?>
+        <meta name="description" content="<?= e($effectiveDesc) ?>">
+    <?php endif; ?>
+    <?php if (setting('seo_noindex') === '1'): ?>
+        <meta name="robots" content="noindex, nofollow">
     <?php endif; ?>
 
+    <!-- OpenGraph / Social -->
+    <meta property="og:title" content="<?= e($pageTitle ?? setting('site_name', SITE_NAME)) ?>">
+    <?php if (!empty($effectiveDesc)): ?>
+        <meta property="og:description" content="<?= e($effectiveDesc) ?>">
+    <?php endif; ?>
+    <meta property="og:url" content="<?= e(SITE_URL . $_SERVER['REQUEST_URI']) ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?= e(setting('site_name', SITE_NAME)) ?>">
+    <?php if ($ogImage = setting('og_image_url')): ?>
+        <meta property="og:image" content="<?= e($ogImage) ?>">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="<?= e($ogImage) ?>">
+    <?php else: ?>
+        <meta name="twitter:card" content="summary">
+    <?php endif; ?>
+
+    <!-- Search Console Verification -->
+    <?php if ($googleVerify = setting('google_site_verification')): ?>
+        <meta name="google-site-verification" content="<?= e($googleVerify) ?>">
+    <?php endif; ?>
+    <?php if ($bingVerify = setting('bing_site_verification')): ?>
+        <meta name="msvalidate.01" content="<?= e($bingVerify) ?>">
+    <?php endif; ?>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="<?= e(SITE_URL . $_SERVER['REQUEST_URI']) ?>">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?= asset('img/favicon.ico') ?>">
+    <?php $favicon = setting('favicon_url', asset('img/favicon.ico')); ?>
+    <link rel="icon" type="image/x-icon" href="<?= e($favicon) ?>">
 
     <!-- Fonts (Self-Hosted, DSGVO-konform) -->
     <link rel="preload" href="<?= asset('fonts/Inter-Regular.woff2') ?>" as="font" type="font/woff2" crossorigin>

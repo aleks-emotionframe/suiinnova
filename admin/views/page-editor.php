@@ -22,23 +22,15 @@ $sectionTypes = require BASE_PATH . '/config/sections.php';
 <div x-data="pageEditor()" x-init="init()">
     <!-- Page Meta -->
     <div class="admin-card mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="admin-label">Seitentitel</label>
-                <input type="text" value="<?= e($page['title']) ?>" class="admin-input"
-                       @change="savePageMeta(<?= $page['id'] ?>, 'title', $event.target.value)">
-            </div>
-            <div>
-                <label class="admin-label">Meta Title (SEO)</label>
-                <input type="text" value="<?= e($page['meta_title'] ?? '') ?>" class="admin-input"
-                       @change="savePageMeta(<?= $page['id'] ?>, 'meta_title', $event.target.value)">
-            </div>
-            <div class="md:col-span-2">
-                <label class="admin-label">Meta Description (SEO)</label>
-                <textarea class="admin-textarea" rows="2"
-                          @change="savePageMeta(<?= $page['id'] ?>, 'meta_desc', $event.target.value)"><?= e($page['meta_desc'] ?? '') ?></textarea>
-            </div>
+        <div>
+            <label class="admin-label">Seitentitel</label>
+            <input type="text" value="<?= e($page['title']) ?>" class="admin-input"
+                   @change="savePageMeta(<?= $page['id'] ?>, 'title', $event.target.value)">
         </div>
+        <p class="text-xs text-gray-400 mt-3">
+            SEO-Felder (Meta-Title, Meta-Description) werden zentral verwaltet unter
+            <a href="<?= url('admin/seo') ?>" class="text-gray-900 underline hover:text-brand-accent">SEO & Suchmaschinen</a>.
+        </p>
     </div>
 
     <!-- Sections -->
