@@ -4,8 +4,67 @@
  *
  * Wird auf der Startseite und Referenzen-Seite verwendet.
  * CRUD + Reihenfolge + aktiv/inaktiv.
+ *
+ * Self-healing: legt Tabelle und Default-Referenzen an, falls noch nicht vorhanden.
  */
-$refs = $db->fetchAll("SELECT * FROM ref_items ORDER BY sort_order ASC, id ASC");
+
+// ── Self-Heal: Tabelle anlegen falls nicht vorhanden ──
+try {
+    $db->query("CREATE TABLE IF NOT EXISTS ref_items (
+        id          INT AUTO_INCREMENT PRIMARY KEY,
+        title       VARCHAR(255) NOT NULL,
+        description TEXT         DEFAULT NULL,
+        category    VARCHAR(100) DEFAULT NULL,
+        city        VARCHAR(100) DEFAULT NULL,
+        year        INT          DEFAULT NULL,
+        image_id    INT          DEFAULT NULL,
+        is_active   TINYINT(1)   NOT NULL DEFAULT 1,
+        sort_order  INT          NOT NULL DEFAULT 0,
+        created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP,
+        updated_at  DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_sort (sort_order),
+        INDEX idx_active (is_active)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+} catch (Exception $e) {}
+
+// ── Self-Heal: bei leerer Tabelle die Startseiten-Referenzen als Default einfuegen ──
+$count = 0;
+try {
+    $count = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items");
+} catch (Exception $e) {}
+
+if ($count === 0) {
+    $seedRefs = [
+        ['Wohnüberbauung Limmatfeld', 'Sanitär-Vorfabrikation und Montage für 120 Wohneinheiten. GIS-Elemente, Vorwandsysteme, Beplankungen – komplett aus einer Hand.', 'Wohnbau', 'Dietikon ZH', 2024],
+        ['Geschäftshaus Europaallee', 'Vorfabrikation und Montage von Sanitärinstallationen im modernen Geschäftshaus. Enge Terminplanung, präzise Umsetzung.', 'Gewerbebau', 'Zürich', 2023],
+        ['Spital Limmattal Erweiterung', 'Spezialisierte Sanitärinstallationen im Spitalbau. AquaPanel-Montage und Vorwandsysteme in Nassräumen und OP-Bereichen.', 'Spitalbau', 'Schlieren ZH', 2023],
+        ['Schulanlage Leutschenbach', 'Sanitär-Vorfabrikation für den Neubau einer modernen Schulanlage. Effiziente GIS-Montage in enger Terminplanung.', 'Bildungsbau', 'Zürich', 2024],
+        ['Alterszentrum Grünau', 'Barrierefreie Sanitärinstallationen für 80 Pflegezimmer. Duofix-Systeme und spezielle Anforderungen an die Zugänglichkeit.', 'Gesundheitsbau', 'Winterthur ZH', 2022],
+        ['Industriepark Glattbrugg', 'Rohrleitungsbau und Sanitärmontage für einen modernen Industriekomplex. STOClick-Systeme und komplexe Leitungsführung.', 'Industriebau', 'Glattbrugg ZH', 2024],
+    ];
+
+    try {
+        foreach ($seedRefs as $i => [$title, $desc, $cat, $city, $year]) {
+            $db->insert('ref_items', [
+                'title'       => $title,
+                'description' => $desc,
+                'category'    => $cat,
+                'city'        => $city,
+                'year'        => $year,
+                'sort_order'  => $i + 1,
+                'is_active'   => 1,
+            ]);
+        }
+
+        // Bestehende references-grid-Sektionen zuruecksetzen, damit sie aus ref_items ziehen
+        $db->query("UPDATE sections SET content = JSON_SET(COALESCE(content, JSON_OBJECT()), '$.items', JSON_ARRAY()) WHERE type = 'references-grid'");
+    } catch (Exception $e) {}
+}
+
+$refs = [];
+try {
+    $refs = $db->fetchAll("SELECT * FROM ref_items ORDER BY sort_order ASC, id ASC");
+} catch (Exception $e) {}
 ?>
 
 <div x-data="referencesManager()">
