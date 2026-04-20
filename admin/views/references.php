@@ -27,33 +27,48 @@ try {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 } catch (Exception $e) {}
 
-// ── Self-Heal: bei leerer Tabelle die Startseiten-Referenzen als Default einfuegen ──
+// ── Self-Heal: Referenzen-Daten sicherstellen ──
 $count = 0;
+$hasOldExamples = 0;
 try {
     $count = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items");
+    // Alte Beispiel-Daten erkennen (meine Platzhalter)
+    $hasOldExamples = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items WHERE title IN ('Wohnüberbauung Limmatfeld','Geschäftshaus Europaallee','Spital Limmattal Erweiterung','Schulanlage Leutschenbach','Alterszentrum Grünau','Industriepark Glattbrugg')");
 } catch (Exception $e) {}
 
-if ($count === 0) {
-    $seedRefs = [
-        ['Wohnüberbauung Limmatfeld', 'Sanitär-Vorfabrikation und Montage für 120 Wohneinheiten. GIS-Elemente, Vorwandsysteme, Beplankungen – komplett aus einer Hand.', 'Wohnbau', 'Dietikon ZH', 2024],
-        ['Geschäftshaus Europaallee', 'Vorfabrikation und Montage von Sanitärinstallationen im modernen Geschäftshaus. Enge Terminplanung, präzise Umsetzung.', 'Gewerbebau', 'Zürich', 2023],
-        ['Spital Limmattal Erweiterung', 'Spezialisierte Sanitärinstallationen im Spitalbau. AquaPanel-Montage und Vorwandsysteme in Nassräumen und OP-Bereichen.', 'Spitalbau', 'Schlieren ZH', 2023],
-        ['Schulanlage Leutschenbach', 'Sanitär-Vorfabrikation für den Neubau einer modernen Schulanlage. Effiziente GIS-Montage in enger Terminplanung.', 'Bildungsbau', 'Zürich', 2024],
-        ['Alterszentrum Grünau', 'Barrierefreie Sanitärinstallationen für 80 Pflegezimmer. Duofix-Systeme und spezielle Anforderungen an die Zugänglichkeit.', 'Gesundheitsbau', 'Winterthur ZH', 2022],
-        ['Industriepark Glattbrugg', 'Rohrleitungsbau und Sanitärmontage für einen modernen Industriekomplex. STOClick-Systeme und komplexe Leitungsführung.', 'Industriebau', 'Glattbrugg ZH', 2024],
-    ];
+// Die echten 6 Referenzen aus der Startseite (SUI Innova)
+$realRefs = [
+    // [title,                              category,              city,                         description (optional)]
+    ['Wohnüberbauung Neualtwil',     '8 Mehrfamilienhäuser', 'Neualtwil SG',               ''],
+    ['Industrieplatz Ost',           'Wohnen, Gewerbe',      'Neuhausen am Rheinfall SH',  ''],
+    ['Wohnüberbauung Aupark',        'Wohnen, Gewerbe',      'Wädenswil ZH',               ''],
+    ['Schulanlage im Isengrind',     'Schule',               'Affoltern ZH',               ''],
+    ['Wohnüberbauung im Ämet',       'Wohnen',               'Birmensdorf ZH',             ''],
+    ['Wohnüberbauung Nidfeld',       'Wohnen',               'Kriens LU',                  ''],
+];
 
+// Wenn Tabelle leer ODER noch meine Beispiele drin → mit echten Referenzen befuellen
+if ($count === 0 || $hasOldExamples > 0) {
     try {
-        foreach ($seedRefs as $i => [$title, $desc, $cat, $city, $year]) {
-            $db->insert('ref_items', [
-                'title'       => $title,
-                'description' => $desc,
-                'category'    => $cat,
-                'city'        => $city,
-                'year'        => $year,
-                'sort_order'  => $i + 1,
-                'is_active'   => 1,
-            ]);
+        if ($hasOldExamples > 0) {
+            // Nur die alten Beispiele loeschen, nicht neu hinzugefuegte
+            $db->query("DELETE FROM ref_items WHERE title IN ('Wohnüberbauung Limmatfeld','Geschäftshaus Europaallee','Spital Limmattal Erweiterung','Schulanlage Leutschenbach','Alterszentrum Grünau','Industriepark Glattbrugg')");
+        }
+
+        foreach ($realRefs as $i => [$title, $cat, $city, $desc]) {
+            // Nur einfuegen, wenn dieser Titel noch nicht existiert (idempotent)
+            $exists = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items WHERE title = :t", ['t' => $title]);
+            if ($exists === 0) {
+                $db->insert('ref_items', [
+                    'title'       => $title,
+                    'description' => $desc !== '' ? $desc : null,
+                    'category'    => $cat,
+                    'city'        => $city,
+                    'year'        => null,
+                    'sort_order'  => $i + 1,
+                    'is_active'   => 1,
+                ]);
+            }
         }
 
         // Bestehende references-grid-Sektionen zuruecksetzen, damit sie aus ref_items ziehen
