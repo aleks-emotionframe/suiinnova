@@ -23,7 +23,7 @@
             <a href="<?= pageUrl('kontakt') ?>" class="cms-toolbar-link">Kontakt</a>
         </nav>
         <div class="cms-toolbar-actions">
-            <?php if (isset($page) && is_array($page) && !empty($page['id']) && (int)($page['is_active'] ?? 1) === 1): ?>
+            <?php if (isset($page) && is_array($page) && !empty($page['id']) && (int)($page['is_active'] ?? 1) === 1 && ($page['slug'] ?? '') !== 'startseite'): ?>
             <form method="post" action="<?= SITE_URL . ADMIN_PATH ?>/pages/<?= (int)$page['id'] ?>/toggle" class="cms-toolbar-inline-form">
                 <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= Auth::generateCsrfToken() ?>">
                 <input type="hidden" name="return" value="<?= e($_SERVER['REQUEST_URI'] ?? '/') ?>">

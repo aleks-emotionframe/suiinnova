@@ -35,10 +35,12 @@
 
         <div class="form-row">
             <div class="form-field">
+                <?php $isHome = ($page['slug'] ?? '') === 'startseite'; ?>
                 <label class="form-checkbox">
-                    <input type="checkbox" name="is_active" value="1" <?= ($page['is_active'] ?? 1) ? 'checked' : '' ?>>
-                    <span>Seite aktiv</span>
+                    <input type="checkbox" name="is_active" value="1" <?= ($page['is_active'] ?? 1) ? 'checked' : '' ?> <?= $isHome ? 'disabled' : '' ?>>
+                    <span>Seite aktiv<?= $isHome ? ' (Startseite ist immer online)' : '' ?></span>
                 </label>
+                <?php if ($isHome): ?><input type="hidden" name="is_active" value="1"><?php endif; ?>
             </div>
             <div class="form-field">
                 <label class="form-checkbox">

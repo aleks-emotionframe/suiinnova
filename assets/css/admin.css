@@ -455,6 +455,11 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 .btn-warn:hover { background: #d97706; color: #111; }
 .btn-success { background: #2d7a4f; color: #fff; }
 .btn-success:hover { background: #246342; }
+.btn-locked {
+    background: rgba(0,0,0,0.04); color: var(--c-text-light);
+    border: 1px dashed var(--c-border); cursor: not-allowed;
+    font-weight: 500;
+}
 .btn-sm { font-size: 0.75rem; padding: 0.45em 0.9em; }
 .btn-full { width: 100%; justify-content: center; }
 
