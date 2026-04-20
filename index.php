@@ -25,6 +25,15 @@ if (!$page) {
     render404();
 }
 
+// Inaktive Seiten: Besucher bekommen Offline-View, Admins sehen die Seite weiter
+if ((int)($page['is_active'] ?? 1) === 0 && !isLoggedIn()) {
+    http_response_code(503);
+    header('Retry-After: 3600');
+    $offlineTitle = $page['title'] ?? 'Diese Seite';
+    include BASE_PATH . '/templates/page-offline.php';
+    exit;
+}
+
 // Seiten-Meta fuers Layout bereitstellen
 $pageTitle   = $page['title'] ?? '';
 $pageDesc    = $page['meta_description'] ?? '';
