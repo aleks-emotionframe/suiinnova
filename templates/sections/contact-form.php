@@ -14,6 +14,11 @@ $showPhone   = (bool) ($content['show_phone'] ?? true);
 $flash = getFlash();
 $formData = $_SESSION['form_data'] ?? [];
 unset($_SESSION['form_data']);
+
+// Captcha generieren (eine neue Aufgabe pro Seitenaufruf)
+require_once BASE_PATH . '/core/contact.php';
+$captcha = generateCaptcha();
+$formLoadedAt = time();
 ?>
 
 <section class="section bg-gray-50" id="kontakt">
@@ -98,6 +103,24 @@ unset($_SESSION['form_data']);
                                   placeholder="Ihre Nachricht..." required
                                   class="form-textarea"><?= e($formData['message'] ?? '') ?></textarea>
                     </div>
+
+                    <!-- Captcha (Spam-Schutz) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div>
+                            <label for="captcha_answer" class="form-label">
+                                Sicherheitsfrage: Was ist <?= (int)$captcha['a'] ?> + <?= (int)$captcha['b'] ?>? *
+                            </label>
+                            <input type="text" name="captcha_answer" id="captcha_answer"
+                                   inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+                                   placeholder="Ihre Antwort" required
+                                   class="form-input" style="max-width:180px;">
+                        </div>
+                        <p class="text-xs text-gray-400 pb-2">
+                            Diese einfache Rechenaufgabe schützt vor automatisiertem Spam.
+                        </p>
+                    </div>
+
+                    <input type="hidden" name="form_loaded_at" value="<?= (int)$formLoadedAt ?>">
 
                     <!-- Submit -->
                     <div>
