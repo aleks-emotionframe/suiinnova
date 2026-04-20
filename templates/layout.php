@@ -59,10 +59,10 @@
             <!-- 404 -->
             <section class="py-24 text-center">
                 <div class="max-w-container mx-auto px-4 md:px-6">
-                    <h1 class="text-5xl font-bold uppercase tracking-wide mb-4">404</h1>
-                    <p class="text-gray-600 text-lg mb-8">Die angeforderte Seite wurde nicht gefunden.</p>
+                    <h1 class="text-5xl font-bold uppercase tracking-wide mb-4"><?= e(setting('404_title', '404')) ?></h1>
+                    <p class="text-gray-600 text-lg mb-8"><?= e(setting('404_text', 'Die angeforderte Seite wurde nicht gefunden.')) ?></p>
                     <a href="<?= url() ?>" class="inline-flex items-center h-10 px-6 bg-gray-900 text-white font-medium hover:bg-gray-700 transition-colors duration-200">
-                        Zur Startseite
+                        <?= e(setting('404_button', 'Zur Startseite')) ?>
                     </a>
                 </div>
             </section>

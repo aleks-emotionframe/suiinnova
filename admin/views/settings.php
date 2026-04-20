@@ -40,6 +40,14 @@ $settingGroups = [
             'meta_title_suffix' => ['label' => 'Title Suffix',   'type' => 'text'],
         ],
     ],
+    '404' => [
+        'label' => '404-Seite (Seite nicht gefunden)',
+        'fields' => [
+            '404_title'  => ['label' => 'Überschrift (z.B. „404" oder „Hoppla!")', 'type' => 'text'],
+            '404_text'   => ['label' => 'Beschreibungstext',                       'type' => 'textarea'],
+            '404_button' => ['label' => 'Button-Text',                             'type' => 'text'],
+        ],
+    ],
 ];
 ?>
 
