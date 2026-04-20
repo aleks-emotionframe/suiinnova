@@ -89,17 +89,41 @@ function getContentBlocks(int $pageId, ?string $sectionPrefix = null): array
 }
 
 /**
- * Get page data by slug.
+ * Get page data by slug (regardless of active state).
+ * Controllers decide how to handle inactive pages via enforcePageActive().
  */
 function getPage(string $slug): ?array
 {
     try {
         $db = Database::getInstance();
-        $stmt = $db->prepare('SELECT * FROM pages WHERE slug = ? AND is_active = 1 LIMIT 1');
+        $stmt = $db->prepare('SELECT * FROM pages WHERE slug = ? LIMIT 1');
         $stmt->execute([$slug]);
         return $stmt->fetch() ?: null;
     } catch (Exception $e) {
         return null;
+    }
+}
+
+/**
+ * Check if the current session belongs to a logged-in admin.
+ */
+function isAdmin(): bool
+{
+    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+}
+
+/**
+ * Block public access to inactive pages. Admins see the page with a warning banner.
+ * Must be called AFTER getPage() and BEFORE any output.
+ */
+function enforcePageActive(?array $page): void
+{
+    if ($page && (int)$page['is_active'] === 0 && !isAdmin()) {
+        http_response_code(503);
+        header('Retry-After: 3600');
+        $offlineTitle = $page['title'] ?? 'Diese Seite';
+        require APP_PATH . '/views/pages/page_offline.php';
+        exit;
     }
 }
 

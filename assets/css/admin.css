@@ -451,8 +451,24 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 .btn-ghost:hover { color: var(--c-accent); }
 .btn-danger { background: var(--c-danger); color: white; }
 .btn-danger:hover { opacity: 0.9; }
+.btn-warn { background: #f59e0b; color: #111; }
+.btn-warn:hover { background: #d97706; color: #111; }
+.btn-success { background: #2d7a4f; color: #fff; }
+.btn-success:hover { background: #246342; }
+.btn-locked {
+    background: rgba(0,0,0,0.04); color: var(--c-text-light);
+    border: 1px dashed var(--c-border); cursor: not-allowed;
+    font-weight: 500;
+}
 .btn-sm { font-size: 0.75rem; padding: 0.45em 0.9em; }
 .btn-full { width: 100%; justify-content: center; }
+
+/* Table row state */
+.admin-table tr.row-inactive td { opacity: 0.55; }
+.admin-table tr.row-inactive td:first-child {
+    border-left: 3px solid #f59e0b; padding-left: calc(1rem - 3px);
+}
+.admin-actions-cell { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
 
 /* Message detail */
 .message-detail { display: flex; flex-direction: column; gap: 1.25rem; }

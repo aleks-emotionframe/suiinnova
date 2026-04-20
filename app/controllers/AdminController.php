@@ -101,6 +101,14 @@ class AdminController
             redirect(SITE_URL . ADMIN_PATH . '/pages');
         }
 
+        $existing = $this->db->prepare('SELECT slug FROM pages WHERE id = ?');
+        $existing->execute([$id]);
+        $existing = $existing->fetch();
+        $isActive = isset($_POST['is_active']) ? 1 : 0;
+        if ($existing && $existing['slug'] === 'startseite') {
+            $isActive = 1;
+        }
+
         $stmt = $this->db->prepare(
             'UPDATE pages SET title = ?, meta_description = ?, meta_keywords = ?, is_active = ?, is_in_nav = ? WHERE id = ?'
         );
@@ -108,7 +116,7 @@ class AdminController
             trim($_POST['title'] ?? ''),
             trim($_POST['meta_description'] ?? ''),
             trim($_POST['meta_keywords'] ?? ''),
-            isset($_POST['is_active']) ? 1 : 0,
+            $isActive,
             isset($_POST['is_in_nav']) ? 1 : 0,
             $id,
         ]);
@@ -152,6 +160,45 @@ class AdminController
         $newId = $this->db->lastInsertId();
         setFlash('success', 'Seite erstellt.');
         redirect(SITE_URL . ADMIN_PATH . '/pages/' . $newId);
+    }
+
+    public function pageToggle(string $id): void
+    {
+        Auth::requireLogin();
+        if (!Auth::verifyCsrfToken($_POST[CSRF_TOKEN_NAME] ?? '')) {
+            redirect(SITE_URL . ADMIN_PATH . '/pages');
+        }
+
+        $returnTo = function (): void {
+            $return = $_POST['return'] ?? '';
+            if ($return !== '' && str_starts_with($return, '/')) {
+                redirect(SITE_URL . $return);
+            }
+            redirect(SITE_URL . ADMIN_PATH . '/pages');
+        };
+
+        $current = $this->db->prepare('SELECT slug, title FROM pages WHERE id = ?');
+        $current->execute([$id]);
+        $current = $current->fetch();
+
+        if ($current && $current['slug'] === 'startseite') {
+            setFlash('error', 'Die Startseite kann nicht offline genommen werden.');
+            $returnTo();
+        }
+
+        $stmt = $this->db->prepare('UPDATE pages SET is_active = 1 - is_active WHERE id = ?');
+        $stmt->execute([$id]);
+
+        $page = $this->db->prepare('SELECT is_active, title FROM pages WHERE id = ?');
+        $page->execute([$id]);
+        $page = $page->fetch();
+
+        $msg = $page && (int)$page['is_active'] === 1
+            ? 'Seite „' . $page['title'] . '" ist jetzt online.'
+            : 'Seite „' . ($page['title'] ?? '') . '" ist jetzt offline – Besucher sehen eine Überarbeitungs-Meldung.';
+        setFlash('success', $msg);
+
+        $returnTo();
     }
 
     public function pageDelete(string $id): void
