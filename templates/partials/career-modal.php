@@ -1,10 +1,8 @@
 <?php
 /**
- * Karriere-Modal (Bewerbungs-Formular mit Datei-Upload).
- * Wird ueber das Event "open-career-modal" geoeffnet.
- *
- * Alle Texte via Settings (CMS-editierbar).
- * Design passt zur Site (uppercase, tracking-wider, roter Akzent, weiche Buttons).
+ * Karriere-Modal (Bewerbungs-Formular).
+ * Event "open-career-modal" oeffnet es.
+ * Komplett on-brand, Inline-Styles wo Tailwind nicht im Bundle.
  */
 
 if (setting('career_visible', '1') !== '1') return;
@@ -19,41 +17,47 @@ $formLoadedAt   = time();
      @keydown.escape.window="if (open) { open = false; document.body.style.overflow = ''; }"
      x-show="open"
      x-cloak
-     class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6"
-     style="background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);">
+     class="career-overlay"
+     style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);">
 
     <div @click.away="open = false; document.body.style.overflow = '';"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-         class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-md shadow-2xl relative">
+         x-transition:enter="career-enter"
+         x-transition:enter-start="career-enter-start"
+         x-transition:enter-end="career-enter-end"
+         class="career-card"
+         style="background:#fff;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;border-radius:6px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);position:relative;">
 
-        <!-- Roter Akzent-Streifen oben -->
+        <!-- Roter Akzent-Strich oben -->
         <div style="height:3px;background:#C41018;"></div>
 
+        <!-- Schliessen-Button -->
+        <button type="button" @click="open = false; document.body.style.overflow = '';"
+                style="position:absolute;top:18px;right:18px;color:#9CA3AF;padding:6px;cursor:pointer;background:none;border:0;transition:color 0.15s;z-index:2;"
+                onmouseover="this.style.color='#111'" onmouseout="this.style.color='#9CA3AF'"
+                aria-label="Schliessen">
+            <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
         <!-- Header -->
-        <div class="px-6 md:px-10 py-6 md:py-7 border-b border-gray-100 flex items-start justify-between gap-4">
-            <div class="flex-1 min-w-0">
-                <div class="text-[10px] uppercase tracking-[0.25em] font-semibold mb-2" style="color:#C41018;">Offene Stelle — Bewerbung</div>
-                <h2 class="text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wider text-gray-900 leading-tight"><?= e($careerPosition) ?></h2>
-                <?php if ($careerIntro): ?>
-                    <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-lg"><?= e($careerIntro) ?></p>
-                <?php endif; ?>
-            </div>
-            <button type="button" @click="open = false; document.body.style.overflow = '';"
-                    class="text-gray-400 hover:text-gray-900 transition-colors p-2 -m-2 flex-shrink-0"
-                    aria-label="Schliessen">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
+        <div style="padding:32px 40px 24px 40px;border-bottom:1px solid #F3F4F6;">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#C41018;margin-bottom:8px;">Offene Stelle</div>
+            <h2 style="font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#111;line-height:1.2;margin:0;">
+                <?= e($careerPosition) ?>
+            </h2>
+            <?php if ($careerIntro): ?>
+                <p style="font-size:14px;color:#6B7280;line-height:1.6;margin:12px 0 0 0;max-width:520px;">
+                    <?= e($careerIntro) ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Body -->
         <form action="<?= url('karriere/bewerben') ?>" method="POST" enctype="multipart/form-data"
-              class="px-6 md:px-10 py-6 md:py-8 space-y-6"
               x-data="{ sending: false, files: [] }"
-              @submit="sending = true">
+              @submit="sending = true"
+              style="padding:28px 40px;">
 
             <?= csrfField() ?>
             <input type="hidden" name="form_loaded_at" value="<?= (int)$formLoadedAt ?>">
@@ -64,7 +68,8 @@ $formLoadedAt   = time();
                 <input type="text" name="website_url" tabindex="-1" autocomplete="off">
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Name + E-Mail -->
+            <div class="career-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
                 <div>
                     <label for="app_name" class="form-label">Name *</label>
                     <input type="text" name="app_name" id="app_name" required
@@ -77,45 +82,47 @@ $formLoadedAt   = time();
                 </div>
             </div>
 
-            <div>
+            <!-- Telefon -->
+            <div style="margin-bottom:16px;">
                 <label for="app_phone" class="form-label">Telefon</label>
                 <input type="tel" name="app_phone" id="app_phone"
                        placeholder="+41 ..." class="form-input">
             </div>
 
-            <div>
-                <label for="app_message" class="form-label">Ihre Nachricht (optional)</label>
+            <!-- Nachricht -->
+            <div style="margin-bottom:20px;">
+                <label for="app_message" class="form-label">Nachricht (optional)</label>
                 <textarea name="app_message" id="app_message" rows="3"
-                          placeholder="Kurz zu sich selbst, Verfuegbarkeit, Motivation..."
+                          placeholder="Verfuegbarkeit, Motivation, Fragen..."
                           class="form-textarea"></textarea>
             </div>
 
-            <!-- File Upload — komplett custom, keine native UI -->
-            <div>
-                <label class="form-label">Dokumente (Lebenslauf, Zeugnisse, ...)</label>
+            <!-- File Upload (custom, kompakt) -->
+            <div style="margin-bottom:24px;">
+                <label class="form-label">Dokumente</label>
 
-                <!-- Drop-Zone -->
                 <div @click="$refs.fileInput.click()"
-                     @dragover.prevent="$el.classList.add('is-dragging')"
-                     @dragleave.prevent="$el.classList.remove('is-dragging')"
-                     @drop.prevent="$el.classList.remove('is-dragging');
-                                    const dropped = Array.from($event.dataTransfer.files);
+                     @dragover.prevent="$el.style.borderColor='#C41018';$el.style.background='#FEF2F3';"
+                     @dragleave.prevent="$el.style.borderColor='#D1D5DB';$el.style.background='#FAFAFA';"
+                     @drop.prevent="$el.style.borderColor='#D1D5DB';$el.style.background='#FAFAFA';
+                                    const d = Array.from($event.dataTransfer.files);
                                     const dt = new DataTransfer();
-                                    dropped.forEach(f => dt.items.add(f));
+                                    d.forEach(f => dt.items.add(f));
                                     $refs.fileInput.files = dt.files;
-                                    files = dropped.map(f => ({ name: f.name, size: f.size }));"
-                     class="career-dropzone cursor-pointer border border-dashed transition-all text-center"
-                     style="border-color:#B4B4B4;border-radius:6px;padding:28px 20px;background:#FAFAFA;">
+                                    files = d.map(f => ({ name: f.name, size: f.size }));"
+                     style="cursor:pointer;border:1.5px dashed #D1D5DB;border-radius:4px;padding:20px 16px;background:#FAFAFA;text-align:center;transition:all 0.15s;"
+                     onmouseover="if(this.style.borderColor !== 'rgb(196, 16, 24)'){this.style.borderColor='#9CA3AF';}"
+                     onmouseout="if(this.style.borderColor !== 'rgb(196, 16, 24)'){this.style.borderColor='#D1D5DB';}">
 
-                    <svg class="w-9 h-9 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25" style="color:#888;">
+                    <svg style="width:28px;height:28px;margin:0 auto 8px;color:#6B7280;display:block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                     </svg>
 
-                    <div class="text-sm text-gray-900 font-medium">
+                    <div style="font-size:13px;color:#111;font-weight:500;margin-bottom:4px;">
                         Dateien hierher ziehen oder <span style="color:#C41018;text-decoration:underline;text-underline-offset:2px;">auswählen</span>
                     </div>
-                    <div class="text-[11px] text-gray-500 mt-1.5 uppercase tracking-wider">
-                        PDF · DOC · DOCX · JPG · PNG · max. 10 MB · bis zu 5 Dateien
+                    <div style="font-size:10px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;">
+                        PDF · DOC · JPG · PNG — max. 10 MB, bis zu 5 Dateien
                     </div>
 
                     <input type="file" x-ref="fileInput" name="app_files[]" multiple
@@ -126,44 +133,49 @@ $formLoadedAt   = time();
 
                 <!-- Gewaehlte Dateien -->
                 <template x-if="files.length > 0">
-                    <ul class="mt-3 space-y-1.5">
+                    <ul style="margin-top:10px;padding:0;list-style:none;">
                         <template x-for="(f, idx) in files" :key="idx">
-                            <li class="flex items-center gap-3 text-sm bg-gray-50 px-3 py-2 border border-gray-100" style="border-radius:4px;">
-                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" style="color:#C41018;">
+                            <li style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#F9FAFB;border:1px solid #F3F4F6;border-radius:4px;font-size:13px;margin-bottom:4px;">
+                                <svg style="width:14px;height:14px;color:#C41018;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
-                                <span x-text="f.name" class="flex-1 text-gray-900 truncate"></span>
-                                <span x-text="(f.size / 1024).toFixed(0) + ' KB'" class="text-[11px] text-gray-400 uppercase tracking-wider flex-shrink-0"></span>
+                                <span x-text="f.name" style="flex:1;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+                                <span x-text="(f.size / 1024).toFixed(0) + ' KB'" style="font-size:10px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;"></span>
                             </li>
                         </template>
                     </ul>
                 </template>
             </div>
 
-            <div class="pt-3 flex items-center justify-between gap-3 flex-wrap border-t border-gray-100 -mx-6 md:-mx-10 px-6 md:px-10 pt-5">
+            <!-- Actions -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid #F3F4F6;">
                 <button type="button" @click="open = false; document.body.style.overflow = '';"
-                        class="text-xs uppercase tracking-wider font-medium text-gray-500 hover:text-gray-900 transition-colors">
+                        style="background:none;border:0;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;color:#6B7280;cursor:pointer;transition:color 0.15s;"
+                        onmouseover="this.style.color='#111'" onmouseout="this.style.color='#6B7280'">
                     Abbrechen
                 </button>
                 <button type="submit" :disabled="sending"
-                        class="inline-flex items-center h-11 px-7 rounded-md text-white text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:opacity-90 disabled:opacity-50"
-                        style="background:#C41018;box-shadow:0 2px 10px rgba(196,16,24,0.25);">
+                        style="display:inline-flex;align-items:center;height:44px;padding:0 24px;border:0;border-radius:6px;background:#C41018;color:#fff;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;transition:opacity 0.15s;"
+                        onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                     <span x-show="!sending">Bewerbung abschicken</span>
                     <span x-show="sending" x-cloak>Wird gesendet...</span>
-                    <svg x-show="!sending" class="w-3.5 h-3.5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
                 </button>
             </div>
 
-            <p class="text-[10px] text-gray-400 text-center uppercase tracking-wider">
-                Ihre Daten werden vertraulich behandelt und ausschliesslich fuer den Bewerbungsprozess verwendet.
+            <p style="font-size:10px;color:#9CA3AF;text-align:center;text-transform:uppercase;letter-spacing:0.08em;margin-top:16px;">
+                Ihre Daten werden vertraulich behandelt.
             </p>
         </form>
     </div>
 </div>
 
 <style>
-    .career-dropzone.is-dragging { border-color: #C41018 !important; background: #FEF2F3 !important; }
-    .career-dropzone:hover { border-color: #888; background: #F5F5F5; }
+    @media (max-width: 640px) {
+        .career-card > div:nth-child(2) { padding: 24px 20px 16px 20px !important; }
+        .career-card > form { padding: 20px 20px !important; }
+        .career-grid-2 { grid-template-columns: 1fr !important; }
+    }
+    .career-enter { transition: all 0.25s ease-out; }
+    .career-enter-start { opacity: 0; transform: scale(0.96) translateY(16px); }
+    .career-enter-end { opacity: 1; transform: scale(1) translateY(0); }
 </style>

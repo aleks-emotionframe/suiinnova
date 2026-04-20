@@ -79,14 +79,12 @@ $showCareer    = $careerVisible && $careerText !== '';
                 <?php if ($showCareer): ?>
                     <button type="button"
                             @click="$dispatch('open-career-modal')"
-                            class="career-badge inline-flex items-center gap-2.5 h-10 px-5 rounded-md text-white transition-all duration-200 hover:opacity-90"
-                            style="background:#C41018;box-shadow:0 2px 8px rgba(196,16,24,0.25);"
+                            class="inline-flex items-center h-10 px-5 rounded-md text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+                            style="background:#C41018;letter-spacing:0.1em;"
                             title="<?= e($careerText) ?>">
-                        <span class="career-pulse" style="width:7px;height:7px;border-radius:50%;background:#fff;flex-shrink:0;"></span>
-                        <span class="text-[11px] font-semibold uppercase tracking-[0.12em] whitespace-nowrap">
-                            <span class="hidden xl:inline"><?= e($careerText) ?></span>
-                            <span class="xl:hidden"><?= e($careerBtn) ?></span>
-                        </span>
+                        <span style="width:6px;height:6px;border-radius:50%;background:#fff;margin-right:10px;animation:career-pulse-anim 2s ease-in-out infinite;"></span>
+                        <span class="hidden xl:inline"><?= e($careerText) ?></span>
+                        <span class="xl:hidden"><?= e($careerBtn) ?></span>
                     </button>
                 <?php endif; ?>
 
@@ -103,10 +101,9 @@ $showCareer    = $careerVisible && $careerText !== '';
             <?php if ($showCareer): ?>
             <style>
                 @keyframes career-pulse-anim {
-                    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.6); }
-                    50%      { opacity: 0.6; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+                    0%, 100% { opacity: 1; }
+                    50%      { opacity: 0.4; }
                 }
-                .career-pulse { animation: career-pulse-anim 2s ease-in-out infinite; }
             </style>
             <?php endif; ?>
 
