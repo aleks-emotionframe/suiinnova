@@ -34,6 +34,17 @@ $settingGroups = [
             'created_by_url'  => ['label' => 'Created by (Link)', 'type' => 'text'],
         ],
     ],
+    'career' => [
+        'label' => 'Karriere / Bewerbungen (Header-Banner)',
+        'fields' => [
+            'career_visible'     => ['label' => 'Karriere-Banner im Header anzeigen (1 = ja, 0 = nein)', 'type' => 'text'],
+            'career_text'        => ['label' => 'Banner-Text (z.B. „Wir suchen Verstärkung! GIS-Monteur gesucht.")', 'type' => 'text'],
+            'career_button_text' => ['label' => 'Button-Beschriftung (z.B. „Jetzt bewerben")', 'type' => 'text'],
+            'career_position'    => ['label' => 'Ausgeschriebene Position (erscheint als Titel im Bewerbungs-Popup)', 'type' => 'text'],
+            'career_intro'       => ['label' => 'Intro-Text im Bewerbungs-Popup', 'type' => 'textarea'],
+            'career_email'       => ['label' => 'E-Mail-Empfaenger fuer neue Bewerbungen', 'type' => 'text'],
+        ],
+    ],
     '404' => [
         'label' => '404-Seite (Seite nicht gefunden)',
         'fields' => [

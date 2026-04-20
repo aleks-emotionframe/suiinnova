@@ -9,6 +9,11 @@
 $logoUrl = setting('logo_url', asset('img/SUI-Innova_Logo.webp'));
 $logoWhiteUrl = asset('img/SUI-Innova_Logo_white.webp');
 $isHomepage = !empty($isHomepage);
+
+$careerVisible = setting('career_visible', '1') === '1';
+$careerText    = setting('career_text', '');
+$careerBtn     = setting('career_button_text', 'Jetzt bewerben');
+$showCareer    = $careerVisible && $careerText !== '';
 ?>
 
 <!-- Header -->
@@ -69,8 +74,25 @@ $isHomepage = !empty($isHomepage);
                 <?php endforeach; ?>
             </nav>
 
-            <!-- CTA Button (Desktop) -->
-            <div class="hidden md:flex items-center">
+            <!-- CTA Bereich (Desktop): Karriere-Badge + Kontakt -->
+            <div class="hidden md:flex items-center gap-3">
+                <?php if ($showCareer): ?>
+                    <button type="button"
+                            @click="$dispatch('open-career-modal')"
+                            class="group inline-flex items-center gap-2 h-10 pl-3 pr-4 rounded-md text-[11px] font-semibold uppercase tracking-wider transition-all duration-200 border"
+                            style="background:#C41018;border-color:#C41018;color:#fff;"
+                            onmouseover="this.style.background='#9e0c12';this.style.borderColor='#9e0c12';"
+                            onmouseout="this.style.background='#C41018';this.style.borderColor='#C41018';"
+                            title="<?= e($careerText) ?>">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full" style="background:rgba(255,255,255,0.2);">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        </span>
+                        <span class="hidden lg:inline"><?= e($careerText) ?></span>
+                        <span class="lg:hidden">Wir stellen ein</span>
+                        <span style="padding:2px 8px;background:rgba(255,255,255,0.18);border-radius:3px;font-size:10px;"><?= e($careerBtn) ?></span>
+                    </button>
+                <?php endif; ?>
+
                 <a href="<?= url('kontakt') ?>"
                    class="inline-flex items-center h-10 px-6 rounded-md text-sm font-medium uppercase tracking-wider transition-all duration-300"
                    :class="scrolled
@@ -123,6 +145,18 @@ $isHomepage = !empty($isHomepage);
             class="absolute top-0 right-0 w-72 h-full bg-white shadow-lg"
         >
             <div class="flex flex-col py-6">
+                <?php if ($showCareer): ?>
+                    <button type="button"
+                            @click="mobileMenuOpen = false; $dispatch('open-career-modal')"
+                            class="mx-4 mb-4 flex items-center gap-3 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white"
+                            style="background:#C41018;">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full" style="background:rgba(255,255,255,0.2);">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        </span>
+                        <span class="flex-1"><?= e($careerText) ?></span>
+                    </button>
+                <?php endif; ?>
+
                 <?php foreach ($navigation as $item): ?>
                     <?php
                     $href = $item['url'] ?: url($item['page_slug'] ?? '');

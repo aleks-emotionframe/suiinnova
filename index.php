@@ -10,6 +10,7 @@ define('BASE_PATH', __DIR__);
 require_once BASE_PATH . '/core/bootstrap.php';
 require_once BASE_PATH . '/core/router.php';
 require_once BASE_PATH . '/core/contact.php';
+require_once BASE_PATH . '/core/application.php';
 require_once BASE_PATH . '/core/sitemap.php';
 
 // Aktueller Pfad (ohne Query-String)
@@ -28,6 +29,12 @@ if ($requestSlug === 'sitemap.xml' || $requestPath === 'sitemap.xml') {
 // Kontaktformular-Submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($requestSlug === 'kontakt/senden' || $requestPath === 'kontakt/senden')) {
     handleContactSubmit();
+    exit;
+}
+
+// Bewerbungs-Submit
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($requestSlug === 'karriere/bewerben' || $requestPath === 'karriere/bewerben')) {
+    handleApplicationSubmit();
     exit;
 }
 

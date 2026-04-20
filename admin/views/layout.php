@@ -32,11 +32,14 @@
                 ['seo', 'SEO', 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
                 ['settings', 'Einstellungen', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z'],
                 ['contacts', 'Kontaktanfragen', 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
+                ['applications', 'Bewerbungen', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'],
             ];
 
             $unreadCount = 0;
+            $unreadApps = 0;
             try {
                 $unreadCount = (int) $db->fetchColumn("SELECT COUNT(*) FROM contacts WHERE is_read = 0");
+                $unreadApps  = (int) $db->fetchColumn("SELECT COUNT(*) FROM applications WHERE is_read = 0");
             } catch (Exception $e) {}
             ?>
 
@@ -52,6 +55,11 @@
                     <?php if ($route === 'contacts' && $unreadCount > 0): ?>
                         <span class="ml-auto bg-brand-accent text-white text-[10px] font-bold px-1.5 py-0.5 min-w-[1.25rem] text-center">
                             <?= $unreadCount ?>
+                        </span>
+                    <?php endif; ?>
+                    <?php if ($route === 'applications' && $unreadApps > 0): ?>
+                        <span class="ml-auto bg-brand-accent text-white text-[10px] font-bold px-1.5 py-0.5 min-w-[1.25rem] text-center">
+                            <?= $unreadApps ?>
                         </span>
                     <?php endif; ?>
                 </a>
@@ -89,6 +97,7 @@
                         'seo'          => 'SEO & Suchmaschinen',
                         'settings'     => 'Einstellungen',
                         'contacts'     => 'Kontaktanfragen',
+                        'applications' => 'Bewerbungen',
                         default        => 'Admin',
                     }; ?>
                 </h1>

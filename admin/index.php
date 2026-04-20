@@ -66,6 +66,7 @@ $adminView = match ($path) {
     'seo'             => 'seo',
     'settings'        => 'settings',
     'contacts'        => 'contacts',
+    'applications'    => 'applications',
     default           => null,
 };
 

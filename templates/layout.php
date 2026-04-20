@@ -103,6 +103,9 @@
 
     <?php include BASE_PATH . '/templates/partials/footer.php'; ?>
 
+    <!-- Karriere-Modal (einmal pro Seite) -->
+    <?php include BASE_PATH . '/templates/partials/career-modal.php'; ?>
+
     <!-- App JS -->
     <script src="<?= asset('js/app.js') ?>"></script>
 </body>
