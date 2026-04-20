@@ -79,17 +79,17 @@ $showCareer    = $careerVisible && $careerText !== '';
                 <?php if ($showCareer): ?>
                     <button type="button"
                             @click="$dispatch('open-career-modal')"
-                            class="group inline-flex items-center gap-2 h-10 pl-3 pr-4 rounded-md text-[11px] font-semibold uppercase tracking-wider transition-all duration-200 border"
-                            style="background:#C41018;border-color:#C41018;color:#fff;"
-                            onmouseover="this.style.background='#9e0c12';this.style.borderColor='#9e0c12';"
-                            onmouseout="this.style.background='#C41018';this.style.borderColor='#C41018';"
+                            class="career-badge inline-flex items-center gap-2.5 h-10 px-4 text-white transition-opacity hover:opacity-90"
+                            style="background:#C41018;"
                             title="<?= e($careerText) ?>">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full" style="background:rgba(255,255,255,0.2);">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        <span class="career-pulse" style="width:8px;height:8px;border-radius:50%;background:#fff;flex-shrink:0;"></span>
+                        <span class="text-[11px] font-semibold uppercase tracking-[0.1em] whitespace-nowrap">
+                            <span class="hidden xl:inline"><?= e($careerText) ?></span>
+                            <span class="xl:hidden"><?= e($careerBtn) ?></span>
                         </span>
-                        <span class="hidden lg:inline"><?= e($careerText) ?></span>
-                        <span class="lg:hidden">Wir stellen ein</span>
-                        <span style="padding:2px 8px;background:rgba(255,255,255,0.18);border-radius:3px;font-size:10px;"><?= e($careerBtn) ?></span>
+                        <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
                     </button>
                 <?php endif; ?>
 
@@ -102,6 +102,16 @@ $showCareer    = $careerVisible && $careerText !== '';
                     Kontakt
                 </a>
             </div>
+
+            <?php if ($showCareer): ?>
+            <style>
+                @keyframes career-pulse-anim {
+                    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.6); }
+                    50%      { opacity: 0.6; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+                }
+                .career-pulse { animation: career-pulse-anim 2s ease-in-out infinite; }
+            </style>
+            <?php endif; ?>
 
             <!-- Mobile Menu Button -->
             <button
