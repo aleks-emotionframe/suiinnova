@@ -2,7 +2,7 @@
 /**
  * Werte / USPs Section
  *
- * Drei Karten nebeneinander, nummeriert, clean und modern.
+ * Drei Karten nebeneinander, clean und modern.
  */
 $heading = $content['heading'] ?? '';
 $items   = $content['items'] ?? [];
@@ -17,19 +17,17 @@ $items   = $content['items'] ?? [];
         <?php endif; ?>
 
         <?php if ($items): ?>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                 <?php foreach ($items as $i => $item): ?>
                     <div class="fade-in">
-                        <!-- Nummer -->
-                        <div class="text-5xl md:text-6xl font-bold text-white/10 mb-4">
-                            0<?= $i + 1 ?>
-                        </div>
-                        <!-- Titel -->
-                        <h3 class="text-base font-bold uppercase tracking-wider text-white mb-3">
+                        <!-- Roter Akzent-Strich -->
+                        <div style="width:40px;height:2px;background:#C41018;margin-bottom:18px;"></div>
+                        <!-- Titel (groesser) -->
+                        <h3 class="font-bold uppercase tracking-wider text-white mb-4" style="font-size:22px;line-height:1.2;">
                             <?= e($item['title'] ?? '') ?>
                         </h3>
                         <!-- Text -->
-                        <div class="text-white/50 text-sm leading-relaxed">
+                        <div class="text-white/60 text-sm leading-relaxed">
                             <?= renderRichtext($item['desc'] ?? '') ?>
                         </div>
                     </div>
