@@ -53,14 +53,75 @@
     <!-- Styles -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 
-    <!-- Container-Breite vergroessern (Override gegen Tailwind-Bundle) -->
+    <!-- Layout-Overrides: breiterer Container + groessere Schriften (Override gegen Tailwind-Bundle) -->
     <style>
+        /* ── Container-Breite ───────────────────────────── */
         .section-container { max-width: 112rem; padding-left: 1.5rem; padding-right: 1.5rem; }
         @media (min-width: 768px) {
             .section-container { padding-left: 2.5rem; padding-right: 2.5rem; }
         }
         .max-w-container { max-width: 112rem; }
         .max-w-container-wide { max-width: 116rem; }
+
+        /* ── Typografie ───────────────────────────────── */
+        /* Section-Hauptueberschriften: groesser, mehrzeilig-freundlich */
+        .section-heading {
+            font-size: 2rem;            /* 32px mobile */
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            overflow-wrap: break-word;
+        }
+        @media (min-width: 768px) {
+            .section-heading { font-size: 2.5rem; line-height: 1.15; }  /* 40px */
+        }
+        @media (min-width: 1024px) {
+            .section-heading { font-size: 3rem; line-height: 1.1; }     /* 48px */
+        }
+
+        /* Section-Untertitel: groesser und gut lesbar */
+        .section-subtitle {
+            font-size: 1.0625rem;       /* 17px */
+            line-height: 1.65;
+            max-width: 60rem;
+        }
+        @media (min-width: 768px) {
+            .section-subtitle { font-size: 1.125rem; line-height: 1.7; } /* 18px */
+        }
+
+        /* Karten- / Service-Titel (h3) in Sektionen */
+        main .section h3,
+        main section h3 {
+            font-size: 1.25rem;         /* 20px mobile */
+            line-height: 1.25;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            overflow-wrap: break-word;
+        }
+        @media (min-width: 768px) {
+            main .section h3,
+            main section h3 { font-size: 1.5rem; line-height: 1.25; }   /* 24px */
+        }
+
+        /* Body-Text in Sektionen: 16px statt 14px */
+        main .section p,
+        main section p {
+            font-size: 1rem;            /* 16px */
+            line-height: 1.7;
+        }
+
+        /* Kleine Labels / Untertexte: minimal anheben */
+        main .section .text-xs { font-size: 0.8125rem; }   /* 13px statt 12px */
+        main .section .text-sm { font-size: 0.9375rem; }   /* 15px statt 14px */
+
+        /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break wo moeglich */
+        main h1, main h2, main h3 {
+            text-wrap: balance;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            overflow-wrap: break-word;
+        }
     </style>
 
     <!-- Alpine.js (defer) -->
