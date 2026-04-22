@@ -53,7 +53,11 @@
     <!-- Styles -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 
-    <!-- Layout-Overrides: breiterer Container + groessere Schriften (Override gegen Tailwind-Bundle) -->
+    <!-- Layout-Overrides: breiterer Container + skalierbare Schriften -->
+    <?php
+        // Globale Schriftgroesse (in %) aus dem CMS — default 100
+        $typoScale = max(0.5, min(2.0, (float) setting('typo_scale', '100') / 100));
+    ?>
     <style>
         /* ── Container-Breite ───────────────────────────── */
         .section-container { max-width: 112rem; padding-left: 1.5rem; padding-right: 1.5rem; }
@@ -63,10 +67,12 @@
         .max-w-container { max-width: 112rem; }
         .max-w-container-wide { max-width: 116rem; }
 
-        /* ── Typografie ───────────────────────────────── */
-        /* Section-Hauptueberschriften: groesser, mehrzeilig-freundlich */
+        /* ── Typografie (zentral skalierbar via CMS-Setting typo_scale) ── */
+        :root { --typo-scale: <?= $typoScale ?>; }
+
+        /* Section-Hauptueberschriften */
         .section-heading {
-            font-size: 2rem;            /* 32px mobile */
+            font-size: calc(2rem * var(--typo-scale));
             line-height: 1.15;
             letter-spacing: 0.02em;
             hyphens: auto;
@@ -74,26 +80,26 @@
             overflow-wrap: break-word;
         }
         @media (min-width: 768px) {
-            .section-heading { font-size: 2.5rem; line-height: 1.15; }  /* 40px */
+            .section-heading { font-size: calc(2.5rem * var(--typo-scale)); line-height: 1.15; }
         }
         @media (min-width: 1024px) {
-            .section-heading { font-size: 3rem; line-height: 1.1; }     /* 48px */
+            .section-heading { font-size: calc(3rem * var(--typo-scale)); line-height: 1.1; }
         }
 
-        /* Section-Untertitel: groesser und gut lesbar */
+        /* Section-Untertitel */
         .section-subtitle {
-            font-size: 1.0625rem;       /* 17px */
+            font-size: calc(1.0625rem * var(--typo-scale));
             line-height: 1.65;
             max-width: 60rem;
         }
         @media (min-width: 768px) {
-            .section-subtitle { font-size: 1.125rem; line-height: 1.7; } /* 18px */
+            .section-subtitle { font-size: calc(1.125rem * var(--typo-scale)); line-height: 1.7; }
         }
 
         /* Karten- / Service-Titel (h3) in Sektionen */
         main .section h3,
         main section h3 {
-            font-size: 1.25rem;         /* 20px mobile */
+            font-size: calc(1.25rem * var(--typo-scale));
             line-height: 1.25;
             hyphens: auto;
             -webkit-hyphens: auto;
@@ -101,21 +107,21 @@
         }
         @media (min-width: 768px) {
             main .section h3,
-            main section h3 { font-size: 1.5rem; line-height: 1.25; }   /* 24px */
+            main section h3 { font-size: calc(1.5rem * var(--typo-scale)); line-height: 1.25; }
         }
 
-        /* Body-Text in Sektionen: 16px statt 14px */
+        /* Body-Text in Sektionen */
         main .section p,
         main section p {
-            font-size: 1rem;            /* 16px */
+            font-size: calc(1rem * var(--typo-scale));
             line-height: 1.7;
         }
 
-        /* Kleine Labels / Untertexte: minimal anheben */
-        main .section .text-xs { font-size: 0.8125rem; }   /* 13px statt 12px */
-        main .section .text-sm { font-size: 0.9375rem; }   /* 15px statt 14px */
+        /* Kleine Labels / Untertexte */
+        main .section .text-xs { font-size: calc(0.8125rem * var(--typo-scale)); }
+        main .section .text-sm { font-size: calc(0.9375rem * var(--typo-scale)); }
 
-        /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break wo moeglich */
+        /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break */
         main h1, main h2, main h3 {
             text-wrap: balance;
             hyphens: auto;

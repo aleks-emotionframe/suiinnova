@@ -3,6 +3,20 @@
  * Admin — Einstellungen
  */
 
+// Self-Heal: Default fuer typo_scale anlegen falls nicht vorhanden
+try {
+    $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = 'typo_scale'");
+    if (!$exists) {
+        $db->insert('settings', [
+            'setting_key' => 'typo_scale',
+            'setting_val' => '100',
+            'group_name'  => 'typography',
+        ]);
+        // Aktuellen Request-Cache aktualisieren
+        $GLOBALS['settings']['typo_scale'] = '100';
+    }
+} catch (Exception $e) {}
+
 $settingGroups = [
     'general' => [
         'label' => 'Allgemein',
@@ -32,6 +46,16 @@ $settingGroups = [
             'footer_logo_url' => ['label' => 'Footer Logo URL',  'type' => 'text'],
             'created_by'      => ['label' => 'Created by (Name)', 'type' => 'text'],
             'created_by_url'  => ['label' => 'Created by (Link)', 'type' => 'text'],
+        ],
+    ],
+    'typography' => [
+        'label' => 'Typografie (Schriftgrösse)',
+        'fields' => [
+            'typo_scale' => [
+                'label' => 'Globale Schriftgrösse in %',
+                'type'  => 'number',
+                'hint'  => '100 = Standard · 110 = 10% grösser · 90 = 10% kleiner · Empfehlung: 95–130. Gilt für alle Überschriften, Texte und Karten gleichzeitig.',
+            ],
         ],
     ],
     'career' => [
@@ -80,10 +104,20 @@ $settingGroups = [
                                     <textarea name="settings[<?= e($key) ?>]" rows="3"
                                               class="admin-textarea"><?= e($val) ?></textarea>
                                 <?php else: ?>
-                                    <input type="<?= e($type === 'email' ? 'email' : ($type === 'tel' ? 'tel' : 'text')) ?>"
+                                    <?php
+                                    $inputType = match ($type) {
+                                        'email'  => 'email',
+                                        'tel'    => 'tel',
+                                        'number' => 'number',
+                                        default  => 'text',
+                                    };
+                                    ?>
+                                    <input type="<?= e($inputType) ?>"
                                            name="settings[<?= e($key) ?>]"
                                            value="<?= e($val) ?>"
-                                           class="admin-input">
+                                           <?= $type === 'number' ? 'min="50" max="200" step="5"' : '' ?>
+                                           class="admin-input"
+                                           <?= $type === 'number' ? 'style="max-width:160px;"' : '' ?>>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if (!empty($field['hint'])): ?>
