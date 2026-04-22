@@ -53,6 +53,16 @@
     <!-- Styles -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 
+    <!-- Container-Breite vergroessern (Override gegen Tailwind-Bundle) -->
+    <style>
+        .section-container { max-width: 112rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+        @media (min-width: 768px) {
+            .section-container { padding-left: 2.5rem; padding-right: 2.5rem; }
+        }
+        .max-w-container { max-width: 112rem; }
+        .max-w-container-wide { max-width: 116rem; }
+    </style>
+
     <!-- Alpine.js (defer) -->
     <script src="<?= asset('js/alpine.min.js') ?>" defer></script>
 </head>
