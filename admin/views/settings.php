@@ -5,6 +5,7 @@
 
 // Self-Heal: Defaults fuer Schriftgroessen anlegen falls nicht vorhanden
 $typoDefaults = [
+    'fs_h1'         => '64',
     'fs_heading'    => '48',
     'fs_subtitle'   => '18',
     'fs_card_title' => '24',
@@ -59,7 +60,8 @@ $settingGroups = [
     'typography' => [
         'label' => 'Typografie (Schriftgrössen in px)',
         'fields' => [
-            'fs_heading'    => ['label' => 'Hauptüberschriften (H2)',   'type' => 'number', 'hint' => 'z.B. „UNSERE LEISTUNGEN". Standard 48 px · Empfehlung 36–64 · auf Mobile automatisch 70 % kleiner.'],
+            'fs_h1'         => ['label' => 'Hero-Titel (H1)',           'type' => 'number', 'hint' => 'Grösster Titel, z.B. „PRÄZISION IN DER VORFABRIKATION". Standard 64 px · Empfehlung 48–80 · auf Mobile automatisch 60 % kleiner.'],
+            'fs_heading'    => ['label' => 'Hauptüberschriften (H2)',   'type' => 'number', 'hint' => 'Section-Titel wie „UNSERE LEISTUNGEN". Standard 48 px · Empfehlung 36–64.'],
             'fs_subtitle'   => ['label' => 'Untertitel / Intro-Text',   'type' => 'number', 'hint' => 'Unter der Hauptüberschrift. Standard 18 px · Empfehlung 16–22.'],
             'fs_card_title' => ['label' => 'Karten-Titel (H3)',         'type' => 'number', 'hint' => 'z.B. Titel innerhalb der Leistungs-Karten. Standard 24 px · Empfehlung 18–32.'],
             'fs_body'       => ['label' => 'Fliesstext / Absätze',      'type' => 'number', 'hint' => 'Normaler Text innerhalb von Sektionen. Standard 16 px · Empfehlung 14–20.'],

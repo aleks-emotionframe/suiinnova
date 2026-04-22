@@ -56,11 +56,12 @@
     <!-- Layout-Overrides: breiterer Container + per CMS einstellbare Schriften -->
     <?php
         // Schriftgroessen in px aus dem CMS (einstellbar unter Admin → Einstellungen → Typografie)
-        $fsHeading   = max(14, min(96, (int) setting('fs_heading',   '48')));
-        $fsSubtitle  = max(10, min(48, (int) setting('fs_subtitle',  '18')));
-        $fsCardTitle = max(12, min(48, (int) setting('fs_card_title','24')));
-        $fsBody      = max(10, min(32, (int) setting('fs_body',      '16')));
-        $fsSmall     = max(8,  min(24, (int) setting('fs_small',     '14')));
+        $fsH1        = max(16, min(128, (int) setting('fs_h1',        '64')));
+        $fsHeading   = max(14, min(96,  (int) setting('fs_heading',   '48')));
+        $fsSubtitle  = max(10, min(48,  (int) setting('fs_subtitle',  '18')));
+        $fsCardTitle = max(12, min(48,  (int) setting('fs_card_title','24')));
+        $fsBody      = max(10, min(32,  (int) setting('fs_body',      '16')));
+        $fsSmall     = max(8,  min(24,  (int) setting('fs_small',     '14')));
     ?>
     <style>
         /* ── Container-Breite ───────────────────────────── */
@@ -73,6 +74,7 @@
 
         /* ── Typografie (per CMS einstellbar, px wie in Word) ── */
         :root {
+            --fs-h1:         <?= $fsH1 ?>px;
             --fs-heading:    <?= $fsHeading ?>px;
             --fs-subtitle:   <?= $fsSubtitle ?>px;
             --fs-card-title: <?= $fsCardTitle ?>px;
@@ -80,9 +82,20 @@
             --fs-small:      <?= $fsSmall ?>px;
         }
 
-        /* Section-Hauptueberschriften
-           Desktop: eingestellter Wert | Tablet: 85% | Mobile: 70%
-           (damit es auch auf kleinen Bildschirmen gut lesbar bleibt) */
+        /* H1 (Hero-Titel / Seiten-Haupttitel)
+           Desktop: eingestellter Wert | Tablet: 80% | Mobile: 60% */
+        main h1 {
+            font-size: calc(var(--fs-h1) * 0.6) !important;
+            line-height: 1.1 !important;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            overflow-wrap: break-word;
+        }
+        @media (min-width: 768px) { main h1 { font-size: calc(var(--fs-h1) * 0.8) !important; } }
+        @media (min-width: 1024px) { main h1 { font-size: var(--fs-h1) !important; } }
+
+        /* Section-Hauptueberschriften (H2)
+           Desktop: eingestellter Wert | Tablet: 85% | Mobile: 70% */
         .section-heading {
             font-size: calc(var(--fs-heading) * 0.7);
             line-height: 1.15;
