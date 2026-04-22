@@ -53,10 +53,14 @@
     <!-- Styles -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 
-    <!-- Layout-Overrides: breiterer Container + skalierbare Schriften -->
+    <!-- Layout-Overrides: breiterer Container + per CMS einstellbare Schriften -->
     <?php
-        // Globale Schriftgroesse (in %) aus dem CMS — default 100
-        $typoScale = max(0.5, min(2.0, (float) setting('typo_scale', '100') / 100));
+        // Schriftgroessen in px aus dem CMS (einstellbar unter Admin → Einstellungen → Typografie)
+        $fsHeading   = max(14, min(96, (int) setting('fs_heading',   '48')));
+        $fsSubtitle  = max(10, min(48, (int) setting('fs_subtitle',  '18')));
+        $fsCardTitle = max(12, min(48, (int) setting('fs_card_title','24')));
+        $fsBody      = max(10, min(32, (int) setting('fs_body',      '16')));
+        $fsSmall     = max(8,  min(24, (int) setting('fs_small',     '14')));
     ?>
     <style>
         /* ── Container-Breite ───────────────────────────── */
@@ -67,59 +71,60 @@
         .max-w-container { max-width: 112rem; }
         .max-w-container-wide { max-width: 116rem; }
 
-        /* ── Typografie (zentral skalierbar via CMS-Setting typo_scale) ── */
-        :root { --typo-scale: <?= $typoScale ?>; }
+        /* ── Typografie (per CMS einstellbar, px wie in Word) ── */
+        :root {
+            --fs-heading:    <?= $fsHeading ?>px;
+            --fs-subtitle:   <?= $fsSubtitle ?>px;
+            --fs-card-title: <?= $fsCardTitle ?>px;
+            --fs-body:       <?= $fsBody ?>px;
+            --fs-small:      <?= $fsSmall ?>px;
+        }
 
-        /* Section-Hauptueberschriften */
+        /* Section-Hauptueberschriften
+           Desktop: eingestellter Wert | Tablet: 85% | Mobile: 70%
+           (damit es auch auf kleinen Bildschirmen gut lesbar bleibt) */
         .section-heading {
-            font-size: calc(2rem * var(--typo-scale));
+            font-size: calc(var(--fs-heading) * 0.7);
             line-height: 1.15;
             letter-spacing: 0.02em;
             hyphens: auto;
             -webkit-hyphens: auto;
             overflow-wrap: break-word;
         }
-        @media (min-width: 768px) {
-            .section-heading { font-size: calc(2.5rem * var(--typo-scale)); line-height: 1.15; }
-        }
-        @media (min-width: 1024px) {
-            .section-heading { font-size: calc(3rem * var(--typo-scale)); line-height: 1.1; }
-        }
+        @media (min-width: 768px) { .section-heading { font-size: calc(var(--fs-heading) * 0.85); } }
+        @media (min-width: 1024px) { .section-heading { font-size: var(--fs-heading); line-height: 1.1; } }
 
         /* Section-Untertitel */
         .section-subtitle {
-            font-size: calc(1.0625rem * var(--typo-scale));
+            font-size: calc(var(--fs-subtitle) * 0.9);
             line-height: 1.65;
             max-width: 60rem;
         }
-        @media (min-width: 768px) {
-            .section-subtitle { font-size: calc(1.125rem * var(--typo-scale)); line-height: 1.7; }
-        }
+        @media (min-width: 768px) { .section-subtitle { font-size: var(--fs-subtitle); line-height: 1.7; } }
 
         /* Karten- / Service-Titel (h3) in Sektionen */
         main .section h3,
         main section h3 {
-            font-size: calc(1.25rem * var(--typo-scale));
+            font-size: calc(var(--fs-card-title) * 0.85);
             line-height: 1.25;
             hyphens: auto;
             -webkit-hyphens: auto;
             overflow-wrap: break-word;
         }
-        @media (min-width: 768px) {
-            main .section h3,
-            main section h3 { font-size: calc(1.5rem * var(--typo-scale)); line-height: 1.25; }
-        }
+        @media (min-width: 768px) { main .section h3, main section h3 { font-size: var(--fs-card-title); } }
 
         /* Body-Text in Sektionen */
         main .section p,
         main section p {
-            font-size: calc(1rem * var(--typo-scale));
+            font-size: var(--fs-body);
             line-height: 1.7;
         }
 
         /* Kleine Labels / Untertexte */
-        main .section .text-xs { font-size: calc(0.8125rem * var(--typo-scale)); }
-        main .section .text-sm { font-size: calc(0.9375rem * var(--typo-scale)); }
+        main .section .text-xs,
+        main .section .text-sm {
+            font-size: var(--fs-small);
+        }
 
         /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break */
         main h1, main h2, main h3 {

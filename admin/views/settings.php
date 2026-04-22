@@ -3,17 +3,25 @@
  * Admin — Einstellungen
  */
 
-// Self-Heal: Default fuer typo_scale anlegen falls nicht vorhanden
+// Self-Heal: Defaults fuer Schriftgroessen anlegen falls nicht vorhanden
+$typoDefaults = [
+    'fs_heading'    => '48',
+    'fs_subtitle'   => '18',
+    'fs_card_title' => '24',
+    'fs_body'       => '16',
+    'fs_small'      => '14',
+];
 try {
-    $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = 'typo_scale'");
-    if (!$exists) {
-        $db->insert('settings', [
-            'setting_key' => 'typo_scale',
-            'setting_val' => '100',
-            'group_name'  => 'typography',
-        ]);
-        // Aktuellen Request-Cache aktualisieren
-        $GLOBALS['settings']['typo_scale'] = '100';
+    foreach ($typoDefaults as $key => $default) {
+        $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = :k", ['k' => $key]);
+        if (!$exists) {
+            $db->insert('settings', [
+                'setting_key' => $key,
+                'setting_val' => $default,
+                'group_name'  => 'typography',
+            ]);
+            $GLOBALS['settings'][$key] = $default;
+        }
     }
 } catch (Exception $e) {}
 
@@ -49,13 +57,13 @@ $settingGroups = [
         ],
     ],
     'typography' => [
-        'label' => 'Typografie (Schriftgrösse)',
+        'label' => 'Typografie (Schriftgrössen in px)',
         'fields' => [
-            'typo_scale' => [
-                'label' => 'Globale Schriftgrösse in %',
-                'type'  => 'number',
-                'hint'  => '100 = Standard · 110 = 10% grösser · 90 = 10% kleiner · Empfehlung: 95–130. Gilt für alle Überschriften, Texte und Karten gleichzeitig.',
-            ],
+            'fs_heading'    => ['label' => 'Hauptüberschriften (H2)',   'type' => 'number', 'hint' => 'z.B. „UNSERE LEISTUNGEN". Standard 48 px · Empfehlung 36–64 · auf Mobile automatisch 70 % kleiner.'],
+            'fs_subtitle'   => ['label' => 'Untertitel / Intro-Text',   'type' => 'number', 'hint' => 'Unter der Hauptüberschrift. Standard 18 px · Empfehlung 16–22.'],
+            'fs_card_title' => ['label' => 'Karten-Titel (H3)',         'type' => 'number', 'hint' => 'z.B. Titel innerhalb der Leistungs-Karten. Standard 24 px · Empfehlung 18–32.'],
+            'fs_body'       => ['label' => 'Fliesstext / Absätze',      'type' => 'number', 'hint' => 'Normaler Text innerhalb von Sektionen. Standard 16 px · Empfehlung 14–20.'],
+            'fs_small'      => ['label' => 'Kleintext / Labels',        'type' => 'number', 'hint' => 'Footer-Infos, kurze Labels, Untertags. Standard 14 px · Empfehlung 12–16.'],
         ],
     ],
     'career' => [
@@ -115,7 +123,7 @@ $settingGroups = [
                                     <input type="<?= e($inputType) ?>"
                                            name="settings[<?= e($key) ?>]"
                                            value="<?= e($val) ?>"
-                                           <?= $type === 'number' ? 'min="50" max="200" step="5"' : '' ?>
+                                           <?= $type === 'number' ? 'min="8" max="96" step="1"' : '' ?>
                                            class="admin-input"
                                            <?= $type === 'number' ? 'style="max-width:160px;"' : '' ?>>
                                 <?php endif; ?>
