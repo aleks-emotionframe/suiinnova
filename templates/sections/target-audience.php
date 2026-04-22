@@ -31,10 +31,10 @@ if (empty($items) && $body) {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <?php foreach ($items as $i => $item): ?>
                     <div class="group p-6 md:p-8 bg-gray-50 rounded-lg hover:bg-gray-900 transition-all duration-300 fade-in">
-                        <!-- Nummer -->
-                        <span class="text-4xl font-bold text-gray-200 group-hover:text-white/10 transition-colors duration-300 block mb-3">0<?= $i + 1 ?></span>
+                        <!-- Roter Akzent-Strich -->
+                        <div style="width:40px;height:2px;background:#C41018;margin-bottom:18px;" class="group-hover:brightness-125 transition-all duration-300"></div>
                         <!-- Titel -->
-                        <h3 class="text-base font-bold uppercase tracking-wider text-gray-900 group-hover:text-white mb-3 transition-colors duration-300">
+                        <h3 class="font-bold uppercase tracking-wider text-gray-900 group-hover:text-white mb-3 transition-colors duration-300">
                             <?= e($item['title'] ?? '') ?>
                         </h3>
                         <!-- Text -->
