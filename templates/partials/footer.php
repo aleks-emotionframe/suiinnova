@@ -71,9 +71,12 @@
             <p class="text-xs text-gray-500">
                 &copy; <?= date('Y') ?> <?= e(setting('site_name', SITE_NAME)) ?>. Alle Rechte vorbehalten.
             </p>
-            <div class="flex items-center gap-4 text-xs text-gray-500">
+            <div class="flex items-center gap-4 text-xs text-gray-500 flex-wrap">
                 <a href="<?= url('datenschutz') ?>" class="hover:text-gray-300 transition-colors duration-200">Datenschutz</a>
                 <a href="<?= url('impressum') ?>" class="hover:text-gray-300 transition-colors duration-200">Impressum</a>
+                <button type="button" onclick="if(window.resetCookieConsent)window.resetCookieConsent()" class="hover:text-gray-300 transition-colors duration-200" style="background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;">
+                    Cookie-Einstellungen
+                </button>
                 <span class="text-gray-600">·</span>
                 <a href="<?= e(setting('created_by_url', 'https://emotionframe.ch')) ?>" target="_blank" rel="noopener" class="hover:text-gray-300 transition-colors duration-200">
                     Created by <?= e(setting('created_by', 'EmotionFrame')) ?>

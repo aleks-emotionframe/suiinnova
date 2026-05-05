@@ -17,13 +17,23 @@ try {
     }
 } catch (Exception $e) {}
 
-// Self-Heal: Cookie-Banner-Defaults
+// Self-Heal: Cookie-Banner-Defaults (mit Accept All / Necessary-Wahl)
 $cookieDefaults = [
-    'cookie_visible'     => '1',
-    'cookie_text'        => 'Diese Website verwendet ausschliesslich technisch notwendige Cookies. Es findet kein Tracking statt.',
-    'cookie_link_text'   => 'Mehr erfahren',
-    'cookie_button_text' => 'Verstanden',
+    'cookie_visible'         => '1',
+    'cookie_text'            => 'Wir verwenden technisch notwendige Cookies und – mit Ihrer Einwilligung – Statistik-Cookies (Google Analytics) zur anonymen Analyse der Website-Nutzung.',
+    'cookie_link_text'       => 'Datenschutzerklärung',
+    'cookie_btn_accept_all'  => 'Alle akzeptieren',
+    'cookie_btn_accept_only' => 'Nur notwendige',
 ];
+
+// Cleanup alter Default falls vorhanden (vom alten Single-Button-Design)
+try {
+    $oldText = $db->fetch("SELECT setting_val FROM settings WHERE setting_key = 'cookie_text'");
+    if ($oldText && strpos($oldText['setting_val'], 'kein Tracking') !== false) {
+        $db->update('settings', ['setting_val' => $cookieDefaults['cookie_text']], 'setting_key = :k', ['k' => 'cookie_text']);
+        $GLOBALS['settings']['cookie_text'] = $cookieDefaults['cookie_text'];
+    }
+} catch (Exception $e) {}
 try {
     foreach ($cookieDefaults as $key => $default) {
         $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = :k", ['k' => $key]);
@@ -104,12 +114,13 @@ $settingGroups = [
         ],
     ],
     'cookie' => [
-        'label' => 'Cookie-Banner',
+        'label' => 'Cookie-Banner (mit Consent-Wahl)',
         'fields' => [
-            'cookie_visible'     => ['label' => 'Cookie-Banner anzeigen', 'type' => 'checkbox', 'hint' => 'Schaltet den Cookie-Hinweis am unteren Bildschirmrand ein/aus. Empfehlung: aktiv.'],
-            'cookie_text'        => ['label' => 'Banner-Text', 'type' => 'textarea', 'hint' => 'Hauptaussage des Banners. Schweizer Stil: kurz, ohne Accept/Reject-Wahl.'],
-            'cookie_link_text'   => ['label' => 'Link-Text zur Datenschutzerklärung', 'type' => 'text', 'hint' => 'Standard: „Mehr erfahren". Verlinkt automatisch auf /datenschutz.'],
-            'cookie_button_text' => ['label' => 'Button-Beschriftung', 'type' => 'text', 'hint' => 'Standard: „Verstanden". Beim Klick wird ein Cookie für 365 Tage gesetzt.'],
+            'cookie_visible'         => ['label' => 'Cookie-Banner anzeigen', 'type' => 'checkbox', 'hint' => 'Schaltet den Cookie-Hinweis am unteren Bildschirmrand ein/aus. Pflicht wenn Google Analytics aktiv ist.'],
+            'cookie_text'            => ['label' => 'Banner-Text', 'type' => 'textarea', 'hint' => 'Hauptaussage. Sollte erwähnen, dass Google Analytics nur mit Einwilligung geladen wird.'],
+            'cookie_link_text'       => ['label' => 'Link-Text zur Datenschutzerklärung', 'type' => 'text', 'hint' => 'Standard: „Datenschutzerklärung". Verlinkt automatisch auf /datenschutz.'],
+            'cookie_btn_accept_all'  => ['label' => 'Button: Alle akzeptieren', 'type' => 'text', 'hint' => 'Roter Hauptbutton. Lädt Google Analytics nach.'],
+            'cookie_btn_accept_only' => ['label' => 'Button: Nur notwendige', 'type' => 'text', 'hint' => 'Outline-Button. Lädt KEIN Tracking.'],
         ],
     ],
     'career' => [

@@ -287,6 +287,29 @@
     <!-- Cookie-Banner (nur wenn aktiviert und noch nicht akzeptiert) -->
     <?php include BASE_PATH . '/templates/partials/cookie-banner.php'; ?>
 
+    <!-- Google Analytics (nur laden wenn der Besucher zugestimmt hat) -->
+    <?php $gaId = setting('google_analytics_id'); if ($gaId): ?>
+    <script>
+        window.loadAnalytics = function() {
+            if (window._gaLoaded) return;
+            window._gaLoaded = true;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=<?= e($gaId) ?>';
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '<?= e($gaId) ?>', { 'anonymize_ip': true });
+        };
+        // Wenn bereits zugestimmt → sofort laden
+        if (document.cookie.split(';').some(function(c){ return c.trim().startsWith('cookies_accepted=all'); })) {
+            window.loadAnalytics();
+        }
+    </script>
+    <?php endif; ?>
+
     <!-- App JS -->
     <script src="<?= asset('js/app.js') ?>"></script>
 </body>

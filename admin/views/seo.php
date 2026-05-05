@@ -36,6 +36,13 @@ $globalFields = [
         ],
     ],
     [
+        'label'       => 'Web-Analyse',
+        'description' => 'Google Analytics — wird nur geladen wenn der Besucher im Cookie-Banner „Alle akzeptieren" wählt.',
+        'fields' => [
+            'google_analytics_id' => ['label' => 'Google Analytics Mess-ID', 'type' => 'text', 'hint' => 'GA4-Mess-ID im Format G-XXXXXXXXXX. Leer lassen = kein Analytics. IP-Anonymisierung ist automatisch aktiv.'],
+        ],
+    ],
+    [
         'label'       => 'Indexierung',
         'description' => 'Globale Suchmaschinen-Sichtbarkeit.',
         'fields' => [
