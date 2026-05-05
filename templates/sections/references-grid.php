@@ -15,7 +15,7 @@ $limit    = (int) ($content['limit'] ?? 0);
 $source   = $content['source'] ?? 'all';   // 'all' (alle aktiven) oder 'featured' (nur Startseiten-Auswahl)
 
 // Wenn keine Items manuell gesetzt sind → globale Referenzen aus DB laden
-// (eine Aenderung in /admin/references wirkt auf allen Seiten gleichzeitig)
+// (eine Änderung in /admin/references wirkt auf allen Seiten gleichzeitig)
 if (empty($items)) {
     $items = getGlobalReferences($limit > 0 ? $limit : null, $source);
 }

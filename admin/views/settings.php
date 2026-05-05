@@ -17,6 +17,27 @@ try {
     }
 } catch (Exception $e) {}
 
+// Self-Heal: Cookie-Banner-Defaults
+$cookieDefaults = [
+    'cookie_visible'     => '1',
+    'cookie_text'        => 'Diese Website verwendet ausschliesslich technisch notwendige Cookies. Es findet kein Tracking statt.',
+    'cookie_link_text'   => 'Mehr erfahren',
+    'cookie_button_text' => 'Verstanden',
+];
+try {
+    foreach ($cookieDefaults as $key => $default) {
+        $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = :k", ['k' => $key]);
+        if (!$exists) {
+            $db->insert('settings', [
+                'setting_key' => $key,
+                'setting_val' => $default,
+                'group_name'  => 'cookie',
+            ]);
+            $GLOBALS['settings'][$key] = $default;
+        }
+    }
+} catch (Exception $e) {}
+
 // Self-Heal: Defaults fuer Schriftgroessen anlegen falls nicht vorhanden
 $typoDefaults = [
     'fs_h1'         => '64',
@@ -80,6 +101,15 @@ $settingGroups = [
             'fs_card_title' => ['label' => 'Karten-Titel (H3)',         'type' => 'number', 'hint' => 'z.B. Titel innerhalb der Leistungs-Karten. Standard 24 px · Empfehlung 18–32.'],
             'fs_body'       => ['label' => 'Fliesstext / Absätze',      'type' => 'number', 'hint' => 'Normaler Text innerhalb von Sektionen. Standard 16 px · Empfehlung 14–20.'],
             'fs_small'      => ['label' => 'Kleintext / Labels',        'type' => 'number', 'hint' => 'Footer-Infos, kurze Labels, Untertags. Standard 14 px · Empfehlung 12–16.'],
+        ],
+    ],
+    'cookie' => [
+        'label' => 'Cookie-Banner',
+        'fields' => [
+            'cookie_visible'     => ['label' => 'Cookie-Banner anzeigen', 'type' => 'checkbox', 'hint' => 'Schaltet den Cookie-Hinweis am unteren Bildschirmrand ein/aus. Empfehlung: aktiv.'],
+            'cookie_text'        => ['label' => 'Banner-Text', 'type' => 'textarea', 'hint' => 'Hauptaussage des Banners. Schweizer Stil: kurz, ohne Accept/Reject-Wahl.'],
+            'cookie_link_text'   => ['label' => 'Link-Text zur Datenschutzerklärung', 'type' => 'text', 'hint' => 'Standard: „Mehr erfahren". Verlinkt automatisch auf /datenschutz.'],
+            'cookie_button_text' => ['label' => 'Button-Beschriftung', 'type' => 'text', 'hint' => 'Standard: „Verstanden". Beim Klick wird ein Cookie für 365 Tage gesetzt.'],
         ],
     ],
     'career' => [

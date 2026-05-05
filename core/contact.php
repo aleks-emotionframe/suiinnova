@@ -19,7 +19,7 @@ function generateCaptcha(): array
 }
 
 /**
- * Captcha validieren und danach loeschen (one-time use).
+ * Captcha validieren und danach löschen (one-time use).
  */
 function verifyCaptcha(string $answer): bool
 {
@@ -138,7 +138,7 @@ function handleContactSubmit(): void
         @mail($receiver, $subject, $body, $headers);
     }
 
-    // Erfolg — Formular-Daten loeschen, Erfolgs-Flash setzen
+    // Erfolg — Formular-Daten löschen, Erfolgs-Flash setzen
     $_SESSION['form_data'] = [];
     setFlash('success', 'Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen.');
     redirectBack();

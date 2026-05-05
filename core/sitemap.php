@@ -28,7 +28,7 @@ function renderSitemap(): void
         $isHome = (int)$p['is_homepage'] === 1;
         $loc = $isHome ? rtrim(SITE_URL, '/') . '/' : url($p['slug']);
 
-        // Letzte Aenderung im W3C-Format
+        // Letzte Änderung im W3C-Format
         $lastmod = !empty($p['updated_at'])
             ? date('Y-m-d', strtotime($p['updated_at']))
             : date('Y-m-d');

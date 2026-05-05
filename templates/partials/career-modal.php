@@ -95,7 +95,7 @@ $formLoadedAt   = time();
             <div style="margin-bottom:20px;">
                 <label for="app_message" class="form-label">Nachricht (optional)</label>
                 <textarea name="app_message" id="app_message" rows="3"
-                          placeholder="Verfuegbarkeit, Motivation, Fragen..."
+                          placeholder="Verfügbarkeit, Motivation, Fragen..."
                           class="form-textarea"></textarea>
             </div>
 

@@ -19,7 +19,7 @@ if (!$pageId || !isset($sectionTypes[$type])) {
     exit;
 }
 
-// Naechste sort_order ermitteln
+// Nächste sort_order ermitteln
 $maxOrder = (int) $db->fetchColumn(
     "SELECT MAX(sort_order) FROM sections WHERE page_id = :pid",
     ['pid' => $pageId]

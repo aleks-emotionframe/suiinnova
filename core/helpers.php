@@ -169,7 +169,7 @@ function setFlash(string $type, string $message): void
 }
 
 /**
- * Flash-Nachricht holen und loeschen
+ * Flash-Nachricht holen und löschen
  */
 function getFlash(): ?array
 {

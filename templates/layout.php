@@ -182,7 +182,7 @@
         $globalFlash = $_SESSION['flash'] ?? null;
         if ($globalFlash):
             // Wir lassen Flash in Session - contact-form kann ihn auch sehen
-            // Sobald JS die Toast anzeigt, loeschen wir die Session via fetch
+            // Sobald JS die Toast anzeigt, löschen wir die Session via fetch
     ?>
     <div id="global-flash-banner" data-type="<?= e($globalFlash['type']) ?>"
          style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:200;padding:14px 24px;border-radius:6px;font-size:14px;font-weight:500;box-shadow:0 10px 30px -10px rgba(0,0,0,0.4);display:flex;align-items:center;gap:10px;max-width:90vw;<?= $globalFlash['type'] === 'success' ? 'background:#15803d;color:#fff;' : 'background:#C41018;color:#fff;' ?>">
@@ -283,6 +283,9 @@
 
     <!-- Karriere-Modal (einmal pro Seite) -->
     <?php include BASE_PATH . '/templates/partials/career-modal.php'; ?>
+
+    <!-- Cookie-Banner (nur wenn aktiviert und noch nicht akzeptiert) -->
+    <?php include BASE_PATH . '/templates/partials/cookie-banner.php'; ?>
 
     <!-- App JS -->
     <script src="<?= asset('js/app.js') ?>"></script>

@@ -44,7 +44,7 @@ try {
         $db->update('ref_items', $data, 'id = :id', ['id' => $id]);
         echo json_encode(['success' => true, 'id' => $id, 'message' => 'Referenz aktualisiert']);
     } else {
-        // Naechste sort_order-Position
+        // Nächste sort_order-Position
         $maxSort = (int)$db->fetchColumn("SELECT COALESCE(MAX(sort_order), 0) FROM ref_items");
         $data['sort_order'] = $maxSort + 1;
         $newId = $db->insert('ref_items', $data);

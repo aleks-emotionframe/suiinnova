@@ -3,7 +3,7 @@ define("BASE_PATH", dirname(dirname(__DIR__)));
 require_once BASE_PATH . "/core/bootstrap.php";
 requireAuth();
 /**
- * AJAX: Medium loeschen
+ * AJAX: Medium löschen
  */
 
 header('Content-Type: application/json');
@@ -21,7 +21,7 @@ if (!$media) {
     exit;
 }
 
-// Dateien loeschen
+// Dateien löschen
 $fullPath = UPLOADS_PATH . '/' . $media['path'];
 if (file_exists($fullPath)) unlink($fullPath);
 
@@ -30,7 +30,7 @@ if ($media['thumb_path']) {
     if (file_exists($thumbPath)) unlink($thumbPath);
 }
 
-// DB-Eintrag loeschen
+// DB-Eintrag löschen
 $db->delete('media', 'id = :id', ['id' => $mediaId]);
 
 echo json_encode(['success' => true]);

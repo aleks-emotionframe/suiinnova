@@ -88,7 +88,7 @@ $realRefs = [
 if ($count === 0 || $hasOldExamples > 0) {
     try {
         if ($hasOldExamples > 0) {
-            // Nur die alten Beispiele loeschen, nicht neu hinzugefuegte
+            // Nur die alten Beispiele löschen, nicht neu hinzugefuegte
             $db->query("DELETE FROM ref_items WHERE title IN ('Wohnüberbauung Limmatfeld','Geschäftshaus Europaallee','Spital Limmattal Erweiterung','Schulanlage Leutschenbach','Alterszentrum Grünau','Industriepark Glattbrugg')");
         }
 
@@ -422,7 +422,7 @@ function referencesManager() {
         },
 
         async deleteReference(id, title) {
-            if (!confirm(`Referenz „${title}" wirklich loeschen?`)) return;
+            if (!confirm(`Referenz „${title}" wirklich löschen?`)) return;
 
             const formData = new FormData();
             formData.append('id', id);

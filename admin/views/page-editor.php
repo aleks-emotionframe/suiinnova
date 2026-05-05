@@ -2,7 +2,7 @@
 /**
  * Admin — Seiten-Editor
  *
- * Sektionen als ausklappbare Karten. AJAX-Save fuer sofortige Aenderungen.
+ * Sektionen als ausklappbare Karten. AJAX-Save fuer sofortige Änderungen.
  */
 
 $page = $db->fetch("SELECT * FROM pages WHERE id = :id", ['id' => $editPageId]);
