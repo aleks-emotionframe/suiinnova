@@ -1,20 +1,23 @@
 -- ============================================
 -- SUI Innova GmbH — Leistungen-Seite DESIGN
 -- ============================================
--- Struktur passend zu Ueber uns & Kontakt:
--- 1) Parallax-Banner
--- 2) Text-Block: Intro
--- 3) Services-Sektion: 2 Hauptpfeiler (Vorfabrikation + Montage)
--- 4) Text-Block: Detail-Ueberleitung
--- 5) Values: 6 konkrete Leistungen als USP-Karten
--- 6) Parallax-Image: Werkstatt-Bild mit Overlay-Text
--- 7) CTA-Banner: Offert-Anfrage
+-- Struktur (Option C, prozess-logische Reihenfolge):
+-- 1) Parallax-Banner (Werkstatt)
+-- 2) Services-Sektion: 4 Hauptleistungen als Karten
+--    1. Vorfabrikation (mit Bild)
+--    2. Beplankungen + Spachtelungen (dunkel)
+--    3. Aqua Panel (mit Bild)
+--    4. Montage (dunkel)
+-- 3) Parallax-Bild (visueller Break, GIS-Element)
+-- 4) CTA-Banner: "Jetzt kontaktieren"
+--
+-- Idempotent: SQL kann beliebig oft ausgefuehrt werden.
 -- ============================================
 
 -- 1) Seite sicherstellen
 INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order, created_at, updated_at)
 SELECT 'Leistungen', 'leistungen', 'Leistungen',
-       'Von der Vorfabrikation bis zur Montage – alle Leistungen der SUI Innova GmbH: GIS-Elemente, Rohrleitungsbau, STOClick, Duofix, Beplankungen, AquaPanel.',
+       'Vorfabrikation, Beplankungen, Aqua Panel und Montage – alle Sanitärleistungen der SUI Innova GmbH aus einer Hand. Von der Werkstatt bis zur Baustelle.',
        1, 0, 3, NOW(), NOW()
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'leistungen');
@@ -26,7 +29,7 @@ DELETE FROM sections WHERE page_id = @page_id;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at, updated_at) VALUES
 
--- ── 1) PARALLAX-BANNER ──────────────────────────
+-- ── 1) PARALLAX-BANNER (Werkstatt) ──────────────
 (
     @page_id,
     'parallax-image',
@@ -39,102 +42,60 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     1, 1, NOW(), NOW()
 ),
 
--- ── 2) INTRO ──────────────────────────────────
-(
-    @page_id,
-    'text-block',
-    JSON_OBJECT(
-        'heading',   'Alles aus einer Hand',
-        'body',      '<p>Wir übernehmen den kompletten Prozess – von der Vorfabrikation in unserer Werkstatt bis zur fachgerechten Montage auf der Baustelle. Ein Partner, ein Ansprechpartner, durchgängige Qualität.</p><p>Das reduziert Schnittstellen, verkürzt Bauzeiten und sorgt dafür, dass Ihr Projekt termingerecht und im Budget fertig wird.</p>',
-        'alignment', 'left'
-    ),
-    2, 1, NOW(), NOW()
-),
-
--- ── 3) HAUPTPFEILER: VORFABRIKATION + MONTAGE ──
+-- ── 2) SERVICES (4 Hauptleistungen, Prozess-Reihenfolge) ──
 (
     @page_id,
     'services',
     JSON_OBJECT(
-        'heading',  'Unsere zwei Pfeiler',
-        'subtitle', 'Vom Rohbau bis zur fertigen Wand – wir decken beide Enden des Sanitärprozesses ab.',
+        'heading',  'Unsere Leistungen',
+        'subtitle', 'Vier Bereiche, ein Partner: von der Vorfabrikation in unserer Werkstatt bis zur fertigen Montage auf Ihrer Baustelle.',
         'items', JSON_ARRAY(
+            -- 1) VORFABRIKATION (mit Bild, breite Karte)
             JSON_OBJECT(
                 'image_id',  0,
+                'image_url', '/assets/img/service-vorfabrikation.jpg',
                 'icon',      'hammer',
                 'title',     'Vorfabrikation',
-                'desc',      'In unserer Werkstatt fertigen wir GIS-Elemente, Rohrleitungsmodule und komplette Installationsbausteine. Fix, fertig, anschlussbereit – einfach auf der Baustelle einbauen.',
+                'desc',      'GIS-Elemente fix und fertig verrohrt aus unserer Werkstatt. Trink-, Ab- und Heizwasser-Leitungen werden direkt am vorgefertigten Element installiert – einbaufertig zur Baustelle.',
                 'link',      '',
                 'link_text', ''
             ),
+            -- 2) BEPLANKUNGEN + SPACHTELUNGEN (dunkel, schmale Karte)
             JSON_OBJECT(
                 'image_id',  0,
+                'image_url', '',
+                'icon',      'square-stack',
+                'title',     'Beplankungen + Spachtelungen',
+                'desc',      'Verkleidung der GIS-Elemente mit Gipsfaser oder Gipskarton, fertig gespachtelt und bereit für Fliesen oder Anstrich.',
+                'link',      '',
+                'link_text', ''
+            ),
+            -- 3) AQUA PANEL (mit Bild, breite Karte)
+            JSON_OBJECT(
+                'image_id',  0,
+                'image_url', '/assets/img/hero-bg.jpg',
+                'icon',      'droplets',
+                'title',     'Aqua Panel',
+                'desc',      'Spezielle Gipsplatten für Nasszellen und Feuchträume. Höhere Feuchtigkeitsaufnahme als Standard-Gipskarton – ideal für Bäder, Duschen und Industrie-Nassräume.',
+                'link',      '',
+                'link_text', ''
+            ),
+            -- 4) MONTAGE (dunkel, schmale Karte)
+            JSON_OBJECT(
+                'image_id',  0,
+                'image_url', '/assets/img/service-montage.jpg',
                 'icon',      'wrench',
-                'title',     'Montage vor Ort',
-                'desc',      'Unsere Teams montieren Duofix-Vorwände, Beplankungen und AquaPanel direkt auf der Baustelle. Spachtelungen und Ausflockungen inklusive – bereit für Fliesen oder Anstrich.',
+                'title',     'Montage',
+                'desc',      'Professionelle Montage der vorgefertigten Elemente direkt auf Ihrer Baustelle – termingerecht, präzise und durch erfahrene Teams.',
                 'link',      '',
                 'link_text', ''
             )
         )
     ),
-    3, 1, NOW(), NOW()
+    2, 1, NOW(), NOW()
 ),
 
--- ── 4) DETAIL-UEBERLEITUNG ────────────────────
-(
-    @page_id,
-    'text-block',
-    JSON_OBJECT(
-        'heading',   'Unser Leistungsspektrum im Detail',
-        'body',      '<p>Für jeden Bereich die richtige Lösung: von Standard-Sanitärinstallation bis zu Spezial-Themen wie AquaPanel in Feuchträumen oder STOClick-Befestigungen.</p>',
-        'alignment', 'center'
-    ),
-    4, 1, NOW(), NOW()
-),
-
--- ── 5) VALUES: 6 DETAIL-LEISTUNGEN ────────────
-(
-    @page_id,
-    'values',
-    JSON_OBJECT(
-        'heading', '',
-        'items', JSON_ARRAY(
-            JSON_OBJECT(
-                'icon',  'boxes',
-                'title', 'GIS-Elemente',
-                'desc',  'Vorfabrizierte Geberit-Installationssysteme, massgeschneidert für Ihr Projekt und bereit für die schnelle Baustellen-Montage.'
-            ),
-            JSON_OBJECT(
-                'icon',  'route',
-                'title', 'Rohrleitungsbau',
-                'desc',  'Trink-, Ab- und Heizwasser-Installationen in allen gängigen Materialien. Nach SIA-Normen ausgeführt, dicht und langlebig.'
-            ),
-            JSON_OBJECT(
-                'icon',  'zap',
-                'title', 'STOClick-System',
-                'desc',  'Schnellbefestigungs-System für sanitäre Installationen. Millimetergenau vorgefertigt, auf der Baustelle in Minuten montiert.'
-            ),
-            JSON_OBJECT(
-                'icon',  'layout-panel-top',
-                'title', 'Duofix & Vorwände',
-                'desc',  'Geberit Duofix und gleichwertige Vorwand-Systeme – für WC, Lavabo, Urinal und Spezialkonstruktionen.'
-            ),
-            JSON_OBJECT(
-                'icon',  'square-stack',
-                'title', 'Beplankungen',
-                'desc',  'Gipsfaser-, Gipskarton- und OSB-Beplankungen. Saubere Übergänge, stabile Untergründe für die Weiterbearbeitung.'
-            ),
-            JSON_OBJECT(
-                'icon',  'droplets',
-                'title', 'AquaPanel & Spachtelung',
-                'desc',  'Wasserresistente AquaPanel-Platten für Feuchträume, inklusive Spachtelung und Ausflockung – bereit für Fliesen oder Anstrich.'
-            )
-        )
-    ),
-    5, 1, NOW(), NOW()
-),
-
--- ── 6) PARALLAX IMAGE (Break) ─────────────────
+-- ── 3) PARALLAX-IMAGE (visueller Break) ─────────
 (
     @page_id,
     'parallax-image',
@@ -142,24 +103,28 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'image_id',     0,
         'image_url',    '/assets/img/hero-bg.jpg',
         'height',       'medium',
-        'overlay_text', 'Qualität aus einer Hand'
+        'overlay_text', 'Alles aus einer Hand'
     ),
-    6, 1, NOW(), NOW()
+    3, 1, NOW(), NOW()
 ),
 
--- ── 7) CTA-BANNER ─────────────────────────────
+-- ── 4) CTA-BANNER ──────────────────────────────
 (
     @page_id,
     'cta-banner',
     JSON_OBJECT(
-        'heading',     'Planen Sie ein Projekt?',
-        'body',        'Sprechen wir darüber. Wir erstellen Ihnen gerne eine unverbindliche Offerte – von der Vorfabrikation bis zur Montage.',
-        'button_text', 'Kontakt aufnehmen',
+        'heading',     'Bereit für Ihr nächstes Projekt?',
+        'body',        'Sprechen Sie mit uns über Ihre Anforderungen. Unverbindlich und ohne Verpflichtung – wir melden uns innerhalb eines Werktages zurück.',
+        'button_text', 'Jetzt kontaktieren',
         'button_url',  '/kontakt'
     ),
-    7, 1, NOW(), NOW()
+    4, 1, NOW(), NOW()
 );
 
 -- ============================================
--- Fertig! https://sui-innova.ch/leistungen
+-- Fertig! Aufruf https://sui-innova.ch/leistungen
+--
+-- Bilder spaeter im CMS aendern:
+--   Admin → Seiten → Leistungen → Bearbeiten
+--   → Services-Sektion → pro Karte „Bild waehlen"
 -- ============================================
