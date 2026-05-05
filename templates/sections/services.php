@@ -57,7 +57,7 @@ $items    = $content['items'] ?? [];
                                     <div class="flex flex-col justify-center p-5 md:p-7">
                                         <p class="text-sm font-bold uppercase tracking-wider text-brand-accent mb-3"><?= e($title) ?></p>
                                         <?php if ($desc): ?>
-                                            <div class="services-card-text text-gray-900"><?= renderRichtext($desc) ?></div>
+                                            <div class="services-card-text" style="color:#1F2937;"><?= renderRichtext($desc) ?></div>
                                         <?php endif; ?>
                                         <?php if ($link): ?>
                                             <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[11px] font-medium text-gray-900 hover:text-brand-accent transition-colors duration-200 mt-3">
@@ -74,10 +74,11 @@ $items    = $content['items'] ?? [];
                                 <div class="flex flex-col justify-center p-6 md:p-8 h-full min-h-[180px]">
                                     <p class="text-sm font-bold uppercase tracking-wider text-brand-accent mb-3"><?= e($title) ?></p>
                                     <?php if ($desc): ?>
-                                        <div class="services-card-text text-white/85"><?= renderRichtext($desc) ?></div>
+                                        <div class="services-card-text services-card-text--dark" style="color:rgba(255,255,255,0.85);"><?= renderRichtext($desc) ?></div>
                                     <?php endif; ?>
                                     <?php if ($link): ?>
-                                        <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/70 hover:text-white transition-colors duration-200 mt-3">
+                                        <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[11px] font-medium transition-colors duration-200 mt-3" style="color:rgba(255,255,255,0.7);"
+                                           onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
                                             → <?= e($linkText) ?>
                                         </a>
                                     <?php endif; ?>
@@ -106,6 +107,7 @@ $items    = $content['items'] ?? [];
         font-size: inherit !important;
         line-height: inherit !important;
         font-weight: inherit !important;
+        color: inherit !important;
         margin: 0 0 0.85em 0;
     }
     .services-card-text p:last-child { margin-bottom: 0; }
