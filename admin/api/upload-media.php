@@ -75,8 +75,12 @@ if (str_starts_with($mimeType, 'image/') && $mimeType !== 'image/svg+xml') {
         $height = $imageInfo[1];
     }
 
-    // Thumbnail generieren
-    $thumbPath = createThumbnail($absolutePath, $filename);
+    // Thumbnail generieren (AVIF: graceful skip wenn PHP-Server kein AVIF kann)
+    try {
+        $thumbPath = createThumbnail($absolutePath, $filename);
+    } catch (Throwable $e) {
+        $thumbPath = null;
+    }
 }
 
 // In DB speichern
@@ -122,13 +126,20 @@ function createThumbnail(string $sourcePath, string $filename): ?string
 
     [$origW, $origH, $type] = $imageInfo;
 
-    // Source laden
-    $source = match($type) {
-        IMAGETYPE_JPEG => imagecreatefromjpeg($sourcePath),
-        IMAGETYPE_PNG  => imagecreatefrompng($sourcePath),
-        IMAGETYPE_WEBP => function_exists('imagecreatefromwebp') ? imagecreatefromwebp($sourcePath) : null,
-        default        => null,
-    };
+    // Source laden (AVIF nur wenn PHP-Build es unterstuetzt)
+    $avifType = defined('IMAGETYPE_AVIF') ? IMAGETYPE_AVIF : null;
+    $source = null;
+    try {
+        $source = match (true) {
+            $type === IMAGETYPE_JPEG                                                   => imagecreatefromjpeg($sourcePath),
+            $type === IMAGETYPE_PNG                                                    => imagecreatefrompng($sourcePath),
+            $type === IMAGETYPE_WEBP && function_exists('imagecreatefromwebp')         => imagecreatefromwebp($sourcePath),
+            $avifType && $type === $avifType && function_exists('imagecreatefromavif') => imagecreatefromavif($sourcePath),
+            default                                                                    => null,
+        };
+    } catch (Throwable $e) {
+        $source = null;
+    }
 
     if (!$source) return null;
 
