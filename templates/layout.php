@@ -83,46 +83,56 @@
         }
 
         /* H1 (Hero-Titel / Seiten-Haupttitel)
-           Desktop: eingestellter Wert | Tablet: 80% | Mobile: 60% */
+           Desktop: eingestellter Wert | Tablet: 70% | Mobile: 50% | Sehr eng: 42% */
         main h1 {
-            font-size: calc(var(--fs-h1) * 0.6) !important;
+            font-size: calc(var(--fs-h1) * 0.5) !important;
             line-height: 1.1 !important;
             hyphens: auto;
             -webkit-hyphens: auto;
             overflow-wrap: break-word;
+            word-break: normal;
         }
-        @media (min-width: 768px) { main h1 { font-size: calc(var(--fs-h1) * 0.8) !important; } }
+        @media (max-width: 400px) {
+            main h1 { font-size: calc(var(--fs-h1) * 0.42) !important; }
+        }
+        @media (min-width: 768px) { main h1 { font-size: calc(var(--fs-h1) * 0.7) !important; } }
         @media (min-width: 1024px) { main h1 { font-size: var(--fs-h1) !important; } }
 
         /* Section-Hauptueberschriften (H2)
-           Desktop: eingestellter Wert | Tablet: 85% | Mobile: 70% */
+           Desktop: eingestellter Wert | Tablet: 80% | Mobile: 60% */
         .section-heading {
-            font-size: calc(var(--fs-heading) * 0.7);
+            font-size: calc(var(--fs-heading) * 0.6);
             line-height: 1.15;
             letter-spacing: 0.02em;
             hyphens: auto;
             -webkit-hyphens: auto;
             overflow-wrap: break-word;
+            word-break: normal;
         }
-        @media (min-width: 768px) { .section-heading { font-size: calc(var(--fs-heading) * 0.85); } }
+        @media (max-width: 400px) {
+            .section-heading { font-size: calc(var(--fs-heading) * 0.55); }
+        }
+        @media (min-width: 768px) { .section-heading { font-size: calc(var(--fs-heading) * 0.8); } }
         @media (min-width: 1024px) { .section-heading { font-size: var(--fs-heading); line-height: 1.1; } }
 
         /* Section-Untertitel */
         .section-subtitle {
-            font-size: calc(var(--fs-subtitle) * 0.9);
-            line-height: 1.65;
+            font-size: calc(var(--fs-subtitle) * 0.85);
+            line-height: 1.6;
             max-width: 60rem;
+            overflow-wrap: break-word;
         }
         @media (min-width: 768px) { .section-subtitle { font-size: var(--fs-subtitle); line-height: 1.7; } }
 
         /* Karten- / Service-Titel (h3) in Sektionen */
         main .section h3,
         main section h3 {
-            font-size: calc(var(--fs-card-title) * 0.85);
+            font-size: calc(var(--fs-card-title) * 0.8);
             line-height: 1.25;
             hyphens: auto;
             -webkit-hyphens: auto;
             overflow-wrap: break-word;
+            word-break: normal;
         }
         @media (min-width: 768px) { main .section h3, main section h3 { font-size: var(--fs-card-title); } }
 
@@ -131,12 +141,27 @@
         main section p {
             font-size: var(--fs-body);
             line-height: 1.7;
+            overflow-wrap: break-word;
         }
 
         /* Kleine Labels / Untertexte */
         main .section .text-xs,
         main .section .text-sm {
             font-size: var(--fs-small);
+        }
+
+        /* Hero-spezifische Mobile-Anpassungen — Tagline und lange Texte
+           sicher umbrechen, damit nichts ueber den Viewport-Rand laeuft */
+        @media (max-width: 767px) {
+            main section h1 ~ p,
+            main section h2 ~ p {
+                overflow-wrap: break-word;
+                word-break: normal;
+            }
+            /* Tagline-Texte (uppercase, tracking) unter dem Heading lockerer brechen */
+            .uppercase {
+                overflow-wrap: anywhere;
+            }
         }
 
         /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break */
