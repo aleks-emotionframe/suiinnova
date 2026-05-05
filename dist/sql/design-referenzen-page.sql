@@ -52,23 +52,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     2, 1, NOW(), NOW()
 ),
 
--- ── 3) STATS-BAR ─────────────────────────────
-(
-    @page_id,
-    'stats-bar',
-    JSON_OBJECT(
-        'style', 'dark',
-        'items', JSON_ARRAY(
-            JSON_OBJECT('number', '150+',  'label', 'Abgeschlossene Projekte'),
-            JSON_OBJECT('number', '85+',   'label', 'Fachkräfte im Team'),
-            JSON_OBJECT('number', '20+',   'label', 'Jahre Erfahrung'),
-            JSON_OBJECT('number', 'CH',    'label', 'Schweizweit tätig')
-        )
-    ),
-    3, 1, NOW(), NOW()
-),
-
--- ── 4) PARALLAX-IMAGE ────────────────────────
+-- ── 3) PARALLAX-IMAGE ────────────────────────
 (
     @page_id,
     'parallax-image',
@@ -78,10 +62,10 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'height',       'medium',
         'overlay_text', 'Präzision in jeder Verbindung'
     ),
-    4, 1, NOW(), NOW()
+    3, 1, NOW(), NOW()
 ),
 
--- ── 5) CTA-BANNER ────────────────────────────
+-- ── 4) CTA-BANNER ────────────────────────────
 (
     @page_id,
     'cta-banner',
@@ -91,7 +75,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'button_text', 'Projekt besprechen',
         'button_url',  '/kontakt'
     ),
-    5, 1, NOW(), NOW()
+    4, 1, NOW(), NOW()
 );
 
 -- ============================================
