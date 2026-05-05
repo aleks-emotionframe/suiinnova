@@ -1,15 +1,13 @@
 -- ============================================
--- SUI Innova GmbH — Leistungen-Seite DESIGN
+-- SUI Innova GmbH — Leistungen-Seite DESIGN v2
 -- ============================================
--- Struktur (Option C, prozess-logische Reihenfolge):
--- 1) Parallax-Banner (Werkstatt)
--- 2) Services-Sektion: 4 Hauptleistungen als Karten
---    1. Vorfabrikation (mit Bild)
---    2. Beplankungen + Spachtelungen (dunkel)
---    3. Aqua Panel (mit Bild)
---    4. Montage (dunkel)
--- 3) Parallax-Bild (visueller Break, GIS-Element)
--- 4) CTA-Banner: "Jetzt kontaktieren"
+-- Texte mit Absatz-Umbruechen (\n\n) - werden vom Template als <p>-Tags gerendert.
+--
+-- Struktur:
+-- 1) Parallax-Banner
+-- 2) Services-Sektion mit 4 Hauptleistungen (Prozess-Reihenfolge)
+-- 3) Parallax-Bild (Break)
+-- 4) CTA-Banner
 --
 -- Idempotent: SQL kann beliebig oft ausgefuehrt werden.
 -- ============================================
@@ -29,7 +27,7 @@ DELETE FROM sections WHERE page_id = @page_id;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at, updated_at) VALUES
 
--- ── 1) PARALLAX-BANNER (Werkstatt) ──────────────
+-- ── 1) PARALLAX-BANNER ──────────────
 (
     @page_id,
     'parallax-image',
@@ -42,7 +40,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     1, 1, NOW(), NOW()
 ),
 
--- ── 2) SERVICES (4 Hauptleistungen, Prozess-Reihenfolge) ──
+-- ── 2) SERVICES (4 Karten, Prozess-Reihenfolge) ──
 (
     @page_id,
     'services',
@@ -50,43 +48,43 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
         'heading',  'Unsere Leistungen',
         'subtitle', 'Vier Bereiche, ein Partner: von der Vorfabrikation in unserer Werkstatt bis zur fertigen Montage auf Ihrer Baustelle.',
         'items', JSON_ARRAY(
-            -- 1) VORFABRIKATION (mit Bild, breite Karte)
+            -- 1) VORFABRIKATION
             JSON_OBJECT(
                 'image_id',  0,
                 'image_url', '/assets/img/service-vorfabrikation.jpg',
                 'icon',      'hammer',
                 'title',     'Vorfabrikation',
-                'desc',      'GIS-Elemente fix und fertig verrohrt aus unserer Werkstatt. Trink-, Ab- und Heizwasser-Leitungen werden direkt am vorgefertigten Element installiert – einbaufertig zur Baustelle.',
+                'desc',      'GIS-Elemente fix und fertig verrohrt aus unserer Werkstatt.\n\nTrink-, Ab- und Heizwasser-Leitungen werden direkt am vorgefertigten Element installiert – einbaufertig zur Baustelle.',
                 'link',      '',
                 'link_text', ''
             ),
-            -- 2) BEPLANKUNGEN + SPACHTELUNGEN (dunkel, schmale Karte)
+            -- 2) BEPLANKUNGEN + SPACHTELUNGEN
             JSON_OBJECT(
                 'image_id',  0,
                 'image_url', '',
                 'icon',      'square-stack',
                 'title',     'Beplankungen + Spachtelungen',
-                'desc',      'Verkleidung der GIS-Elemente mit Gipsfaser oder Gipskarton, fertig gespachtelt und bereit für Fliesen oder Anstrich.',
+                'desc',      'Verkleidung der GIS-Elemente mit Gipsfaser oder Gipskarton.\n\nFertig gespachtelt und bereit für Fliesen oder Anstrich – saubere Übergänge und stabile Untergründe für die Weiterbearbeitung.',
                 'link',      '',
                 'link_text', ''
             ),
-            -- 3) AQUA PANEL (mit Bild, breite Karte)
+            -- 3) AQUA PANEL
             JSON_OBJECT(
                 'image_id',  0,
                 'image_url', '/assets/img/hero-bg.jpg',
                 'icon',      'droplets',
                 'title',     'Aqua Panel',
-                'desc',      'Spezielle Gipsplatten für Nasszellen und Feuchträume. Höhere Feuchtigkeitsaufnahme als Standard-Gipskarton – ideal für Bäder, Duschen und Industrie-Nassräume.',
+                'desc',      'Spezielle Gipsplatten für Nasszellen und Feuchträume. Höhere Feuchtigkeitsaufnahme als Standard-Gipskarton.\n\nIdeal für Bäder, Duschen und Industrie-Nassräume – langlebig und feuchtigkeitsresistent.',
                 'link',      '',
                 'link_text', ''
             ),
-            -- 4) MONTAGE (dunkel, schmale Karte)
+            -- 4) MONTAGE
             JSON_OBJECT(
                 'image_id',  0,
                 'image_url', '/assets/img/service-montage.jpg',
                 'icon',      'wrench',
                 'title',     'Montage',
-                'desc',      'Professionelle Montage der vorgefertigten Elemente direkt auf Ihrer Baustelle – termingerecht, präzise und durch erfahrene Teams.',
+                'desc',      'Professionelle Montage der vorgefertigten Elemente direkt auf Ihrer Baustelle.\n\nTermingerecht, präzise und durch erfahrene Teams – damit Ihr Projekt im Zeitplan bleibt.',
                 'link',      '',
                 'link_text', ''
             )
@@ -95,7 +93,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     2, 1, NOW(), NOW()
 ),
 
--- ── 3) PARALLAX-IMAGE (visueller Break) ─────────
+-- ── 3) PARALLAX-IMAGE ─────────
 (
     @page_id,
     'parallax-image',
@@ -108,7 +106,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
     3, 1, NOW(), NOW()
 ),
 
--- ── 4) CTA-BANNER ──────────────────────────────
+-- ── 4) CTA-BANNER ────────────
 (
     @page_id,
     'cta-banner',
@@ -123,8 +121,4 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
 
 -- ============================================
 -- Fertig! Aufruf https://sui-innova.ch/leistungen
---
--- Bilder spaeter im CMS aendern:
---   Admin → Seiten → Leistungen → Bearbeiten
---   → Services-Sektion → pro Karte „Bild waehlen"
 -- ============================================
