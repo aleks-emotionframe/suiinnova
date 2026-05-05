@@ -14,6 +14,31 @@ function handleApplicationSubmit(): void
 {
     global $db;
 
+    // ── Self-Heal: Tabelle anlegen falls noch nicht vorhanden ──
+    try {
+        $db->query("CREATE TABLE IF NOT EXISTS applications (
+            id          INT AUTO_INCREMENT PRIMARY KEY,
+            name        VARCHAR(255) NOT NULL,
+            email       VARCHAR(255) NOT NULL,
+            phone       VARCHAR(50)  DEFAULT NULL,
+            position    VARCHAR(255) DEFAULT NULL,
+            message     TEXT         DEFAULT NULL,
+            files       TEXT         DEFAULT NULL,
+            is_read     TINYINT(1)   NOT NULL DEFAULT 0,
+            created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_created (created_at),
+            INDEX idx_is_read (is_read)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    } catch (Exception $e) {}
+
+    // ── Self-Heal: Upload-Ordner anlegen falls fehlt ──
+    $uploadDir = BASE_PATH . '/uploads/applications';
+    if (!is_dir($uploadDir)) {
+        @mkdir($uploadDir, 0755, true);
+        // .htaccess als Schutz fuer den Ordner
+        @file_put_contents($uploadDir . '/.htaccess', "Options -Indexes\n<FilesMatch \"\\.(php|phtml|php[0-9]|phar)$\">\n    Require all denied\n</FilesMatch>\n");
+    }
+
     if (!validateCsrf()) {
         setFlash('error', 'Sicherheitstoken abgelaufen. Bitte versuchen Sie es erneut.');
         redirectToHome();
@@ -127,6 +152,11 @@ function handleApplicationSubmit(): void
         ]);
     } catch (Exception $e) {
         cleanupApplicationFiles($savedFiles);
+        // Fehler in Logfile schreiben (fuer Debugging)
+        @file_put_contents(BASE_PATH . '/uploads/applications/_error.log',
+            date('Y-m-d H:i:s') . ' — DB-Insert fehlgeschlagen: ' . $e->getMessage() . "\n",
+            FILE_APPEND
+        );
         setFlash('error', 'Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
         redirectToHome();
     }

@@ -175,6 +175,40 @@
         </style>
     <?php endif; ?>
 
+    <?php
+        // Globaler Flash-Banner (oben am Bildschirm-Rand, auto-hide nach 6s)
+        // Wird NICHT vom contact-form-Section konsumiert - aber das contact-form
+        // setzt seinen Flash trotzdem hier an (peek statt consume).
+        $globalFlash = $_SESSION['flash'] ?? null;
+        if ($globalFlash):
+            // Wir lassen Flash in Session - contact-form kann ihn auch sehen
+            // Sobald JS die Toast anzeigt, loeschen wir die Session via fetch
+    ?>
+    <div id="global-flash-banner" data-type="<?= e($globalFlash['type']) ?>"
+         style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:200;padding:14px 24px;border-radius:6px;font-size:14px;font-weight:500;box-shadow:0 10px 30px -10px rgba(0,0,0,0.4);display:flex;align-items:center;gap:10px;max-width:90vw;<?= $globalFlash['type'] === 'success' ? 'background:#15803d;color:#fff;' : 'background:#C41018;color:#fff;' ?>">
+        <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <?php if ($globalFlash['type'] === 'success'): ?>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            <?php else: ?>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <?php endif; ?>
+        </svg>
+        <span><?= e($globalFlash['message']) ?></span>
+        <button type="button" onclick="this.parentElement.style.display='none';" style="background:none;border:0;color:#fff;cursor:pointer;padding:0;margin-left:6px;opacity:0.7;line-height:1;">
+            <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <script>
+        setTimeout(() => {
+            const el = document.getElementById('global-flash-banner');
+            if (el) el.style.transition = 'opacity 0.5s', el.style.opacity = '0', setTimeout(() => el.remove(), 500);
+        }, 6000);
+    </script>
+    <?php
+        unset($_SESSION['flash']);
+        endif;
+    ?>
+
     <?php include BASE_PATH . '/templates/partials/header.php'; ?>
 
     <main id="content">
