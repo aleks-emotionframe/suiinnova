@@ -3,6 +3,20 @@
  * Admin — Einstellungen
  */
 
+// Self-Heal: 404-Defaults sinnvoll setzen (alter Default '404' war schlechte UX)
+try {
+    $existing = $db->fetch("SELECT setting_val FROM settings WHERE setting_key = '404_title'");
+    if (!$existing || $existing['setting_val'] === '404' || $existing['setting_val'] === '') {
+        $val = $existing ? null : null;
+        if (!$existing) {
+            $db->insert('settings', ['setting_key' => '404_title', 'setting_val' => 'Seite nicht gefunden', 'group_name' => '404']);
+        } elseif ($existing['setting_val'] === '404' || $existing['setting_val'] === '') {
+            $db->update('settings', ['setting_val' => 'Seite nicht gefunden'], 'setting_key = :k', ['k' => '404_title']);
+        }
+        $GLOBALS['settings']['404_title'] = 'Seite nicht gefunden';
+    }
+} catch (Exception $e) {}
+
 // Self-Heal: Defaults fuer Schriftgroessen anlegen falls nicht vorhanden
 $typoDefaults = [
     'fs_h1'         => '64',
@@ -82,9 +96,9 @@ $settingGroups = [
     '404' => [
         'label' => '404-Seite (Seite nicht gefunden)',
         'fields' => [
-            '404_title'  => ['label' => 'Überschrift (z.B. „404" oder „Hoppla!")', 'type' => 'text'],
-            '404_text'   => ['label' => 'Beschreibungstext',                       'type' => 'textarea'],
-            '404_button' => ['label' => 'Button-Text',                             'type' => 'text'],
+            '404_title'  => ['label' => 'Überschrift', 'type' => 'text', 'hint' => 'Grosse Überschrift auf der 404-Seite. Empfehlung: „Seite nicht gefunden" oder „Hoppla, hier gibt es nichts".'],
+            '404_text'   => ['label' => 'Beschreibungstext', 'type' => 'textarea', 'hint' => 'Kurzer erklärender Text unter der Überschrift.'],
+            '404_button' => ['label' => 'Button-Text', 'type' => 'text', 'hint' => 'Beschriftung des roten Buttons. Empfehlung: „Zur Startseite".'],
         ],
     ],
 ];

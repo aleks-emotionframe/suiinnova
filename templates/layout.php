@@ -217,14 +217,63 @@
                 <?php renderSection($section); ?>
             <?php endforeach; ?>
         <?php elseif (http_response_code() === 404): ?>
-            <!-- 404 -->
-            <section class="py-24 text-center">
-                <div class="max-w-container mx-auto px-4 md:px-6">
-                    <h1 class="text-5xl font-bold uppercase tracking-wide mb-4"><?= e(setting('404_title', '404')) ?></h1>
-                    <p class="text-gray-600 text-lg mb-8"><?= e(setting('404_text', 'Die angeforderte Seite wurde nicht gefunden.')) ?></p>
-                    <a href="<?= url() ?>" class="inline-flex items-center h-10 px-6 bg-gray-900 text-white font-medium hover:bg-gray-700 transition-colors duration-200">
-                        <?= e(setting('404_button', 'Zur Startseite')) ?>
-                    </a>
+            <!-- 404-Seite -->
+            <section style="background:#FAFAFA;min-height:70vh;display:flex;align-items:center;padding:80px 24px;position:relative;overflow:hidden;">
+                <!-- Riesige Hintergrund-404 -->
+                <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(220px, 36vw, 480px);font-weight:900;color:#C41018;opacity:0.06;letter-spacing:-0.05em;line-height:0.9;user-select:none;pointer-events:none;white-space:nowrap;">
+                    404
+                </div>
+
+                <!-- Inhalt -->
+                <div class="section-container relative" style="text-align:center;max-width:720px;margin:0 auto;z-index:1;">
+                    <!-- Roter Akzent-Strich -->
+                    <div style="width:48px;height:2px;background:#C41018;margin:0 auto 24px auto;"></div>
+
+                    <!-- Kicker -->
+                    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.28em;color:#C41018;margin-bottom:18px;">
+                        Fehler 404
+                    </div>
+
+                    <!-- Heading -->
+                    <h1 style="font-size:clamp(28px, 5vw, 48px);font-weight:800;text-transform:uppercase;letter-spacing:0.01em;line-height:1.1;color:#111;margin:0 0 18px 0;text-wrap:balance;">
+                        <?= e(setting('404_title', 'Seite nicht gefunden')) ?>
+                    </h1>
+
+                    <!-- Description -->
+                    <p style="font-size:17px;color:#6B7280;line-height:1.7;margin:0 auto 36px auto;max-width:520px;">
+                        <?= e(setting('404_text', 'Die angeforderte Seite existiert nicht oder wurde verschoben. Schauen Sie auf der Startseite vorbei oder kontaktieren Sie uns direkt.')) ?>
+                    </p>
+
+                    <!-- Buttons -->
+                    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
+                        <a href="<?= url() ?>" style="display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 28px;background:#C41018;color:#fff;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;border-radius:6px;transition:opacity 0.2s;box-shadow:0 4px 12px -4px rgba(196,16,24,0.4);"
+                           onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                            <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"/></svg>
+                            <?= e(setting('404_button', 'Zur Startseite')) ?>
+                        </a>
+                        <a href="<?= url('kontakt') ?>" style="display:inline-flex;align-items:center;height:46px;padding:0 28px;background:transparent;color:#111;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;border-radius:6px;border:1px solid #D1D5DB;transition:all 0.2s;"
+                           onmouseover="this.style.background='#111';this.style.color='#fff';this.style.borderColor='#111'" onmouseout="this.style.background='transparent';this.style.color='#111';this.style.borderColor='#D1D5DB'">
+                            Kontakt
+                        </a>
+                    </div>
+
+                    <!-- Quicklinks zu den Hauptseiten -->
+                    <?php if (!empty($navigation)): ?>
+                        <div style="border-top:1px solid #E5E7EB;padding-top:32px;">
+                            <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#9CA3AF;margin-bottom:16px;font-weight:600;">
+                                Vielleicht suchen Sie eine dieser Seiten:
+                            </p>
+                            <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
+                                <?php foreach ($navigation as $navItem): ?>
+                                    <?php $href = $navItem['url'] ?: url($navItem['page_slug'] ?? ''); ?>
+                                    <a href="<?= e($href) ?>" style="font-size:13px;color:#374151;text-decoration:none;font-weight:500;transition:color 0.2s;border-bottom:1px solid transparent;padding-bottom:2px;"
+                                       onmouseover="this.style.color='#C41018';this.style.borderBottomColor='#C41018'" onmouseout="this.style.color='#374151';this.style.borderBottomColor='transparent'">
+                                        <?= e($navItem['label']) ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </section>
         <?php endif; ?>
