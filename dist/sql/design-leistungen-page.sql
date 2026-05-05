@@ -71,7 +71,7 @@ INSERT INTO sections (page_id, type, content, sort_order, is_active, created_at,
             -- 3) AQUA PANEL
             JSON_OBJECT(
                 'image_id',  0,
-                'image_url', '/assets/img/hero-bg.jpg',
+                'image_url', '',
                 'icon',      'droplets',
                 'title',     'Aqua Panel',
                 'desc',      'Spezielle Gipsplatten für Nasszellen und Feuchträume. Höhere Feuchtigkeitsaufnahme als Standard-Gipskarton.\n\nIdeal für Bäder, Duschen und Industrie-Nassräume – langlebig und feuchtigkeitsresistent.',
