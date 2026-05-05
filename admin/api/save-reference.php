@@ -6,14 +6,16 @@ requireAuth();
 header('Content-Type: application/json');
 requireCsrf();
 
-$id          = (int)($_POST['id'] ?? 0);
-$title       = trim($_POST['title'] ?? '');
-$description = trim($_POST['description'] ?? '');
-$category    = trim($_POST['category'] ?? '');
-$city        = trim($_POST['city'] ?? '');
-$year        = $_POST['year'] ?? '';
-$imageId     = $_POST['image_id'] ?? '';
-$isActive    = (int)($_POST['is_active'] ?? 1);
+$id              = (int)($_POST['id'] ?? 0);
+$title           = trim($_POST['title'] ?? '');
+$description     = trim($_POST['description'] ?? '');
+$category        = trim($_POST['category'] ?? '');
+$city            = trim($_POST['city'] ?? '');
+$year            = $_POST['year'] ?? '';
+$imageId         = $_POST['image_id'] ?? '';
+$isActive        = (int)($_POST['is_active'] ?? 1);
+$isFeaturedHome  = (int)($_POST['is_featured_home'] ?? 0);
+$homeOrder       = $_POST['home_order'] ?? '';
 
 if ($title === '') {
     echo json_encode(['error' => 'Titel ist erforderlich']);
@@ -26,13 +28,15 @@ if (mb_strlen($title) > 255 || mb_strlen($description) > 5000 || mb_strlen($cate
 }
 
 $data = [
-    'title'       => $title,
-    'description' => $description !== '' ? $description : null,
-    'category'    => $category !== '' ? $category : null,
-    'city'        => $city !== '' ? $city : null,
-    'year'        => is_numeric($year) ? (int)$year : null,
-    'image_id'    => is_numeric($imageId) && (int)$imageId > 0 ? (int)$imageId : null,
-    'is_active'   => $isActive === 1 ? 1 : 0,
+    'title'            => $title,
+    'description'      => $description !== '' ? $description : null,
+    'category'         => $category !== '' ? $category : null,
+    'city'             => $city !== '' ? $city : null,
+    'year'             => is_numeric($year) ? (int)$year : null,
+    'image_id'         => is_numeric($imageId) && (int)$imageId > 0 ? (int)$imageId : null,
+    'is_active'        => $isActive === 1 ? 1 : 0,
+    'is_featured_home' => $isFeaturedHome === 1 ? 1 : 0,
+    'home_order'       => is_numeric($homeOrder) ? max(0, min(99, (int)$homeOrder)) : 0,
 ];
 
 try {

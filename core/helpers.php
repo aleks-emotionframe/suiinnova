@@ -183,17 +183,25 @@ function getFlash(): ?array
 
 /**
  * Globale Referenzen aus der DB holen.
- * Fuer alle references-grid-Sektionen, damit eine Aenderung ueberall greift.
+ * $source: 'all' = alle aktiven (Referenzen-Seite),
+ *          'featured' = nur Startseiten-Auswahl (max. 6, in home_order)
  */
-function getGlobalReferences(?int $limit = null): array
+function getGlobalReferences(?int $limit = null, string $source = 'all'): array
 {
     global $db;
 
     try {
-        $sql = "SELECT id, title, description, category, city, year, image_id
-                FROM ref_items
-                WHERE is_active = 1
-                ORDER BY sort_order ASC";
+        if ($source === 'featured') {
+            $sql = "SELECT id, title, description, category, city, year, image_id
+                    FROM ref_items
+                    WHERE is_active = 1 AND is_featured_home = 1
+                    ORDER BY home_order ASC, sort_order ASC, id ASC";
+        } else {
+            $sql = "SELECT id, title, description, category, city, year, image_id
+                    FROM ref_items
+                    WHERE is_active = 1
+                    ORDER BY sort_order ASC, id ASC";
+        }
         if ($limit && $limit > 0) {
             $sql .= " LIMIT " . (int)$limit;
         }

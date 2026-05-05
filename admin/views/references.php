@@ -11,20 +11,57 @@
 // ── Self-Heal: Tabelle anlegen falls nicht vorhanden ──
 try {
     $db->query("CREATE TABLE IF NOT EXISTS ref_items (
-        id          INT AUTO_INCREMENT PRIMARY KEY,
-        title       VARCHAR(255) NOT NULL,
-        description TEXT         DEFAULT NULL,
-        category    VARCHAR(100) DEFAULT NULL,
-        city        VARCHAR(100) DEFAULT NULL,
-        year        INT          DEFAULT NULL,
-        image_id    INT          DEFAULT NULL,
-        is_active   TINYINT(1)   NOT NULL DEFAULT 1,
-        sort_order  INT          NOT NULL DEFAULT 0,
-        created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP,
-        updated_at  DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        id               INT AUTO_INCREMENT PRIMARY KEY,
+        title            VARCHAR(255) NOT NULL,
+        description      TEXT         DEFAULT NULL,
+        category         VARCHAR(100) DEFAULT NULL,
+        city             VARCHAR(100) DEFAULT NULL,
+        year             INT          DEFAULT NULL,
+        image_id         INT          DEFAULT NULL,
+        is_active        TINYINT(1)   NOT NULL DEFAULT 1,
+        is_featured_home TINYINT(1)   NOT NULL DEFAULT 0,
+        sort_order       INT          NOT NULL DEFAULT 0,
+        home_order       INT          NOT NULL DEFAULT 0,
+        created_at       DATETIME     DEFAULT CURRENT_TIMESTAMP,
+        updated_at       DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         INDEX idx_sort (sort_order),
-        INDEX idx_active (is_active)
+        INDEX idx_active (is_active),
+        INDEX idx_home (is_featured_home, home_order)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+} catch (Exception $e) {}
+
+// ── Self-Heal: neue Spalten falls Tabelle aus alter Version ──
+try { $db->query("ALTER TABLE ref_items ADD COLUMN is_featured_home TINYINT(1) NOT NULL DEFAULT 0"); } catch (Exception $e) {}
+try { $db->query("ALTER TABLE ref_items ADD COLUMN home_order INT NOT NULL DEFAULT 0"); } catch (Exception $e) {}
+try { $db->query("ALTER TABLE ref_items ADD INDEX idx_home (is_featured_home, home_order)"); } catch (Exception $e) {}
+
+// ── Self-Heal: Wenn keine Featured-Refs existieren, die ersten 6 aktiven als Featured markieren ──
+try {
+    $featuredCount = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items WHERE is_featured_home = 1");
+    if ($featuredCount === 0) {
+        $first6 = $db->fetchAll("SELECT id FROM ref_items WHERE is_active = 1 ORDER BY sort_order ASC, id ASC LIMIT 6");
+        foreach ($first6 as $i => $row) {
+            $db->update('ref_items', [
+                'is_featured_home' => 1,
+                'home_order'       => $i + 1,
+            ], 'id = :id', ['id' => $row['id']]);
+        }
+    }
+} catch (Exception $e) {}
+
+// ── Self-Heal: Startseiten-References-Grid auf source=featured + limit=6 setzen (nur einmal) ──
+try {
+    $db->query("UPDATE sections s
+        JOIN pages p ON p.id = s.page_id
+        SET s.content = JSON_SET(
+            COALESCE(s.content, JSON_OBJECT()),
+            '$.source', 'featured',
+            '$.limit',  6
+        )
+        WHERE s.type = 'references-grid'
+          AND p.is_homepage = 1
+          AND (JSON_EXTRACT(s.content, '$.source') IS NULL
+               OR JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.source')) NOT IN ('featured', 'all'))");
 } catch (Exception $e) {}
 
 // ── Self-Heal: Referenzen-Daten sicherstellen ──
@@ -77,8 +114,10 @@ if ($count === 0 || $hasOldExamples > 0) {
 }
 
 $refs = [];
+$featuredCount = 0;
 try {
     $refs = $db->fetchAll("SELECT * FROM ref_items ORDER BY sort_order ASC, id ASC");
+    $featuredCount = (int)$db->fetchColumn("SELECT COUNT(*) FROM ref_items WHERE is_featured_home = 1");
 } catch (Exception $e) {}
 ?>
 
@@ -89,7 +128,13 @@ try {
         <div class="flex items-start justify-between gap-4">
             <div>
                 <h2 class="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">Referenzen zentral verwalten</h2>
-                <p class="text-sm text-gray-700">Einmal eintragen – überall auf der Website sichtbar. Die hier gepflegten Einträge erscheinen auf der Startseite, der Referenzen-Seite und überall sonst, wo eine Referenz-Sektion eingebunden ist.</p>
+                <p class="text-sm text-gray-700 mb-2">Einmal eintragen – überall auf der Website sichtbar. Auf der <strong>Referenzen-Seite</strong> erscheinen alle aktiven Einträge. Auf der <strong>Startseite</strong> nur die als „Auf Startseite" markierten (in der eingestellten Reihenfolge, max. 6).</p>
+                <p class="text-xs text-gray-500">
+                    <span style="display:inline-flex;align-items:center;gap:6px;">
+                        <span style="width:8px;height:8px;border-radius:50%;background:#C41018;"></span>
+                        <strong><?= $featuredCount ?></strong> von max. 6 Referenzen aktuell auf der Startseite
+                    </span>
+                </p>
             </div>
             <button type="button" @click="startNew()" class="admin-btn-primary text-xs h-9 px-4 whitespace-nowrap">
                 + Neue Referenz
@@ -157,20 +202,39 @@ try {
                 </div>
             </div>
 
-            <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-100">
-                <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;">
-                    <input type="checkbox" x-model="editing.is_active_bool" style="width:16px;height:16px;accent-color:#111;">
-                    <span>Aktiv (auf Website anzeigen)</span>
-                </label>
-                <div class="flex gap-2">
-                    <button type="button" @click="editing = null" class="text-xs text-gray-500 hover:text-gray-900 uppercase tracking-wider">
-                        Abbrechen
-                    </button>
-                    <button type="button" @click="saveReference()" :disabled="saving" class="admin-btn-primary text-xs h-9 px-5">
-                        <span x-show="!saving" x-text="editing.id ? 'Änderungen speichern' : 'Referenz anlegen'"></span>
-                        <span x-show="saving">Speichere...</span>
-                    </button>
+            <!-- Sichtbarkeit + Startseite-Block -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-100 mb-4">
+                <!-- Allgemein aktiv -->
+                <div>
+                    <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" x-model="editing.is_active_bool" style="width:16px;height:16px;accent-color:#111;">
+                        <span>Aktiv (auf Website anzeigen)</span>
+                    </label>
+                    <p class="text-[11px] text-gray-400 mt-1.5">Inaktive Referenzen werden nirgendwo angezeigt.</p>
                 </div>
+
+                <!-- Startseite-Anzeige -->
+                <div style="background:#FEF2F3;padding:12px;border-radius:4px;border:1px solid #FBE5E7;">
+                    <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" x-model="editing.is_featured_home_bool" style="width:16px;height:16px;accent-color:#C41018;">
+                        <span><strong>Auf Startseite anzeigen</strong></span>
+                    </label>
+                    <div x-show="editing.is_featured_home_bool" x-transition class="mt-2.5">
+                        <label style="font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:4px;">Reihenfolge auf Startseite</label>
+                        <input type="number" x-model="editing.home_order" min="1" max="99" class="admin-input" style="max-width:120px;" placeholder="1-6">
+                        <p class="text-[11px] text-gray-500 mt-1.5">1 = erste Position, 2 = zweite, usw. Maximal 6 Referenzen werden auf der Startseite angezeigt.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3">
+                <button type="button" @click="editing = null" class="text-xs text-gray-500 hover:text-gray-900 uppercase tracking-wider">
+                    Abbrechen
+                </button>
+                <button type="button" @click="saveReference()" :disabled="saving" class="admin-btn-primary text-xs h-9 px-5">
+                    <span x-show="!saving" x-text="editing.id ? 'Änderungen speichern' : 'Referenz anlegen'"></span>
+                    <span x-show="saving">Speichere...</span>
+                </button>
             </div>
         </div>
     </template>
@@ -187,8 +251,8 @@ try {
                             <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Bild</th>
                             <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Projekt</th>
                             <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Kategorie / Ort</th>
-                            <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Jahr</th>
                             <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Status</th>
+                            <th class="text-left text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Startseite</th>
                             <th class="text-right text-[10px] uppercase tracking-wider text-gray-400 font-medium pb-3">Aktion</th>
                         </tr>
                     </thead>
@@ -219,13 +283,23 @@ try {
                                 </td>
                                 <td class="py-3 text-xs text-gray-600">
                                     <?= e($r['category'] ?? '') ?><?= ($r['category'] && $r['city']) ? ' · ' : '' ?><?= e($r['city'] ?? '') ?>
+                                    <?php if ($r['year']): ?><span class="text-gray-400"> · <?= (int)$r['year'] ?></span><?php endif; ?>
                                 </td>
-                                <td class="py-3 text-xs text-gray-500"><?= e($r['year'] ?: '—') ?></td>
                                 <td class="py-3">
                                     <?php if ($r['is_active']): ?>
                                         <span class="inline-flex items-center px-1.5 py-0.5 bg-gray-900 text-white text-[10px] font-medium">AKTIV</span>
                                     <?php else: ?>
                                         <span class="inline-flex items-center px-1.5 py-0.5 text-white text-[10px] font-medium" style="background:#9CA3AF;">INAKTIV</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="py-3">
+                                    <?php if ((int)($r['is_featured_home'] ?? 0) === 1): ?>
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-1 text-white text-[10px] font-medium" style="background:#C41018;border-radius:3px;">
+                                            <span style="width:5px;height:5px;border-radius:50%;background:#fff;"></span>
+                                            POS. <?= (int)($r['home_order'] ?? 0) ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">—</span>
                                     <?php endif; ?>
                                 </td>
                                 <td class="py-3 text-right">
@@ -274,6 +348,8 @@ function referencesManager() {
                 image_id: null,
                 image_url: '',
                 is_active_bool: true,
+                is_featured_home_bool: false,
+                home_order: '',
             };
         },
 
@@ -288,6 +364,8 @@ function referencesManager() {
                 image_id: row.image_id || null,
                 image_url: imageUrl || '',
                 is_active_bool: !!(row.is_active === 1 || row.is_active === '1' || row.is_active === true),
+                is_featured_home_bool: !!(row.is_featured_home === 1 || row.is_featured_home === '1' || row.is_featured_home === true),
+                home_order: row.home_order || '',
             };
             window.scrollTo({ top: 0, behavior: 'smooth' });
         },
@@ -322,6 +400,8 @@ function referencesManager() {
             formData.append('year', this.editing.year);
             formData.append('image_id', this.editing.image_id || '');
             formData.append('is_active', this.editing.is_active_bool ? 1 : 0);
+            formData.append('is_featured_home', this.editing.is_featured_home_bool ? 1 : 0);
+            formData.append('home_order', this.editing.home_order || '');
             formData.append('csrf_token', CSRF_TOKEN);
 
             try {
