@@ -48,6 +48,18 @@ def b64_font(name: str) -> str:
     data = (FONT_DIR / name).read_bytes()
     return "data:font/ttf;base64," + base64.b64encode(data).decode("ascii")
 
+# EmotionFrame Logo als SVG (Frame + Wortmarke). Wird zweimal gerendert:
+# einmal mit weissem Text (fuer dunkle Hintergruende), einmal mit schwarzem.
+LOGO_SVG_TEMPLATE = (Path("/home/user/suiinnova/audit-sui-innova/logos/emotionframe-logo.svg")
+                     .read_text(encoding="utf-8"))
+
+def logo_svg(text_color: str) -> str:
+    svg = LOGO_SVG_TEMPLATE.replace("__TEXT_COLOR__", text_color)
+    return "data:image/svg+xml;base64," + base64.b64encode(svg.encode("utf-8")).decode("ascii")
+
+LOGO_LIGHT = logo_svg("#1A1A1A")   # dunkler Text fuer helle Hintergruende
+LOGO_DARK  = logo_svg("#FFFFFF")   # heller Text fuer dunkle Hintergruende
+
 CHARTS = {
     "score":       b64_img("01_health_score.png"),
     "competitors": b64_img("02_competitors.png"),
@@ -126,13 +138,21 @@ HTML = f"""<!DOCTYPE html>
         position: relative;
         overflow: hidden;
     }}
-    /* Warmer Gradient-Glow (statt hartem Farbfleck) */
+    /* Spektrum-Glow im Emotionframe-Stil */
     .cover::before {{
         content: "";
         position: absolute;
-        top: -20%; right: -20%;
+        top: -25%; right: -20%;
         width: 90%; height: 90%;
-        background: radial-gradient(circle, rgba(244,169,74,0.18) 0%, rgba(217,119,6,0.10) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(104,218,200,0.22) 0%, rgba(90,160,240,0.15) 35%, rgba(124,107,232,0.08) 60%, transparent 78%);
+        pointer-events: none;
+    }}
+    /* Zusaetzlicher Pink/Violett-Glow links unten */
+    .cover .aux-glow {{
+        position: absolute;
+        bottom: -15%; left: -15%;
+        width: 60%; height: 60%;
+        background: radial-gradient(circle, rgba(245,165,181,0.14) 0%, rgba(124,107,232,0.08) 45%, transparent 70%);
         pointer-events: none;
     }}
     /* Feiner Rahmen als Design-Element (Frame) */
@@ -157,7 +177,7 @@ HTML = f"""<!DOCTYPE html>
     .cover-brand::before {{
         content: "";
         width: 24pt; height: 3pt;
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        background: linear-gradient(90deg, #F5A5B5 0%, #68DAC8 25%, #5AA0F0 55%, #7C6BE8 100%);
         display: inline-block;
     }}
     .cover-tagline {{
@@ -178,7 +198,7 @@ HTML = f"""<!DOCTYPE html>
         font-size: 9pt;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        background: linear-gradient(90deg, #F5A5B5 0%, #68DAC8 25%, #5AA0F0 55%, #7C6BE8 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -195,7 +215,7 @@ HTML = f"""<!DOCTYPE html>
         margin: 0;
     }}
     .cover-title .accent {{
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 60%);
+        background: linear-gradient(90deg, #68DAC8 0%, #5AA0F0 60%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -249,7 +269,7 @@ HTML = f"""<!DOCTYPE html>
         font-family: 'Bricolage Grotesque', sans-serif;
         font-size: 38pt;
         font-weight: 800;
-        background: linear-gradient(135deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        background: linear-gradient(135deg, #F5A5B5 0%, #68DAC8 30%, #5AA0F0 60%, #7C6BE8 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -283,7 +303,7 @@ HTML = f"""<!DOCTYPE html>
         font-family: 'Montserrat', sans-serif;
         font-size: 9.5pt;
         font-weight: 700;
-        background: linear-gradient(90deg, #D97706 0%, #B45309 100%);
+        background: linear-gradient(90deg, #0891B2 0%, #7C3AED 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -306,7 +326,7 @@ HTML = f"""<!DOCTYPE html>
 
     /* Warmer Akzent-Text (Gold-Gradient wie im EmotionFrame-Logo) */
     .accent {{
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        background: linear-gradient(90deg, #F5A5B5 0%, #68DAC8 25%, #5AA0F0 55%, #7C6BE8 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -331,7 +351,7 @@ HTML = f"""<!DOCTYPE html>
         font-size: 8.5pt;
         letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: #D97706;
+        color: #0891B2;
         font-weight: 700;
         margin-bottom: 8pt;
     }}
@@ -354,8 +374,8 @@ HTML = f"""<!DOCTYPE html>
         break-inside: avoid;
     }}
     .card {{
-        background: #FAFAF7;
-        border-left: 2px solid #D97706;
+        background: #FAFAFA;
+        border-left: 2px solid #0891B2;
         padding: 13pt 15pt;
         page-break-inside: avoid;
         break-inside: avoid;
@@ -376,7 +396,7 @@ HTML = f"""<!DOCTYPE html>
         background: #1A1A1A;
         color: #fff;
         padding: 16pt 13pt;
-        border-top: 2pt solid #D97706;
+        border-top: 2pt solid #0891B2;
     }}
     .kpi-value {{
         font-family: 'Bricolage Grotesque', sans-serif;
@@ -419,7 +439,7 @@ HTML = f"""<!DOCTYPE html>
     }}
     tbody td {{
         padding: 9pt 11pt;
-        border-bottom: 1px solid #E8E4DE;
+        border-bottom: 1px solid #E5E7EB;
         vertical-align: top;
     }}
     tbody tr:last-child td {{ border-bottom: 2px solid #1A1A1A; }}
@@ -434,7 +454,7 @@ HTML = f"""<!DOCTYPE html>
         break-inside: avoid;
     }}
     .package {{
-        border: 1px solid #E8E4DE;
+        border: 1px solid #E5E7EB;
         padding: 18pt 16pt;
         background: #fff;
     }}
@@ -451,7 +471,7 @@ HTML = f"""<!DOCTYPE html>
         content: "EMPFOHLEN";
         position: absolute;
         top: -1px; left: 0; right: 0;
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        background: linear-gradient(90deg, #F5A5B5 0%, #68DAC8 25%, #5AA0F0 55%, #7C6BE8 100%);
         color: #1A1A1A;
         text-align: center;
         font-family: 'Montserrat', sans-serif;
@@ -470,7 +490,7 @@ HTML = f"""<!DOCTYPE html>
         margin-bottom: 10pt;
     }}
     .package.featured .package-name {{
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%);
+        background: linear-gradient(90deg, #68DAC8 0%, #5AA0F0 50%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -512,11 +532,11 @@ HTML = f"""<!DOCTYPE html>
         content: "→";
         position: absolute;
         left: 0;
-        color: #D97706;
+        color: #0891B2;
         font-weight: 700;
     }}
     .package.featured .package-features li::before {{
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 100%);
+        background: linear-gradient(90deg, #68DAC8 0%, #5AA0F0 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -529,21 +549,21 @@ HTML = f"""<!DOCTYPE html>
     ul.clean li {{
         padding: 6pt 0 6pt 20pt;
         position: relative;
-        border-bottom: 1px solid #F0EDE7;
+        border-bottom: 1px solid #F1F5F9;
     }}
     ul.clean li:last-child {{ border-bottom: none; }}
     ul.clean li::before {{
         content: "▸";
         position: absolute;
         left: 0;
-        color: #D97706;
+        color: #0891B2;
         font-weight: 700;
     }}
 
     /* Callout box */
     .callout {{
-        background: linear-gradient(135deg, #FEF7ED 0%, #FDF4E7 100%);
-        border-left: 2px solid #D97706;
+        background: linear-gradient(135deg, #F0FDFA 0%, #ECFEFF 100%);
+        border-left: 2px solid #0891B2;
         padding: 14pt 16pt;
         margin: 14pt 0;
         font-size: 10pt;
@@ -585,7 +605,7 @@ HTML = f"""<!DOCTYPE html>
         page-break-inside: avoid;
         break-inside: avoid;
         border-top: 3pt solid transparent;
-        border-image: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%) 1;
+        border-image: linear-gradient(90deg, #F5A5B5 0%, #68DAC8 25%, #5AA0F0 55%, #7C6BE8 100%) 1;
     }}
     .contact-block h2 {{
         font-family: 'Bricolage Grotesque', sans-serif;
@@ -594,7 +614,7 @@ HTML = f"""<!DOCTYPE html>
         font-size: 20pt;
     }}
     .contact-block a {{
-        background: linear-gradient(90deg, #F4A94A 0%, #D97706 100%);
+        background: linear-gradient(90deg, #68DAC8 0%, #5AA0F0 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -620,7 +640,7 @@ HTML = f"""<!DOCTYPE html>
     }}
     .toc li {{
         padding: 12pt 0;
-        border-bottom: 1px solid #E8E4DE;
+        border-bottom: 1px solid #E5E7EB;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
@@ -633,7 +653,7 @@ HTML = f"""<!DOCTYPE html>
     }}
     .toc-num {{
         font-family: 'Bricolage Grotesque', sans-serif;
-        background: linear-gradient(135deg, #F4A94A 0%, #D97706 100%);
+        background: linear-gradient(135deg, #68DAC8 0%, #0891B2 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -669,8 +689,9 @@ HTML = f"""<!DOCTYPE html>
 
 <!-- ═════════════════════════════════════ COVER ═════════════════════════════════════ -->
 <div class="cover">
-    <div class="cover-brand">EmotionFrame</div>
-    <div class="cover-tagline">{AGENCY['tagline']}</div>
+    <div class="aux-glow"></div>
+    <img src="{LOGO_DARK}" alt="EmotionFrame" style="position:relative;height:52pt;width:auto;display:block;margin-bottom:6pt;">
+    <div class="cover-tagline" style="position:relative;">{AGENCY['tagline']}</div>
 
     <div class="cover-body">
         <div class="cover-eyebrow">— SEO-Strategie & Wachstumsplan</div>
@@ -1117,7 +1138,8 @@ HTML = f"""<!DOCTYPE html>
     </div>
 
     <div class="contact-block">
-        <div class="kicker" style="background:linear-gradient(90deg,#F4A94A 0%,#D97706 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">— Kontakt</div>
+        <img src="{LOGO_DARK}" alt="EmotionFrame" style="height:38pt;width:auto;display:block;margin-bottom:14pt;">
+        <div class="kicker" style="background:linear-gradient(90deg,#68DAC8 0%,#7C6BE8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">— Kontakt</div>
         <h2>Sagen Sie kurz Hallo.</h2>
         <p style="color:rgba(255,255,255,0.75);font-size:11pt;margin-bottom:16pt;">Wir freuen uns auf Ihre Rückmeldung. Idealerweise vereinbaren wir einen kurzen Termin zur Klärung offener Fragen — dann können wir mit dem Vertrag und dem Kickoff starten.</p>
 

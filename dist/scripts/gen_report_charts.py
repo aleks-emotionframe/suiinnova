@@ -22,14 +22,21 @@ for f in os.listdir(FONT_DIR):
 OUT = Path("/home/user/suiinnova/audit-sui-innova/report-charts")
 OUT.mkdir(parents=True, exist_ok=True)
 
-# Emotionframe Farb-Palette (warmer Gold-Ton statt Flat-Orange)
-EMOTION_BLACK = "#1A1A1A"      # Charcoal (statt reinem Schwarz)
+# Emotionframe Farb-Palette (Regenbogen-Spektrum vom Logo)
+EMOTION_BLACK = "#1A1A1A"      # Charcoal
 EMOTION_GREY = "#3D3D3D"
-EMOTION_MID = "#A8A29E"        # warmes Stone-Grey
-EMOTION_LIGHT = "#FAFAF7"      # warme Off-White
-EMOTION_ACCENT = "#D97706"     # warmer Gold-Orange (Mitte des Emotionframe-Gradients)
-EMOTION_ACCENT_LIGHT = "#F4A94A"
-EMOTION_ACCENT_DARK = "#B45309"
+EMOTION_MID = "#9CA3AF"        # neutrales Grey
+EMOTION_LIGHT = "#FAFAFA"
+# Vom Logo abgeleitet:
+EMOTION_TEAL = "#68DAC8"       # Mint/Cyan (top-right des Logos)
+EMOTION_BLUE = "#5AA0F0"       # Blau (right side)
+EMOTION_VIOLET = "#7C6BE8"     # Violett (bottom-left)
+EMOTION_PINK = "#F5A5B5"       # Coral-Pink (top-left)
+EMOTION_YELLOW = "#F5D96F"     # Warmes Gelb
+# Fuer Text-Akzente (readable auf Weiss):
+EMOTION_ACCENT = "#0EA5E9"     # Deep Cyan (primaerer Text-Akzent)
+EMOTION_ACCENT_DARK = "#0284C7"
+EMOTION_ACCENT_LIGHT = "#38BDF8"
 CLIENT_RED = "#C41018"         # SUI Innova rot
 SUCCESS_GREEN = "#059669"
 WARNING_AMBER = "#F59E0B"
@@ -215,11 +222,11 @@ def chart_roadmap(out: str):
     fig, ax = plt.subplots(figsize=(11, 4.5), dpi=200)
 
     phases = [
-        ("Fundament\n& Setup",       0,  1,  EMOTION_ACCENT,  "GBP · GA4 · Rank-Tracking\nInitiale Content-Struktur"),
-        ("Sichtbarkeits-\nStart",     1,  3,  "#EA580C",       "Landing-Pages · FAQ-Schema\nErste Reviews · Local Signals"),
-        ("Content-\nOffensive",       3,  6,  "#DC2626",       "Blog live · 8 Fachartikel\nBacklink-Outreach startet"),
-        ("Skalierung",                6,  9,  CLIENT_RED,      "Long-Tail dominieren · SXO\nAI-Search-Sichtbarkeit"),
-        ("Reifephase",                9,  12, "#7F1D1D",       "Konvertierungs-Optimierung\nSystematischer Wachstumspfad"),
+        ("Fundament\n& Setup",       0,  1,  EMOTION_TEAL,    "GBP · GA4 · Rank-Tracking\nInitiale Content-Struktur"),
+        ("Sichtbarkeits-\nStart",     1,  3,  EMOTION_BLUE,    "Landing-Pages · FAQ-Schema\nErste Reviews · Local Signals"),
+        ("Content-\nOffensive",       3,  6,  EMOTION_VIOLET,  "Blog live · 8 Fachartikel\nBacklink-Outreach startet"),
+        ("Skalierung",                6,  9,  "#5D4EC8",       "Long-Tail dominieren · SXO\nAI-Search-Sichtbarkeit"),
+        ("Reifephase",                9,  12, "#4A3EB8",       "Konvertierungs-Optimierung\nSystematischer Wachstumspfad"),
     ]
 
     y_pos = 0.5
@@ -265,13 +272,13 @@ def chart_traffic_projection(out: str):
     conservative = np.array([100, 115, 145, 190, 240, 310, 380, 450, 520, 580, 640, 700, 770])
     optimistic = np.array([100, 130, 180, 250, 340, 450, 570, 700, 830, 950, 1080, 1220, 1380])
 
-    ax.fill_between(months, conservative, optimistic, color=EMOTION_ACCENT, alpha=0.15,
+    ax.fill_between(months, conservative, optimistic, color=EMOTION_TEAL, alpha=0.15,
                     label="Bandbreite")
     ax.plot(months, baseline, color=EMOTION_MID, linewidth=2, linestyle=":",
             label="Ohne SEO (Status quo)")
-    ax.plot(months, conservative, color=EMOTION_ACCENT, linewidth=2.5,
+    ax.plot(months, conservative, color=EMOTION_BLUE, linewidth=2.5,
             label="Konservativ (Basisannahmen)", marker="o", markersize=4)
-    ax.plot(months, optimistic, color=CLIENT_RED, linewidth=2.5,
+    ax.plot(months, optimistic, color=EMOTION_VIOLET, linewidth=2.5,
             label="Optimistisch (bei sauberer Umsetzung)", marker="o", markersize=4)
 
     ax.set_xlabel("Monate ab Kampagnenstart", fontsize=9, color=EMOTION_GREY, labelpad=10)
@@ -297,11 +304,11 @@ def chart_pillars(out: str):
     fig, ax = plt.subplots(figsize=(11, 4), dpi=200)
 
     pillars = [
-        ("Content-Strategie",           "24%", CLIENT_RED),
-        ("Local SEO &\nReputation",      "22%", "#9F0712"),
-        ("Autorität &\nBacklinks",       "20%", "#7F1D1D"),
-        ("AI Search\nOptimierung",       "18%", "#EA580C"),
-        ("Monitoring &\nIteration",      "16%", EMOTION_ACCENT),
+        ("Content-Strategie",           "24%", EMOTION_TEAL),
+        ("Local SEO &\nReputation",      "22%", EMOTION_BLUE),
+        ("Autorität &\nBacklinks",       "20%", EMOTION_VIOLET),
+        ("AI Search\nOptimierung",       "18%", "#B784E8"),
+        ("Monitoring &\nIteration",      "16%", EMOTION_PINK),
     ]
 
     x_positions = np.arange(len(pillars))
