@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
 Baut den finalen SEO-Report als PDF fuer SUI Innova GmbH.
+Emotionframe-Design: Bricolage Grotesque + Montserrat, warmer Gold-Gradient.
 Wiederverwendbar als Vorlage fuer weitere Kunden.
 """
 
 import base64
-import os
 import subprocess
 from datetime import date
 from pathlib import Path
@@ -24,34 +24,52 @@ CLIENT = {
 }
 
 AGENCY = {
-    "name": "Emotionframe",
+    "name": "EmotionFrame",
+    "company": "EmotionFrame GmbH",
     "url": "emotionframe.ch",
-    "email": "aleks@emotionframe.ch",
-    "tagline": "Digital-Strategie · Web · SEO",
+    "email": "hello@emotionframe.ch",
+    "address": "Loorenstrasse 4, 5443 Niederrohrdorf",
+    "tagline": "Kreativstudio für Bild, Bewegung und Marke",
 }
 
 TODAY = date.today().strftime("%d.%m.%Y")
 
 # ─────────────────────────────────────────────────
-# Charts als Base64 einbetten (garantiert im PDF)
+# Fonts + Charts als Base64 einbetten
 # ─────────────────────────────────────────────────
 CHART_DIR = Path("/home/user/suiinnova/audit-sui-innova/report-charts")
+FONT_DIR = Path("/home/user/suiinnova/audit-sui-innova/fonts")
 
-def b64(name: str) -> str:
+def b64_img(name: str) -> str:
     data = (CHART_DIR / name).read_bytes()
     return "data:image/png;base64," + base64.b64encode(data).decode("ascii")
 
+def b64_font(name: str) -> str:
+    data = (FONT_DIR / name).read_bytes()
+    return "data:font/ttf;base64," + base64.b64encode(data).decode("ascii")
+
 CHARTS = {
-    "score":       b64("01_health_score.png"),
-    "competitors": b64("02_competitors.png"),
-    "keywords":    b64("03_keywords.png"),
-    "roadmap":     b64("04_roadmap.png"),
-    "traffic":     b64("05_traffic.png"),
-    "pillars":     b64("06_pillars.png"),
+    "score":       b64_img("01_health_score.png"),
+    "competitors": b64_img("02_competitors.png"),
+    "keywords":    b64_img("03_keywords.png"),
+    "roadmap":     b64_img("04_roadmap.png"),
+    "traffic":     b64_img("05_traffic.png"),
+    "pillars":     b64_img("06_pillars.png"),
 }
 
+FONT_CSS = f"""
+@font-face {{ font-family: 'Montserrat'; font-weight: 300; font-style: normal; src: url({b64_font('Montserrat-300.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Montserrat'; font-weight: 400; font-style: normal; src: url({b64_font('Montserrat-400.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Montserrat'; font-weight: 500; font-style: normal; src: url({b64_font('Montserrat-500.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Montserrat'; font-weight: 600; font-style: normal; src: url({b64_font('Montserrat-600.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Montserrat'; font-weight: 700; font-style: normal; src: url({b64_font('Montserrat-700.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Montserrat'; font-weight: 800; font-style: normal; src: url({b64_font('Montserrat-800.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Bricolage Grotesque'; font-weight: 500; font-style: normal; src: url({b64_font('Bricolage-500.ttf')}) format('truetype'); font-display: swap; }}
+@font-face {{ font-family: 'Bricolage Grotesque'; font-weight: 800; font-style: normal; src: url({b64_font('Bricolage-800.ttf')}) format('truetype'); font-display: swap; }}
+"""
+
 # ─────────────────────────────────────────────────
-# HTML-TEMPLATE
+# HTML-TEMPLATE (Emotionframe-Design)
 # ─────────────────────────────────────────────────
 HTML = f"""<!DOCTYPE html>
 <html lang="de-CH">
@@ -59,21 +77,23 @@ HTML = f"""<!DOCTYPE html>
 <meta charset="utf-8">
 <title>SEO-Strategie · {CLIENT['name']}</title>
 <style>
+    {FONT_CSS}
+
     @page {{
         size: A4;
         margin: 22mm 20mm 24mm 20mm;
         @bottom-left {{
             content: "{AGENCY['name']} · SEO-Strategie für {CLIENT['name']}";
-            font-family: Inter, Helvetica, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 8pt;
-            color: #6B7280;
-            letter-spacing: 0.05em;
+            color: #A8A29E;
+            letter-spacing: 0.06em;
         }}
         @bottom-right {{
-            content: "Seite " counter(page) " / " counter(pages);
-            font-family: Inter, Helvetica, sans-serif;
+            content: counter(page) " / " counter(pages);
+            font-family: 'Montserrat', sans-serif;
             font-size: 8pt;
-            color: #6B7280;
+            color: #A8A29E;
         }}
     }}
     @page cover {{
@@ -83,10 +103,11 @@ HTML = f"""<!DOCTYPE html>
     }}
     * {{ box-sizing: border-box; }}
     html, body {{
-        font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-        color: #0A0A0A;
+        font-family: 'Montserrat', -apple-system, sans-serif;
+        color: #1A1A1A;
         font-size: 10.5pt;
-        line-height: 1.6;
+        line-height: 1.65;
+        font-weight: 400;
         margin: 0;
         padding: 0;
         -webkit-font-smoothing: antialiased;
@@ -96,50 +117,55 @@ HTML = f"""<!DOCTYPE html>
     .cover {{
         page: cover;
         page-break-after: always;
+        break-after: page;
         width: 100%;
         height: 297mm;
-        background: #0A0A0A;
+        background: #1A1A1A;
         color: #fff;
-        padding: 26mm 22mm 22mm 22mm;
+        padding: 26mm 22mm;
         position: relative;
         overflow: hidden;
     }}
+    /* Warmer Gradient-Glow (statt hartem Farbfleck) */
     .cover::before {{
         content: "";
         position: absolute;
-        top: -10%; right: -20%;
+        top: -20%; right: -20%;
         width: 90%; height: 90%;
-        background: radial-gradient(circle, rgba(249,115,22,0.20) 0%, transparent 60%);
+        background: radial-gradient(circle, rgba(244,169,74,0.18) 0%, rgba(217,119,6,0.10) 40%, transparent 70%);
         pointer-events: none;
     }}
+    /* Feiner Rahmen als Design-Element (Frame) */
     .cover::after {{
         content: "";
         position: absolute;
-        left: 22mm; bottom: 22mm;
-        width: 30mm; height: 3pt;
-        background: #F97316;
+        top: 15mm; right: 15mm; bottom: 15mm; left: 15mm;
+        border: 1px solid rgba(255,255,255,0.08);
+        pointer-events: none;
     }}
     .cover-brand {{
-        font-size: 13pt;
+        position: relative;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 15pt;
         font-weight: 800;
         letter-spacing: -0.01em;
         color: #fff;
         display: flex;
         align-items: baseline;
-        gap: 10pt;
+        gap: 12pt;
     }}
     .cover-brand::before {{
         content: "";
-        width: 22pt; height: 3pt;
-        background: #F97316;
+        width: 24pt; height: 3pt;
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
         display: inline-block;
     }}
     .cover-tagline {{
-        margin-top: 4pt;
+        margin-top: 5pt;
         font-size: 8.5pt;
         letter-spacing: 0.25em;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.55);
+        color: rgba(255,255,255,0.5);
         font-weight: 500;
     }}
     .cover-body {{
@@ -148,423 +174,514 @@ HTML = f"""<!DOCTYPE html>
         bottom: 45mm;
     }}
     .cover-eyebrow {{
+        font-family: 'Montserrat', sans-serif;
         font-size: 9pt;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: #F97316;
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         font-weight: 700;
-        margin-bottom: 14pt;
+        margin-bottom: 18pt;
     }}
     .cover-title {{
-        font-size: 46pt;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        line-height: 1.02;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 56pt;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 0.98;
         color: #fff;
         margin: 0;
     }}
+    .cover-title .accent {{
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 60%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }}
     .cover-subtitle {{
-        font-size: 15pt;
-        color: rgba(255,255,255,0.75);
-        font-weight: 400;
-        margin-top: 8pt;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14pt;
+        color: rgba(255,255,255,0.72);
+        font-weight: 300;
+        margin-top: 12pt;
         letter-spacing: -0.005em;
     }}
     .cover-client-block {{
-        margin-top: 34pt;
-        padding-top: 20pt;
+        margin-top: 38pt;
+        padding-top: 22pt;
         border-top: 1px solid rgba(255,255,255,0.15);
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         font-size: 9.5pt;
+        gap: 18pt;
     }}
     .cover-client-block .label {{
         text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.18em;
+        color: rgba(255,255,255,0.45);
         font-size: 7.5pt;
-        margin-bottom: 4pt;
+        margin-bottom: 5pt;
+        font-weight: 500;
     }}
     .cover-client-block .value {{ color: #fff; font-weight: 500; }}
 
     /* ─── Section Divider ─────────────────────── */
+    .section-block {{
+        page-break-before: always;
+        break-before: page;
+    }}
+    .section-block:first-of-type {{
+        page-break-before: auto;
+        break-before: auto;
+    }}
     .section-header {{
-        margin: 0 0 22pt 0;
-        padding-bottom: 12pt;
-        border-bottom: 2px solid #0A0A0A;
+        margin: 0 0 26pt 0;
+        padding-bottom: 14pt;
+        border-bottom: 2px solid #1A1A1A;
         display: flex;
         align-items: baseline;
-        gap: 18pt;
+        gap: 20pt;
     }}
     .section-num {{
-        font-size: 34pt;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 38pt;
         font-weight: 800;
-        color: #F97316;
+        background: linear-gradient(135deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         letter-spacing: -0.02em;
         line-height: 1;
     }}
     .section-title {{
-        font-size: 22pt;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 26pt;
         font-weight: 800;
-        color: #0A0A0A;
-        letter-spacing: -0.015em;
-        line-height: 1.1;
+        color: #1A1A1A;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
         margin: 0;
         flex: 1;
     }}
-    .section-block {{ page-break-before: always; }}
-    .section-block:first-of-type {{ page-break-before: auto; }}
 
     /* ─── Typography ──────────────────────────── */
+    h1, h2, h3, h4 {{ font-family: 'Bricolage Grotesque', sans-serif; }}
     h2 {{
-        font-size: 15pt;
+        font-size: 16pt;
         font-weight: 800;
-        color: #0A0A0A;
-        letter-spacing: -0.01em;
-        margin: 22pt 0 8pt 0;
+        color: #1A1A1A;
+        letter-spacing: -0.015em;
+        margin: 24pt 0 10pt 0;
         padding: 0;
         page-break-after: avoid;
+        break-after: avoid;
     }}
     h3 {{
-        font-size: 10pt;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9.5pt;
         font-weight: 700;
-        color: #F97316;
+        background: linear-gradient(90deg, #D97706 0%, #B45309 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         text-transform: uppercase;
-        letter-spacing: 0.15em;
-        margin: 16pt 0 6pt 0;
+        letter-spacing: 0.18em;
+        margin: 18pt 0 8pt 0;
         page-break-after: avoid;
+        break-after: avoid;
     }}
     h4 {{
-        font-size: 11pt;
-        font-weight: 700;
-        color: #0A0A0A;
-        margin: 10pt 0 4pt 0;
+        font-size: 11.5pt;
+        font-weight: 800;
+        color: #1A1A1A;
+        margin: 12pt 0 5pt 0;
+        letter-spacing: -0.01em;
     }}
-    p {{ margin: 0 0 9pt 0; }}
-    strong, b {{ font-weight: 700; color: #0A0A0A; }}
-    em, i {{ font-style: italic; color: #262626; }}
+    p {{ margin: 0 0 10pt 0; orphans: 3; widows: 3; }}
+    strong, b {{ font-weight: 700; color: #1A1A1A; }}
+    em, i {{ font-style: italic; color: #3D3D3D; }}
+
+    /* Warmer Akzent-Text (Gold-Gradient wie im EmotionFrame-Logo) */
+    .accent {{
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 700;
+    }}
+    .client-accent {{ color: #C41018; font-weight: 700; }}
 
     /* Lead paragraph */
     .lead {{
+        font-family: 'Montserrat', sans-serif;
         font-size: 12pt;
         line-height: 1.55;
-        color: #262626;
-        margin-bottom: 14pt;
+        color: #3D3D3D;
+        font-weight: 400;
+        margin-bottom: 16pt;
     }}
-    .lead strong {{ color: #0A0A0A; }}
+    .lead strong {{ color: #1A1A1A; font-weight: 600; }}
 
     /* Kicker */
     .kicker {{
+        font-family: 'Montserrat', sans-serif;
         font-size: 8.5pt;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: #F97316;
+        color: #D97706;
         font-weight: 700;
-        margin-bottom: 6pt;
+        margin-bottom: 8pt;
     }}
-
-    /* Client-highlight */
-    .client-accent {{ color: #C41018; font-weight: 700; }}
 
     /* ─── Grid & Cards ────────────────────────── */
     .grid-2 {{
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14pt;
-        margin: 12pt 0;
+        margin: 14pt 0;
+        page-break-inside: avoid;
+        break-inside: avoid;
     }}
     .grid-3 {{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 10pt;
-        margin: 12pt 0;
+        gap: 12pt;
+        margin: 14pt 0;
+        page-break-inside: avoid;
+        break-inside: avoid;
     }}
     .card {{
-        background: #FAFAFA;
-        border-left: 3px solid #F97316;
-        padding: 12pt 14pt;
+        background: #FAFAF7;
+        border-left: 2px solid #D97706;
+        padding: 13pt 15pt;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
-    .card h4 {{
-        margin-top: 0;
-        font-size: 10.5pt;
-    }}
-    .card-num {{
-        font-size: 22pt;
-        font-weight: 900;
-        color: #0A0A0A;
-        letter-spacing: -0.02em;
-        line-height: 1;
-        margin-bottom: 4pt;
-    }}
-    .card-label {{
-        font-size: 8pt;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: #6B7280;
-        font-weight: 600;
-    }}
+    .card h4 {{ margin-top: 0; font-size: 11pt; }}
+    .card p {{ margin-bottom: 0; font-size: 9.5pt; }}
 
     /* KPI row */
     .kpi-row {{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 12pt;
-        margin: 14pt 0 20pt 0;
+        gap: 10pt;
+        margin: 18pt 0 22pt 0;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
     .kpi {{
-        background: #0A0A0A;
+        background: #1A1A1A;
         color: #fff;
-        padding: 14pt 12pt;
-        border-left: 3px solid #F97316;
+        padding: 16pt 13pt;
+        border-top: 2pt solid #D97706;
     }}
     .kpi-value {{
-        font-size: 24pt;
-        font-weight: 900;
-        letter-spacing: -0.02em;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 26pt;
+        font-weight: 800;
+        letter-spacing: -0.03em;
         line-height: 1;
-        margin-bottom: 4pt;
+        margin-bottom: 6pt;
     }}
     .kpi-label {{
+        font-family: 'Montserrat', sans-serif;
         font-size: 7.5pt;
         text-transform: uppercase;
         letter-spacing: 0.15em;
-        color: rgba(255,255,255,0.65);
-        font-weight: 600;
+        color: rgba(255,255,255,0.68);
+        font-weight: 500;
+        line-height: 1.4;
     }}
 
     /* ─── Tabellen ─────────────────────────────── */
     table {{
         width: 100%;
         border-collapse: collapse;
-        margin: 10pt 0 14pt 0;
+        margin: 12pt 0 16pt 0;
         font-size: 9.5pt;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
     thead th {{
-        background: #0A0A0A;
+        background: #1A1A1A;
         color: #fff;
         text-align: left;
-        padding: 8pt 10pt;
+        padding: 9pt 11pt;
+        font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         font-size: 8pt;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.12em;
         border: none;
     }}
     tbody td {{
-        padding: 8pt 10pt;
-        border-bottom: 1px solid #E5E7EB;
+        padding: 9pt 11pt;
+        border-bottom: 1px solid #E8E4DE;
         vertical-align: top;
     }}
-    tbody tr:last-child td {{ border-bottom: 2px solid #0A0A0A; }}
+    tbody tr:last-child td {{ border-bottom: 2px solid #1A1A1A; }}
 
-    /* Package-Tabelle (Pricing) */
+    /* Package-Karten (Pricing) */
     .packages {{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 0;
-        margin: 16pt 0 20pt 0;
+        margin: 18pt 0 22pt 0;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
     .package {{
-        border: 1px solid #E5E7EB;
-        padding: 16pt 14pt;
+        border: 1px solid #E8E4DE;
+        padding: 18pt 16pt;
         background: #fff;
     }}
     .package.featured {{
-        background: #0A0A0A;
+        background: #1A1A1A;
         color: #fff;
-        border-color: #0A0A0A;
+        border-color: #1A1A1A;
         position: relative;
-        transform: scale(1.02);
+        transform: scale(1.03);
         z-index: 2;
+        box-shadow: 0 8pt 24pt rgba(0,0,0,0.15);
     }}
     .package.featured::before {{
         content: "EMPFOHLEN";
         position: absolute;
         top: -1px; left: 0; right: 0;
-        background: #F97316;
-        color: #0A0A0A;
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%);
+        color: #1A1A1A;
         text-align: center;
+        font-family: 'Montserrat', sans-serif;
         font-size: 7pt;
         font-weight: 800;
-        letter-spacing: 0.2em;
-        padding: 3pt 0;
+        letter-spacing: 0.25em;
+        padding: 4pt 0;
     }}
-    .package.featured {{ padding-top: 26pt; }}
+    .package.featured {{ padding-top: 28pt; }}
     .package-name {{
-        font-size: 10pt;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 12pt;
         text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-weight: 700;
-        margin-bottom: 8pt;
+        letter-spacing: 0.15em;
+        font-weight: 800;
+        margin-bottom: 10pt;
     }}
-    .package.featured .package-name {{ color: #F97316; }}
-    .package:not(.featured) .package-name {{ color: #6B7280; }}
+    .package.featured .package-name {{
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 50%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }}
+    .package:not(.featured) .package-name {{ color: #6B6B6B; }}
     .package-price {{
-        font-size: 22pt;
-        font-weight: 900;
-        letter-spacing: -0.02em;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 26pt;
+        font-weight: 800;
+        letter-spacing: -0.025em;
         line-height: 1;
-        margin-bottom: 2pt;
+        margin-bottom: 4pt;
     }}
     .package-price small {{
+        font-family: 'Montserrat', sans-serif;
         font-size: 10pt;
         font-weight: 500;
         letter-spacing: 0;
+        opacity: 0.7;
     }}
     .package-setup {{
         font-size: 8.5pt;
-        color: #6B7280;
-        margin-bottom: 12pt;
+        color: #6B6B6B;
+        margin-bottom: 14pt;
     }}
     .package.featured .package-setup {{ color: rgba(255,255,255,0.65); }}
     .package-features {{
         list-style: none;
         padding: 0;
-        margin: 8pt 0 0 0;
+        margin: 10pt 0 0 0;
         font-size: 9pt;
         line-height: 1.55;
     }}
     .package-features li {{
-        padding: 3pt 0 3pt 14pt;
+        padding: 4pt 0 4pt 15pt;
         position: relative;
     }}
     .package-features li::before {{
         content: "→";
         position: absolute;
         left: 0;
-        color: #F97316;
+        color: #D97706;
         font-weight: 700;
+    }}
+    .package.featured .package-features li::before {{
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }}
 
     /* ─── Lists ────────────────────────────────── */
-    ul, ol {{ margin: 4pt 0 12pt 0; padding-left: 16pt; }}
-    li {{ margin-bottom: 3pt; }}
+    ul, ol {{ margin: 6pt 0 12pt 0; padding-left: 18pt; }}
+    li {{ margin-bottom: 4pt; }}
     ul.clean {{ list-style: none; padding-left: 0; }}
     ul.clean li {{
-        padding: 4pt 0 4pt 18pt;
+        padding: 6pt 0 6pt 20pt;
         position: relative;
-        border-bottom: 1px solid #F3F4F6;
+        border-bottom: 1px solid #F0EDE7;
     }}
     ul.clean li:last-child {{ border-bottom: none; }}
     ul.clean li::before {{
         content: "▸";
         position: absolute;
         left: 0;
-        color: #F97316;
+        color: #D97706;
         font-weight: 700;
     }}
 
     /* Callout box */
     .callout {{
-        background: #FFF7ED;
-        border-left: 3px solid #F97316;
-        padding: 12pt 14pt;
-        margin: 12pt 0;
+        background: linear-gradient(135deg, #FEF7ED 0%, #FDF4E7 100%);
+        border-left: 2px solid #D97706;
+        padding: 14pt 16pt;
+        margin: 14pt 0;
         font-size: 10pt;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
     .callout-title {{
+        font-family: 'Bricolage Grotesque', sans-serif;
         font-weight: 800;
-        color: #0A0A0A;
-        margin-bottom: 4pt;
+        color: #1A1A1A;
+        margin-bottom: 6pt;
+        font-size: 11pt;
     }}
+    .callout p {{ margin-bottom: 0; }}
 
     /* Chart image */
     .chart {{
         width: 100%;
-        margin: 10pt 0 16pt 0;
+        margin: 12pt 0 18pt 0;
         page-break-inside: avoid;
+        break-inside: avoid;
     }}
-    .chart img {{ width: 100%; height: auto; }}
+    .chart img {{ width: 100%; height: auto; display: block; }}
     .chart-caption {{
         font-size: 8pt;
-        color: #6B7280;
+        color: #6B6B6B;
         text-align: center;
         letter-spacing: 0.05em;
-        margin-top: 4pt;
+        margin-top: 6pt;
         font-style: italic;
     }}
-
-    /* Two-column body */
-    .col2 {{
-        column-count: 2;
-        column-gap: 18pt;
-    }}
-    .col2 p {{ margin-bottom: 8pt; }}
 
     /* Footer contact block */
     .contact-block {{
         margin-top: 30pt;
-        padding: 20pt 22pt;
-        background: #0A0A0A;
+        padding: 24pt 24pt;
+        background: #1A1A1A;
         color: #fff;
         page-break-inside: avoid;
+        break-inside: avoid;
+        border-top: 3pt solid transparent;
+        border-image: linear-gradient(90deg, #F4A94A 0%, #D97706 50%, #B45309 100%) 1;
     }}
-    .contact-block h2 {{ color: #fff; margin: 0 0 8pt 0; }}
-    .contact-block a {{ color: #F97316; text-decoration: none; }}
+    .contact-block h2 {{
+        font-family: 'Bricolage Grotesque', sans-serif;
+        color: #fff;
+        margin: 0 0 8pt 0;
+        font-size: 20pt;
+    }}
+    .contact-block a {{
+        background: linear-gradient(90deg, #F4A94A 0%, #D97706 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-decoration: none;
+        font-weight: 600;
+    }}
 
     /* Toc */
+    .toc-heading {{
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 28pt;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0 0 24pt 0;
+        color: #1A1A1A;
+    }}
     .toc {{
         list-style: none;
         padding: 0;
         margin: 20pt 0;
-        font-size: 11pt;
+        font-size: 11.5pt;
+        font-family: 'Montserrat', sans-serif;
     }}
     .toc li {{
-        padding: 10pt 0;
-        border-bottom: 1px solid #E5E7EB;
+        padding: 12pt 0;
+        border-bottom: 1px solid #E8E4DE;
         display: flex;
         justify-content: space-between;
+        align-items: baseline;
     }}
-    .toc li span:first-child {{
+    .toc li:first-child {{ border-top: 2px solid #1A1A1A; }}
+    .toc-left {{
         display: flex;
         align-items: baseline;
-        gap: 12pt;
+        gap: 14pt;
     }}
-    .toc li .num {{
-        color: #F97316;
+    .toc-num {{
+        font-family: 'Bricolage Grotesque', sans-serif;
+        background: linear-gradient(135deg, #F4A94A 0%, #D97706 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         font-weight: 800;
-        min-width: 22pt;
+        min-width: 24pt;
+        font-size: 12pt;
     }}
-    .toc li .page {{
-        color: #6B7280;
+    .toc-page {{
+        color: #A8A29E;
         font-weight: 500;
-    }}
-
-    .divider {{
-        height: 1px;
-        background: #E5E7EB;
-        margin: 18pt 0;
-        border: none;
+        font-size: 10pt;
     }}
 
     /* Page-break helpers */
-    .keep {{ page-break-inside: avoid; }}
-    .break {{ page-break-before: always; }}
+    .keep, .no-break {{
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }}
+    .break {{
+        page-break-before: always;
+        break-before: page;
+    }}
+
+    /* Zwei-Spalten Text (auf Deutsch: nicht zu schmal, Silbentrennung) */
+    .col2 {{
+        column-count: 2;
+        column-gap: 22pt;
+    }}
+    .col2 p {{ margin-bottom: 9pt; }}
 </style>
 </head>
 <body>
 
 <!-- ═════════════════════════════════════ COVER ═════════════════════════════════════ -->
 <div class="cover">
-    <div class="cover-brand">{AGENCY['name']}</div>
+    <div class="cover-brand">EmotionFrame</div>
     <div class="cover-tagline">{AGENCY['tagline']}</div>
 
     <div class="cover-body">
         <div class="cover-eyebrow">— SEO-Strategie & Wachstumsplan</div>
-        <h1 class="cover-title">Sichtbar<br>werden.</h1>
+        <h1 class="cover-title">Sichtbar<br><span class="accent">werden.</span></h1>
         <p class="cover-subtitle">Analyse und Strategiepapier für {CLIENT['name']}</p>
 
         <div class="cover-client-block">
             <div>
                 <div class="label">Für</div>
                 <div class="value">{CLIENT['name']}</div>
-                <div class="value" style="opacity:0.65;">{CLIENT['location']} · {CLIENT['industry']}</div>
+                <div class="value" style="opacity:0.6;">{CLIENT['location']} · {CLIENT['industry']}</div>
             </div>
             <div>
                 <div class="label">Vorbereitet am</div>
@@ -572,25 +689,25 @@ HTML = f"""<!DOCTYPE html>
             </div>
             <div>
                 <div class="label">Vertraulich</div>
-                <div class="value">Ausschliesslich für internen Gebrauch</div>
+                <div class="value">Für internen Gebrauch</div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- ═════════════════════════════════════ INHALT ═════════════════════════════════════ -->
-<h1 style="font-size:24pt;font-weight:900;letter-spacing:-0.015em;margin:0 0 20pt 0;">Inhalt</h1>
+<h1 class="toc-heading">Inhalt</h1>
 <ul class="toc">
-    <li><span><span class="num">01</span>Vorwort</span><span class="page">03</span></li>
-    <li><span><span class="num">02</span>Ausgangslage & aktuelle Sichtbarkeit</span><span class="page">04</span></li>
-    <li><span><span class="num">03</span>Marktumfeld und Wettbewerb</span><span class="page">06</span></li>
-    <li><span><span class="num">04</span>Wachstums-Chancen</span><span class="page">08</span></li>
-    <li><span><span class="num">05</span>Unsere Strategie</span><span class="page">10</span></li>
-    <li><span><span class="num">06</span>Umsetzungs-Roadmap</span><span class="page">13</span></li>
-    <li><span><span class="num">07</span>Erwartete Wirkung</span><span class="page">14</span></li>
-    <li><span><span class="num">08</span>Investition & Pakete</span><span class="page">15</span></li>
-    <li><span><span class="num">09</span>Zusammenarbeit & nächste Schritte</span><span class="page">17</span></li>
-    <li><span><span class="num">10</span>Über {AGENCY['name']}</span><span class="page">18</span></li>
+    <li><span class="toc-left"><span class="toc-num">01</span>Vorwort</span><span class="toc-page">03</span></li>
+    <li><span class="toc-left"><span class="toc-num">02</span>Ausgangslage & aktuelle Sichtbarkeit</span><span class="toc-page">04</span></li>
+    <li><span class="toc-left"><span class="toc-num">03</span>Marktumfeld und Wettbewerb</span><span class="toc-page">06</span></li>
+    <li><span class="toc-left"><span class="toc-num">04</span>Wachstums-Chancen</span><span class="toc-page">08</span></li>
+    <li><span class="toc-left"><span class="toc-num">05</span>Unsere Strategie</span><span class="toc-page">10</span></li>
+    <li><span class="toc-left"><span class="toc-num">06</span>Umsetzungs-Roadmap</span><span class="toc-page">12</span></li>
+    <li><span class="toc-left"><span class="toc-num">07</span>Erwartete Wirkung</span><span class="toc-page">13</span></li>
+    <li><span class="toc-left"><span class="toc-num">08</span>Investition & Pakete</span><span class="toc-page">14</span></li>
+    <li><span class="toc-left"><span class="toc-num">09</span>Zusammenarbeit & nächste Schritte</span><span class="toc-page">16</span></li>
+    <li><span class="toc-left"><span class="toc-num">10</span>Über EmotionFrame</span><span class="toc-page">18</span></li>
 </ul>
 
 <!-- ═════════════════════════════════════ 01 VORWORT ═════════════════════════════════════ -->
@@ -600,9 +717,9 @@ HTML = f"""<!DOCTYPE html>
         <h1 class="section-title">Vorwort</h1>
     </div>
 
-    <p class="lead"><strong>{CLIENT['name']}</strong> hat sich in den letzten Jahren als spezialisierter Anbieter für Sanitär-Vorfabrikation und Montage in der Deutschschweiz etabliert. Der Auftritt online spiegelt diese Position noch nicht in voller Breite wider — genau hier setzen wir an.</p>
+    <p class="lead"><strong>{CLIENT['name']}</strong> hat sich in den letzten Jahren als spezialisierter Anbieter für Sanitär-Vorfabrikation und Montage in der Deutschschweiz etabliert. Der Auftritt online spiegelt diese Position noch nicht in voller Breite wider — <span class="accent">genau hier setzen wir an.</span></p>
 
-    <p>Dieses Dokument ist keine allgemeine SEO-Checkliste. Wir haben die Situation von {CLIENT['name']} konkret analysiert: das Wettbewerbsumfeld, die aktuellen Rankings, die Zielgruppen ({CLIENT['target_audience']}) und die Chancen, die in dieser Nische ungenutzt liegen. Daraus entstand die Strategie auf den folgenden Seiten.</p>
+    <p>Dieses Dokument ist keine allgemeine SEO-Checkliste. Wir haben die Situation von {CLIENT['name']} konkret analysiert: das Wettbewerbsumfeld, die aktuellen Rankings, die Zielgruppen und die Chancen, die in dieser Nische ungenutzt liegen. Daraus entstand die Strategie auf den folgenden Seiten.</p>
 
     <p>Der Bericht ist bewusst so aufgebaut, dass Sie ihn ohne Vorwissen verstehen — jede Fachpassage ist eingebettet in den geschäftlichen Kontext. Unser Ziel ist Transparenz vor Impressionismus: Sie sollen nicht nur wissen <em>was</em> wir tun, sondern <em>warum</em>.</p>
 
@@ -613,20 +730,20 @@ HTML = f"""<!DOCTYPE html>
         </div>
         <div class="kpi">
             <div class="kpi-value">78</div>
-            <div class="kpi-label">SEO-Grundlagen-Score<br>(technisches Fundament)</div>
+            <div class="kpi-label">Grundlagen-Score<br>(technisches Fundament)</div>
         </div>
         <div class="kpi">
             <div class="kpi-value">3 – 6</div>
             <div class="kpi-label">Monate bis<br>messbare Ergebnisse</div>
         </div>
         <div class="kpi">
-            <div class="kpi-value">6 – 10x</div>
+            <div class="kpi-value">6 – 10×</div>
             <div class="kpi-label">Erwartetes Wachstum<br>organischer Sichtbarkeit</div>
         </div>
     </div>
 
     <h2>Die Kurzfassung</h2>
-    <p>Ihre Website hat ein solides technisches Fundament. Was fehlt, ist die inhaltliche und kommunikative Bespielung: <strong>Sie werden von den falschen Suchbegriffen gefunden und von den richtigen nicht.</strong> In einem Marktumfeld mit begrenzter Konkurrenz ist das gute Nachrichten — die Nische ist mit einer strukturierten Strategie in 6 bis 12 Monaten erobert-bar.</p>
+    <p>Ihre Website hat ein solides technisches Fundament. Was fehlt, ist die inhaltliche und kommunikative Bespielung: <strong>Sie werden von den falschen Suchbegriffen gefunden und von den richtigen nicht.</strong> In einem Marktumfeld mit begrenzter Konkurrenz sind das gute Nachrichten — die Nische ist mit einer strukturierten Strategie in 6 bis 12 Monaten erobert-bar.</p>
 
     <p>Auf den nächsten Seiten zeigen wir Ihnen erstens wo Sie stehen, zweitens welche Chancen konkret vorhanden sind, drittens wie unsere Strategie diese Chancen adressiert, und viertens welche Investition dafür realistisch ist.</p>
 </div>
@@ -638,7 +755,7 @@ HTML = f"""<!DOCTYPE html>
         <h1 class="section-title">Ausgangslage & aktuelle Sichtbarkeit</h1>
     </div>
 
-    <p class="lead">Bevor wir über Wachstum sprechen, halten wir fest, wo Sie heute stehen. Nach dem technischen Fundament-Update erreicht Ihre Website einen Grundlagen-Score von 78 von 100. Das heisst: die Basis stimmt, die inhaltliche Aufwertung ist der nächste logische Schritt.</p>
+    <p class="lead">Bevor wir über Wachstum sprechen, halten wir fest, wo Sie heute stehen. Nach dem technischen Fundament-Update erreicht Ihre Website einen Grundlagen-Score von <strong>78 von 100</strong>. Das heisst: die Basis stimmt, die inhaltliche Aufwertung ist der nächste logische Schritt.</p>
 
     <div class="grid-2">
         <div>
@@ -646,16 +763,16 @@ HTML = f"""<!DOCTYPE html>
             <div class="chart">
                 <img src="{CHARTS['score']}" alt="SEO Grundlagen-Score">
             </div>
-            <p style="font-size:9pt;color:#6B7280;">Bewertet werden 7 Dimensionen: Technik, Content, On-Page, strukturierte Daten, Performance, AI-Search-Bereitschaft, Bildoptimierung.</p>
+            <p style="font-size:9pt;color:#6B6B6B;">Bewertet werden sieben Dimensionen: Technik, Content, On-Page, strukturierte Daten, Performance, AI-Search-Bereitschaft und Bildoptimierung.</p>
         </div>
         <div>
             <h3>Was bereits funktioniert</h3>
             <ul class="clean">
-                <li>Suchmaschinen-freundliches technisches Setup (Meta-Tags, Sitemap, Schema.org)</li>
+                <li>Suchmaschinen-freundliches technisches Setup</li>
                 <li>Mobile Darstellung optimiert und schnell</li>
                 <li>DSGVO-konform (Cookie-Consent, IP-Anonymisierung)</li>
                 <li>Verifiziert in Google Search Console</li>
-                <li>Eintrag auf Schweizer Directories (search.ch, local.ch, moneyhouse.ch)</li>
+                <li>Einträge auf Schweizer Directories (search.ch, local.ch)</li>
                 <li>Klare URL-Struktur, saubere Weiterleitungen</li>
             </ul>
         </div>
@@ -668,10 +785,10 @@ HTML = f"""<!DOCTYPE html>
     <table>
         <thead>
             <tr>
-                <th style="width:52%;">Suchbegriff</th>
-                <th style="width:20%;">Suchvolumen / Monat</th>
+                <th style="width:48%;">Suchbegriff</th>
+                <th style="width:18%;">Suchvolumen / Monat</th>
                 <th style="width:14%;">Position</th>
-                <th style="width:14%;">Bewertung</th>
+                <th style="width:20%;">Bewertung</th>
             </tr>
         </thead>
         <tbody>
@@ -686,7 +803,7 @@ HTML = f"""<!DOCTYPE html>
 
     <div class="callout">
         <div class="callout-title">Was diese Zahlen bedeuten</div>
-        <p style="margin:0;">Sie sind für einen Kernbegriff gut sichtbar, aber verpassen 5 weitere Themen, wo Sie fachlich stark sind. Das ist typisch für Firmen, die noch nie mit SEO gearbeitet haben — und es ist gleichzeitig die grösste Chance im ganzen Projekt.</p>
+        <p>Sie sind für einen Kernbegriff gut sichtbar, aber verpassen fünf weitere Themen, wo Sie fachlich stark sind. Das ist typisch für Firmen, die noch nie mit SEO gearbeitet haben — und es ist gleichzeitig die grösste Chance im ganzen Projekt.</p>
     </div>
 </div>
 
@@ -697,31 +814,31 @@ HTML = f"""<!DOCTYPE html>
         <h1 class="section-title">Marktumfeld und Wettbewerb</h1>
     </div>
 
-    <p class="lead">Für den Zielmarkt <strong>Schweiz</strong> haben wir die Wettbewerber analysiert. Die Nische ist übersichtlich: rund zehn Anbieter konkurrieren um die gleichen Suchbegriffe. Kein Wettbewerber dominiert alle Themen.</p>
+    <p class="lead">Für den Zielmarkt <strong>Schweiz</strong> haben wir die Wettbewerber analysiert. Die Nische ist übersichtlich: rund zehn Anbieter konkurrieren um die gleichen Suchbegriffe. <span class="accent">Kein Wettbewerber dominiert alle Themen.</span></p>
 
     <h3>Sichtbarkeits-Index — die relevantesten Wettbewerber</h3>
     <div class="chart">
         <img src="{CHARTS['competitors']}" alt="Wettbewerbs-Sichtbarkeit im Vergleich">
-        <div class="chart-caption">Index basiert auf: Ranking-Positionen für Kern-Keywords, Domain-Autorität, Content-Umfang, Local-SEO-Signale · Quelle: Emotionframe-Analyse {TODAY}</div>
+        <div class="chart-caption">Index basiert auf Ranking-Positionen, Domain-Autorität, Content-Umfang und Local-SEO-Signalen · Quelle: EmotionFrame-Analyse {TODAY}</div>
     </div>
 
-    <h2>Beobachtungen</h2>
+    <h2>Vier Beobachtungen</h2>
     <div class="grid-2">
         <div class="card">
             <h4>Geberit setzt den Rahmen</h4>
-            <p style="margin:0;font-size:9.5pt;">Als Hersteller dominiert Geberit die Brand-Suche. Als Installations-Partner konkurrieren Sie nicht direkt, sondern positionieren sich als lokaler, kompetenter Umsetzer.</p>
+            <p>Als Hersteller dominiert Geberit die Brand-Suche. Als Installations-Partner konkurrieren Sie nicht direkt, sondern positionieren sich als lokaler, kompetenter Umsetzer.</p>
         </div>
         <div class="card">
             <h4>Engel und Spaeter sind Referenzen</h4>
-            <p style="margin:0;font-size:9.5pt;">Beide haben klare Landing-Pages für ihre Kernthemen. Ihr strategisches Vorbild: fokussierte Inhalte statt breite Übersichten.</p>
+            <p>Beide haben klare Landing-Pages für ihre Kernthemen. Ihr strategisches Vorbild: fokussierte Inhalte statt breite Übersichten.</p>
         </div>
         <div class="card">
-            <h4>Kein Anbieter dominiert AI-Search</h4>
-            <p style="margin:0;font-size:9.5pt;">In Antworten von ChatGPT und Google AI Overviews ist die gesamte Nische noch fast leer. Ein früher Auftritt hier bringt strukturellen Vorteil.</p>
+            <h4>Niemand dominiert AI-Search</h4>
+            <p>In Antworten von ChatGPT und Google AI Overviews ist die gesamte Nische noch fast leer. Ein früher Auftritt bringt strukturellen Vorteil.</p>
         </div>
         <div class="card">
             <h4>Local SEO wird unterschätzt</h4>
-            <p style="margin:0;font-size:9.5pt;">Nur wenige Wettbewerber pflegen Google Business Profile aktiv. Für die geografische Positionierung ein grosses ungenutztes Feld.</p>
+            <p>Nur wenige Wettbewerber pflegen Google Business Profile aktiv. Für die geografische Positionierung ein grosses ungenutztes Feld.</p>
         </div>
     </div>
 
@@ -745,21 +862,21 @@ HTML = f"""<!DOCTYPE html>
 
     <h2>Vier konkrete Chancen-Cluster</h2>
 
-    <h3>Cluster 1 — Materialspezifische Themen (grün)</h3>
-    <p>Suchanfragen wie „AquaPanel Nasszelle", „Beplankung Sanitär" oder „Aussparungsplan Sanitär" haben moderates Volumen aber praktisch keine Fachkonkurrenz. Nur Herstellerseiten ranken hier. Mit fundierten Landing-Pages ist Position 1-3 in 3-4 Monaten realistisch.</p>
+    <h3>Cluster 1 — Materialspezifische Themen</h3>
+    <p>Suchanfragen wie „AquaPanel Nasszelle", „Beplankung Sanitär" oder „Aussparungsplan Sanitär" haben moderates Volumen aber praktisch keine Fachkonkurrenz. Nur Herstellerseiten ranken hier. Mit fundierten Landing-Pages ist Position 1 – 3 in drei bis vier Monaten realistisch.</p>
 
-    <h3>Cluster 2 — Geografische Kombinationen (grün-gelb)</h3>
+    <h3>Cluster 2 — Geografische Kombinationen</h3>
     <p>„Sanitär Vorfabrikation Zürich", „GIS-Elemente Zentralschweiz", „Sanitärmodule Ostschweiz" — regionale Long-Tails, die von Ihrer Konkurrenz kaum bespielt werden. Diese Anfragen kommen von Bauleitern in konkreten Projekten mit klarer Kaufabsicht.</p>
 
-    <h3>Cluster 3 — Zielgruppen-spezifische Fragen (gelb)</h3>
+    <h3>Cluster 3 — Zielgruppen-spezifische Fragen</h3>
     <p>„Vorfabrikation für Generalunternehmen", „Sanitärplanung für Architekten", „Terminvorteil Vorfabrikation" — Anfragen mit klarer Perspektive. Wer so sucht, ist wahrscheinlich in Vergabe-Prozessen involviert.</p>
 
-    <h3>Cluster 4 — AI-Search & Generative Answers (offenes Feld)</h3>
-    <p>ChatGPT, Perplexity und Google AI Overviews werden zunehmend als Erst-Recherche genutzt. Wenn Ihre Inhalte hier zitiert werden, gewinnen Sie Präsenz bei Entscheidern, die traditionelle Suchmaschinen kaum noch nutzen. Diese Positionierung ist heute technisch und inhaltlich vorbereitet — <strong>morgen ist sie besetzt</strong>.</p>
+    <h3>Cluster 4 — AI-Search & Generative Answers</h3>
+    <p>ChatGPT, Perplexity und Google AI Overviews werden zunehmend als Erst-Recherche genutzt. Wenn Ihre Inhalte hier zitiert werden, gewinnen Sie Präsenz bei Entscheidern, die traditionelle Suchmaschinen kaum noch nutzen. Diese Positionierung ist heute noch offen — <strong>morgen ist sie besetzt.</strong></p>
 
     <div class="callout">
         <div class="callout-title">Warum jetzt der richtige Moment ist</div>
-        <p style="margin:0;">In stärker umkämpften Branchen (E-Commerce, Software) sind SEO-Investitionen heute ein Marathon gegen etablierte Grössen. In der Sanitär-Vorfabrikations-Nische sind die Positionen noch weitgehend frei. Wer jetzt startet, sichert sich Rankings für die nächsten Jahre.</p>
+        <p>In stärker umkämpften Branchen sind SEO-Investitionen ein Marathon gegen etablierte Grössen. In der Sanitär-Vorfabrikations-Nische sind die Positionen noch weitgehend frei. Wer jetzt startet, sichert sich Rankings für die nächsten Jahre.</p>
     </div>
 </div>
 
@@ -770,30 +887,30 @@ HTML = f"""<!DOCTYPE html>
         <h1 class="section-title">Unsere Strategie</h1>
     </div>
 
-    <p class="lead">Wir arbeiten mit fünf strategischen Handlungsfeldern. Die Prozent-Angaben zeigen, wie sich unser monatlicher Arbeitsaufwand über die fünf Felder verteilt.</p>
+    <p class="lead">Wir arbeiten mit fünf strategischen Handlungsfeldern. Die Prozent-Angaben zeigen, wie sich unser monatlicher Arbeitsaufwand über diese fünf Felder verteilt.</p>
 
     <div class="chart">
         <img src="{CHARTS['pillars']}" alt="Fünf Handlungsfelder mit Zeitanteil">
     </div>
 
-    <h2>1 · Content-Strategie & Redaktion <span style="color:#F97316;">— 24%</span></h2>
+    <h2>1 · Content-Strategie & Redaktion <span class="accent">— 24 %</span></h2>
     <p>Wir schreiben Fachinhalte, die für Ihre Zielgruppen relevant sind: Landing-Pages pro Leistung, ein aktivierter Blog mit Fachartikeln, dedizierte Anwendungsfälle. Ziel: Positionen für Long-Tail-Suchen erobern und Fachkompetenz sichtbar machen.</p>
 
-    <h2>2 · Local SEO & Reputation <span style="color:#F97316;">— 22%</span></h2>
+    <h2>2 · Local SEO & Reputation <span class="accent">— 22 %</span></h2>
     <p>Google Business Profile aktiv pflegen, Kunden-Reviews systematisch generieren, NAP-Konsistenz über Directories sichern. Ziel: Präsenz im Google Maps Local Pack und in geografisch angereicherten Suchen.</p>
 
-    <h2>3 · Autorität & Backlinks <span style="color:#F97316;">— 20%</span></h2>
+    <h2>3 · Autorität & Backlinks <span class="accent">— 20 %</span></h2>
     <p>Verlinkungen von Fachverbänden (suissetec, VSSH), Partnern (Architekten, Generalunternehmer), Baustellen-Reportagen. Ziel: Domain-Autorität erhöhen, damit auch schwierigere Rankings erreichbar werden.</p>
 
-    <h2>4 · AI Search Optimierung <span style="color:#F97316;">— 18%</span></h2>
+    <h2>4 · AI Search Optimierung <span class="accent">— 18 %</span></h2>
     <p>Strukturierte Q&A-Blöcke, FAQ-Schemas, klare faktische Inhalte, die von ChatGPT, Perplexity und Google AI Overviews zitiert werden können. Ziel: In generativen Antworten mitgenannt werden.</p>
 
-    <h2>5 · Monitoring & Iteration <span style="color:#F97316;">— 16%</span></h2>
+    <h2>5 · Monitoring & Iteration <span class="accent">— 16 %</span></h2>
     <p>Regelmässige Auswertung von Search Console, Analytics, Rank-Tracking. Erkennung von Chancen und Regressionen. Monatliches Reporting an Sie mit konkreten Handlungs-Empfehlungen.</p>
 
     <div class="callout">
-        <div class="callout-title">Was diese Aufteilung bewusst NICHT enthält</div>
-        <p style="margin:0;">Keine bezahlte Werbung (Google Ads), keine Social-Media-Kampagnen, keine Video-Produktion. Diese Kanäle können ergänzend sinnvoll sein — aber die organische Sichtbarkeit über Google ist für Ihre B2B-Zielgruppe der Kanal mit dem besten Kosten-Nutzen-Verhältnis.</p>
+        <div class="callout-title">Was diese Aufteilung bewusst nicht enthält</div>
+        <p>Keine bezahlte Werbung (Google Ads), keine Social-Media-Kampagnen, keine Video-Produktion. Diese Kanäle können ergänzend sinnvoll sein — aber die organische Sichtbarkeit über Google ist für Ihre B2B-Zielgruppe der Kanal mit dem besten Kosten-Nutzen-Verhältnis.</p>
     </div>
 </div>
 
@@ -813,8 +930,8 @@ HTML = f"""<!DOCTYPE html>
     <h3>Meilensteine</h3>
     <ul class="clean">
         <li><strong>Ende Monat 1</strong> — Fundament fertig: Google Business Profile aktiv, GA4 & Rank-Tracking laufen, initiale Content-Struktur steht</li>
-        <li><strong>Ende Monat 3</strong> — Erste neue Rankings erscheinen (Long-Tail), erste Reviews eingegangen, 2-3 Fachartikel publiziert</li>
-        <li><strong>Ende Monat 6</strong> — Blog etabliert (8 Artikel), Backlink-Aufbau in aktiver Phase, messbarer Anstieg der Suchanfragen</li>
+        <li><strong>Ende Monat 3</strong> — Erste neue Rankings erscheinen (Long-Tail), erste Reviews eingegangen, zwei bis drei Fachartikel publiziert</li>
+        <li><strong>Ende Monat 6</strong> — Blog etabliert (acht Artikel), Backlink-Aufbau in aktiver Phase, messbarer Anstieg der Suchanfragen</li>
         <li><strong>Ende Monat 9</strong> — Kernbegriffe in Top 10, AI-Search-Sichtbarkeit dokumentiert, Konvertierungs-Optimierung startet</li>
         <li><strong>Ende Monat 12</strong> — Zwei bis fünf Kern-Suchbegriffe in Top 3, systematisch wachsender organischer Traffic, dokumentierbare Anfragen aus SEO</li>
     </ul>
@@ -831,7 +948,7 @@ HTML = f"""<!DOCTYPE html>
 
     <div class="chart">
         <img src="{CHARTS['traffic']}" alt="Traffic-Projektion 12 Monate">
-        <div class="chart-caption">Konservatives Szenario basiert auf durchschnittlichen Resultaten vergleichbarer B2B-Projekte in der Schweiz. Der Statusquo-Pfad zeigt was passiert wenn nichts unternommen wird — moderates natürliches Wachstum ohne aktive Steuerung.</div>
+        <div class="chart-caption">Das konservative Szenario basiert auf durchschnittlichen Resultaten vergleichbarer B2B-Projekte in der Schweiz. Der Statusquo-Pfad zeigt, was passiert wenn nichts unternommen wird.</div>
     </div>
 
     <h2>Was Sie realistisch erwarten dürfen</h2>
@@ -845,17 +962,17 @@ HTML = f"""<!DOCTYPE html>
         </thead>
         <tbody>
             <tr>
-                <td><strong>Monat 1-3</strong></td>
+                <td><strong>Monat 1 – 3</strong></td>
                 <td>Erste Bewegung in Search Console. Neue Impressionen aber wenig Klicks.</td>
                 <td>Fundamente werden gelegt. Noch keine spürbare Anfragen-Steigerung.</td>
             </tr>
             <tr>
-                <td><strong>Monat 3-6</strong></td>
+                <td><strong>Monat 3 – 6</strong></td>
                 <td>Erste neue Rankings. Klicks aus organischer Suche steigen um Faktor 1,5 – 2.</td>
                 <td>Erste zusätzliche Anfragen aus SEO. Direkt zurechen-bar.</td>
             </tr>
             <tr>
-                <td><strong>Monat 6-12</strong></td>
+                <td><strong>Monat 6 – 12</strong></td>
                 <td>Kernbegriffe in Top 10. Organischer Traffic 5 – 10× höher als Start.</td>
                 <td>SEO wird zum verlässlichen Anfragen-Kanal. Planbar.</td>
             </tr>
@@ -869,7 +986,7 @@ HTML = f"""<!DOCTYPE html>
 
     <div class="callout">
         <div class="callout-title">Ehrliche Grenzen</div>
-        <p style="margin:0;">SEO ist keine Schalter-Umlegung. Sie werden im ersten Monat wenig Konkretes sehen — technische Basis wird gelegt. Google braucht Zeit um Änderungen zu bewerten. Erst ab Monat 3 wird es messbar spannend. Wer garantierte Rankings verspricht, ist unseriös. Wir garantieren stattdessen: konkrete Umsetzung, transparentes Reporting, klare KPIs.</p>
+        <p>SEO ist keine Schalter-Umlegung. Sie werden im ersten Monat wenig Konkretes sehen — technische Basis wird gelegt. Google braucht Zeit um Änderungen zu bewerten. Erst ab Monat 3 wird es messbar spannend. Wer garantierte Rankings verspricht, ist unseriös. Wir garantieren stattdessen: konkrete Umsetzung, transparentes Reporting, klare KPIs.</p>
     </div>
 </div>
 
@@ -892,7 +1009,7 @@ HTML = f"""<!DOCTYPE html>
                 <li>Google Analytics 4 Einrichtung</li>
                 <li>Search Console Onboarding</li>
                 <li>Erste Landing-Pages optimiert</li>
-                <li>Übergabe-Report + Beratung (1h)</li>
+                <li>Übergabe-Report + Beratung (1 h)</li>
                 <li>Danach eigenständige Umsetzung</li>
             </ul>
         </div>
@@ -902,10 +1019,10 @@ HTML = f"""<!DOCTYPE html>
             <div class="package-setup">Setup CHF 4'500 einmalig · 6 Monate Mindestlaufzeit</div>
             <ul class="package-features">
                 <li>Alles aus Basis</li>
-                <li>4 Fachartikel im Setup</li>
+                <li>Vier Fachartikel im Setup</li>
                 <li>Schema.org Erweiterung</li>
                 <li>Rank-Tracking für 25 Keywords</li>
-                <li>1 neuer Beitrag pro Monat</li>
+                <li>Ein neuer Beitrag pro Monat</li>
                 <li>Monatliches Reporting</li>
                 <li>Reviews-Aktivierung</li>
                 <li>Technisches Monitoring</li>
@@ -918,7 +1035,7 @@ HTML = f"""<!DOCTYPE html>
             <ul class="package-features">
                 <li>Alles aus Solid</li>
                 <li>Blog vollständig aktiviert</li>
-                <li>2 Backlinks pro Monat aktiv</li>
+                <li>Zwei Backlinks pro Monat aktiv</li>
                 <li>AI-Search Content-Optimierung</li>
                 <li>Konkurrenz-Monitoring</li>
                 <li>Konvertierungs-Analyse</li>
@@ -932,7 +1049,7 @@ HTML = f"""<!DOCTYPE html>
     <p>Für Ihre aktuelle Ausgangslage empfehlen wir das Paket <strong>Solid</strong>. Es kombiniert die notwendige Setup-Tiefe mit einem realistischen monatlichen Umfang. Nach den ersten sechs Monaten haben wir gemeinsam eine klare Datenbasis, um zu entscheiden ob eine Skalierung auf <strong>Wachstum</strong> sinnvoll ist oder ob Solid weiterläuft.</p>
 
     <h2>Was nicht enthalten ist</h2>
-    <p>Externe Kosten (z.B. Werkzeug-Lizenzen, sofern nicht in unseren Paketen berücksichtigt), grafische Neuentwürfe (Bilder, Grafiken), Video- und Fotografie-Produktion, Website-Umbauten die über SEO-Optimierung hinausgehen. Solche Themen besprechen wir bei Bedarf separat und stellen sie auf Aufwand in Rechnung.</p>
+    <p>Externe Kosten (Werkzeug-Lizenzen, sofern nicht in unseren Paketen berücksichtigt), grafische Neuentwürfe, Video- und Fotografie-Produktion, Website-Umbauten die über SEO-Optimierung hinausgehen. Solche Themen besprechen wir bei Bedarf separat.</p>
 </div>
 
 <!-- ═════════════════════════════════════ 09 ZUSAMMENARBEIT ═════════════════════════════════════ -->
@@ -951,18 +1068,18 @@ HTML = f"""<!DOCTYPE html>
         <li>Kurze Abstimmung zu Zielprojekten und Referenzen, die wir hervorheben sollen</li>
     </ul>
 
-    <h2>Woche 1-4 — Setup-Phase</h2>
+    <h2>Woche 1 – 4 — Setup-Phase</h2>
     <ul class="clean">
         <li>Vollständiges technisches Onboarding aller Tools und Tracking-Systeme</li>
         <li>Erste Landing-Pages und Content-Erweiterungen live</li>
         <li>Google Business Profile aktiv, erste Fotos und Kategorien gesetzt</li>
         <li>Rank-Tracking für alle Ziel-Keywords eingerichtet</li>
-        <li>Kurzes Status-Update nach zwei Wochen (E-Mail, ~5 Minuten Lesezeit)</li>
+        <li>Kurzes Status-Update nach zwei Wochen</li>
     </ul>
 
     <h2>Ab Monat 2 — Regelbetrieb</h2>
     <ul class="clean">
-        <li>Monatliches Reporting: 2 Seiten PDF, klare Zahlen, konkrete nächste Schritte</li>
+        <li>Monatliches Reporting: zwei Seiten PDF, klare Zahlen, konkrete nächste Schritte</li>
         <li>Ein neuer Fachartikel oder eine neue Landing-Page pro Monat</li>
         <li>Kontinuierliche Optimierung basierend auf Search-Console-Daten</li>
         <li>Bei Bedarf: telefonisches Update, keine Zusatzkosten für kurze Fragen</li>
@@ -971,7 +1088,7 @@ HTML = f"""<!DOCTYPE html>
     <h2>Was wir von Ihnen brauchen</h2>
     <ul>
         <li><strong>Zugänge freigeben</strong> (siehe Woche 0)</li>
-        <li><strong>Fachliches Sparring</strong> — wir müssen nicht Sanitär-Experten werden, aber Ihre Expertise brauchen wir für glaubwürdige Inhalte. Rechnen Sie mit ~1 Stunde Ihrer Zeit pro Monat</li>
+        <li><strong>Fachliches Sparring</strong> — wir müssen nicht Sanitär-Experten werden, aber Ihre Expertise brauchen wir für glaubwürdige Inhalte. Rechnen Sie mit rund einer Stunde Ihrer Zeit pro Monat.</li>
         <li><strong>Projekt-Freigaben</strong> für Referenzen — welche Objekte dürfen wir öffentlich nennen und welche nicht</li>
         <li><strong>Aktive Kunden-Akquise für Reviews</strong> — nach Projektabschluss die Nachfrage nach einer Google-Bewertung ist Ihr Job (wir liefern Vorlagen und Prozess)</li>
     </ul>
@@ -981,15 +1098,15 @@ HTML = f"""<!DOCTYPE html>
 <div class="section-block">
     <div class="section-header">
         <div class="section-num">10</div>
-        <h1 class="section-title">Über {AGENCY['name']}</h1>
+        <h1 class="section-title">Über EmotionFrame</h1>
     </div>
 
-    <p class="lead">Wir sind {AGENCY['name']} — eine unabhängige Schweizer Agentur für Digital-Strategie und SEO. Wir arbeiten mit KMU, die ihren Auftritt professionell und messbar entwickeln wollen.</p>
+    <p class="lead">Wir sind <strong>EmotionFrame</strong> — ein Kreativstudio aus Niederrohrdorf im Aargau. Familienunternehmen, inhabergeführt. Wer Ihr Projekt übernimmt, bleibt auch dabei.</p>
 
     <div class="grid-2">
         <div>
             <h3>Unser Ansatz</h3>
-            <p>Wir bevorzugen Klartext gegenüber Buzzwords, faktische Belege gegenüber Marketing-Versprechen, und ein monatliches Reporting, das Sie in fünf Minuten versteht.</p>
+            <p>Wir bevorzugen Klartext gegenüber Buzzwords, faktische Belege gegenüber Marketing-Versprechen, und ein Reporting, das Sie in fünf Minuten versteht.</p>
             <p>SEO ist ein Handwerk. Es gibt keine Abkürzungen, keine Zauberei, keine Rankings-Garantien. Was es gibt: strukturiertes Arbeiten, Datenbasis, Iteration. Genau das liefern wir.</p>
         </div>
         <div>
@@ -1000,24 +1117,27 @@ HTML = f"""<!DOCTYPE html>
     </div>
 
     <div class="contact-block">
-        <div class="kicker" style="color:#F97316;">— Kontakt & Ansprechpartner</div>
-        <h2>{AGENCY['name']}</h2>
-        <p style="color:rgba(255,255,255,0.85);font-size:11pt;margin-bottom:14pt;">Wir freuen uns auf Ihre Rückmeldung. Idealerweise vereinbaren wir einen kurzen Termin zur Klärung offener Fragen — dann können wir mit dem Vertrag und dem Kickoff starten.</p>
+        <div class="kicker" style="background:linear-gradient(90deg,#F4A94A 0%,#D97706 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">— Kontakt</div>
+        <h2>Sagen Sie kurz Hallo.</h2>
+        <p style="color:rgba(255,255,255,0.75);font-size:11pt;margin-bottom:16pt;">Wir freuen uns auf Ihre Rückmeldung. Idealerweise vereinbaren wir einen kurzen Termin zur Klärung offener Fragen — dann können wir mit dem Vertrag und dem Kickoff starten.</p>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14pt;font-size:10pt;color:rgba(255,255,255,0.85);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16pt;font-size:10pt;color:rgba(255,255,255,0.85);">
             <div>
-                <div class="kicker" style="color:rgba(255,255,255,0.5);font-size:8pt;">Web</div>
-                <div style="color:#fff;font-weight:500;"><a href="https://{AGENCY['url']}">{AGENCY['url']}</a></div>
+                <div class="kicker" style="color:rgba(255,255,255,0.4);font-size:7.5pt;background:none;-webkit-background-clip:initial;background-clip:initial;">Adresse</div>
+                <div style="color:#fff;font-weight:500;">{AGENCY['company']}<br>{AGENCY['address']}</div>
             </div>
             <div>
-                <div class="kicker" style="color:rgba(255,255,255,0.5);font-size:8pt;">E-Mail</div>
-                <div style="color:#fff;font-weight:500;"><a href="mailto:{AGENCY['email']}">{AGENCY['email']}</a></div>
+                <div class="kicker" style="color:rgba(255,255,255,0.4);font-size:7.5pt;background:none;-webkit-background-clip:initial;background-clip:initial;">Kontakt</div>
+                <div style="color:#fff;font-weight:500;">
+                    <a href="mailto:{AGENCY['email']}">{AGENCY['email']}</a><br>
+                    <a href="https://{AGENCY['url']}">{AGENCY['url']}</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <p style="margin-top:24pt;font-size:8pt;color:#9CA3AF;text-align:center;letter-spacing:0.1em;">
-        Dieses Dokument wurde erstellt am {TODAY} für {CLIENT['name']}. Vertraulich. Version 1.0.
+    <p style="margin-top:24pt;font-size:8pt;color:#A8A29E;text-align:center;letter-spacing:0.1em;">
+        Dieses Dokument wurde erstellt am {TODAY} für {CLIENT['name']}. Vertraulich. Version 2.0.
     </p>
 </div>
 
@@ -1036,34 +1156,23 @@ pdf_file = OUT_DIR / "SEO-Strategie_SUI-Innova.pdf"
 
 html_file.write_text(HTML, encoding="utf-8")
 
-chromium_paths = [
-    "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-    "chromium",
-    "google-chrome",
-]
+chromium = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+r = subprocess.run(
+    [
+        chromium,
+        "--headless",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--print-to-pdf-no-header",
+        f"--print-to-pdf={pdf_file}",
+        f"file://{html_file.absolute()}",
+    ],
+    capture_output=True, text=True, timeout=120,
+)
 
-for chrome in chromium_paths:
-    try:
-        r = subprocess.run(
-            [
-                chrome,
-                "--headless",
-                "--no-sandbox",
-                "--disable-gpu",
-                "--print-to-pdf-no-header",
-                f"--print-to-pdf={pdf_file}",
-                f"file://{html_file.absolute()}",
-            ],
-            capture_output=True, text=True, timeout=90,
-        )
-        if r.returncode == 0 and pdf_file.exists():
-            print(f"✓ Erstellt: {pdf_file} ({pdf_file.stat().st_size // 1024} KB)")
-            break
-    except (FileNotFoundError, subprocess.TimeoutExpired) as e:
-        print(f"Chromium {chrome} fehlgeschlagen: {e}")
-        continue
+if pdf_file.exists() and pdf_file.stat().st_size > 100000:
+    print(f"✓ Erstellt: {pdf_file} ({pdf_file.stat().st_size // 1024} KB)")
+    html_file.unlink(missing_ok=True)
 else:
-    raise RuntimeError("Konnte kein Chromium finden")
-
-# HTML aufraeumen
-html_file.unlink(missing_ok=True)
+    print("stderr:", r.stderr[-500:])
+    raise RuntimeError("PDF konnte nicht erstellt werden")

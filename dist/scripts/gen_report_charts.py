@@ -7,28 +7,36 @@ Alle Charts werden als PNG (transparent) mit einheitlichem Design gespeichert.
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
+import matplotlib.font_manager as fm
 from matplotlib.patches import FancyBboxPatch, Rectangle, Wedge
 import numpy as np
+import os
 from pathlib import Path
+
+# Emotionframe-Fonts registrieren
+FONT_DIR = "/home/user/suiinnova/audit-sui-innova/fonts"
+for f in os.listdir(FONT_DIR):
+    if f.endswith(".ttf"):
+        fm.fontManager.addfont(os.path.join(FONT_DIR, f))
 
 OUT = Path("/home/user/suiinnova/audit-sui-innova/report-charts")
 OUT.mkdir(parents=True, exist_ok=True)
 
-# Emotionframe Farb-Palette
-EMOTION_BLACK = "#0A0A0A"
-EMOTION_GREY = "#262626"
-EMOTION_LIGHT = "#F5F5F5"
-EMOTION_MID = "#9CA3AF"
-EMOTION_ACCENT = "#F97316"  # warmer orange
-CLIENT_RED = "#C41018"  # SUI Innova red
+# Emotionframe Farb-Palette (warmer Gold-Ton statt Flat-Orange)
+EMOTION_BLACK = "#1A1A1A"      # Charcoal (statt reinem Schwarz)
+EMOTION_GREY = "#3D3D3D"
+EMOTION_MID = "#A8A29E"        # warmes Stone-Grey
+EMOTION_LIGHT = "#FAFAF7"      # warme Off-White
+EMOTION_ACCENT = "#D97706"     # warmer Gold-Orange (Mitte des Emotionframe-Gradients)
+EMOTION_ACCENT_LIGHT = "#F4A94A"
+EMOTION_ACCENT_DARK = "#B45309"
+CLIENT_RED = "#C41018"         # SUI Innova rot
 SUCCESS_GREEN = "#059669"
 WARNING_AMBER = "#F59E0B"
 DANGER_RED = "#DC2626"
 
-# Font-Konfiguration
-plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["font.sans-serif"] = ["Inter", "Helvetica Neue", "Arial", "DejaVu Sans"]
+# Font-Konfiguration Emotionframe
+plt.rcParams["font.family"] = "Montserrat"
 plt.rcParams["axes.edgecolor"] = EMOTION_GREY
 plt.rcParams["axes.labelcolor"] = EMOTION_BLACK
 plt.rcParams["xtick.color"] = EMOTION_GREY
