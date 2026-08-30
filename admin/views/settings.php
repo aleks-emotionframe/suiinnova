@@ -49,6 +49,27 @@ try {
 } catch (Exception $e) {}
 
 // Self-Heal: Defaults fuer Schriftgroessen anlegen falls nicht vorhanden
+// Self-Heal: Firmen-Daten für Schema.org
+$schemaDefaults = [
+    'company_founder' => 'Riad Ljatifi',
+    'company_vat_id'  => 'CHE-145.418.862',
+    'geo_lat'         => '47.2011',
+    'geo_lng'         => '8.7740',
+];
+try {
+    foreach ($schemaDefaults as $key => $default) {
+        $exists = $db->fetch("SELECT id FROM settings WHERE setting_key = :k", ['k' => $key]);
+        if (!$exists) {
+            $db->insert('settings', [
+                'setting_key' => $key,
+                'setting_val' => $default,
+                'group_name'  => 'contact',
+            ]);
+            $GLOBALS['settings'][$key] = $default;
+        }
+    }
+} catch (Exception $e) {}
+
 $typoDefaults = [
     'fs_h1'         => '64',
     'fs_heading'    => '48',
@@ -83,14 +104,18 @@ $settingGroups = [
         ],
     ],
     'contact' => [
-        'label' => 'Kontakt',
+        'label' => 'Kontakt & Firmendaten',
         'fields' => [
-            'company_name'          => ['label' => 'Firmenname',                    'type' => 'text'],
-            'address_street'        => ['label' => 'Strasse',                       'type' => 'text'],
-            'address_city'          => ['label' => 'PLZ / Ort',                     'type' => 'text'],
-            'phone'                 => ['label' => 'Telefon',                        'type' => 'tel'],
-            'contact_email'         => ['label' => 'E-Mail (wird auf Website angezeigt)', 'type' => 'email'],
-            'contact_form_receiver' => ['label' => 'Kontaktformular-Empfänger (E-Mail)', 'type' => 'email'],
+            'company_name'          => ['label' => 'Firmenname',                              'type' => 'text'],
+            'address_street'        => ['label' => 'Strasse',                                 'type' => 'text'],
+            'address_city'          => ['label' => 'PLZ und Ort (z.B. 8808 Pfäffikon)',       'type' => 'text', 'hint' => 'Format: „8808 Pfäffikon" – PLZ und Ort mit Leerzeichen getrennt.'],
+            'phone'                 => ['label' => 'Telefon',                                  'type' => 'tel'],
+            'contact_email'         => ['label' => 'E-Mail (auf Website angezeigt)',           'type' => 'email'],
+            'contact_form_receiver' => ['label' => 'Kontaktformular-Empfänger (E-Mail)',      'type' => 'email'],
+            'company_founder'       => ['label' => 'Inhaber / Geschäftsführer',                'type' => 'text', 'hint' => 'Wird für Schema.org (Firmen-Struktur) verwendet.'],
+            'company_vat_id'        => ['label' => 'UID / MWST-Nummer',                        'type' => 'text', 'hint' => 'Format: CHE-000.000.000 – wird für Schema.org (Firmen-Verifikation) verwendet.'],
+            'geo_lat'               => ['label' => 'GPS-Breitengrad (Latitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 47.2011. Aus Google Maps kopieren.'],
+            'geo_lng'               => ['label' => 'GPS-Längengrad (Longitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 8.7740.'],
         ],
     ],
     'footer' => [

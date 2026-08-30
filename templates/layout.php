@@ -1,27 +1,49 @@
+<?php
+    // Canonical URL sauber (nur Pfad, ohne Query-String, ohne Fragment)
+    $reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $canonicalUrl = rtrim(SITE_URL, '/') . $reqPath;
+
+    // Titel — kein Duplikat mit Site-Name
+    $siteName = setting('site_name', SITE_NAME);
+    $suffix   = setting('meta_title_suffix');
+    if (empty($pageTitle) || $pageTitle === $siteName) {
+        $finalTitle = $siteName . ($suffix ? ' | ' . $suffix : '');
+    } elseif (stripos($pageTitle, $siteName) !== false) {
+        // pageTitle enthaelt schon "SUI Innova" → nicht doppeln
+        $finalTitle = $pageTitle . ($suffix ? ' | ' . $suffix : '');
+    } else {
+        $finalTitle = $pageTitle . ' – ' . $siteName . ($suffix ? ' | ' . $suffix : '');
+    }
+
+    // Effektive Meta-Description
+    $effectiveDesc = ($pageDesc ?? '') ?: setting('default_meta_description');
+?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO -->
-    <title><?= e($pageTitle ?? 'SUI Innova GmbH') ?> - <?= e(setting('site_name', SITE_NAME)) ?><?= ($suffix = setting('meta_title_suffix')) ? ' | ' . e($suffix) : '' ?></title>
-    <?php $effectiveDesc = $pageDesc ?? '' ?: setting('default_meta_description'); ?>
+    <title><?= e($finalTitle) ?></title>
     <?php if (!empty($effectiveDesc)): ?>
         <meta name="description" content="<?= e($effectiveDesc) ?>">
     <?php endif; ?>
     <?php if (setting('seo_noindex') === '1'): ?>
         <meta name="robots" content="noindex, nofollow">
+    <?php else: ?>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <?php endif; ?>
 
     <!-- OpenGraph / Social -->
-    <meta property="og:title" content="<?= e($pageTitle ?? setting('site_name', SITE_NAME)) ?>">
+    <meta property="og:title" content="<?= e($pageTitle ?? $siteName) ?>">
     <?php if (!empty($effectiveDesc)): ?>
         <meta property="og:description" content="<?= e($effectiveDesc) ?>">
     <?php endif; ?>
-    <meta property="og:url" content="<?= e(SITE_URL . $_SERVER['REQUEST_URI']) ?>">
+    <meta property="og:url" content="<?= e($canonicalUrl) ?>">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="<?= e(setting('site_name', SITE_NAME)) ?>">
+    <meta property="og:site_name" content="<?= e($siteName) ?>">
+    <meta property="og:locale" content="de_CH">
     <?php if ($ogImage = setting('og_image_url')): ?>
         <meta property="og:image" content="<?= e($ogImage) ?>">
         <meta name="twitter:card" content="summary_large_image">
@@ -38,8 +60,13 @@
         <meta name="msvalidate.01" content="<?= e($bingVerify) ?>">
     <?php endif; ?>
 
-    <!-- Canonical -->
-    <link rel="canonical" href="<?= e(SITE_URL . $_SERVER['REQUEST_URI']) ?>">
+    <!-- Canonical + hreflang (Zielmarkt Schweiz, Deutsch) -->
+    <link rel="canonical" href="<?= e($canonicalUrl) ?>">
+    <link rel="alternate" hreflang="de-CH" href="<?= e($canonicalUrl) ?>">
+    <link rel="alternate" hreflang="x-default" href="<?= e($canonicalUrl) ?>">
+
+    <!-- Strukturierte Daten (Schema.org / JSON-LD) -->
+    <?php include BASE_PATH . '/templates/partials/schema-jsonld.php'; ?>
 
     <!-- Favicon -->
     <?php $favicon = setting('favicon_url', asset('img/favicon.ico')); ?>
