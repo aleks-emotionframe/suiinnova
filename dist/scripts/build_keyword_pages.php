@@ -331,6 +331,8 @@ if (($argv[1] ?? '') === 'links') {
     $o[] = "-- Gefahrlos mehrfach ausfuehrbar.";
     $o[] = "-- ============================================================";
     $o[] = "";
+    $o[] = "SET NAMES utf8mb4;";
+    $o[] = "";
     $o[] = "SET @pid = (SELECT id FROM pages WHERE slug = 'leistungen' LIMIT 1);";
     $o[] = "SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);";
     $o[] = "";
@@ -542,6 +544,10 @@ $out[] = "--";
 $out[] = "-- Gefahrlos mehrfach ausfuehrbar: bestehende Seiten werden an ihrem";
 $out[] = "-- Slug erkannt und nicht doppelt angelegt.";
 $out[] = "-- ============================================================";
+$out[] = "";
+$out[] = "-- Zeichensatz festnageln: sonst wird aus \"Pfaeffikon\" mit Umlaut";
+$out[] = "-- je nach Client ein Zeichensalat.";
+$out[] = "SET NAMES utf8mb4;";
 $out[] = "";
 
 // Sortierung: hinter die bestehenden Seiten

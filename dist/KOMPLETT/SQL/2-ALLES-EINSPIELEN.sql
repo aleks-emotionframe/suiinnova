@@ -1,27 +1,203 @@
 -- ============================================================
--- SUI Innova GmbH — SEO Paket 3
--- Sechs neue Seiten aus dem Keyword-Plan vom 08.09.2026
+-- SUI INNOVA — SCHRITT 2 VON 3
+-- Alles auf einmal einspielen
 --
--- ERZEUGT VON dist/scripts/build_keyword_pages.php — nicht von Hand
--- bearbeiten, sondern den Generator anpassen und neu erzeugen.
+-- Erstellt 11.09.2026 von EmotionFrame GmbH
 --
--- Die Texte sind vollstaendig, es ist keine Stelle mehr offen.
+-- Drei Arbeitspakete hintereinander:
+--   A) Seitentitel, Meta-Descriptions, Hauptueberschriften
+--      Behebt die vier kritischen Befunde aus dem Audit vom 03.09.
+--   B) Spalte fuer die Bild-Groessenvarianten
+--   C) Sechs neue Keyword-Seiten, deaktiviert angelegt
 --
--- Trotzdem werden alle Seiten DEAKTIVIERT angelegt (is_active = 0):
--- sie sind im CMS vorhanden und bearbeitbar, aber weder fuer Besucher
--- noch fuer Google sichtbar. Neue oeffentliche Seiten auf einer
--- Kundenwebsite schaltet ein Mensch frei, nicht ein SQL-Import.
+-- Gefahrlos mehrfach ausfuehrbar. Getestet gegen MariaDB 10.11,
+-- zweimal hintereinander, ohne Fehler und ohne Duplikate.
 --
--- Freischalten: im CMS unter Seiten je Seite auf Online stellen,
--- oder alle auf einmal mit seo-paket-3c-seiten-online.sql.
---
--- Gefahrlos mehrfach ausfuehrbar: bestehende Seiten werden an ihrem
--- Slug erkannt und nicht doppelt angelegt.
+-- SO GEHT ES:
+--   Hostpoint -> phpMyAdmin -> Datenbank bifitudo_suinnova
+--   -> Reiter "SQL" -> diese Datei komplett hineinkopieren -> OK
 -- ============================================================
 
--- Zeichensatz festnageln: sonst wird aus "Pfaeffikon" mit Umlaut
--- je nach Client ein Zeichensalat.
+-- Zeichensatz der Verbindung festnageln. MUSS als Erstes kommen.
+-- Ohne diese Zeile interpretiert der Server die Datei je nach Client als
+-- latin1, und aus "Pfäffikon" wird "PfÃ¤ffikon" — in jedem Titel, jeder
+-- Beschreibung und jedem Seitentext. Im Test genau so passiert.
 SET NAMES utf8mb4;
+
+
+-- ════════════════════════════════════════════════════════════
+-- A) TITEL, BESCHREIBUNGEN UND UEBERSCHRIFTEN
+-- ════════════════════════════════════════════════════════════
+
+UPDATE settings SET setting_val = '' WHERE setting_key = 'meta_title_suffix';
+
+
+-- ------------------------------------------------------------
+-- 2) Seitentitel und Meta-Descriptions
+--
+-- Muster: "Leistung, Ort | Firma", unter 60 Zeichen.
+-- Descriptions rund 150 Zeichen, jede endet mit einer Aufforderung.
+--
+-- Abweichung vom Keyword-Plan, bewusst:
+-- Der Plan weist "sanitär vorfabrikation" UND "gis elemente" beide der
+-- Startseite zu. Zwei Begriffe auf einer Seite konkurrieren gegen-
+-- einander. Die Aufteilung ist deshalb:
+--   Startseite  → "GIS Elemente Vorfabrikation"  (Hauptkeyword,
+--                 spezifisches Produkt, Kundenentscheid)
+--   Leistungen  → "Sanitär Vorfabrikation"       (Oberbegriff, deckt
+--                 alle vier Leistungen ab)
+-- ------------------------------------------------------------
+
+-- Startseite → HAUPTKEYWORD: gis elemente vorfabrikation
+UPDATE pages SET
+    meta_title = 'GIS Elemente Vorfabrikation | SUI Innova GmbH',
+    meta_desc  = 'GIS Elemente Vorfabrikation aus Pfäffikon SZ: fertig verrohrt aus der eigenen Werkstatt, inklusive Montage, Beplankung und Spachtelung. Jetzt Offerte anfragen.'
+WHERE is_homepage = 1;
+
+-- Leistungen → sanitär vorfabrikation
+UPDATE pages SET
+    meta_title = 'Sanitär Vorfabrikation: Leistungen | SUI Innova',
+    meta_desc  = 'Sanitär Vorfabrikation aus Pfäffikon SZ: GIS-Elemente verrohren, montieren, beplanken und spachteln — alles aus einer Hand. Pläne senden, Offerte erhalten.'
+WHERE slug = 'leistungen';
+
+-- Referenzen
+UPDATE pages SET
+    meta_title = 'Referenzen: vorfabrizierte Nasszellen | SUI Innova',
+    meta_desc  = 'Ausgeführte Projekte der SUI Innova GmbH: vorfabrizierte GIS-Elemente, Montage und Beplankung in Neubau und Sanierung. Sehen Sie sich unsere Arbeit an.'
+WHERE slug = 'referenzen';
+
+-- Über uns
+UPDATE pages SET
+    meta_title = 'Werkstatt und Team in Pfäffikon SZ | SUI Innova',
+    meta_desc  = 'Die SUI Innova GmbH fertigt Sanitär-Vorwandelemente in der eigenen Werkstatt in Pfäffikon SZ. Lernen Sie Team, Ablauf und Anspruch kennen.'
+WHERE slug = 'ueber-uns';
+
+-- Kontakt
+UPDATE pages SET
+    meta_title = 'Kontakt: Pläne einsenden, Offerte erhalten | SUI Innova',
+    meta_desc  = 'Sanitär Vorfabrikation anfragen: Senden Sie uns Ihre Sanitärpläne, wir prüfen sie und melden uns mit einer Offerte. SUI Innova GmbH, Pfäffikon SZ.'
+WHERE slug = 'kontakt';
+
+-- Impressum
+UPDATE pages SET
+    meta_title = 'Impressum | SUI Innova GmbH',
+    meta_desc  = 'Impressum der SUI Innova GmbH, Talstrasse 31, 8808 Pfäffikon SZ: Angaben zum Unternehmen, Vertretung und Kontaktmöglichkeiten.'
+WHERE slug = 'impressum';
+
+-- Datenschutz
+UPDATE pages SET
+    meta_title = 'Datenschutzerklärung | SUI Innova GmbH',
+    meta_desc  = 'Wie die SUI Innova GmbH Personendaten bearbeitet: Kontaktformular, Bewerbungen, Cookies und Google Analytics — nach revDSG und DSGVO.'
+WHERE slug = 'datenschutz';
+
+
+-- ------------------------------------------------------------
+-- 3) Hauptueberschriften (H1)
+--
+-- Ab Paket 1 rendert die erste Sektion mit Ueberschrift automatisch
+-- ein <h1> statt <h2> (core/helpers.php, headingTag()). Hier bekommt
+-- genau diese Sektion je Seite ihren keyword-tragenden Text.
+--
+-- Das Unterabfrage-Konstrukt trifft pro Seite die Sektion mit der
+-- kleinsten sort_order, die ueberhaupt eine nicht-leere Ueberschrift
+-- hat — also genau die, die zum h1 wird. Sektionen ohne Ueberschrift
+-- (z.B. der Parallax-Kopfbanner) werden uebersprungen.
+-- ------------------------------------------------------------
+UPDATE sections s
+JOIN (
+    SELECT s2.page_id, p.slug, MIN(s2.sort_order) AS first_sort
+    FROM sections s2
+    JOIN pages p ON p.id = s2.page_id
+    WHERE s2.is_active = 1
+      AND JSON_VALID(s2.content)
+      AND JSON_UNQUOTE(JSON_EXTRACT(s2.content, '$.heading')) IS NOT NULL
+      AND JSON_UNQUOTE(JSON_EXTRACT(s2.content, '$.heading')) <> ''
+    GROUP BY s2.page_id, p.slug
+) f ON f.page_id = s.page_id AND f.first_sort = s.sort_order
+SET s.content = JSON_SET(
+    s.content,
+    '$.heading',
+    CASE f.slug
+        WHEN 'leistungen'  THEN 'Sanitär Vorfabrikation: von der Werkstatt bis zur fertigen Wand'
+        WHEN 'referenzen'  THEN 'Referenzen: vorfabrizierte Sanitärelemente in Ausführung'
+        WHEN 'ueber-uns'   THEN 'Werkstatt und Team in Pfäffikon SZ'
+        WHEN 'kontakt'     THEN 'Pläne einsenden und Offerte anfordern'
+        WHEN 'impressum'   THEN 'Impressum'
+        WHEN 'datenschutz' THEN 'Datenschutzerklärung'
+        ELSE JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.heading'))
+    END
+)
+WHERE f.slug IN ('leistungen', 'referenzen', 'ueber-uns', 'kontakt', 'impressum', 'datenschutz');
+
+-- Startseite separat: Der Hero-Titel steht gross und in Grossbuchstaben.
+-- Die lange Fassung aus dem Keyword-Plan ("Sanitär Vorfabrikation:
+-- GIS-Elemente fertig verrohrt aus Pfäffikon SZ") sprengt den Hero.
+-- Das Hauptkeyword und der Ort stehen trotzdem drin.
+--
+-- Falls die Zeile im Hero optisch zu lang wirkt: im CMS unter
+-- Startseite -> Hero auf 'GIS Elemente Vorfabrikation' kuerzen.
+-- Das Keyword bleibt dann vollstaendig erhalten.
+UPDATE sections s
+JOIN pages p ON p.id = s.page_id
+SET s.content = JSON_SET(s.content, '$.heading', 'GIS Elemente Vorfabrikation aus Pfäffikon SZ')
+WHERE p.is_homepage = 1
+  AND s.type = 'hero'
+  AND JSON_VALID(s.content);
+
+
+-- ------------------------------------------------------------
+-- 4) Kontrolle
+--
+-- Nach dem Einspielen pruefen: jede Zeile muss einen Titel und eine
+-- Beschreibung haben.
+-- ------------------------------------------------------------
+-- SELECT slug, CHAR_LENGTH(meta_title) AS titel_laenge, meta_title,
+--        CHAR_LENGTH(meta_desc) AS desc_laenge
+-- FROM pages ORDER BY sort_order;
+
+
+-- ════════════════════════════════════════════════════════════
+-- B) BILD-GROESSENVARIANTEN
+-- ════════════════════════════════════════════════════════════
+
+-- Spalte nur anlegen, wenn sie fehlt. Ein blosses ALTER TABLE wuerde beim
+-- zweiten Durchlauf mit "Duplicate column name" abbrechen und alles danach
+-- stehen lassen — in einem Sammelskript ist das fatal.
+SET @spalte_fehlt = (
+    SELECT COUNT(*) = 0 FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME   = 'media'
+      AND COLUMN_NAME  = 'variants'
+);
+SET @befehl = IF(@spalte_fehlt,
+    'ALTER TABLE media ADD COLUMN variants TEXT NULL AFTER thumb_path',
+    'DO 0'
+);
+PREPARE anlegen FROM @befehl;
+EXECUTE anlegen;
+DEALLOCATE PREPARE anlegen;
+
+
+-- ------------------------------------------------------------
+-- Kontrolle: Wie viele Bilder haben noch keine Varianten?
+--
+-- Nach dem Upload der Dateien im CMS unter Medien auf
+-- "Bilder jetzt umwandeln" klicken. Danach muss diese Abfrage 0 liefern.
+-- ------------------------------------------------------------
+-- SELECT COUNT(*) AS ohne_varianten FROM media
+-- WHERE (variants IS NULL OR variants = '' OR variants = '{}')
+--   AND mime_type LIKE 'image/%'
+--   AND mime_type <> 'image/svg+xml';
+
+-- Und wo fehlt noch ein Alternativtext?
+-- SELECT id, original FROM media
+-- WHERE (alt_text IS NULL OR TRIM(alt_text) = '')
+--   AND mime_type LIKE 'image/%';
+
+
+-- ════════════════════════════════════════════════════════════
+-- C) SECHS NEUE SEITEN (noch deaktiviert)
+-- ════════════════════════════════════════════════════════════
 
 SET @next_sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM pages);
 
@@ -271,3 +447,12 @@ WHERE @pid IS NOT NULL
 -- SELECT slug, is_active, sort_order FROM pages ORDER BY sort_order;
 -- SELECT p.slug, COUNT(s.id) AS sektionen FROM pages p
 --   LEFT JOIN sections s ON s.page_id = p.id GROUP BY p.slug;
+
+
+-- ════════════════════════════════════════════════════════════
+-- FERTIG
+--
+-- Naechster Schritt: im CMS unter Medien auf "Bilder jetzt
+-- umwandeln" klicken. Danach die sechs neuen Seiten anschauen
+-- und mit 3-SEITEN-ONLINE-SCHALTEN.sql freigeben.
+-- ════════════════════════════════════════════════════════════

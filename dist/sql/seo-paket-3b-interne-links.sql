@@ -19,6 +19,8 @@
 -- Gefahrlos mehrfach ausfuehrbar.
 -- ============================================================
 
+SET NAMES utf8mb4;
+
 SET @pid = (SELECT id FROM pages WHERE slug = 'leistungen' LIMIT 1);
 SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);
 

@@ -21,6 +21,13 @@
 -- Wirft die Zeile den Fehler "Duplicate column name", ist die Spalte bereits
 -- da — dann ist nichts zu tun und der Fehler kann ignoriert werden.
 -- ------------------------------------------------------------
+
+-- Zeichensatz der Verbindung festnageln.
+-- Ohne diese Zeile interpretiert der Server die Datei je nach Client als
+-- latin1, und aus "Pfäffikon" wird "PfÃ¤ffikon" — in jedem Titel, jeder
+-- Beschreibung und jedem Seitentext. Getestet und genau so passiert.
+SET NAMES utf8mb4;
+
 ALTER TABLE media ADD COLUMN variants TEXT NULL AFTER thumb_path;
 
 

@@ -1,0 +1,198 @@
+════════════════════════════════════════════════════════
+SUI INNOVA — SEO-UMSETZUNG
+Alles in einem Paket. Drei Schritte, dann ist es drin.
+════════════════════════════════════════════════════════
+
+Erstellt 11.09.2026 von EmotionFrame GmbH
+
+Enthaelt die komplette Umsetzung des Audits vom 03.09.2026
+und des Keyword-Plans vom 08.09.2026.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 1 — DATEIEN HOCHLADEN
+────────────────────────────────────────────────────────
+
+Im Ordner WEBSITE liegen genau diese Einträge:
+
+    .htaccess
+    index.php
+    admin/
+    assets/
+    config/
+    core/
+    templates/
+
+Das ist dieselbe Struktur wie im FTP unter sui-innova.ch.
+
+ALLES aus WEBSITE markieren und nach sui-innova.ch ziehen.
+Wenn das Programm fragt: ÜBERSCHREIBEN.
+
+Nichts auswählen, nichts sortieren, nichts umbenennen.
+Nur die sieben Einträge oben, komplett, drüberkopieren.
+
+Es sind 29 Dateien. Ordner, die im FTP existieren und hier
+fehlen (uploads, dist), bleiben unberührt.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 2 — DATENBANK
+────────────────────────────────────────────────────────
+
+Hostpoint Control Panel
+  -> Datenbanken
+  -> phpMyAdmin öffnen
+  -> links die Datenbank bifitudo_suinnova anklicken
+  -> oben Reiter "SQL"
+
+Die Datei SQL/2-ALLES-EINSPIELEN.sql in einem Texteditor
+öffnen, ALLES markieren, kopieren, ins Feld einfügen, OK.
+
+Es dauert ein paar Sekunden. Danach steht oben eine grüne
+Meldung. Rote Fehlermeldung = melden Sie sich, nicht
+weitermachen.
+
+Die Datei ist gefahrlos mehrfach ausführbar. Wenn Sie
+unsicher sind, ob sie durchgelaufen ist: einfach nochmal.
+Es entstehen keine Duplikate.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 3 — BILDER UMWANDELN
+────────────────────────────────────────────────────────
+
+Im CMS einloggen -> Medien
+
+Oben steht jetzt ein roter Kasten:
+  "XX Bilder werden noch in Originalgrösse ausgeliefert"
+
+Auf "Bilder jetzt umwandeln" klicken.
+FENSTER OFFEN LASSEN bis "Fertig" steht.
+
+Dauert bei rund 60 Bildern ein paar Minuten. Es läuft in
+Häppchen zu drei Bildern, der Fortschritt steht im Kasten.
+
+Die Originalbilder werden NICHT verändert. Die kleineren
+Fassungen entstehen daneben.
+
+Damit ist die Website aktualisiert.
+
+
+════════════════════════════════════════════════════════
+DANACH: DIE SECHS NEUEN SEITEN
+════════════════════════════════════════════════════════
+
+Sie sind schon in der Datenbank, aber noch offline. Als
+Admin eingeloggt können Sie sie ansehen:
+
+    sui-innova.ch/sanitaer-vorwandelemente
+    sui-innova.ch/sanitaer-gis-elemente-bestellen
+    sui-innova.ch/sanitaer-vorwandelemente-bestellen
+    sui-innova.ch/sanitaer-vorwaende
+    sui-innova.ch/gis-elemente-beplanken
+    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+
+Oben erscheint ein oranger Balken "Offline für Besucher" —
+den sehen nur Sie.
+
+Die Texte sind fertig. Lesen Sie sie einmal durch, es ist
+Ihr Kunde und Ihr Name darunter.
+
+Wenn alles passt: SQL/3-SEITEN-ONLINE-SCHALTEN.sql in
+phpMyAdmin einspielen, gleich wie Schritt 2. Die Datei
+schaltet die Seiten frei UND verlinkt sie von der
+Leistungsseite aus.
+
+
+════════════════════════════════════════════════════════
+ZUM SCHLUSS: GOOGLE BESCHEID GEBEN
+════════════════════════════════════════════════════════
+
+Search Console -> URL-Prüfung -> Adresse eingeben ->
+"Indexierung beantragen". Für jede Seite einzeln:
+
+    sui-innova.ch
+    sui-innova.ch/leistungen
+    sui-innova.ch/referenzen
+    sui-innova.ch/ueber-uns
+    sui-innova.ch/kontakt
+
+Ohne das dauert es Wochen, bis Google die neuen Titel sieht.
+
+
+════════════════════════════════════════════════════════
+KONTROLLE
+════════════════════════════════════════════════════════
+
+sui-innova.ch/startseite aufrufen
+  -> muss auf sui-innova.ch umleiten
+
+Auf der Startseite Rechtsklick -> Seitenquelltext anzeigen
+Mit Strg+F suchen:
+
+  <title>          Steht "GIS Elemente Vorfabrikation" drin
+                   und der Firmenname nur einmal?
+  name="descriptio Steht da ein Satz?
+  <h1              Genau einmal?
+  srcset           Kommt mehrfach vor?
+
+Auf sui-innova.ch/referenzen: F12 -> Reiter "Netzwerk" ->
+Seite neu laden. Unten steht die übertragene Datenmenge.
+Vorher waren es 4,93 MB.
+
+
+════════════════════════════════════════════════════════
+WAS SICH SICHTBAR ÄNDERT
+════════════════════════════════════════════════════════
+
+- Hero-Titel der Startseite lautet neu
+  "GIS Elemente Vorfabrikation aus Pfäffikon SZ"
+  Falls das auf dem Handy zu lang wirkt: im CMS auf
+  "GIS Elemente Vorfabrikation" kürzen. Das Keyword bleibt
+  dabei vollständig erhalten.
+
+- Die erste Überschrift jeder Unterseite hat neuen Text.
+
+- Auf der Kontaktseite erscheint ein Block Öffnungszeiten,
+  sobald im CMS unter Einstellungen -> Kontakt welche
+  hinterlegt sind. Format:
+      Mo-Fr 07:00-12:00,13:00-17:00
+
+- Im Medien-Bereich können Sie jetzt Alternativtexte
+  bearbeiten. Bilder ohne Text haben ein rotes ALT-Zeichen.
+  11 Stück sind offen, das sind gut 10 Minuten.
+
+- Sehr kleine Schriften (10 und 11 Pixel) sind jetzt 12.
+
+Sonst bleibt alles optisch gleich.
+
+
+════════════════════════════════════════════════════════
+NOCH IM PAKET
+════════════════════════════════════════════════════════
+
+Angaben-Checkliste_SUI-Innova.txt
+
+Zwölf Fragen an Riad. Freiwillig. An zwölf Stellen sagen
+die neuen Texte heute sinngemäss "das klären wir anhand
+Ihrer Unterlagen" — fachlich korrekt, aber mit einer
+konkreten Angabe wird daraus ein Argument.
+
+"Wir liefern innert drei Wochen" überzeugt einen Bauleiter
+mehr als "je nach Auslastung".
+
+Kein Zeitdruck. Beim nächsten Telefonat durchgehen.
+
+
+════════════════════════════════════════════════════════
+HINWEIS ZUM ORDNER dist AUF DEM SERVER
+════════════════════════════════════════════════════════
+
+Im FTP liegt ein Ordner "dist". Das ist unser Build-
+Verzeichnis, das irgendwann versehentlich mit hochgeladen
+wurde. Dort liegen SQL-Dateien und Hilfsskripte, die auf
+einem Webserver nichts verloren haben.
+
+Die neue .htaccess sperrt den Zugriff darauf. Sie können
+den Ordner aber auch einfach per FTP löschen — er wird für
+den Betrieb der Website nicht gebraucht.

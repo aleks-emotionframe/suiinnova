@@ -20,6 +20,12 @@
 -- Danach: seo-paket-3b-interne-links.sql einspielen.
 -- ============================================================
 
+-- Zeichensatz der Verbindung festnageln.
+-- Ohne diese Zeile interpretiert der Server die Datei je nach Client als
+-- latin1, und aus "Pfäffikon" wird "PfÃ¤ffikon" — in jedem Titel, jeder
+-- Beschreibung und jedem Seitentext. Getestet und genau so passiert.
+SET NAMES utf8mb4;
+
 UPDATE pages SET is_active = 1
 WHERE slug IN (
     'sanitaer-vorwandelemente',

@@ -19,6 +19,13 @@
 -- | SUI Innova GmbH": von 46 Zeichen gingen 32 fuer den doppelten
 -- Namen drauf. Die Titel unten bringen die Firma selbst mit.
 -- ------------------------------------------------------------
+
+-- Zeichensatz der Verbindung festnageln.
+-- Ohne diese Zeile interpretiert der Server die Datei je nach Client als
+-- latin1, und aus "Pfäffikon" wird "PfÃ¤ffikon" — in jedem Titel, jeder
+-- Beschreibung und jedem Seitentext. Getestet und genau so passiert.
+SET NAMES utf8mb4;
+
 UPDATE settings SET setting_val = '' WHERE setting_key = 'meta_title_suffix';
 
 
