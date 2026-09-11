@@ -1,0 +1,275 @@
+<title>Gesprächsnotiz SUI Innova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+  /* ══════════════════════════════════════════════════════════
+     Gesprächsnotiz — zum Danebenlegen beim Kundentermin.
+     Bewusst nüchtern: das hier wird überflogen, während jemand
+     spricht. Kein Schmuck, klare Ränge, alles auf einen Blick.
+     ══════════════════════════════════════════════════════════ */
+  :root {
+    --papier:   #FBFAF8;
+    --tinte:    #15181D;
+    --tinte-2:  #4A525E;
+    --tinte-3:  #838C99;
+    --linie:    #DFE2E6;
+    --rot:      #C41018;
+    --gruen:    #157F3D;
+    --amber:    #B4670D;
+    --flaeche:  #FFFFFF;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --papier: #14171C; --tinte: #F0F2F5; --tinte-2: #B2BAC6; --tinte-3: #7E8794;
+      --linie: #2C323B; --flaeche: #1B1F26;
+      --rot: #FF5A62; --gruen: #4ADE80; --amber: #E8A33D;
+    }
+  }
+  :root[data-theme="dark"] {
+    --papier: #14171C; --tinte: #F0F2F5; --tinte-2: #B2BAC6; --tinte-3: #7E8794;
+    --linie: #2C323B; --flaeche: #1B1F26;
+    --rot: #FF5A62; --gruen: #4ADE80; --amber: #E8A33D;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--papier); color: var(--tinte);
+    font-family: var(--sans); font-size: 15px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .blatt { max-width: 62rem; margin: 0 auto; padding: 0 20px; padding-block: 40px 72px; }
+
+  /* ── Kopf ─────────────────────────────────────────── */
+  .kopf { border-bottom: 2px solid var(--tinte); padding-bottom: 18px; margin-bottom: 34px; }
+  .kopf-marke {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--rot); font-weight: 600; margin-bottom: 10px;
+  }
+  h1 {
+    font-size: clamp(26px, 4.2vw, 38px); line-height: 1.12; margin: 0 0 10px;
+    letter-spacing: -0.015em; text-wrap: balance; font-weight: 700;
+  }
+  .kopf-sub { color: var(--tinte-2); margin: 0; max-width: 48rem; }
+
+  /* ── Kernaussage ──────────────────────────────────── */
+  .kern {
+    background: var(--flaeche); border-left: 3px solid var(--rot);
+    padding: 22px 26px; margin-bottom: 40px;
+  }
+  .kern p { margin: 0; font-size: 17px; line-height: 1.6; }
+  .kern strong { font-weight: 600; }
+
+  h2 {
+    font-size: 13px; font-family: var(--mono); text-transform: uppercase;
+    letter-spacing: .13em; color: var(--tinte-3); font-weight: 600;
+    margin: 44px 0 16px; padding-bottom: 9px; border-bottom: 1px solid var(--linie);
+  }
+
+  /* ── Bilanz ───────────────────────────────────────── */
+  .bilanz { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--linie); border: 1px solid var(--linie); }
+  @media (min-width: 620px) { .bilanz { grid-template-columns: repeat(3, 1fr); } }
+  .bilanz-feld { background: var(--flaeche); padding: 16px 18px; }
+  .bilanz-zahl {
+    font-family: var(--mono); font-size: 27px; font-weight: 600; line-height: 1;
+    font-variant-numeric: tabular-nums; margin-bottom: 5px;
+  }
+  .bilanz-feld dt { font-size: 13px; color: var(--tinte-3); }
+  .z-gruen { color: var(--gruen); } .z-amber { color: var(--amber); } .z-rot { color: var(--rot); }
+
+  /* ── Punkteliste ──────────────────────────────────── */
+  .punkte { display: flex; flex-direction: column; gap: 14px; }
+  .punkt {
+    background: var(--flaeche); border: 1px solid var(--linie);
+    padding: 16px 18px; display: grid; gap: 4px 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 700px) { .punkt { grid-template-columns: 1fr 9.5rem; } }
+  .punkt-titel { font-weight: 600; font-size: 15.5px; line-height: 1.35; }
+  .punkt-text { color: var(--tinte-2); font-size: 14px; grid-column: 1; }
+  .punkt-wer {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--tinte-3);
+    align-self: start; text-align: left;
+  }
+  @media (min-width: 700px) { .punkt-wer { grid-row: 1 / span 2; grid-column: 2; text-align: right; } }
+  .punkt-wer b { display: block; color: var(--tinte); font-weight: 600; letter-spacing: 0; text-transform: none; font-size: 13px; font-family: var(--sans); margin-bottom: 2px; }
+
+  /* ── Tabelle ──────────────────────────────────────── */
+  .tabelle-huelle { overflow-x: auto; border: 1px solid var(--linie); background: var(--flaeche); }
+  table { border-collapse: collapse; width: 100%; min-width: 30rem; }
+  th, td { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--linie); font-size: 14px; }
+  thead th {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--tinte-3); font-weight: 600;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.zahl { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; width: 5.5rem; }
+  tr.summe td { font-weight: 600; border-top: 2px solid var(--tinte); }
+
+  /* ── Sprechzettel ─────────────────────────────────── */
+  .zitat {
+    background: var(--flaeche); border: 1px solid var(--linie);
+    border-top: 3px solid var(--tinte); padding: 22px 26px; margin-top: 16px;
+  }
+  .zitat p { margin: 0 0 0.85em; font-size: 16px; line-height: 1.65; }
+  .zitat p:last-child { margin-bottom: 0; }
+
+  .fuss { margin-top: 50px; padding-top: 16px; border-top: 1px solid var(--linie); color: var(--tinte-3); font-size: 12.5px; }
+
+  @media print {
+    body { background: #fff; }
+    .blatt { max-width: none; padding-block: 0; }
+    .punkt, .bilanz-feld, .kern, .zitat, .tabelle-huelle { break-inside: avoid; }
+  }
+</style>
+
+<div class="blatt">
+
+  <header class="kopf">
+    <div class="kopf-marke">EmotionFrame · intern</div>
+    <h1>Was offen bleibt, und warum</h1>
+    <p class="kopf-sub">
+      Gesprächsnotiz für den Termin mit SUI Innova. Stand der Umsetzung des
+      Audits vom 3. September und des Keyword-Plans vom 8. September.
+    </p>
+  </header>
+
+  <div class="kern">
+    <p>
+      Die Nummer im Bericht wird sich beim nächsten Audit <strong>nicht bewegen</strong> —
+      und das ist kein Versagen, sondern die Bewertungslogik. Sie ist bei 69 gedeckelt,
+      solange ein kritischer Befund offen ist. Offen bleibt genau einer: dass SUI Innova
+      noch nicht rankt. Das dauert Monate, nicht Wochen.
+    </p>
+  </div>
+
+  <h2>Bilanz der 23 Befunde</h2>
+  <dl class="bilanz">
+    <div class="bilanz-feld">
+      <div class="bilanz-zahl z-gruen">11</div>
+      <dt>erledigt, sobald hochgeladen</dt>
+    </div>
+    <div class="bilanz-feld">
+      <div class="bilanz-zahl z-amber">4</div>
+      <dt>offen, brauchen Riad oder Handarbeit</dt>
+    </div>
+    <div class="bilanz-feld">
+      <div class="bilanz-zahl">8</div>
+      <dt>waren schon in Ordnung</dt>
+    </div>
+  </dl>
+
+  <h2>Die vier offenen Punkte</h2>
+  <div class="punkte">
+
+    <div class="punkt">
+      <div class="punkt-titel">SUI Innova erscheint zu keinem Leistungsbegriff</div>
+      <p class="punkt-text">
+        Kein technischer Fehler, sondern ein Ergebnis. Die Ursachen sind behoben:
+        Titel, Hauptüberschriften, Beschreibungen, sechs neue Seiten. Ob Google sie
+        in die Top 20 nimmt, entscheidet sich über Monate.
+      </p>
+      <div class="punkt-wer"><b>Zeit</b>3–6 Monate</div>
+    </div>
+
+    <div class="punkt">
+      <div class="punkt-titel">Kein Eintrag in der Kartenansicht</div>
+      <p class="punkt-text">
+        Bei „Sanitär Vorfabrikation" zeigt Google drei Betriebe über allen Ergebnissen.
+        Der auf Platz zwei hat <strong>drei Bewertungen</strong>. Hauptkategorie auf
+        Vorfabrikation setzen, Leistungen und Zeiten eintragen, dann um Bewertungen bitten.
+      </p>
+      <div class="punkt-wer"><b>Riad</b>Unternehmensprofil</div>
+    </div>
+
+    <div class="punkt">
+      <div class="punkt-titel">11 Bilder ohne Alternativtext</div>
+      <p class="punkt-text">
+        Die Oberfläche dafür ist neu im CMS, Bilder ohne Text sind rot markiert.
+        Beschreiben, was zu sehen ist — keine Suchbegriffe aneinanderreihen.
+      </p>
+      <div class="punkt-wer"><b>Wir</b>ca. 10 Minuten</div>
+    </div>
+
+    <div class="punkt">
+      <div class="punkt-titel">Keine Öffnungszeiten hinterlegt</div>
+      <p class="punkt-text">
+        Das Feld existiert jetzt und wird zugleich für Google ausgezeichnet. Damit steht
+        „Heute geöffnet bis …" direkt im Suchergebnis. Wir wissen nur nicht, wann.
+      </p>
+      <div class="punkt-wer"><b>Riad</b>eine Angabe</div>
+    </div>
+
+  </div>
+
+  <h2>Wie sich die Bereiche entwickeln</h2>
+  <div class="tabelle-huelle">
+    <table>
+      <thead>
+        <tr><th>Bereich</th><th class="zahl">3. Sept</th><th class="zahl">danach</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Technik und Indexierung</td><td class="zahl">60</td><td class="zahl">~96</td></tr>
+        <tr><td>Ladezeit</td><td class="zahl">58</td><td class="zahl">~90</td></tr>
+        <tr><td>Inhalte und Struktur</td><td class="zahl">24</td><td class="zahl">60</td></tr>
+        <tr><td>Bilder und Medien</td><td class="zahl">80</td><td class="zahl">~96</td></tr>
+        <tr><td>Mobile Darstellung</td><td class="zahl">96</td><td class="zahl">100</td></tr>
+        <tr><td>Lokale Suche</td><td class="zahl">84</td><td class="zahl">84</td></tr>
+        <tr><td>Strukturierte Daten</td><td class="zahl">96</td><td class="zahl">100</td></tr>
+        <tr><td>Interne Verlinkung</td><td class="zahl">100</td><td class="zahl">100</td></tr>
+        <tr class="summe"><td>Gesamtnote</td><td class="zahl">69</td><td class="zahl">69</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="color: var(--tinte-2); font-size: 14px; margin-top: 12px;">
+    „Inhalte und Struktur" bleibt bei 60, weil ein Bereich mit einem kritischen Befund
+    nie darüber kommt. Die Gesamtnote bleibt bei 69, solange irgendein kritischer Befund
+    offen ist. Beides steht so in der Methodik auf Seite 13 des Berichts. Die Zahl bewegt
+    sich erst, wenn SUI Innova tatsächlich rankt.
+  </p>
+
+  <h2>Was stark ist und gesagt werden sollte</h2>
+  <div class="zitat">
+    <p>
+      Die Website ist technisch jetzt sauberer als die aller drei Mitbewerber. Die
+      Startseite wird nach 1,4 Sekunden sichtbar — bei Sanivor nach 2,1, bei Gämperle
+      nach 5,5, bei Vorfa Plast nach 9,6.
+    </p>
+    <p>
+      Was gefehlt hat, waren die richtigen Wörter an der richtigen Stelle. Sechs von acht
+      Seiten hatten keine Hauptüberschrift, keine einzige eine Beschreibung, und im Titel
+      stand zweimal der Firmenname statt der Leistung. Das ist behoben, dazu kommen sechs
+      neue Seiten für die Fachbegriffe.
+    </p>
+    <p>
+      Zwei Dinge kann nur SUI Innova selbst: das Unternehmensprofil bei Google und ein
+      paar Angaben für die neuen Texte.
+    </p>
+  </div>
+
+  <h2>Wenn Riad nach der Zahl fragt</h2>
+  <div class="zitat">
+    <p>
+      Die Note misst, ob wir die Ursachen behoben haben <em>und</em> ob die Wirkung schon
+      da ist. Das Erste ist erledigt, das Zweite braucht Zeit. Ein Audit in vier Wochen
+      zeigt deshalb noch dieselbe Gesamtnote, aber in den Einzelbereichen eine andere
+      Website.
+    </p>
+    <p>
+      Der ehrliche Messpunkt steht im Bericht selbst: <strong>ob SUI Innova zu „Sanitär
+      Vorfabrikation" erstmals unter den ersten zwanzig erscheint.</strong> Danach
+      schauen wir, nicht nach der Note.
+    </p>
+  </div>
+
+  <div class="fuss">
+    EmotionFrame GmbH, Loorenstrasse 4a, 5443 Niederrohrdorf · hello@emotionframe.ch<br>
+    Interne Notiz, nicht für den Kunden bestimmt. Quellen: SEO-Bericht 03.09.2026,
+    Keyword-Plan 08.09.2026.
+  </div>
+
+</div>
