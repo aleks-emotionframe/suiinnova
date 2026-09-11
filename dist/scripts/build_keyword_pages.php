@@ -463,9 +463,9 @@ if (($argv[1] ?? '') === 'checkliste') {
     $zeilen[] = 'statt eine Zahl zu erfinden.';
     $zeilen[] = '';
     $offenGesamt = array_sum(array_map(fn($p) => count($p['offen']), $pages));
-    $zeilen[] = 'Es sind ' . count($themen) . ' Fragen. Sie decken ' . $offenGesamt . ' Stellen in den';
-    $zeilen[] = 'Texten ab, weil dieselbe Angabe oft auf mehreren Seiten';
-    $zeilen[] = 'gebraucht wird.';
+    $zeilen[] = 'Es sind ' . count($themen) . ' Fragen. Sie fassen ' . $offenGesamt . ' Punkte aus';
+    $zeilen[] = 'unserer Planung zusammen, weil dieselbe Angabe auf mehreren';
+    $zeilen[] = 'Seiten gebraucht wird.';
     $zeilen[] = '';
     $zeilen[] = '';
 

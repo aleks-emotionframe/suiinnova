@@ -6,8 +6,9 @@ Sechs neue Seiten aus dem Keyword-Plan
 WICHTIG: Paket 1 und 2 muessen vorher drauf sein.
 
 Die sechs Seiten werden OFFLINE angelegt. Das ist Absicht.
-In den Texten stehen 31 Stellen, die nur Riad beantworten
-kann. Solange die offen sind, gehoert keine Seite online.
+In den Texten stehen 22 markierte Stellen, die nur Riad
+beantworten kann. Solange die offen sind, gehoert keine
+Seite online.
 
 
 SCHRITT 1 — DATEIEN HOCHLADEN (FTP)
@@ -74,7 +75,7 @@ SCHRITT 5 — ANGABEN VOM KUNDEN HOLEN
 Die Datei "Angaben-Checkliste_SUI-Innova.txt" ist fuer Riad.
 Ausdrucken oder per Mail schicken.
 
-Es sind 12 Fragen. Sie decken alle 31 offenen Stellen ab,
+Es sind 12 Fragen. Sie fassen alle offenen Punkte zusammen,
 weil dieselbe Angabe oft auf mehreren Seiten gebraucht wird.
 
 Wichtigste Frage ist Nummer 1, das Einsatzgebiet. Die kommt
