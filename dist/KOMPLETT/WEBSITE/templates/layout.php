@@ -132,18 +132,30 @@
            ploetzlich in Hero-Groesse stehen. Die Regel haengt deshalb an der
            Hero-Klasse, nicht am h1-Tag. */
         main .page-hero-title {
-            font-size: calc(var(--fs-h1) * 0.5) !important;
-            line-height: 1.1 !important;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            overflow-wrap: break-word;
-            word-break: normal;
+            /* Stufenlos statt in Sprüngen: die Schrift folgt der Fensterbreite
+               und ist nach oben durch den im CMS gesetzten Wert begrenzt.
+               Vorher gab es drei feste Stufen, und dazwischen passte ein
+               langes Wort mal und mal nicht. */
+            font-size: clamp(26px, 4.6vw, var(--fs-h1)) !important;
+            line-height: 1.08 !important;
+
+            /* KEINE Silbentrennung im Hero. Mit hyphens:auto wurde aus
+               "VORFABRIKATION" ein "VORFABRI-KATION" quer über vier Zeilen.
+               Wörter bleiben hier ganz, notfalls wird die Schrift kleiner. */
+            hyphens: none;
+            -webkit-hyphens: none;
+            overflow-wrap: normal;
+            word-break: keep-all;
+            text-wrap: balance;
         }
-        @media (max-width: 400px) {
-            main .page-hero-title { font-size: calc(var(--fs-h1) * 0.42) !important; }
-        }
-        @media (min-width: 768px) { main .page-hero-title { font-size: calc(var(--fs-h1) * 0.7) !important; } }
-        @media (min-width: 1024px) { main .page-hero-title { font-size: var(--fs-h1) !important; } }
+
+        /* Textspalte im Hero. Bis Tablet wie bisher schmal, auf dem Desktop
+           breiter — sonst muss ein Wort wie VORFABRIKATION in eine Spalte von
+           672 Pixeln, und das geht bei 64px Schrift nicht auf. Nicht breiter:
+           sonst laeuft die Schrift in den hellen Teil des Bildes. */
+        .hero-text-col { max-width: 42rem; }
+        @media (min-width: 1024px) { .hero-text-col { max-width: 58rem; } }
+        @media (min-width: 1536px) { .hero-text-col { max-width: 62rem; } }
 
         /* Section-Hauptueberschriften (H2)
            Desktop: eingestellter Wert | Tablet: 80% | Mobile: 60% */
@@ -232,8 +244,11 @@
             color: #C41018;
         }
 
-        /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break */
-        main h1, main h2, main h3 {
+        /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break.
+           Der Hero ist ausgenommen, dort bleiben Woerter ganz — siehe oben. */
+        main h1:not(.page-hero-title),
+        main h2:not(.page-hero-title),
+        main h3 {
             text-wrap: balance;
             hyphens: auto;
             -webkit-hyphens: auto;

@@ -39,11 +39,16 @@ $bgImage = $imageId ? mediaUrl($imageId) : asset('img/hero-placeholder.jpg');
 
     <!-- Gradient Overlay: Mobile stärker, Desktop links dunkel rechts hell -->
     <div class="absolute inset-0 md:hidden" style="background: rgba(0,0,0,0.7);"></div>
-    <div class="absolute inset-0 hidden md:block" style="background: linear-gradient(105deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.1) 100%);"></div>
+    <!-- Dunkel genug ueber der Textspalte, rechts bleibt das Bild sichtbar.
+         Der mittlere Stop liegt bei 50 statt 45 Prozent und der dritte bei 85
+         statt 75: auf Tablet-Breiten reicht die Ueberschrift bis rund 90
+         Prozent, und dort deckte der alte Verlauf nur noch 0,18 — weisse
+         Schrift auf einem hellen Foto waere nicht mehr lesbar gewesen. -->
+    <div class="absolute inset-0 hidden md:block" style="background: linear-gradient(105deg, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.70) 50%, rgba(0,0,0,0.42) 85%, rgba(0,0,0,0.12) 100%);"></div>
 
     <!-- Content: links unten -->
     <div class="relative z-10 flex items-end h-full px-5 md:px-12 lg:px-20 pb-10 md:pb-20 lg:pb-24">
-        <div class="max-w-2xl">
+        <div class="hero-text-col">
             <!-- Heading -->
             <?php if ($heading): ?>
                 <<?= $hTag = headingTag() ?> class="page-hero-title text-[1.6rem] md:text-4xl lg:text-5xl font-bold uppercase tracking-wider leading-tight mb-3 md:mb-4 fade-in"

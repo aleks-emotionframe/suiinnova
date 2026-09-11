@@ -1,0 +1,74 @@
+════════════════════════════════════════════════════════
+HERO-TITEL: KEINE SILBENTRENNUNG MEHR
+════════════════════════════════════════════════════════
+
+Aus "VORFABRIKATION" wurde "VORFABRI-KATION", verteilt auf
+vier Zeilen. Ursache war hyphens:auto — damals gegen das
+Überlaufen auf dem iPhone eingebaut, im Hero aber falsch.
+
+
+SCHRITT 1 — DATEIEN (FTP)
+────────────────────────────────────────────────────────
+
+Aus "1-DATEIEN":
+
+    templates/layout.php           überschreiben
+    templates/sections/hero.php    überschreiben
+
+Was sich ändert:
+
+  - Keine Silbentrennung mehr im Hero. Wörter bleiben ganz,
+    notfalls wird die Schrift kleiner.
+  - Die Schriftgrösse folgt jetzt stufenlos der Fenster-
+    breite statt in drei festen Sprüngen. Der im CMS
+    eingestellte Wert bleibt die Obergrenze.
+  - Die Textspalte ist auf dem Desktop breiter.
+  - Der dunkle Teil des Farbverlaufs reicht weiter nach
+    rechts, damit die Schrift auf hellen Bildern lesbar
+    bleibt. Rechts bleibt das Bild sichtbar.
+
+Das gilt für alle Seiten mit Hero, nicht nur die Startseite.
+
+
+SCHRITT 2 — SQL (optional, aber empfohlen)
+────────────────────────────────────────────────────────
+
+    2-SQL/hero-titel-kuerzen.sql
+
+Kürzt die Überschrift der Startseite von
+
+    GIS ELEMENTE VORFABRIKATION AUS PFÄFFIKON SZ   (44 Zeichen)
+
+auf
+
+    GIS ELEMENTE VORFABRIKATION                    (27 Zeichen)
+
+und setzt den Ort in die Zeile darunter:
+
+    "Vorfabrikation und Montage von GIS-Elementen
+     aus Pfäffikon SZ"
+
+Warum: 44 Zeichen in Grossbuchstaben passen in keine
+Hero-Spalte, ohne entweder über das halbe Bild zu laufen
+oder auf drei Zeilen zu brechen. Gemessen an acht
+Bildschirmbreiten.
+
+Das Hauptkeyword bleibt vollständig in der Überschrift.
+Der Ort steht weiterhin im Seitentitel, in der Beschreibung,
+in den strukturierten Daten, im Footer und auf der
+Kontaktseite — für die lokale Suche ändert sich nichts.
+
+Wenn Sie den Ort lieber in der Überschrift behalten: SQL
+weglassen, die Dateien allein beheben die Silbentrennung
+schon. Es bleiben dann drei Zeilen.
+
+
+SO SIEHT ES DANACH AUS
+────────────────────────────────────────────────────────
+
+  Telefon         2 Zeilen, 26px
+  Tablet          1 Zeile,  35px
+  Laptop          1 Zeile,  47px
+  Desktop         2 Zeilen, 59-64px
+
+Nirgends ein getrenntes Wort, nirgends ein Überlauf.
