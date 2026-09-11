@@ -1,0 +1,46 @@
+════════════════════════════════════════════════════════
+STARTSEITE — VIER TEXTSTELLEN SCHÄRFEN
+════════════════════════════════════════════════════════
+
+Nur eine SQL, keine Dateien.
+
+    phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+    -> startseite-texte.sql hineinkopieren -> OK
+
+Gefahrlos mehrfach ausführbar. Jede Anweisung prüft vorher
+den Titel der Karte — stimmt die Reihenfolge nicht, passiert
+an der Stelle einfach nichts.
+
+
+WAS SICH ÄNDERT
+────────────────────────────────────────────────────────
+
+MONTAGE
+  vorher   Professionelle Montage direkt auf Ihrer Baustelle
+  nachher  Unser eigenes Team setzt die Elemente vor Ort —
+           dieselben Leute, die sie gebaut haben
+
+AQUA PANEL
+  vorher   AquaPanel für Feuchträume und Nasszellen
+  nachher  AquaPanel in Nasszellen: der Untergrund für
+           Abdichtung und Plättli
+
+BEPLANKUNGEN UND SPACHTELUNGEN
+  vorher   Fertig montierte GIS-Elemente professionell
+           beplankt und gespachtelt
+  nachher  Beplankt und gespachtelt — die Wand geht
+           spachtelfertig ans nächste Gewerk
+
+LINK-TEXTE
+  vorher   abwechselnd "Jetzt entdecken" und "Mehr erfahren"
+  nachher  überall "Mehr erfahren"
+
+ÜBER-UNS-TEASER
+  Zweiter Absatz neu geschrieben. Der alte hatte kein Verb.
+
+Die Karte VORFABRIKATION bleibt unverändert — "GIS-Elemente
+fix und fertig verrohrt aus unserer Werkstatt" ist der beste
+Satz auf der Seite.
+
+Die Angabe "über 25 Fachkräfte" bleibt ebenfalls. Das ist die
+stärkste Zahl auf der ganzen Startseite.
