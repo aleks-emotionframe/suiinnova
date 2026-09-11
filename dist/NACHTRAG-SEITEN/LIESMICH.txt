@@ -1,118 +1,103 @@
 ════════════════════════════════════════════════════════
-DIE SECHS NEUEN SEITEN — WIE ES WEITERGEHT
+DIE SECHS SEITEN AUF DEN NEUEN AUFBAU BRINGEN
 ════════════════════════════════════════════════════════
 
+Die Seiten sind online, zeigen aber noch die alte Fassung:
+alle Abschnitte als eine lange Spalte untereinander.
 
-ZUERST NACHSCHAUEN, WO SIE STEHEN
+Der neue Aufbau stellt sie zweispaltig nebeneinander. Die
+normale SQL macht das nicht — sie erkennt bestehende Seiten
+am Slug und überspringt sie.
+
+
+⚠ REIHENFOLGE IST HIER WICHTIG ⚠
 ────────────────────────────────────────────────────────
 
-CMS -> Seiten. Wie viele Einträge stehen da?
+ERST die Dateien, DANN die SQL. Nicht umgekehrt.
 
-  7 Einträge   Die SQL lief noch nicht. Dann erst
-               SQL/2-ALLES-EINSPIELEN.sql aus dem grossen
-               Paket einspielen, danach hier weiter.
+Die SQL stellt die Sektionen auf den Typ "content-grid" um.
+Fehlt die zugehörige Vorlage auf dem Server, zeigt die Seite
+an dieser Stelle gar nichts mehr — der Text bleibt zwar in
+der Datenbank, ist aber für Besucher unsichtbar.
 
-  13 Einträge  Die Seiten sind angelegt. Weiter bei
-               Schritt 1.
+Deshalb sind die Ordner durchnummeriert.
 
 
-SCHRITT 1 — SEITEN AUFFRISCHEN
+────────────────────────────────────────────────────────
+SCHRITT 1 — DATEIEN HOCHLADEN
 ────────────────────────────────────────────────────────
 
-Nur nötig, wenn Sie die SQL vor dem 11.09. eingespielt
-haben. Im Zweifel einfach machen, es schadet nicht.
+Aus dem Ordner "1-ZUERST-DIESE-DATEIEN":
 
-Warum: Der Seitenaufbau wurde nachträglich umgestellt.
-Vorher standen alle Abschnitte als eine lange Textspalte
-untereinander, jetzt stehen sie in einem zweispaltigen
-Raster. Die normale SQL repariert das nicht — sie legt
-bestehende Seiten nicht noch einmal an und lässt die alte
-Fassung stehen.
+    templates/  ->  über den bestehenden Ordner
+    config/     ->  über den bestehenden Ordner
+    core/       ->  über den bestehenden Ordner
 
-    phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
-    -> SQL/seiten-auffrischen.sql hineinkopieren -> OK
+Drei Dateien:
 
-Was dabei passiert:
+    templates/sections/content-grid.php   ist neu
+    config/sections.php                   überschreiben
+    core/router.php                       überschreiben
+
+content-grid.php ist die Vorlage, ohne die es nicht geht.
+sections.php meldet den neuen Typ im CMS an.
+router.php warnt künftig, wenn eine Vorlage fehlt, statt
+den Inhalt stillschweigend zu verschlucken.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 2 — SQL EINSPIELEN
+────────────────────────────────────────────────────────
+
+phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+-> 2-DANN-DIESE-SQL/seiten-auffrischen.sql hineinkopieren
+
+Was passiert:
   - ein gewähltes Kopfbild bleibt erhalten
   - Titel, Beschreibung und Online-Status bleiben
   - alles andere an diesen sechs Seiten wird ersetzt
 
-Wer im CMS an diesen Seiten Texte geändert hat, verliert
-sie. Bei noch nicht freigegebenen Seiten ist das gewollt.
-
 Gefahrlos mehrfach ausführbar.
 
 
-SCHRITT 2 — ANSCHAUEN
+────────────────────────────────────────────────────────
+SCHRITT 3 — KONTROLLE
 ────────────────────────────────────────────────────────
 
-Als Admin eingeloggt aufrufen:
+sui-innova.ch/sanitaer-vorwandelemente aufrufen.
 
-    sui-innova.ch/sanitaer-vorwandelemente
-    sui-innova.ch/sanitaer-vorwaende
-    sui-innova.ch/sanitaer-gis-elemente-bestellen
-    sui-innova.ch/sanitaer-vorwandelemente-bestellen
-    sui-innova.ch/gis-elemente-beplanken
-    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+So muss es aussehen:
 
-Oben steht ein oranger Balken "Offline für Besucher" —
-den sehen nur Sie.
+    Überschrift
+    Fliesstext darunter, etwa 70 Zeichen breit
 
-So muss es aussehen: Überschrift, darunter ein Fliesstext,
-dann die Abschnitte zweispaltig nebeneinander mit einem
-kurzen roten Strich über jedem Titel. Danach die
-aufklappbaren Fragen auf hellgrauem Grund, zuletzt der
-dunkle Abschluss mit dem Button.
+    Abschnitt links    |    Abschnitt rechts
+    Abschnitt links    |    Abschnitt rechts
+    Abschnitt links    |    Abschnitt rechts
 
-Steht alles als eine lange Spalte untereinander, lief
-Schritt 1 nicht.
+Über jedem Abschnitts-Titel steht eine dünne graue Linie
+mit einem kurzen ROTEN Strich am linken Anfang.
+
+Wenn alles weiterhin untereinander steht: die SQL lief nicht.
+
+Wenn ein gelber Kasten "Vorlage fehlt: content-grid"
+erscheint: Schritt 1 wurde übersprungen oder die Datei ist
+nicht am richtigen Ort gelandet. Den Kasten sehen nur Sie
+als eingeloggter Admin, Besucher sehen an der Stelle nichts.
 
 
-SCHRITT 3 — KOPFBILD (optional)
+────────────────────────────────────────────────────────
+DANACH NOCH
 ────────────────────────────────────────────────────────
 
-Die erste Sektion jeder Seite ist ein Bildstreifen ohne
-Bild und wird deshalb gar nicht angezeigt.
+Kopfbild wählen, das macht optisch am meisten aus:
 
-CMS -> Seiten -> [Seite] -> erste Sektion -> Bild wählen.
+    CMS -> Seiten -> [Seite] -> erste Sektion -> Bild
 
-Passende Bilder haben Sie in der Mediathek: verrohrte
-Elemente in der Werkstatt, die Halle, die Lieferwagen.
+Die erste Sektion ist ein Bildstreifen ohne Bild und wird
+deshalb gar nicht angezeigt. Passende Bilder liegen in der
+Mediathek: verrohrte Elemente, die Halle, die Lieferwagen.
 Für jede Seite ein anderes, sonst wirkt es beliebig.
 
-
-SCHRITT 4 — ONLINE SCHALTEN
-────────────────────────────────────────────────────────
-
-    phpMyAdmin -> SQL/3-SEITEN-ONLINE-SCHALTEN.sql
-
-Damit passiert alles Weitere von selbst:
-  - die sechs Seiten sind öffentlich
-  - sie stehen in der sitemap.xml
-  - sie erscheinen im Footer unter "Leistungen im Detail"
-  - die Leistungsseite bekommt einen Block mit Links
-
-Alternativ im CMS unter Seiten je Seite ein Klick — dann
-aber die Datei trotzdem einspielen, sie enthält auch die
-interne Verlinkung.
-
-
-SCHRITT 5 — GOOGLE BESCHEID GEBEN
-────────────────────────────────────────────────────────
-
-Search Console -> URL-Prüfung -> Adresse eingeben ->
-"Indexierung beantragen". Für alle sechs einzeln.
-
-Ohne das findet Google die Seiten erst, wenn es das
-nächste Mal die Sitemap liest. Das kann Wochen dauern.
-
-
-DANACH
-────────────────────────────────────────────────────────
-
-Nichts. Die Seiten laufen.
-
-Rechnen Sie mit drei bis sechs Monaten, bis sich bei den
-Positionen etwas bewegt. Die sechs Begriffe haben wenig
-Suchvolumen, dafür sucht danach genau, wer einen Auftrag
-zu vergeben hat.
+Und falls noch nicht geschehen: in der Search Console für
+alle sechs Adressen die Indexierung beantragen.
