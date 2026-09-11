@@ -1,0 +1,117 @@
+========================================================
+SUI INNOVA — SEO PAKET 2
+Bilder: Groessenvarianten und Ladezeit
+========================================================
+
+WICHTIG: Paket 1 muss vorher drauf sein.
+
+
+SCHRITT 1 — SQL EINSPIELEN (zuerst!)
+--------------------------------------------------------
+1. Hostpoint Control Panel -> phpMyAdmin
+2. Datenbank bifitudo_suinnova -> Reiter "SQL"
+3. Inhalt von _SQL/seo-paket-2-bilder.sql einfuegen
+4. Ausfuehren
+
+Kommt die Meldung "Duplicate column name 'variants'",
+ist alles in Ordnung — die Spalte war schon da.
+
+
+SCHRITT 2 — DATEIEN HOCHLADEN (FTP)
+--------------------------------------------------------
+Alle Ordner ins Hauptverzeichnis kopieren, bestehende
+Dateien ueberschreiben:
+
+  admin/     -> ueber den bestehenden Ordner
+  assets/    -> ueber den bestehenden Ordner
+  core/      -> ueber den bestehenden Ordner
+  templates/ -> ueber den bestehenden Ordner
+
+Den Ordner _SQL NICHT hochladen.
+
+Neu dazu kommen drei Dateien:
+  core/images.php
+  admin/api/regenerate-variants.php
+  admin/api/save-media-alt.php
+
+
+SCHRITT 3 — BILDER UMWANDELN (der eigentliche Schritt)
+--------------------------------------------------------
+Bis hierhin hat sich an der Ladezeit noch nichts geaendert.
+Die kleineren Bildfassungen muessen erst erzeugt werden.
+
+1. Im CMS einloggen -> Medien
+2. Oben steht jetzt ein roter Kasten:
+   "XX Bilder werden noch in Originalgroesse ausgeliefert"
+3. Auf "Bilder jetzt umwandeln" klicken
+4. FENSTER OFFEN LASSEN, bis "Fertig" steht
+
+Es laeuft in Haeppchen zu drei Bildern. Bei rund 60 Bildern
+dauert es ein paar Minuten. Der Fortschritt steht im Kasten.
+
+Die Originalbilder werden NICHT veraendert. Die kleineren
+Fassungen entstehen daneben in uploads/images/variants/.
+
+Wenn der Kasten danach verschwunden ist, ist alles erledigt.
+
+
+SCHRITT 4 — ALTERNATIVTEXTE NACHTRAGEN
+--------------------------------------------------------
+Immer noch unter Medien: Bilder ohne Alternativtext haben
+jetzt oben links ein rotes Feld "ALT".
+
+Mit der Maus ueber so ein Bild fahren, ins Feld
+"Alternativtext" schreiben, was auf dem Bild zu sehen ist,
+und aus dem Feld klicken. Wird sofort gespeichert.
+
+Gut:     "Verrohrtes GIS-Element in der Werkstatt"
+Schlecht: "Sanitaer Vorfabrikation GIS Elemente Pfaeffikon"
+
+Beschreiben, was zu sehen ist — keine Suchbegriffe
+aneinanderreihen. Google merkt den Unterschied, und der
+Text wird vorgelesen, wenn jemand die Seite nicht sehen
+kann.
+
+
+SCHRITT 5 — KONTROLLE
+--------------------------------------------------------
+a) https://sui-innova.ch/referenzen aufrufen,
+   Rechtsklick -> Seitenquelltext anzeigen,
+   mit Strg+F nach "srcset" suchen.
+   -> muss mehrfach vorkommen
+
+b) Auf der Seite F12 druecken -> Reiter "Netzwerk" ->
+   Seite neu laden -> unten steht die uebertragene Menge.
+   Vorher: 4,93 MB. Jetzt sollte es deutlich weniger sein.
+
+c) PageSpeed Insights laufen lassen:
+   https://pagespeed.web.dev/
+   Adresse eingeben: https://sui-innova.ch/referenzen
+
+
+WAS SICH SICHTBAR AENDERT
+--------------------------------------------------------
+Optisch nichts. Die Bilder sehen gleich aus, sie werden nur
+in der Groesse ausgeliefert, die das jeweilige Geraet
+wirklich braucht.
+
+Auf sehr grossen Bildschirmen (4K) koennen Bilder minimal
+weicher wirken, weil die Obergrenze bei 2000 Pixel liegt.
+Das ist Absicht: die Alternative waere, dass ein einzelnes
+Bild wieder 2 MB laedt.
+
+
+FALLS ETWAS NICHT KLAPPT
+--------------------------------------------------------
+"Die Spalte media.variants fehlt"
+  -> Schritt 1 wurde uebersprungen. SQL nachholen.
+
+Umwandeln bricht ab oder haengt
+  -> Seite neu laden und nochmal auf "Bilder jetzt
+     umwandeln" klicken. Bereits umgewandelte Bilder
+     werden uebersprungen, es geht dort weiter, wo es
+     aufgehoert hat.
+
+Ein Bild sieht kaputt aus
+  -> Das Original ist unveraendert. Im CMS unter Medien
+     das Bild loeschen und neu hochladen.
