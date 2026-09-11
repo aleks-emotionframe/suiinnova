@@ -222,6 +222,46 @@ function getGlobalReferences(?int $limit = null, string $source = 'all'): array
 }
 
 /**
+ * Die vertiefenden Leistungsseiten fuer den Footer.
+ *
+ * Gibt nur zurueck, was auch wirklich online ist. Deaktivierte Seiten leiten
+ * Besucher auf die Startseite um — ein Footer-Link dorthin waere eine
+ * Sackgasse und fuer Google ein Zeichen kaputter Seitenstruktur. Solange
+ * keine der Seiten freigeschaltet ist, faellt die ganze Spalte weg.
+ *
+ * Die Liste steht bewusst hier und nicht in der Datenbank: sie aendert sich
+ * selten, und so ist an einer Stelle nachlesbar, was in den Footer gehoert.
+ * Kommt eine Seite dazu, hier den Slug ergaenzen.
+ */
+function getFooterServicePages(): array
+{
+    global $db;
+
+    $slugs = [
+        'sanitaer-vorwandelemente',
+        'sanitaer-vorwaende',
+        'gis-elemente-beplanken',
+        'sanitaer-vorwandelemente-beplanken',
+        'sanitaer-gis-elemente-bestellen',
+        'sanitaer-vorwandelemente-bestellen',
+    ];
+
+    try {
+        $platzhalter = implode(',', array_fill(0, count($slugs), '?'));
+        $rows = $db->fetchAll(
+            "SELECT slug, title FROM pages
+             WHERE is_active = 1 AND slug IN ({$platzhalter})
+             ORDER BY sort_order ASC",
+            $slugs
+        );
+    } catch (Exception $e) {
+        return [];
+    }
+
+    return $rows;
+}
+
+/**
  * Offene Platzhalter sichtbar machen.
  *
  * Die Textvorschlaege aus dem Keyword-Plan enthalten Stellen, die nur der

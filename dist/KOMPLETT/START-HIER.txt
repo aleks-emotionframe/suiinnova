@@ -31,7 +31,7 @@ Wenn das Programm fragt: ÜBERSCHREIBEN.
 Nichts auswählen, nichts sortieren, nichts umbenennen.
 Nur die sieben Einträge oben, komplett, drüberkopieren.
 
-Es sind 29 Dateien. Ordner, die im FTP existieren und hier
+Es sind 30 Dateien. Ordner, die im FTP existieren und hier
 fehlen (uploads, dist), bleiben unberührt.
 
 
@@ -99,9 +99,18 @@ Die Texte sind fertig. Lesen Sie sie einmal durch, es ist
 Ihr Kunde und Ihr Name darunter.
 
 Wenn alles passt: SQL/3-SEITEN-ONLINE-SCHALTEN.sql in
-phpMyAdmin einspielen, gleich wie Schritt 2. Die Datei
-schaltet die Seiten frei UND verlinkt sie von der
-Leistungsseite aus.
+phpMyAdmin einspielen, gleich wie Schritt 2.
+
+Damit passiert alles Weitere von selbst:
+  - die Seiten sind öffentlich
+  - sie stehen in der sitemap.xml
+  - sie erscheinen im Footer unter "Leistungen im Detail"
+  - die Leistungsseite bekommt einen Block mit Links dorthin
+
+Sie müssen nichts davon einzeln einschalten. Solange die
+Seiten offline sind, bleiben Footer-Spalte und Sitemap-
+Einträge automatisch weg — ein Link auf eine deaktivierte
+Seite wäre eine Sackgasse.
 
 
 ════════════════════════════════════════════════════════

@@ -165,14 +165,10 @@ WHERE p.is_homepage = 1
 -- stehen lassen — in einem Sammelskript ist das fatal.
 SET @spalte_fehlt = (
     SELECT COUNT(*) = 0 FROM information_schema.COLUMNS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME   = 'media'
-      AND COLUMN_NAME  = 'variants'
+    WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'media' AND COLUMN_NAME = 'variants'
 );
 SET @befehl = IF(@spalte_fehlt,
-    'ALTER TABLE media ADD COLUMN variants TEXT NULL AFTER thumb_path',
-    'DO 0'
-);
+    'ALTER TABLE media ADD COLUMN variants TEXT NULL AFTER thumb_path', 'DO 0');
 PREPARE anlegen FROM @befehl;
 EXECUTE anlegen;
 DEALLOCATE PREPARE anlegen;
@@ -205,7 +201,7 @@ SET @next_sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM pages);
 -- /sanitaer-vorwandelemente
 -- ────────────────────────────────────────────────────────────
 INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
-SELECT 'Vorwandelemente', 'sanitaer-vorwandelemente', 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova', 'Sanitär Vorwandelemente: Aufbau, Masse, Beplankung und Montage einfach erklärt. Lesen Sie, worauf es ankommt, und fragen Sie Ihr Projekt bei SUI Innova an.', 0, 0, @next_sort + 0
+SELECT 'Sanitär Vorwandelemente', 'sanitaer-vorwandelemente', 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova', 'Sanitär Vorwandelemente: Aufbau, Masse, Beplankung und Montage einfach erklärt. Lesen Sie, worauf es ankommt, und fragen Sie Ihr Projekt bei SUI Innova an.', 0, 0, @next_sort + 0
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaer-vorwandelemente');
 
@@ -242,10 +238,50 @@ WHERE @pid IS NOT NULL
   AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 50);
 
 -- ────────────────────────────────────────────────────────────
+-- /sanitaer-vorwaende
+-- ────────────────────────────────────────────────────────────
+INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
+SELECT 'Sanitär Vorwände', 'sanitaer-vorwaende', 'Sanitär Vorwände vorfabriziert | SUI Innova GmbH', 'Sanitär Vorwände vorfabriziert, montiert und beplankt: GIS-Elemente fix verrohrt aus der Werkstatt von SUI Innova in Pfäffikon. Jetzt Offerte anfragen.', 0, 0, @next_sort + 10
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaer-vorwaende');
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwaende' LIMIT 1);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image', '{"image_id":0,"height":"medium","overlay_text":""}', 10, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 10);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'text-block', '{"heading":"Sanitär Vorwände: vorfabriziert, montiert, beplankt","body":"<p>Sanitär Vorwände liefern wir fix und fertig verrohrt auf Ihre Baustelle. In unserer Werkstatt in Pfäffikon bauen wir GIS-Elemente auf Mass zusammen, montieren sie vor Ort und beplanken sie bis zur spachtelfertigen Wand. So verlagern Sie einen grossen Teil der Sanitärinstallation von der Baustelle in die Halle: weniger Schnittstellen, weniger Wartezeit für die Folgegewerke, planbare Abläufe. Sie erhalten Vorfabrikation, Montage und Beplankung aus einer Hand und haben einen Ansprechpartner für den ganzen Ablauf. Für Nasszellen und Feuchträume setzen wir AquaPanel ein, für Schallschutzanforderungen SilentPanel und Ausflockung. Senden Sie uns Ihre Pläne mit der Adresse der Baustelle, wir prüfen sie und melden uns mit einer Offerte.</p>","alignment":"left"}', 20, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 20);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'text-block', '{"heading":"","body":"<h2>GIS-Elemente verlassen unsere Werkstatt fertig verrohrt</h2><p>Wir konfektionieren die Vorwandelemente nach Ihren Plänen und verrohren sie komplett. Auf der Baustelle wird das Element gesetzt und angeschlossen, nicht mehr zusammengebaut. Das verkürzt die Zeit im Rohbau und senkt das Risiko von Fehlern in engen Platzverhältnissen. Änderungen klären wir vorgängig am Plan, nicht improvisiert vor Ort.</p><h2>Montage und Beplankung kommen vom gleichen Team</h2><p>Unsere Monteure setzen die Vorwände auf Ihrer Baustelle und richten sie aus. Anschliessend beplanken wir die Wände und spachteln sie, sodass der Maler oder Plattenleger direkt weiterarbeiten kann. Weil Vorfabrikation und Montage im gleichen Haus liegen, entfällt die Abstimmung zwischen mehreren Firmen. Bei Terminverschiebungen reagieren wir mit Ihnen zusammen auf den aktuellen Bauablauf.</p><h2>AquaPanel für Nasszellen, SilentPanel gegen Schall</h2><p>In Bädern und Duschen beplanken wir mit AquaPanel, das für dauerhafte Feuchtebelastung ausgelegt ist. Wo Schallschutz gefordert ist, arbeiten wir mit SilentPanel und Ausflockung der Hohlräume. Welche Kombination sinnvoll ist, hängt von der Nutzung und den Anforderungen im Bauprojekt ab. Sagen Sie uns, welche Werte gefordert sind, wir schlagen den Aufbau vor.</p><h2>Für Neubau, Umbau und Sanierung im Wohnungsbau</h2><p>Wir arbeiten für Sanitärinstallateure, Generalunternehmen und Bauherrschaften. Bei Mehrfamilienhäusern fertigen wir gleiche Elemente in Serie, bei Umbauten passen wir jedes Element an den Bestand an. Für Sanierungen im bewohnten Objekt kürzt die Vorfabrikation die Zeit, in der das Bad nicht nutzbar ist. Ausgeführte Arbeiten sehen Sie unter <a href=\\"/referenzen\\">Referenzen</a>.</p><h2>So läuft eine Anfrage ab</h2><p>Sie senden uns Grundrisse und Sanitärpläne. Wir prüfen die Unterlagen, klären offene Punkte mit Ihnen und stellen eine Offerte mit Positionen und Terminen. Nach Ihrer Freigabe fertigen wir die Elemente und vereinbaren den Montagetermin. Sie erhalten von uns eine Ansprechperson, die das Projekt bis zur fertigen Wand begleitet.</p>","alignment":"left"}', 30, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 30);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist eine Sanitär Vorwand?","answer":"<p>Eine Sanitär Vorwand ist eine vorgesetzte Ständerkonstruktion, in der Zuleitungen, Abläufe und Befestigungen für WC, Waschtisch oder Dusche liegen. Sie wird vor die Rohbauwand gestellt und danach beplankt. Sichtbar bleibt später nur die fertige Wandfläche.</p>"},{"question":"Was ist der Vorteil von vorfabrizierten Vorwänden gegenüber dem Bau auf der Baustelle?","answer":"<p>Die Elemente entstehen in der Werkstatt unter gleichbleibenden Bedingungen und kommen fertig verrohrt auf die Baustelle. Vor Ort bleibt das Setzen und Anschliessen, das verkürzt die Bauzeit und reduziert Nacharbeiten. Zudem koordinieren Sie weniger Beteiligte.</p>"},{"question":"Übernehmen Sie auch die Beplankung und Spachtelung?","answer":"<p>Ja, wir beplanken die montierten Vorwände und spachteln sie auf Wunsch fertig. In Feuchträumen setzen wir AquaPanel ein. Damit übergeben wir eine Wand, an der das nächste Gewerk direkt weiterarbeiten kann.</p>"}]}', 40, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 40);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Pläne einsenden und Offerte anfragen","body":"Senden Sie uns Ihre Sanitär- und Grundrisspläne, wir prüfen sie und schicken Ihnen eine Offerte mit Terminen.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 50);
+
+-- ────────────────────────────────────────────────────────────
 -- /sanitaer-gis-elemente-bestellen
 -- ────────────────────────────────────────────────────────────
 INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
-SELECT 'GIS-Elemente bestellen', 'sanitaer-gis-elemente-bestellen', 'Sanitär GIS Elemente bestellen | SUI Innova GmbH', 'Sanitär GIS Elemente bestellen: vorfabriziert, verrohrt und auf Wunsch beplankt. Senden Sie uns Ihre Pläne, wir erstellen eine Offerte.', 0, 0, @next_sort + 10
+SELECT 'GIS-Elemente bestellen', 'sanitaer-gis-elemente-bestellen', 'Sanitär GIS Elemente bestellen | SUI Innova GmbH', 'Sanitär GIS Elemente bestellen: vorfabriziert, verrohrt und auf Wunsch beplankt. Senden Sie uns Ihre Pläne, wir erstellen eine Offerte.', 0, 0, @next_sort + 20
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaer-gis-elemente-bestellen');
 
@@ -285,7 +321,7 @@ WHERE @pid IS NOT NULL
 -- /sanitaer-vorwandelemente-bestellen
 -- ────────────────────────────────────────────────────────────
 INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
-SELECT 'Vorwandelemente bestellen', 'sanitaer-vorwandelemente-bestellen', 'Sanitär Vorwandelemente bestellen | SUI Innova', 'Sanitär Vorwandelemente bestellen bei SUI Innova in Pfäffikon: GIS-Elemente fertig verrohrt, auf Mass vorfabriziert, montiert und beplankt. Jetzt anfragen.', 0, 0, @next_sort + 20
+SELECT 'Vorwandelemente bestellen', 'sanitaer-vorwandelemente-bestellen', 'Sanitär Vorwandelemente bestellen | SUI Innova', 'Sanitär Vorwandelemente bestellen bei SUI Innova in Pfäffikon: GIS-Elemente fertig verrohrt, auf Mass vorfabriziert, montiert und beplankt. Jetzt anfragen.', 0, 0, @next_sort + 30
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaer-vorwandelemente-bestellen');
 
@@ -317,46 +353,6 @@ WHERE @pid IS NOT NULL
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
 SELECT @pid, 'cta-banner', '{"heading":"Offerte für Vorwandelemente anfragen","body":"Senden Sie uns Ihre Sanitärpläne oder rufen Sie uns an, Sie erhalten eine Offerte mit Stückliste, Massen und Liefertermin.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
-FROM DUAL
-WHERE @pid IS NOT NULL
-  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 50);
-
--- ────────────────────────────────────────────────────────────
--- /sanitaer-vorwaende
--- ────────────────────────────────────────────────────────────
-INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
-SELECT 'Sanitär Vorwände', 'sanitaer-vorwaende', 'Sanitär Vorwände vorfabriziert | SUI Innova GmbH', 'Sanitär Vorwände vorfabriziert, montiert und beplankt: GIS-Elemente fix verrohrt aus der Werkstatt von SUI Innova in Pfäffikon. Jetzt Offerte anfragen.', 0, 0, @next_sort + 30
-FROM DUAL
-WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaer-vorwaende');
-
-SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwaende' LIMIT 1);
-
-INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'parallax-image', '{"image_id":0,"height":"medium","overlay_text":""}', 10, 1
-FROM DUAL
-WHERE @pid IS NOT NULL
-  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 10);
-
-INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'text-block', '{"heading":"Sanitär Vorwände: vorfabriziert, montiert, beplankt","body":"<p>Sanitär Vorwände liefern wir fix und fertig verrohrt auf Ihre Baustelle. In unserer Werkstatt in Pfäffikon bauen wir GIS-Elemente auf Mass zusammen, montieren sie vor Ort und beplanken sie bis zur spachtelfertigen Wand. So verlagern Sie einen grossen Teil der Sanitärinstallation von der Baustelle in die Halle: weniger Schnittstellen, weniger Wartezeit für die Folgegewerke, planbare Abläufe. Sie erhalten Vorfabrikation, Montage und Beplankung aus einer Hand und haben einen Ansprechpartner für den ganzen Ablauf. Für Nasszellen und Feuchträume setzen wir AquaPanel ein, für Schallschutzanforderungen SilentPanel und Ausflockung. Senden Sie uns Ihre Pläne mit der Adresse der Baustelle, wir prüfen sie und melden uns mit einer Offerte.</p>","alignment":"left"}', 20, 1
-FROM DUAL
-WHERE @pid IS NOT NULL
-  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 20);
-
-INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'text-block', '{"heading":"","body":"<h2>GIS-Elemente verlassen unsere Werkstatt fertig verrohrt</h2><p>Wir konfektionieren die Vorwandelemente nach Ihren Plänen und verrohren sie komplett. Auf der Baustelle wird das Element gesetzt und angeschlossen, nicht mehr zusammengebaut. Das verkürzt die Zeit im Rohbau und senkt das Risiko von Fehlern in engen Platzverhältnissen. Änderungen klären wir vorgängig am Plan, nicht improvisiert vor Ort.</p><h2>Montage und Beplankung kommen vom gleichen Team</h2><p>Unsere Monteure setzen die Vorwände auf Ihrer Baustelle und richten sie aus. Anschliessend beplanken wir die Wände und spachteln sie, sodass der Maler oder Plattenleger direkt weiterarbeiten kann. Weil Vorfabrikation und Montage im gleichen Haus liegen, entfällt die Abstimmung zwischen mehreren Firmen. Bei Terminverschiebungen reagieren wir mit Ihnen zusammen auf den aktuellen Bauablauf.</p><h2>AquaPanel für Nasszellen, SilentPanel gegen Schall</h2><p>In Bädern und Duschen beplanken wir mit AquaPanel, das für dauerhafte Feuchtebelastung ausgelegt ist. Wo Schallschutz gefordert ist, arbeiten wir mit SilentPanel und Ausflockung der Hohlräume. Welche Kombination sinnvoll ist, hängt von der Nutzung und den Anforderungen im Bauprojekt ab. Sagen Sie uns, welche Werte gefordert sind, wir schlagen den Aufbau vor.</p><h2>Für Neubau, Umbau und Sanierung im Wohnungsbau</h2><p>Wir arbeiten für Sanitärinstallateure, Generalunternehmen und Bauherrschaften. Bei Mehrfamilienhäusern fertigen wir gleiche Elemente in Serie, bei Umbauten passen wir jedes Element an den Bestand an. Für Sanierungen im bewohnten Objekt kürzt die Vorfabrikation die Zeit, in der das Bad nicht nutzbar ist. Ausgeführte Arbeiten sehen Sie unter <a href=\\"/referenzen\\">Referenzen</a>.</p><h2>So läuft eine Anfrage ab</h2><p>Sie senden uns Grundrisse und Sanitärpläne. Wir prüfen die Unterlagen, klären offene Punkte mit Ihnen und stellen eine Offerte mit Positionen und Terminen. Nach Ihrer Freigabe fertigen wir die Elemente und vereinbaren den Montagetermin. Sie erhalten von uns eine Ansprechperson, die das Projekt bis zur fertigen Wand begleitet.</p>","alignment":"left"}', 30, 1
-FROM DUAL
-WHERE @pid IS NOT NULL
-  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 30);
-
-INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist eine Sanitär Vorwand?","answer":"<p>Eine Sanitär Vorwand ist eine vorgesetzte Ständerkonstruktion, in der Zuleitungen, Abläufe und Befestigungen für WC, Waschtisch oder Dusche liegen. Sie wird vor die Rohbauwand gestellt und danach beplankt. Sichtbar bleibt später nur die fertige Wandfläche.</p>"},{"question":"Was ist der Vorteil von vorfabrizierten Vorwänden gegenüber dem Bau auf der Baustelle?","answer":"<p>Die Elemente entstehen in der Werkstatt unter gleichbleibenden Bedingungen und kommen fertig verrohrt auf die Baustelle. Vor Ort bleibt das Setzen und Anschliessen, das verkürzt die Bauzeit und reduziert Nacharbeiten. Zudem koordinieren Sie weniger Beteiligte.</p>"},{"question":"Übernehmen Sie auch die Beplankung und Spachtelung?","answer":"<p>Ja, wir beplanken die montierten Vorwände und spachteln sie auf Wunsch fertig. In Feuchträumen setzen wir AquaPanel ein. Damit übergeben wir eine Wand, an der das nächste Gewerk direkt weiterarbeiten kann.</p>"}]}', 40, 1
-FROM DUAL
-WHERE @pid IS NOT NULL
-  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 40);
-
-INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'cta-banner', '{"heading":"Pläne einsenden und Offerte anfragen","body":"Senden Sie uns Ihre Sanitär- und Grundrisspläne, wir prüfen sie und schicken Ihnen eine Offerte mit Terminen.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
 FROM DUAL
 WHERE @pid IS NOT NULL
   AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND sort_order = 50);

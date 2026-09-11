@@ -28,7 +28,7 @@ $pages = [];
 // ── 1) sanitär vorwandelemente ───────────────────────────────
 $pages[] = [
     'slug'       => 'sanitaer-vorwandelemente',
-    'nav_label'  => 'Vorwandelemente',
+    'nav_label'  => 'Sanitär Vorwandelemente',
     'meta_title' => 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova',
     'meta_desc'  => 'Sanitär Vorwandelemente: Aufbau, Masse, Beplankung und Montage einfach erklärt. Lesen Sie, worauf es ankommt, und fragen Sie Ihr Projekt bei SUI Innova an.',
     'h1'         => 'Sanitär Vorwandelemente: Aufbau, Montage und Beplankung erklärt',
@@ -281,6 +281,29 @@ function j(array $content): string
 {
     return q(json_encode($content, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 }
+
+// ─────────────────────────────────────────────────────────────
+// Reihenfolge fuer Navigation, Footer und CMS-Liste
+//
+// Die Bloecke oben stehen in der Reihenfolge des Keyword-Plans. Fuer den
+// Besucher ist eine andere sinnvoller: zuerst die beiden Seiten, die
+// erklaeren was ein Element ist, dann bestellen, dann beplanken. So liest
+// sich der Footer als Ablauf und nicht als Stichwortliste.
+// ─────────────────────────────────────────────────────────────
+
+$reihenfolge = [
+    'sanitaer-vorwandelemente',            // Was ist das
+    'sanitaer-vorwaende',                  // Was ist das, zweiter Begriff
+    'sanitaer-gis-elemente-bestellen',     // Bestellen
+    'sanitaer-vorwandelemente-bestellen',  // Bestellen
+    'gis-elemente-beplanken',              // Beplanken
+    'sanitaer-vorwandelemente-beplanken',  // Beplanken
+];
+
+usort($pages, function ($a, $b) use ($reihenfolge) {
+    return array_search($a['slug'], $reihenfolge, true)
+       <=> array_search($b['slug'], $reihenfolge, true);
+});
 
 // ─────────────────────────────────────────────────────────────
 // Modus: Interne Verlinkung (erst nach dem Freischalten einspielen)

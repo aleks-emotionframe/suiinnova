@@ -3,20 +3,15 @@
 -- Die sechs neuen Seiten oeffentlich machen
 --
 -- ERST AUSFUEHREN, WENN SIE DIE SEITEN ANGESCHAUT HABEN.
--- Als Admin eingeloggt sind sie schon jetzt aufrufbar:
---   sui-innova.ch/sanitaer-vorwandelemente
---   sui-innova.ch/sanitaer-gis-elemente-bestellen
---   sui-innova.ch/sanitaer-vorwandelemente-bestellen
---   sui-innova.ch/sanitaer-vorwaende
---   sui-innova.ch/gis-elemente-beplanken
---   sui-innova.ch/sanitaer-vorwandelemente-beplanken
 --
--- Diese Datei macht zweierlei, in dieser Reihenfolge:
+-- Diese Datei macht dreierlei, in dieser Reihenfolge:
 --   A) die sechs Seiten online schalten
 --   B) sie von der Leistungsseite aus verlinken
 --
--- Andersherum zeigten die Links auf deaktivierte Seiten, und das
--- sieht fuer Google nach kaputter Seitenstruktur aus.
+-- Sobald sie online sind, erscheinen sie automatisch
+--   - in der sitemap.xml
+--   - im Footer unter "Leistungen im Detail"
+-- Dafuer ist nichts weiter zu tun.
 -- ============================================================
 
 -- Zeichensatz der Verbindung festnageln. MUSS als Erstes kommen.
@@ -48,7 +43,7 @@ WHERE slug IN (
 
 
 -- ════════════════════════════════════════════════════════════
--- B) INTERNE VERLINKUNG
+-- B) INTERNE VERLINKUNG VON DER LEISTUNGSSEITE
 -- ════════════════════════════════════════════════════════════
 
 SET @pid = (SELECT id FROM pages WHERE slug = 'leistungen' LIMIT 1);

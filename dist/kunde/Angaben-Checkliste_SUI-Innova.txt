@@ -178,14 +178,14 @@ Die sechs Seiten:
   sui-innova.ch/sanitaer-vorwandelemente
     Suchbegriff: sanitaer vorwandelemente
 
+  sui-innova.ch/sanitaer-vorwaende
+    Suchbegriff: sanitaer vorwaende
+
   sui-innova.ch/sanitaer-gis-elemente-bestellen
     Suchbegriff: sanitaer gis elemente bestellen
 
   sui-innova.ch/sanitaer-vorwandelemente-bestellen
     Suchbegriff: sanitaer vorwandelemente bestellen
-
-  sui-innova.ch/sanitaer-vorwaende
-    Suchbegriff: sanitaer vorwaende
 
   sui-innova.ch/gis-elemente-beplanken
     Suchbegriff: gis elemente beplanken
