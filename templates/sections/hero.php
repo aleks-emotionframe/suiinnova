@@ -20,9 +20,22 @@ $bgImage = $imageId ? mediaUrl($imageId) : asset('img/hero-placeholder.jpg');
 ?>
 
 <section class="relative w-full overflow-hidden bg-gray-900" style="height: 100svh; height: 100vh;">
-    <!-- Hintergrundbild -->
-    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('<?= e($bgImage) ?>');">
-    </div>
+    <!-- Hintergrundbild
+         Frueher ein div mit background-image. Als <img> kann der Browser das
+         Bild beim Einlesen des Markups entdecken und sofort laden, statt erst
+         nach dem Auswerten der Stile. Das ist auf jeder Seite das groesste
+         sichtbare Element und bestimmt damit die gemessene Ladezeit. -->
+    <?php if ($imageId): ?>
+        <?= responsiveImg($imageId, [
+            'alt'           => '',
+            'sizes'         => '100vw',
+            'loading'       => 'eager',
+            'fetchpriority' => 'high',
+            'class'         => 'absolute inset-0 w-full h-full object-cover',
+        ]) ?>
+    <?php else: ?>
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('<?= e($bgImage) ?>');"></div>
+    <?php endif; ?>
 
     <!-- Gradient Overlay: Mobile stärker, Desktop links dunkel rechts hell -->
     <div class="absolute inset-0 md:hidden" style="background: rgba(0,0,0,0.7);"></div>

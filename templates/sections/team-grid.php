@@ -17,13 +17,15 @@ $items   = $content['items'] ?? [];
         <?php if ($items): ?>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
                 <?php foreach ($items as $member): ?>
-                    <?php $imgUrl = !empty($member['image_id']) ? mediaUrl((int)$member['image_id']) : ''; ?>
+                    <?php $memberImgId = (int) ($member['image_id'] ?? 0); ?>
                     <div class="group fade-in">
                         <div class="aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden mb-4">
-                            <?php if ($imgUrl): ?>
-                                <img src="<?= e($imgUrl) ?>" alt="<?= e($member['name'] ?? '') ?>"
-                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                     loading="lazy">
+                            <?php if ($memberImgId): ?>
+                                <?= responsiveImg($memberImgId, [
+                                    'alt'   => $member['name'] ?? '',
+                                    'sizes' => '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw',
+                                    'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                                ]) ?>
                             <?php else: ?>
                                 <!-- Platzhalter -->
                                 <div class="w-full h-full flex flex-col items-center justify-center text-gray-300">

@@ -15,6 +15,7 @@ require_once BASE_PATH . '/config/config.php';
 // Core-Dateien laden
 require_once BASE_PATH . '/core/db.php';
 require_once BASE_PATH . '/core/helpers.php';
+require_once BASE_PATH . '/core/images.php';
 require_once BASE_PATH . '/core/auth.php';
 
 // Datenbank-Verbindung

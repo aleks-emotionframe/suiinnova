@@ -50,9 +50,19 @@ $items    = $content['items'] ?? [];
                             <div class="group bg-white rounded-lg overflow-hidden <?= $colSpan ?>">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 h-full">
                                     <div class="aspect-[4/3] sm:aspect-auto overflow-hidden">
-                                        <img src="<?= e($imgUrl) ?>" alt="<?= e($title) ?>"
-                                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                             loading="lazy">
+                                        <?php
+                                        // Karte belegt max. 3/5 des Rasters, darin nochmal die halbe Breite
+                                        $cardImgClass = 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105';
+                                        $cardImgSizes = '(min-width: 768px) 30vw, (min-width: 640px) 50vw, 100vw';
+                                        if ($imgId):
+                                            echo responsiveImg($imgId, [
+                                                'alt'   => $title,
+                                                'sizes' => $cardImgSizes,
+                                                'class' => $cardImgClass,
+                                            ]);
+                                        else: ?>
+                                            <img src="<?= e($imgUrl) ?>" alt="<?= e($title) ?>" class="<?= $cardImgClass ?>" loading="lazy" decoding="async">
+                                        <?php endif; ?>
                                     </div>
                                     <div class="flex flex-col justify-center p-5 md:p-7">
                                         <p class="text-sm font-bold uppercase tracking-wider text-brand-accent mb-3"><?= e($title) ?></p>

@@ -19,19 +19,35 @@ $heightClass = match($height) {
 
 if (!$imageUrl) return;
 $uniqueId = 'parallax-' . uniqid();
+
+// Der Desktop-Streifen arbeitet mit background-attachment: fixed und kann
+// deshalb kein srcset nutzen. Statt des Originals — oft 3000 Pixel breit —
+// kommt hier die 1600er-Variante zum Zug. Gibt es die nicht, faellt der
+// Aufruf auf das Original zurueck.
+$parallaxDesktopUrl = $imageId ? mediaVariantUrl($imageId, 1600) : $imageUrl;
 ?>
 
 <section class="relative <?= $heightClass ?> overflow-hidden" id="<?= $uniqueId ?>">
-    <!-- Bild (20% grösser als Container für Parallax-Bewegung) -->
-    <img src="<?= e($imageUrl) ?>" alt=""
-         class="absolute inset-0 w-full object-cover pointer-events-none parallax-img"
-         style="height: 130%; top: -15%;"
-         loading="lazy"
-         data-parallax>
+    <!-- Bild (20% grösser als Container für Parallax-Bewegung)
+         Nur auf Mobile sichtbar, deshalb reicht eine kleine Variante. -->
+    <?php if ($imageId): ?>
+        <?= responsiveImg($imageId, [
+            'alt'   => '',
+            'sizes' => '100vw',
+            'class' => 'absolute inset-0 w-full object-cover pointer-events-none parallax-img',
+            'style' => 'height: 130%; top: -15%;',
+            'attrs' => ['data-parallax' => ''],
+        ]) ?>
+    <?php else: ?>
+        <img src="<?= e($imageUrl) ?>" alt=""
+             class="absolute inset-0 w-full object-cover pointer-events-none parallax-img"
+             style="height: 130%; top: -15%;"
+             loading="lazy" decoding="async">
+    <?php endif; ?>
 
     <!-- Desktop: zusätzlich bg-fixed als Fallback -->
     <div class="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat bg-fixed"
-         style="background-image: url('<?= e($imageUrl) ?>');">
+         style="background-image: url('<?= e($parallaxDesktopUrl) ?>');">
     </div>
     <!-- Bild auf Desktop verstecken (bg-fixed übernimmt) -->
     <style>

@@ -25,12 +25,18 @@ $isImageRight = ($layout === 'image-right');
             <div class="<?= $isImageRight ? 'md:order-2' : '' ?> fade-in">
                 <?php if ($bgImage): ?>
                     <div class="aspect-[4/3] bg-gray-200 overflow-hidden rounded-lg">
-                        <img
-                            src="<?= e($bgImage) ?>"
-                            alt="<?= e($heading) ?>"
-                            class="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]"
-                            loading="lazy"
-                        >
+                        <?php
+                        // sizes: zweispaltiges Raster ab 768px, darunter volle Breite
+                        $imgClass = 'w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]';
+                        if ($imageId):
+                            echo responsiveImg($imageId, [
+                                'alt'   => $heading,
+                                'sizes' => '(min-width: 768px) 50vw, 100vw',
+                                'class' => $imgClass,
+                            ]);
+                        else: ?>
+                            <img src="<?= e($bgImage) ?>" alt="<?= e($heading) ?>" class="<?= $imgClass ?>" loading="lazy" decoding="async">
+                        <?php endif; ?>
                     </div>
                 <?php else: ?>
                     <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">

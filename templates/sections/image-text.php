@@ -16,9 +16,15 @@ $isRight = ($layout === 'image-right');
             <!-- Bild -->
             <div class="<?= $isRight ? 'md:order-2' : '' ?> fade-in">
                 <div class="aspect-[4/3] bg-gray-100 overflow-hidden rounded-lg">
-                    <?php if ($imgUrl): ?>
+                    <?php if ($imageId): ?>
+                        <?= responsiveImg($imageId, [
+                            'alt'   => $heading,
+                            'sizes' => '(min-width: 768px) 50vw, 100vw',
+                            'class' => 'w-full h-full object-cover',
+                        ]) ?>
+                    <?php elseif ($imgUrl): ?>
                         <img src="<?= e($imgUrl) ?>" alt="<?= e($heading) ?>"
-                             class="w-full h-full object-cover" loading="lazy">
+                             class="w-full h-full object-cover" loading="lazy" decoding="async">
                     <?php endif; ?>
                 </div>
             </div>

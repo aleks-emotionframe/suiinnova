@@ -24,13 +24,15 @@ $gridCols = match($columns) {
         <?php if ($images): ?>
             <div class="grid grid-cols-1 <?= $gridCols ?> gap-4">
                 <?php foreach ($images as $img): ?>
-                    <?php $imgUrl = mediaUrl((int)($img['image_id'] ?? 0)); ?>
+                    <?php $galleryImgId = (int) ($img['image_id'] ?? 0); ?>
                     <div class="group overflow-hidden fade-in">
                         <div class="aspect-[4/3] bg-gray-100 overflow-hidden rounded-lg">
-                            <?php if ($imgUrl): ?>
-                                <img src="<?= e($imgUrl) ?>" alt="<?= e($img['caption'] ?? '') ?>"
-                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                                     loading="lazy">
+                            <?php if ($galleryImgId): ?>
+                                <?= responsiveImg($galleryImgId, [
+                                    'alt'   => $img['caption'] ?? '',
+                                    'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+                                    'class' => 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]',
+                                ]) ?>
                             <?php endif; ?>
                         </div>
                         <?php if (!empty($img['caption'])): ?>

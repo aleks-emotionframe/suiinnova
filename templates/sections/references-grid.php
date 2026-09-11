@@ -44,13 +44,19 @@ if (empty($items)) {
                             $imgId = (int) ($item['image_id'] ?? 0);
                             $imgUrl = $imgId ? mediaUrl($imgId) : ($item['image_url'] ?? '');
                             ?>
-                            <?php if ($imgUrl): ?>
-                                <img
-                                    src="<?= e($imgUrl) ?>"
-                                    alt="<?= e($item['title'] ?? '') ?>"
-                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                                    loading="lazy"
-                                >
+                            <?php
+                            $refImgClass = 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]';
+                            $refImgSizes = '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
+                            ?>
+                            <?php if ($imgId): ?>
+                                <?= responsiveImg($imgId, [
+                                    'alt'   => $item['title'] ?? '',
+                                    'sizes' => $refImgSizes,
+                                    'class' => $refImgClass,
+                                ]) ?>
+                            <?php elseif ($imgUrl): ?>
+                                <img src="<?= e($imgUrl) ?>" alt="<?= e($item['title'] ?? '') ?>"
+                                     class="<?= $refImgClass ?>" loading="lazy" decoding="async">
                             <?php else: ?>
                                 <div class="w-full h-full flex items-center justify-center text-gray-300">
                                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">

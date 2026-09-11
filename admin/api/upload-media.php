@@ -67,6 +67,7 @@ if (!move_uploaded_file($file['tmp_name'], $absolutePath)) {
 $width = null;
 $height = null;
 $thumbPath = null;
+$variants = [];
 
 if (str_starts_with($mimeType, 'image/') && $mimeType !== 'image/svg+xml') {
     $imageInfo = getimagesize($absolutePath);
@@ -81,10 +82,18 @@ if (str_starts_with($mimeType, 'image/') && $mimeType !== 'image/svg+xml') {
     } catch (Throwable $e) {
         $thumbPath = null;
     }
+
+    // Groessenvarianten fuer srcset. Schlaegt das fehl, bleibt es beim
+    // Original — die Seite funktioniert weiter, nur eben ohne srcset.
+    try {
+        $variants = generateImageVariants($absolutePath, $filename);
+    } catch (Throwable $e) {
+        $variants = [];
+    }
 }
 
 // In DB speichern
-$mediaId = $db->insert('media', [
+$mediaRow = [
     'filename'   => $filename,
     'original'   => $originalName,
     'mime_type'  => $mimeType,
@@ -94,7 +103,14 @@ $mediaId = $db->insert('media', [
     'alt_text'   => pathinfo($originalName, PATHINFO_FILENAME),
     'path'       => $relativePath,
     'thumb_path' => $thumbPath,
-]);
+];
+
+// Varianten nur mitschreiben, wenn die Spalte wirklich da ist (Self-Heal)
+if (ensureMediaVariantsColumn()) {
+    $mediaRow['variants'] = $variants ? json_encode($variants) : null;
+}
+
+$mediaId = $db->insert('media', $mediaRow);
 
 echo json_encode([
     'success' => true,
