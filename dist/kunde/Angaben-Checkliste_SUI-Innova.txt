@@ -1,0 +1,202 @@
+================================================================
+SUI INNOVA — ANGABEN FUER DIE NEUEN SEITEN
+================================================================
+
+Guten Tag Herr Ljatifi
+
+Wir haben sechs neue Seiten für sui-innova.ch vorbereitet.
+Die Texte stehen, aber an einigen Stellen fehlen uns Angaben,
+die nur Sie beantworten können — Fristen, Masse, Gebiete.
+
+Bis diese Angaben da sind, bleiben die Seiten offline. Wir
+stellen bewusst nichts online, wo eine Lücke im Text steht.
+
+Wo Sie etwas nicht sagen können oder wollen: schreiben Sie
+"weglassen" daneben. Dann formulieren wir die Stelle um,
+statt eine Zahl zu erfinden.
+
+Es sind 12 Fragen. Sie decken 31 Stellen in den
+Texten ab, weil dieselbe Angabe oft auf mehreren Seiten
+gebraucht wird.
+
+
+ 1. EINSATZGEBIET
+
+    In welchem Gebiet liefern und montieren Sie? Ein Radius ab
+    Pfäffikon oder eine Liste von Kantonen genügt.
+
+      Kommt auf fast jeder Seite vor und ist für die lokale
+      Suche der wichtigste Punkt in dieser Liste.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 2. FRISTEN
+
+    Wie lange dauert es üblicherweise von der Freigabe bis
+    zur Lieferung? Und wie viel Vorlauf brauchen Sie für
+    einen Montage- oder Beplankungstermin? Innert welcher
+    Frist schicken Sie eine Offerte?
+
+      Grobe Spannen reichen, zum Beispiel "zwei bis vier
+      Wochen".
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 3. MINDESTMENGE
+
+    Gibt es eine kleinste Auftragsgrösse oder einen
+    Mindestbestellwert? Oder fertigen Sie auch ein einzelnes
+    Element?
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 4. SYSTEME UND HERSTELLER
+
+    Welche Systeme und Fabrikate verarbeiten Sie, neben GIS?
+    Zum Beispiel Geberit oder Nussbaum. Welche Standardhöhen
+    bauen Sie, halbhoch und raumhoch?
+
+      Herstellernamen im Text helfen, weil genau danach
+      gesucht wird.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 5. PLATTENMATERIAL
+
+    Welche Plattentypen, Stärken und Hersteller setzen Sie
+    bei der Beplankung ein? In Nasszellen und in trockenen
+    Bereichen.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 6. SPACHTELQUALITÄT
+
+    Bis zu welcher Qualitätsstufe spachteln Sie? Q1 bis Q4,
+    oder nach einer SIA-Norm?
+
+      Falls Sie das je nach Auftrag vereinbaren, schreiben Sie
+      das einfach so — dann formulieren wir es entsprechend.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 7. SCHALLSCHUTZ
+
+    Welches SilentPanel-System verwenden Sie, und welche Werte
+    erreichen Ihre Aufbauten? Arbeiten Sie nach SIA 181?
+
+      Falls Sie keine Messwerte haben: sagen Sie es uns, dann
+      beschreiben wir die Massnahme ohne Zahlen. Erfundene
+      Schallwerte wären bei einer Reklamation Ihr Problem.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 8. MATERIALBESCHAFFUNG
+
+    Beschaffen Sie das Material selbst, oder stellt es der
+    Kunde bei? Oder beides, je nach Auftrag?
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+ 9. TRANSPORT
+
+    Wie gross darf ein Element maximal sein, damit Sie es noch
+    transportieren können? Verrechnen Sie Lieferkosten?
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+10. PREISE
+
+    Möchten Sie Richtpreise nennen, pro Element oder pro
+    Quadratmeter? Oder lieber nicht?
+
+      Darf gut "nein" sein. Viele Betriebe nennen keine
+      Preise, das ist für die Suche kein Nachteil.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+11. REFERENZPROJEKTE
+
+    Welche ausgeführten Projekte dürfen wir namentlich
+    nennen, mit Objektart und Anzahl Elemente?
+
+      Konkrete Zahlen wirken stärker als "zahlreiche
+      Projekte".
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+12. WERKSTATTKAPAZITÄT
+
+    Wie viele Elemente schaffen Sie ungefähr pro Woche? Und
+    wie viele Montageteams sind im Einsatz?
+
+      Zeigt Generalunternehmern, ob Sie ihr Projekt stemmen
+      können.
+
+    ____________________________________________________
+
+    ____________________________________________________
+
+
+----------------------------------------------------------------
+Die betroffenen Seiten im Einzelnen:
+
+  /sanitaer-vorwandelemente
+    Suchbegriff: sanitaer vorwandelemente
+    Offene Angaben: 4
+
+  /sanitaer-gis-elemente-bestellen
+    Suchbegriff: sanitaer gis elemente bestellen
+    Offene Angaben: 5
+
+  /sanitaer-vorwandelemente-bestellen
+    Suchbegriff: sanitaer vorwandelemente bestellen
+    Offene Angaben: 5
+
+  /sanitaer-vorwaende
+    Suchbegriff: sanitaer vorwaende
+    Offene Angaben: 6
+
+  /gis-elemente-beplanken
+    Suchbegriff: gis elemente beplanken
+    Offene Angaben: 7
+
+  /sanitaer-vorwandelemente-beplanken
+    Suchbegriff: sanitaer vorwandelemente beplanken
+    Offene Angaben: 4
+
+----------------------------------------------------------------
+EmotionFrame GmbH, Loorenstrasse 4a, 5443 Niederrohrdorf
+hello@emotionframe.ch

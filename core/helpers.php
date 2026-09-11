@@ -222,6 +222,26 @@ function getGlobalReferences(?int $limit = null, string $source = 'all'): array
 }
 
 /**
+ * Offene Platzhalter sichtbar machen.
+ *
+ * Die Textvorschlaege aus dem Keyword-Plan enthalten Stellen, die nur der
+ * Kunde beantworten kann — Einsatzradius, Spachtelqualitaet, Lieferfristen.
+ * Sie stehen als [ANGABE FEHLT: ...] im Text und werden hier rot markiert,
+ * damit beim Durchsehen keine uebersehen wird.
+ *
+ * Seiten mit offenen Platzhaltern gehoeren nicht online. Deshalb werden sie
+ * deaktiviert angelegt — nur eingeloggte Admins sehen sie.
+ */
+function markPlaceholders(string $html): string
+{
+    return (string) preg_replace(
+        '/\[ANGABE FEHLT:\s*([^\]]+)\]/u',
+        '<mark class="angabe-fehlt" title="Diese Angabe fehlt noch und muss vom Kunden kommen">$1</mark>',
+        $html
+    );
+}
+
+/**
  * Ueberschriften-Ebene fuer Sektionen bestimmen.
  *
  * Jede Seite braucht genau eine Hauptueberschrift. Die erste Sektion, die
@@ -265,7 +285,7 @@ function renderRichtext(?string $text): string
         $clean = strip_tags($text, $allowedTags);
         // Doppelte <br> bereinigen
         $clean = preg_replace('/(<br\s*\/?>){3,}/i', '<br><br>', $clean);
-        return $clean;
+        return markPlaceholders($clean);
     }
 
     // Plain-Text: Absaetze bei Doppel-Zeilenumbruch, <br> bei einfachem
@@ -278,5 +298,5 @@ function renderRichtext(?string $text): string
             $html .= '<p>' . nl2br($p) . '</p>';
         }
     }
-    return $html ?: '<p>' . nl2br($text) . '</p>';
+    return markPlaceholders($html ?: '<p>' . nl2br($text) . '</p>');
 }

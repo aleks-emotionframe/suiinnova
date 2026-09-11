@@ -142,6 +142,19 @@ return [
         ],
     ],
 
+    'faq' => [
+        'label' => 'Fragen und Antworten',
+        'icon'  => 'help-circle',
+        'fields' => [
+            'heading'  => ['type' => 'text',     'label' => 'Überschrift'],
+            'subtitle' => ['type' => 'text',     'label' => 'Untertitel (optional)'],
+            'items'    => ['type' => 'repeater', 'label' => 'Fragen', 'fields' => [
+                'question' => ['type' => 'text',     'label' => 'Frage'],
+                'answer'   => ['type' => 'richtext', 'label' => 'Antwort'],
+            ]],
+        ],
+    ],
+
     'image-text' => [
         'label' => 'Bild + Text',
         'icon'  => 'layout',

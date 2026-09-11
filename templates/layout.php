@@ -211,6 +211,27 @@
             }
         }
 
+        /* Offene Angaben aus dem Keyword-Plan.
+           Seiten mit solchen Stellen sind deaktiviert und nur fuer
+           eingeloggte Admins sichtbar — hier faellt sofort auf, was fehlt. */
+        mark.angabe-fehlt {
+            background: #FEF08A;
+            color: #713F12;
+            border-bottom: 2px solid #C41018;
+            padding: 1px 5px;
+            border-radius: 2px;
+            font-style: italic;
+        }
+        mark.angabe-fehlt::before {
+            content: "fehlt: ";
+            font-weight: 700;
+            font-style: normal;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 0.04em;
+            color: #C41018;
+        }
+
         /* Mehrzeilige Ueberschriften: Silbentrennung + Balanced-Break */
         main h1, main h2, main h3 {
             text-wrap: balance;
