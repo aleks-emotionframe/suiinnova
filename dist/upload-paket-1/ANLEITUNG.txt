@@ -1,0 +1,81 @@
+========================================================
+SUI INNOVA — SEO PAKET 1
+Titel, Meta-Descriptions und Hauptueberschriften
+========================================================
+
+REIHENFOLGE BEACHTEN: zuerst die Dateien, dann die SQL.
+Umgekehrt geht auch, aber dann sieht die Seite kurz
+zwischendurch komisch aus.
+
+
+SCHRITT 1 — DATEIEN HOCHLADEN (FTP)
+--------------------------------------------------------
+Alle Ordner aus diesem ZIP in das Hauptverzeichnis der
+Website kopieren, bestehende Dateien ueberschreiben:
+
+  .htaccess              -> ins Hauptverzeichnis
+  index.php              -> ins Hauptverzeichnis
+  admin/views/           -> ueber den bestehenden Ordner
+  core/                  -> ueber den bestehenden Ordner
+  templates/             -> ueber den bestehenden Ordner
+
+Den Ordner _SQL NICHT hochladen, der ist nur fuer
+Schritt 2.
+
+
+SCHRITT 2 — SQL EINSPIELEN (phpMyAdmin)
+--------------------------------------------------------
+1. Hostpoint Control Panel -> Datenbanken -> phpMyAdmin
+2. Datenbank bifitudo_suinnova auswaehlen
+3. Reiter "SQL"
+4. Inhalt von _SQL/seo-paket-1-titel-h1.sql einfuegen
+5. Ausfuehren
+
+Die Datei kann gefahrlos mehrfach laufen.
+
+
+SCHRITT 3 — KONTROLLE
+--------------------------------------------------------
+a) https://sui-innova.ch/startseite aufrufen
+   -> muss auf https://sui-innova.ch/ umleiten
+
+b) Auf jeder Seite Rechtsklick -> "Seitenquelltext anzeigen",
+   dann mit Strg+F suchen:
+
+   <title>          steht der Suchbegriff drin, nicht
+                    zweimal der Firmenname?
+   name="descriptio steht da ein Satz?
+   <h1              genau einmal pro Seite?
+
+   Zu pruefen: /, /leistungen, /referenzen, /ueber-uns,
+   /kontakt, /impressum, /datenschutz
+
+c) Im CMS unter Einstellungen -> Kontakt sind die
+   Oeffnungszeiten neu. Eintragen im Format:
+
+       Mo-Fr 07:00-12:00,13:00-17:00
+
+   Mehrere Bloecke mit Semikolon trennen. Erst wenn hier
+   etwas drinsteht, erscheinen die Zeiten auf der
+   Kontaktseite und im Suchergebnis.
+
+
+SCHRITT 4 — GOOGLE BESCHEID GEBEN
+--------------------------------------------------------
+Search Console -> URL-Pruefung -> jede der sieben Seiten
+einzeln eingeben -> "Indexierung beantragen".
+
+Ohne das dauert es, bis Google die neuen Titel sieht.
+
+
+WAS SICH SICHTBAR AENDERT
+--------------------------------------------------------
+- Hero-Titel der Startseite lautet neu
+  "Sanitär Vorfabrikation aus Pfäffikon SZ"
+  (vorher "Präzision in der Vorfabrikation")
+- Die erste Ueberschrift jeder Unterseite hat neuen Text
+- Auf der Kontaktseite kommt ein Block Oeffnungszeiten
+  dazu, sobald im CMS Zeiten hinterlegt sind
+- Sehr kleine Schriften (10 und 11 Pixel) sind jetzt 12
+
+Alles andere bleibt optisch gleich.
