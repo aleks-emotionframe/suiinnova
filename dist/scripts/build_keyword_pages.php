@@ -607,22 +607,21 @@ foreach ($pages as $p) {
         'overlay_text' => '',
     ]];
 
-    // 2) Einleitung — traegt die Hauptueberschrift (h1)
-    $sections[] = ['text-block', [
-        'heading'   => $p['h1'],
-        'body'      => '<p>' . $p['intro'] . '</p>',
-        'alignment' => 'left',
-    ]];
-
-    // 3) Seitenaufbau als zusammenhaengender Textblock mit h2-Zwischentiteln
-    $bodyHtml = '';
-    foreach ($p['body'] as [$h, $t]) {
-        $bodyHtml .= '<h2>' . $h . '</h2><p>' . $t . '</p>';
-    }
-    $sections[] = ['text-block', [
-        'heading'   => '',
-        'body'      => $bodyHtml,
-        'alignment' => 'left',
+    // 2) Hauptueberschrift, Einleitung und die Abschnitte als Raster
+    //
+    // Frueher waren das zwei Textbloecke untereinander: erst die Einleitung,
+    // dann fuenf bis sechs h2-Abschnitte am Stueck. Auf dem Bildschirm war
+    // das eine Textwand. Als Raster sieht der Besucher auf einen Blick, welche
+    // Themen die Seite abdeckt, und liest den Abschnitt, der ihn betrifft.
+    // Der Text ist derselbe — nur anders angeordnet.
+    $sections[] = ['content-grid', [
+        'heading' => $p['h1'],
+        'lead'    => '<p>' . $p['intro'] . '</p>',
+        'style'   => 'light',
+        'items'   => array_map(
+            fn($b) => ['title' => $b[0], 'text' => '<p>' . $b[1] . '</p>'],
+            $p['body']
+        ),
     ]];
 
     // 4) Fragen und Antworten (mit FAQPage-Auszeichnung)

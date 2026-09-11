@@ -142,6 +142,23 @@ return [
         ],
     ],
 
+    'content-grid' => [
+        'label' => 'Inhaltsraster',
+        'icon'  => 'layout-grid',
+        'fields' => [
+            'heading' => ['type' => 'text',     'label' => 'Überschrift'],
+            'lead'    => ['type' => 'richtext', 'label' => 'Einleitung (grösser gesetzt)'],
+            'style'   => ['type' => 'select',   'label' => 'Hintergrund', 'options' => [
+                'light' => 'Weiss',
+                'gray'  => 'Hellgrau',
+            ]],
+            'items'   => ['type' => 'repeater', 'label' => 'Abschnitte', 'fields' => [
+                'title' => ['type' => 'text',     'label' => 'Titel'],
+                'text'  => ['type' => 'richtext', 'label' => 'Text'],
+            ]],
+        ],
+    ],
+
     'faq' => [
         'label' => 'Fragen und Antworten',
         'icon'  => 'help-circle',

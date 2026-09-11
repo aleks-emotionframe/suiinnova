@@ -31,7 +31,7 @@ Wenn das Programm fragt: ÜBERSCHREIBEN.
 Nichts auswählen, nichts sortieren, nichts umbenennen.
 Nur die sieben Einträge oben, komplett, drüberkopieren.
 
-Es sind 30 Dateien. Ordner, die im FTP existieren und hier
+Es sind 31 Dateien. Ordner, die im FTP existieren und hier
 fehlen (uploads, dist), bleiben unberührt.
 
 
