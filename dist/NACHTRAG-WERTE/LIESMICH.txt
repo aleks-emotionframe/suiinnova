@@ -1,0 +1,52 @@
+════════════════════════════════════════════════════════
+WERTE-KARTEN: HARTER ZEILENUMBRUCH RAUS
+════════════════════════════════════════════════════════
+
+Nur eine SQL, keine Dateien.
+
+    phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+    -> werte-umbrueche.sql hineinkopieren -> OK
+
+
+WAS DAS PROBLEM WAR
+────────────────────────────────────────────────────────
+
+In der Karte "Transparent" stand:
+
+    Offene Preise, ehrliche Beratung, nachvollziehbare
+    Abläufe.
+    Sie wissen immer, woran Sie sind.
+
+Der zweite Satz begann auf einer eigenen Zeile, weil im
+CMS-Feld ein Zeilenumbruch steht. Das Feld ist ein
+Textarea, und ein einfacher Umbruch wird beim Anzeigen
+zu einem festen <br>.
+
+
+WARUM DAS WEG SOLLTE
+────────────────────────────────────────────────────────
+
+Die drei Karten stehen nebeneinander und werden je nach
+Fensterbreite unterschiedlich breit. Ein fester Umbruch
+sitzt dann mal am richtigen Ort und mal mitten im Satz.
+Ohne ihn fliesst der Text und bricht immer dort, wo Platz
+ist.
+
+
+WAS PASSIERT
+────────────────────────────────────────────────────────
+
+Zeilenumbrüche in ALLEN drei Werte-Karten werden zu einem
+Leerzeichen. Andere Sektionen bleiben unberührt, dort sind
+Umbrüche teilweise gewollt.
+
+Gefahrlos mehrfach ausführbar.
+
+
+FALLS SIE SPÄTER WIEDER EINEN UMBRUCH WOLLEN
+────────────────────────────────────────────────────────
+
+Im CMS unter Seiten -> Startseite -> Werte einfach eine
+Leerzeile einfügen statt nur Enter. Zwei Umbrüche
+hintereinander ergeben einen neuen Absatz, und der bleibt
+erhalten.
