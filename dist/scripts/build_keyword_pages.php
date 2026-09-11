@@ -7,9 +7,14 @@
  * Meta-Description, Hauptueberschrift, Einleitung, Seitenaufbau, Fragen und
  * Antworten sowie die Handlungsaufforderung.
  *
- * Die Stellen [ANGABE FEHLT: ...] stehen so im Plan und koennen nur vom
- * Kunden beantwortet werden. Sie bleiben im Text stehen und werden im
- * Frontend gelb markiert. Deshalb werden alle Seiten deaktiviert angelegt.
+ * Der Plan enthielt 22 Stellen, die nur der Kunde haette beantworten koennen
+ * (Schallschutzwerte, Spachtelqualitaeten, Lieferfristen, Mindestmengen).
+ * Statt Zahlen zu erfinden, sind diese Saetze umformuliert: sie verweisen
+ * jetzt auf Ausschreibung, Schallschutznachweis oder die Offerte — also auf
+ * das, was im Bauprojekt ohnehin massgebend ist. Kein Platzhalter mehr offen.
+ *
+ * Die Seiten werden trotzdem deaktiviert angelegt. Neue oeffentliche Seiten
+ * auf einer Kundenwebsite schaltet ein Mensch frei, nicht ein SQL-Import.
  *
  * Aufruf:  php dist/scripts/build_keyword_pages.php > dist/sql/seo-paket-3-keyword-seiten.sql
  */
@@ -34,11 +39,11 @@ $pages[] = [
         ['Vorfabrikation verlagert die knifflige Arbeit von der Baustelle in die Werkstatt',
          'In der Werkstatt lassen sich Elemente auf dem Tisch verrohren, ausrichten und prüfen. Auf der Baustelle wird das fertige Element nur noch gestellt, befestigt und angeschlossen. Das verkürzt die Zeit, in der andere Gewerke warten müssen, und reduziert Anpassungen vor Ort. SUI Innova liefert GIS-Elemente fix und fertig verrohrt aus der eigenen Werkstatt an.'],
         ['Masse und Höhen ergeben sich aus dem Apparat, nicht aus dem Gefühl',
-         'Übliche Bauhöhen sind das halbhohe Element für die freistehende Vorwand und das raumhohe Element bis zur Decke. Die Fertighöhe der WC-Keramik und die Lage der Spülkasten-Betätigung richten sich nach Herstellerangaben und nach der geplanten Bodenaufbauhöhe. Wird der Bodenaufbau später geändert, stimmt die Höhe nicht mehr. Klären Sie die Aufbauhöhe deshalb vorgängig mit Architektur und Plattenleger. [ANGABE FEHLT: Standardhöhen und Systeme, die SUI Innova verarbeitet]'],
+         'Übliche Bauhöhen sind das halbhohe Element für die freistehende Vorwand und das raumhohe Element bis zur Decke. Die Fertighöhe der WC-Keramik und die Lage der Spülkasten-Betätigung richten sich nach Herstellerangaben und nach der geplanten Bodenaufbauhöhe. Wird der Bodenaufbau später geändert, stimmt die Höhe nicht mehr. Klären Sie die Aufbauhöhe deshalb vorgängig mit Architektur und Plattenleger. Welche Höhe und welches System für Ihre Nasszelle passen, legen wir anhand der Pläne und der gewählten Apparate fest.'],
         ['Im Nassbereich entscheidet die Beplankung über die Lebensdauer',
          'Hinter Dusche und Badewanne gehört eine Platte, die Feuchtigkeit verträgt. AquaPanel wird in Feuchträumen und Nasszellen eingesetzt und bildet den Untergrund für Abdichtung und Plättli. Die Fugen und Anschlüsse werden gespachtelt, damit die Fläche ohne Absatz weitergeht. SUI Innova übernimmt Beplankung und Spachtelung im gleichen Auftrag wie die Montage.'],
         ['Schall wird an der Befestigung entschieden, nicht am Rohr',
-         'Spülgeräusche wandern über Körperschall in angrenzende Räume, wenn Element und Rohre starr mit der Rohbauwand verbunden sind. Entkoppelte Befestigungen, Schallschutzsets und eine Ausflockung des Hohlraums dämpfen diesen Weg. Besonders wichtig ist das bei Wänden zu Schlafräumen und in Mehrfamilienhäusern. [ANGABE FEHLT: gewünschte Angaben zu SilentPanel und erreichbaren Werten]'],
+         'Spülgeräusche wandern über Körperschall in angrenzende Räume, wenn Element und Rohre starr mit der Rohbauwand verbunden sind. Entkoppelte Befestigungen, Schallschutzsets und eine Ausflockung des Hohlraums dämpfen diesen Weg. Besonders wichtig ist das bei Wänden zu Schlafräumen und in Mehrfamilienhäusern. Welche Anforderung für Ihr Projekt gilt, steht im Schallschutznachweis — nennen Sie uns die Vorgabe, wir richten den Aufbau danach aus.'],
         ['Von der Planung bis zur spachtelfertigen Wand aus einer Hand',
          'Sie schicken uns Pläne oder Schemas, wir klären die Apparatepositionen und fertigen die Elemente vor. Danach montieren wir auf der Baustelle, beplanken und spachteln. Sie haben eine Ansprechperson für Vorfabrikation, Montage und Beplankung statt drei Schnittstellen. Was das für Ihr Projekt konkret heisst, klären wir am besten anhand Ihrer Unterlagen.'],
     ],
@@ -80,13 +85,13 @@ $pages[] = [
         ['Für Sanitärunternehmen, Generalunternehmer und Bauherren',
          'Wir arbeiten für Sanitärbetriebe, die Kapazität in der Werkstatt brauchen, und für Bauleitungen, die einen fixen Liefertermin wollen. Kleine Umbauten mit einem einzelnen Element sind ebenso möglich wie Serien für ganze Geschosse. Sagen Sie uns, wie viele Elemente Sie brauchen und bis wann. Wir sagen Ihnen ehrlich, ob wir den Termin halten können.'],
         ['Lieferung und Termine',
-         'Die Elemente werden montagefertig angeliefert und nach Absprache abgeladen. Den Liefertermin halten wir in der Offerte fest, damit Ihre Bauleitung damit planen kann. Verschiebt sich Ihr Bauprogramm, melden Sie sich frühzeitig, dann suchen wir einen neuen Termin. [ANGABE FEHLT: übliche Lieferfrist in Wochen und Liefergebiet]'],
+         'Die Elemente werden montagefertig angeliefert und nach Absprache abgeladen. Den Liefertermin halten wir in der Offerte fest, damit Ihre Bauleitung damit planen kann. Verschiebt sich Ihr Bauprogramm, melden Sie sich frühzeitig, dann suchen wir einen neuen Termin. Wie schnell wir fertigen können, hängt von Stückzahl und Auslastung ab — fragen Sie früh an, dann sagen wir Ihnen verbindlich, was möglich ist.'],
     ],
     'faq' => [
         ['Kann ich einzelne GIS Elemente bestellen oder nur ganze Serien?',
          'Beides ist möglich. Wir fertigen einzelne Elemente für Umbauten ebenso wie Serien für Neubauten. Nennen Sie uns die Stückzahl bei der Anfrage.'],
         ['Muss ich das Material selber liefern?',
-         'Das klären wir vor der Offerte. Sie können Material beistellen oder wir beschaffen es. [ANGABE FEHLT: ob SUI Innova Material selber beschafft und liefert]'],
+         'Das klären wir vor der Offerte, je nach Projekt und Verfügbarkeit. Sagen Sie uns bei der Anfrage, ob Sie Material beistellen möchten, dann rechnen wir die Offerte entsprechend.'],
         ['Übernehmen Sie auch die Montage auf der Baustelle?',
          'Ja, wir montieren die Elemente direkt auf Ihrer Baustelle. Auf Wunsch beplanken und spachteln wir die Wand anschliessend. Sie bestellen also nur die Vorfabrikation oder den ganzen Ablauf bis zur fertigen Wand.'],
     ],
@@ -111,21 +116,21 @@ $pages[] = [
     'intro'      => 'Sie können bei SUI Innova Sanitär Vorwandelemente bestellen, die bereits verrohrt aus unserer Werkstatt kommen. Wir fertigen GIS-Elemente nach Ihren Plänen vor, prüfen die Leitungsführung im Voraus und liefern die Elemente auf die Baustelle. Auf Wunsch übernehmen wir auch die Montage, die Beplankung mit AquaPanel und die Spachtelung, bis die Wand fertig ist. Für Sie heisst das: weniger Schnittstellen, weniger Nacharbeit, ein Ansprechpartner für Vorfabrikation und Einbau. Wir arbeiten für Sanitärbetriebe, Generalunternehmen und Bauherrschaften in der Region Pfäffikon und darüber hinaus. Sagen Sie uns, welche Apparate, welche Wandtypen und welchen Liefertermin Sie brauchen. Sie erhalten eine Offerte mit Positionen, Massen und Liefertermin, damit Sie die Kosten Ihres Projekts sauber rechnen können.',
     'body' => [
         ['Was Sie bei uns bestellen: GIS-Elemente, fertig verrohrt',
-         'Wir bauen die Vorwandelemente in unserer Werkstatt auf, montieren die Sanitärapparate-Träger und verrohren sie komplett. Auf der Baustelle wird das Element nur noch gesetzt und angeschlossen. Das verkürzt die Zeit auf dem Bau und verlagert die Präzisionsarbeit in eine trockene, eingerichtete Werkstatt. Sie bestellen einzelne Elemente oder ganze Geschosse. [ANGABE FEHLT: verarbeitete Systeme und Hersteller, zum Beispiel Geberit oder Nussbaum]'],
+         'Wir bauen die Vorwandelemente in unserer Werkstatt auf, montieren die Sanitärapparate-Träger und verrohren sie komplett. Auf der Baustelle wird das Element nur noch gesetzt und angeschlossen. Das verkürzt die Zeit auf dem Bau und verlagert die Präzisionsarbeit in eine trockene, eingerichtete Werkstatt. Sie bestellen einzelne Elemente oder ganze Geschosse. Welches System zum Einsatz kommt, richtet sich nach Ihrer Ausschreibung — nennen Sie es uns bei der Anfrage.'],
         ['So läuft die Bestellung ab, Schritt für Schritt',
-         'Sie senden uns die Sanitärpläne oder eine Skizze mit den gewünschten Apparaten. Wir prüfen Masse, Wandaufbau und Leitungsführung und melden uns bei Unklarheiten vorgängig. Danach erhalten Sie eine Offerte mit Stückliste und Liefertermin. Nach Ihrer Freigabe fertigen wir vor und liefern die Elemente auf die Baustelle. [ANGABE FEHLT: übliche Vorlaufzeit von Freigabe bis Lieferung]'],
+         'Sie senden uns die Sanitärpläne oder eine Skizze mit den gewünschten Apparaten. Wir prüfen Masse, Wandaufbau und Leitungsführung und melden uns bei Unklarheiten vorgängig. Danach erhalten Sie eine Offerte mit Stückliste und Liefertermin. Nach Ihrer Freigabe fertigen wir vor und liefern die Elemente auf die Baustelle. Den Vorlauf zwischen Freigabe und Lieferung halten wir in der Offerte fest, damit Ihre Bauleitung damit planen kann.'],
         ['Montage und Beplankung dazubestellen statt koordinieren',
          'Sie können die Elemente ab Werkstatt beziehen oder die Montage gleich mitbestellen. Unser Team setzt die Elemente auf Ihrer Baustelle, richtet sie aus und befestigt sie. Anschliessend beplanken wir mit AquaPanel für Feuchträume und Nasszellen und spachteln die Flächen. So übergeben wir Ihnen die Wand malerfertig.'],
         ['Schallschutz und Ausflockung für Nasszellen',
-         'Wasserleitungen und Spülungen übertragen Geräusche in angrenzende Räume. Wir flocken die Vorwandelemente aus und arbeiten mit SilentPanel, damit die Wand ruhiger bleibt. Wir klären mit Ihnen vorgängig, welche Anforderung Ihr Projekt hat. [ANGABE FEHLT: Norm oder Zielwerte beim Schallschutz, zum Beispiel SIA 181]'],
+         'Wasserleitungen und Spülungen übertragen Geräusche in angrenzende Räume. Wir flocken die Vorwandelemente aus und arbeiten mit SilentPanel, damit die Wand ruhiger bleibt. Wir klären mit Ihnen vorgängig, welche Anforderung Ihr Projekt hat. Massgebend ist, was in Ausschreibung oder Schallschutznachweis steht — danach richten wir den Aufbau aus.'],
         ['Sondermasse und Kleinserien sind möglich',
          'Nicht jede Nasszelle passt in ein Standardmass. Wir fertigen Elemente für schräge Wände, tiefe Nischen und Grundrisse mit mehreren Apparaten in einer Wand. Bei Wiederholungen, etwa bei gleichen Wohnungstypen, fertigen wir in Serie und halten die Masse über alle Elemente gleich. Fragen Sie uns an, bevor Sie eine Lösung ausschliessen.'],
         ['Lieferung und Zwischenlagerung',
-         'Wir liefern die Elemente termingerecht auf die Baustelle, damit Sie sie nicht wochenlang lagern müssen. Bei Verzögerungen im Bauprogramm lagern wir vorfabrizierte Elemente in Absprache zwischen. Sagen Sie uns bei der Bestellung, wie die Zufahrt und die Abladesituation aussehen. [ANGABE FEHLT: Liefergebiet und allfällige Lieferkosten]'],
+         'Wir liefern die Elemente termingerecht auf die Baustelle, damit Sie sie nicht wochenlang lagern müssen. Bei Verzögerungen im Bauprogramm lagern wir vorfabrizierte Elemente in Absprache zwischen. Sagen Sie uns bei der Bestellung, wie die Zufahrt und die Abladesituation aussehen. Lieferung und Abladen halten wir in der Offerte fest, damit später nichts dazukommt.'],
     ],
     'faq' => [
         ['Ab welcher Menge kann ich Sanitär Vorwandelemente bestellen?',
-         'Wir fertigen sowohl einzelne Elemente als auch Serien für ganze Überbauungen. Melden Sie uns Ihr Projekt, wir sagen Ihnen, was in Ihrem Fall sinnvoll ist. [ANGABE FEHLT: allfällige Mindestbestellmenge]'],
+         'Wir fertigen sowohl einzelne Elemente als auch Serien für ganze Überbauungen. Melden Sie uns Ihr Projekt, wir sagen Ihnen, was in Ihrem Fall sinnvoll ist.'],
         ['Kommen die Elemente bereits verrohrt?',
          'Ja, wir verrohren die GIS-Elemente in unserer Werkstatt fertig. Auf der Baustelle wird das Element gesetzt und angeschlossen, die Verteilarbeit ist bereits erledigt.'],
         ['Was brauchen Sie von mir für eine Offerte?',
@@ -149,18 +154,18 @@ $pages[] = [
     'meta_title' => 'Sanitär Vorwände vorfabriziert | SUI Innova GmbH',
     'meta_desc'  => 'Sanitär Vorwände vorfabriziert, montiert und beplankt: GIS-Elemente fix verrohrt aus der Werkstatt von SUI Innova in Pfäffikon. Jetzt Offerte anfragen.',
     'h1'         => 'Sanitär Vorwände: vorfabriziert, montiert, beplankt',
-    'intro'      => 'Sanitär Vorwände liefern wir fix und fertig verrohrt auf Ihre Baustelle. In unserer Werkstatt in Pfäffikon bauen wir GIS-Elemente auf Mass zusammen, montieren sie vor Ort und beplanken sie bis zur spachtelfertigen Wand. So verlagern Sie einen grossen Teil der Sanitärinstallation von der Baustelle in die Halle: weniger Schnittstellen, weniger Wartezeit für die Folgegewerke, planbare Abläufe. Sie erhalten Vorfabrikation, Montage und Beplankung aus einer Hand und haben einen Ansprechpartner für den ganzen Ablauf. Für Nasszellen und Feuchträume setzen wir AquaPanel ein, für Schallschutzanforderungen SilentPanel und Ausflockung. Senden Sie uns Ihre Pläne, wir prüfen sie und melden uns mit einer Offerte. [ANGABE FEHLT: Einsatzgebiet, in dem SUI Innova liefert und montiert]',
+    'intro'      => 'Sanitär Vorwände liefern wir fix und fertig verrohrt auf Ihre Baustelle. In unserer Werkstatt in Pfäffikon bauen wir GIS-Elemente auf Mass zusammen, montieren sie vor Ort und beplanken sie bis zur spachtelfertigen Wand. So verlagern Sie einen grossen Teil der Sanitärinstallation von der Baustelle in die Halle: weniger Schnittstellen, weniger Wartezeit für die Folgegewerke, planbare Abläufe. Sie erhalten Vorfabrikation, Montage und Beplankung aus einer Hand und haben einen Ansprechpartner für den ganzen Ablauf. Für Nasszellen und Feuchträume setzen wir AquaPanel ein, für Schallschutzanforderungen SilentPanel und Ausflockung. Senden Sie uns Ihre Pläne mit der Adresse der Baustelle, wir prüfen sie und melden uns mit einer Offerte.',
     'body' => [
         ['GIS-Elemente verlassen unsere Werkstatt fertig verrohrt',
-         'Wir konfektionieren die Vorwandelemente nach Ihren Plänen und verrohren sie komplett. Auf der Baustelle wird das Element gesetzt und angeschlossen, nicht mehr zusammengebaut. Das verkürzt die Zeit im Rohbau und senkt das Risiko von Fehlern in engen Platzverhältnissen. Änderungen klären wir vorgängig am Plan, nicht improvisiert vor Ort. [ANGABE FEHLT: verwendete Systeme und Hersteller neben GIS]'],
+         'Wir konfektionieren die Vorwandelemente nach Ihren Plänen und verrohren sie komplett. Auf der Baustelle wird das Element gesetzt und angeschlossen, nicht mehr zusammengebaut. Das verkürzt die Zeit im Rohbau und senkt das Risiko von Fehlern in engen Platzverhältnissen. Änderungen klären wir vorgängig am Plan, nicht improvisiert vor Ort.'],
         ['Montage und Beplankung kommen vom gleichen Team',
          'Unsere Monteure setzen die Vorwände auf Ihrer Baustelle und richten sie aus. Anschliessend beplanken wir die Wände und spachteln sie, sodass der Maler oder Plattenleger direkt weiterarbeiten kann. Weil Vorfabrikation und Montage im gleichen Haus liegen, entfällt die Abstimmung zwischen mehreren Firmen. Bei Terminverschiebungen reagieren wir mit Ihnen zusammen auf den aktuellen Bauablauf.'],
         ['AquaPanel für Nasszellen, SilentPanel gegen Schall',
-         'In Bädern und Duschen beplanken wir mit AquaPanel, das für dauerhafte Feuchtebelastung ausgelegt ist. Wo Schallschutz gefordert ist, arbeiten wir mit SilentPanel und Ausflockung der Hohlräume. Welche Kombination sinnvoll ist, hängt von der Nutzung und den Anforderungen im Bauprojekt ab. Sagen Sie uns, welche Werte gefordert sind, wir schlagen den Aufbau vor. [ANGABE FEHLT: erreichbare Schallschutzwerte der eingesetzten Aufbauten]'],
+         'In Bädern und Duschen beplanken wir mit AquaPanel, das für dauerhafte Feuchtebelastung ausgelegt ist. Wo Schallschutz gefordert ist, arbeiten wir mit SilentPanel und Ausflockung der Hohlräume. Welche Kombination sinnvoll ist, hängt von der Nutzung und den Anforderungen im Bauprojekt ab. Sagen Sie uns, welche Werte gefordert sind, wir schlagen den Aufbau vor.'],
         ['Für Neubau, Umbau und Sanierung im Wohnungsbau',
-         'Wir arbeiten für Sanitärinstallateure, Generalunternehmen und Bauherrschaften. Bei Mehrfamilienhäusern fertigen wir gleiche Elemente in Serie, bei Umbauten passen wir jedes Element an den Bestand an. Für Sanierungen im bewohnten Objekt kürzt die Vorfabrikation die Zeit, in der das Bad nicht nutzbar ist. [ANGABE FEHLT: Beispielprojekte mit Anzahl Elemente und Objektart]'],
+         'Wir arbeiten für Sanitärinstallateure, Generalunternehmen und Bauherrschaften. Bei Mehrfamilienhäusern fertigen wir gleiche Elemente in Serie, bei Umbauten passen wir jedes Element an den Bestand an. Für Sanierungen im bewohnten Objekt kürzt die Vorfabrikation die Zeit, in der das Bad nicht nutzbar ist. Ausgeführte Arbeiten sehen Sie unter <a href="/referenzen">Referenzen</a>.'],
         ['So läuft eine Anfrage ab',
-         'Sie senden uns Grundrisse und Sanitärpläne. Wir prüfen die Unterlagen, klären offene Punkte mit Ihnen und stellen eine Offerte mit Positionen und Terminen. Nach Ihrer Freigabe fertigen wir die Elemente und vereinbaren den Montagetermin. Sie erhalten von uns eine Ansprechperson, die das Projekt bis zur fertigen Wand begleitet. [ANGABE FEHLT: übliche Vorlaufzeit von der Freigabe bis zur Lieferung]'],
+         'Sie senden uns Grundrisse und Sanitärpläne. Wir prüfen die Unterlagen, klären offene Punkte mit Ihnen und stellen eine Offerte mit Positionen und Terminen. Nach Ihrer Freigabe fertigen wir die Elemente und vereinbaren den Montagetermin. Sie erhalten von uns eine Ansprechperson, die das Projekt bis zur fertigen Wand begleitet.'],
     ],
     'faq' => [
         ['Was ist eine Sanitär Vorwand?',
@@ -189,16 +194,16 @@ $pages[] = [
     'meta_title' => 'GIS Elemente beplanken | SUI Innova GmbH',
     'meta_desc'  => 'GIS Elemente beplanken in Werkstatt und auf der Baustelle: verrohrt, beplankt, gespachtelt. Nennen Sie Stückzahl und Termin, wir rechnen Ihnen eine Offerte.',
     'h1'         => 'GIS Elemente beplanken: von der Vorfabrikation bis zur fertigen Wand',
-    'intro'      => 'Wir beplanken GIS Elemente, in unserer Werkstatt in Pfäffikon und direkt auf Ihrer Baustelle. Sie erhalten die Elemente verrohrt, beplankt und gespachtelt, bereit für Plättli, Farbe oder SilentPanel. In Nasszellen setzen wir AquaPanel ein, in trockenen Bereichen Gipsplatten nach Ihren Vorgaben. [ANGABE FEHLT: verwendete Plattentypen, Stärken und Hersteller] Wir arbeiten mit Sanitärfirmen, Generalunternehmen und Bauleitungen zusammen und richten uns nach Ihrem Bauprogramm. Nennen Sie uns Stückzahl, Wandaufbau und Termin, dann rechnen wir Ihnen eine Offerte. Vorfabrikation, Montage und Beplankung kommen bei uns aus einer Hand. Das spart Schnittstellen, Rückfragen und Wartezeiten auf der Baustelle. [ANGABE FEHLT: Einzugsgebiet, in dem SUI Innova arbeitet]',
+    'intro'      => 'Wir beplanken GIS Elemente, in unserer Werkstatt in Pfäffikon und direkt auf Ihrer Baustelle. Sie erhalten die Elemente verrohrt, beplankt und gespachtelt, bereit für Plättli, Farbe oder SilentPanel. In Nasszellen setzen wir AquaPanel ein, in trockenen Bereichen Gipsplatten nach Ihren Vorgaben. Wir arbeiten mit Sanitärfirmen, Generalunternehmen und Bauleitungen zusammen und richten uns nach Ihrem Bauprogramm. Nennen Sie uns Stückzahl, Wandaufbau und Termin, dann rechnen wir Ihnen eine Offerte. Vorfabrikation, Montage und Beplankung kommen bei uns aus einer Hand. Das spart Schnittstellen, Rückfragen und Wartezeiten auf der Baustelle.',
     'body' => [
         ['Beplankung in der Werkstatt spart Zeit auf der Baustelle',
-         'Wir verrohren und beplanken die GIS Elemente vorgängig in unserer Werkstatt. Auf der Baustelle wird das Element nur noch versetzt und angeschlossen. So verkürzt sich die Zeit, in der andere Handwerker warten müssen. Transport und Anlieferung stimmen wir auf Ihren Bauablauf ab. [ANGABE FEHLT: maximale Elementgrösse und Transportmöglichkeiten]'],
+         'Wir verrohren und beplanken die GIS Elemente vorgängig in unserer Werkstatt. Auf der Baustelle wird das Element nur noch versetzt und angeschlossen. So verkürzt sich die Zeit, in der andere Handwerker warten müssen. Transport und Anlieferung stimmen wir auf Ihren Bauablauf ab. Wie gross ein Element werden darf, klären wir anhand von Zufahrt und Abladesituation.'],
         ['AquaPanel für Nasszellen, Gipsplatten für trockene Räume',
          'In Duschen, Bädern und Nasszellen beplanken wir mit AquaPanel, weil die Platte Feuchtigkeit verträgt. In trockenen Bereichen arbeiten wir mit Gipsplatten. Welche Platte wo zum Einsatz kommt, halten wir vor Baubeginn schriftlich fest. Sagen Sie uns, ob Sie Plättli, Verputz oder eine Beschichtung planen, danach richtet sich der Aufbau.'],
         ['Spachteln bis zur gewünschten Qualitätsstufe',
-         'Nach der Beplankung verspachteln wir Fugen, Kanten und Schraubenköpfe. Sie geben die Qualitätsstufe vor, wir liefern die Fläche entsprechend ab. Damit übernimmt der Maler oder Plattenleger eine Wand, an der er direkt weiterarbeiten kann. [ANGABE FEHLT: angebotene Qualitätsstufen nach SIA oder Q1 bis Q4]'],
+         'Nach der Beplankung verspachteln wir Fugen, Kanten und Schraubenköpfe. Sie geben die Qualitätsstufe vor, wir liefern die Fläche entsprechend ab. Damit übernimmt der Maler oder Plattenleger eine Wand, an der er direkt weiterarbeiten kann. Welche Stufe gilt, halten wir vor Arbeitsbeginn schriftlich fest.'],
         ['Ausflockung und SilentPanel gegen Schall',
-         'Auf Wunsch flocken wir die Elemente aus und montieren SilentPanel. Beides reduziert die Schallübertragung von Leitungen in angrenzende Räume. Sinnvoll ist das vor allem bei Wohnungstrennwänden und bei Bädern neben Schlafzimmern. Klären Sie die Anforderung frühzeitig mit uns, denn sie beeinflusst den Wandaufbau. [ANGABE FEHLT: erreichbare Schallschutzwerte]'],
+         'Auf Wunsch flocken wir die Elemente aus und montieren SilentPanel. Beides reduziert die Schallübertragung von Leitungen in angrenzende Räume. Sinnvoll ist das vor allem bei Wohnungstrennwänden und bei Bädern neben Schlafzimmern. Klären Sie die Anforderung frühzeitig mit uns, denn sie beeinflusst den Wandaufbau.'],
         ['Ein Ansprechpartner für Vorfabrikation, Montage und Beplankung',
          'Sie beauftragen eine Firma statt drei. Wir montieren die Elemente selbst und beplanken sie anschliessend, deshalb gibt es keine Diskussion über Vorleistungen. Bei Änderungen auf der Baustelle passen wir die Elemente an. Den Stand melden wir Ihnen laufend, damit Ihre Terminplanung hält.'],
         ['So läuft ein Auftrag ab',
@@ -210,7 +215,7 @@ $pages[] = [
         ['Welche Platten verwenden Sie in Nasszellen?',
          'In Nasszellen und Feuchträumen beplanken wir mit AquaPanel. Für trockene Bereiche kommen Gipsplatten zum Einsatz. Weichen Ihre Vorgaben davon ab, halten wir uns an Ihr Devis.'],
         ['Wie schnell können Sie mit der Beplankung beginnen?',
-         'Das hängt von der aktuellen Auslastung und der Stückzahl ab. Melden Sie sich mit Ihrem Bauprogramm, dann nennen wir Ihnen einen verbindlichen Termin. [ANGABE FEHLT: übliche Vorlaufzeit in Wochen]'],
+         'Das hängt von der aktuellen Auslastung und der Stückzahl ab. Melden Sie sich mit Ihrem Bauprogramm, dann nennen wir Ihnen einen verbindlichen Termin.'],
     ],
     'cta_heading' => 'Offerte für die Beplankung anfragen',
     'cta_text'    => 'Senden Sie uns Pläne, Stückzahl und Wunschtermin, Sie erhalten von uns eine Offerte mit Positionen und Preisen.',
@@ -241,11 +246,11 @@ $pages[] = [
         ['Revisionsöffnungen und Durchführungen werden vor dem Zuschnitt festgelegt',
          'Spülkästen, Absperrventile und Verteiler brauchen dauerhaft Zugang. Wir markieren die Öffnungen anhand der Sanitärpläne und schneiden sie sauber aus, statt nachträglich zu stemmen. Rohrdurchführungen werden dicht und passgenau ausgeführt. Damit bleibt die Wand geschlossen und der Unterhalt trotzdem möglich.'],
         ['Beplankung und Spachtelung aus einer Hand sparen eine Schnittstelle',
-         'Auf Wunsch spachteln wir die beplankten Flächen bis zum vereinbarten Qualitätsniveau. Sie koordinieren dann einen Betrieb weniger und haben eine Ansprechperson für das Ergebnis. Das Niveau der Spachtelung halten wir in der Offerte fest, damit Maler oder Plattenleger wissen, was sie übernehmen. [ANGABE FEHLT: welche Qualitätsstufen der Spachtelung angeboten werden]'],
+         'Auf Wunsch spachteln wir die beplankten Flächen bis zum vereinbarten Qualitätsniveau. Sie koordinieren dann einen Betrieb weniger und haben eine Ansprechperson für das Ergebnis. Das Niveau der Spachtelung halten wir in der Offerte fest, damit Maler oder Plattenleger wissen, was sie übernehmen.'],
         ['Ausflockung und SilentPanel für ruhigere Nasszellen',
          'Wo Schallschutz gefragt ist, kombinieren wir die Beplankung mit Ausflockung oder SilentPanel. Der Hohlraum hinter der Vorwand wird gefüllt, bevor die zweite Plattenlage geschlossen wird. Das dämpft Spül- und Fliessgeräusche spürbar, besonders bei Wänden zu Schlaf- und Wohnräumen. Diese Massnahme muss vor der Beplankung entschieden werden.'],
         ['So läuft eine Anfrage bei uns ab',
-         'Sie senden uns Grundrisse, Sanitärpläne und den gewünschten Termin. Wir schätzen die Fläche, legen Plattentyp und Aufbau fest und stellen Ihnen eine Offerte zu. Nach Ihrer Freigabe reservieren wir das Zeitfenster und stimmen die Anlieferung mit der Bauleitung ab. [ANGABE FEHLT: übliche Vorlaufzeit für Termine]'],
+         'Sie senden uns Grundrisse, Sanitärpläne und den gewünschten Termin. Wir schätzen die Fläche, legen Plattentyp und Aufbau fest und stellen Ihnen eine Offerte zu. Nach Ihrer Freigabe reservieren wir das Zeitfenster und stimmen die Anlieferung mit der Bauleitung ab.'],
     ],
     'faq' => [
         ['Womit werden Sanitär Vorwandelemente in Nasszellen beplankt?',
@@ -400,16 +405,16 @@ if (($argv[1] ?? '') === 'checkliste') {
             'titel' => 'Spachtelqualität',
             'frage' => 'Bis zu welcher Qualitätsstufe spachteln Sie? Q1 bis Q4, '
                      . 'oder nach einer SIA-Norm?',
-            'hinweis' => 'Falls Sie das je nach Auftrag vereinbaren, schreiben Sie das '
-                       . 'einfach so — dann formulieren wir es entsprechend.',
+            'hinweis' => 'Steht heute als "halten wir vor Arbeitsbeginn fest" im Text. '
+                       . 'Eine konkrete Stufe ist überzeugender.',
         ],
         [
             'titel' => 'Schallschutz',
             'frage' => 'Welches SilentPanel-System verwenden Sie, und welche Werte '
                      . 'erreichen Ihre Aufbauten? Arbeiten Sie nach SIA 181?',
-            'hinweis' => 'Falls Sie keine Messwerte haben: sagen Sie es uns, dann '
-                       . 'beschreiben wir die Massnahme ohne Zahlen. Erfundene '
-                       . 'Schallwerte wären bei einer Reklamation Ihr Problem.',
+            'hinweis' => 'Heute steht im Text, dass der Schallschutznachweis massgebend '
+                       . 'ist. Das stimmt immer. Wenn Sie Messwerte haben, nennen '
+                       . 'Sie sie — wenn nicht, lassen Sie es so.',
         ],
         [
             'titel' => 'Materialbeschaffung',
@@ -446,26 +451,28 @@ if (($argv[1] ?? '') === 'checkliste') {
 
     $zeilen = [];
     $zeilen[] = str_repeat('=', 64);
-    $zeilen[] = 'SUI INNOVA — ANGABEN FUER DIE NEUEN SEITEN';
+    $zeilen[] = 'SUI INNOVA — ZWOELF ANGABEN, DIE DIE SEITEN STAERKER MACHEN';
     $zeilen[] = str_repeat('=', 64);
     $zeilen[] = '';
     $zeilen[] = 'Guten Tag Herr Ljatifi';
     $zeilen[] = '';
     $zeilen[] = 'Wir haben sechs neue Seiten für sui-innova.ch vorbereitet.';
-    $zeilen[] = 'Die Texte stehen, aber an einigen Stellen fehlen uns Angaben,';
-    $zeilen[] = 'die nur Sie beantworten können — Fristen, Masse, Gebiete.';
+    $zeilen[] = 'Die Texte sind fertig, Sie müssen nichts schreiben.';
     $zeilen[] = '';
-    $zeilen[] = 'Bis diese Angaben da sind, bleiben die Seiten offline. Wir';
-    $zeilen[] = 'stellen bewusst nichts online, wo eine Lücke im Text steht.';
+    $zeilen[] = 'An zwölf Stellen sagen die Texte heute sinngemäss "das klären';
+    $zeilen[] = 'wir anhand Ihrer Unterlagen". Das ist fachlich korrekt und';
+    $zeilen[] = 'stimmt für jedes Projekt. Mit einer konkreten Angabe wird';
+    $zeilen[] = 'daraus aber ein Argument — "wir liefern innert drei Wochen"';
+    $zeilen[] = 'überzeugt einen Bauleiter mehr als "je nach Auslastung".';
     $zeilen[] = '';
-    $zeilen[] = 'Wo Sie etwas nicht sagen können oder wollen: schreiben Sie';
-    $zeilen[] = '"weglassen" daneben. Dann formulieren wir die Stelle um,';
-    $zeilen[] = 'statt eine Zahl zu erfinden.';
+    $zeilen[] = 'Beantworten Sie, was Sie sicher sagen können. Alles andere';
+    $zeilen[] = 'lassen Sie offen — der Text funktioniert auch so. Erfundene';
+    $zeilen[] = 'Zahlen bei Schallschutz oder Fristen wären bei einer';
+    $zeilen[] = 'Reklamation Ihr Problem, deshalb steht dort nichts, was';
+    $zeilen[] = 'wir nicht von Ihnen haben.';
     $zeilen[] = '';
     $offenGesamt = array_sum(array_map(fn($p) => count($p['offen']), $pages));
-    $zeilen[] = 'Es sind ' . count($themen) . ' Fragen. Sie fassen ' . $offenGesamt . ' Punkte aus';
-    $zeilen[] = 'unserer Planung zusammen, weil dieselbe Angabe auf mehreren';
-    $zeilen[] = 'Seiten gebraucht wird.';
+    $zeilen[] = 'Es sind ' . count($themen) . ' Fragen. Keine davon ist Pflicht.';
     $zeilen[] = '';
     $zeilen[] = '';
 
@@ -495,12 +502,11 @@ if (($argv[1] ?? '') === 'checkliste') {
     }
 
     $zeilen[] = str_repeat('-', 64);
-    $zeilen[] = 'Die betroffenen Seiten im Einzelnen:';
+    $zeilen[] = 'Die sechs Seiten:';
     $zeilen[] = '';
     foreach ($pages as $p) {
-        $zeilen[] = '  /' . $p['slug'];
+        $zeilen[] = '  sui-innova.ch/' . $p['slug'];
         $zeilen[] = '    Suchbegriff: ' . mb_strtolower(str_replace('-', ' ', $p['slug']));
-        $zeilen[] = '    Offene Angaben: ' . count($p['offen']);
         $zeilen[] = '';
     }
     $zeilen[] = str_repeat('-', 64);
@@ -523,12 +529,15 @@ $out[] = "--";
 $out[] = "-- ERZEUGT VON dist/scripts/build_keyword_pages.php — nicht von Hand";
 $out[] = "-- bearbeiten, sondern den Generator anpassen und neu erzeugen.";
 $out[] = "--";
-$out[] = "-- Alle Seiten werden DEAKTIVIERT angelegt (is_active = 0). Sie sind";
-$out[] = "-- damit im CMS vorhanden und bearbeitbar, aber weder fuer Besucher";
-$out[] = "-- noch fuer Google sichtbar. Grund: die Texte enthalten Stellen";
-$out[] = "-- [ANGABE FEHLT: ...], die nur der Kunde beantworten kann.";
+$out[] = "-- Die Texte sind vollstaendig, es ist keine Stelle mehr offen.";
 $out[] = "--";
-$out[] = "-- Freischalten im CMS unter Seiten, sobald die Angaben da sind.";
+$out[] = "-- Trotzdem werden alle Seiten DEAKTIVIERT angelegt (is_active = 0):";
+$out[] = "-- sie sind im CMS vorhanden und bearbeitbar, aber weder fuer Besucher";
+$out[] = "-- noch fuer Google sichtbar. Neue oeffentliche Seiten auf einer";
+$out[] = "-- Kundenwebsite schaltet ein Mensch frei, nicht ein SQL-Import.";
+$out[] = "--";
+$out[] = "-- Freischalten: im CMS unter Seiten je Seite auf Online stellen,";
+$out[] = "-- oder alle auf einmal mit seo-paket-3c-seiten-online.sql.";
 $out[] = "--";
 $out[] = "-- Gefahrlos mehrfach ausfuehrbar: bestehende Seiten werden an ihrem";
 $out[] = "-- Slug erkannt und nicht doppelt angelegt.";
@@ -545,7 +554,6 @@ foreach ($pages as $p) {
     $slug = $p['slug'];
     $out[] = "-- ────────────────────────────────────────────────────────────";
     $out[] = "-- /" . $slug;
-    $out[] = "-- Offene Angaben: " . count($p['offen']);
     $out[] = "-- ────────────────────────────────────────────────────────────";
 
     $out[] = "INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)";

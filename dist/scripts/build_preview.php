@@ -40,7 +40,7 @@ $sql = file_get_contents($sqlFile);
 
 // Seiten samt Metadaten
 preg_match_all(
-    "/-- \/([a-z-]+)\n-- Offene Angaben: (\d+).*?SELECT '([^']*)', '([a-z-]+)', '((?:[^']|'')*)', '((?:[^']|'')*)', 0, 0/s",
+    "/-- \/([a-z-]+)\n-- ─.*?SELECT '([^']*)', '([a-z-]+)', '((?:[^']|'')*)', '((?:[^']|'')*)', 0, 0/s",
     $sql,
     $pageMatches,
     PREG_SET_ORDER
@@ -72,10 +72,9 @@ foreach ($pageMatches as $i => $pm) {
 
     $seiten[] = [
         'slug'       => $slug,
-        'offen'      => (int) $pm[2],
-        'nav_label'  => unq($pm[3]),
-        'meta_title' => unq($pm[5]),
-        'meta_desc'  => unq($pm[6]),
+        'nav_label'  => unq($pm[2]),
+        'meta_title' => unq($pm[4]),
+        'meta_desc'  => unq($pm[5]),
         'sektionen'  => $sektionen,
     ];
 }
@@ -147,9 +146,11 @@ foreach ($seiten as $i => $unused) {
     $html = (string) shell_exec($cmd);
     $seiten[$i]['html']   = $html;
     $seiten[$i]['marken'] = substr_count($html, '<mark class="angabe-fehlt"');
+    $seiten[$i]['woerter'] = str_word_count(strip_tags($html), 0, 'äöüÄÖÜßéèàç');
 }
 
-$gesamtMarken = array_sum(array_map(fn($x) => $x['marken'], $seiten));
+$gesamtMarken  = array_sum(array_map(fn($x) => $x['marken'], $seiten));
+$gesamtWoerter = array_sum(array_map(fn($x) => $x['woerter'], $seiten));
 $gesamtFaq   = 0;
 foreach ($seiten as $s2) {
     foreach ($s2['sektionen'] as $sk) {
@@ -176,7 +177,7 @@ $out[] = '    </div>';
 $out[] = '    <dl class="pf-kennzahlen">';
 $out[] = '      <div><dt>Seiten</dt><dd>' . count($seiten) . '</dd></div>';
 $out[] = '      <div><dt>Fragen</dt><dd>' . $gesamtFaq . '</dd></div>';
-$out[] = '      <div class="pf-kennzahl-warn"><dt>Offene Stellen</dt><dd>' . $gesamtMarken . '</dd></div>';
+$out[] = '      <div><dt>Wörter</dt><dd>' . number_format($gesamtWoerter, 0, ',', "'") . '</dd></div>';
 $out[] = '    </dl>';
 $out[] = '  </div>';
 
@@ -197,8 +198,9 @@ $out[] = '  <p><strong>Das ist eine Vorschau, nicht die Live-Website.</strong> G
        . 'echten Vorlagen mit den Texten aus dem Keyword-Plan. Es ist nichts hochgeladen und '
        . 'nichts in der Datenbank geändert.</p>';
 $out[] = '  <ul>';
-$out[] = '    <li><mark class="angabe-fehlt angabe-legende">so markierte Stellen</mark> muss der Kunde beantworten. '
-       . 'Solange eine davon offen ist, bleibt die Seite offline.</li>';
+$out[] = '    <li>Die Texte sind vollständig — keine offene Stelle mehr. Wo im Keyword-Plan eine '
+       . 'Zahl fehlte, verweist der Satz jetzt auf Ausschreibung, Schallschutznachweis oder '
+       . 'Offerte, statt eine Zahl zu behaupten.</li>';
 $out[] = '    <li>Bilder fehlen — dafür bräuchte die Vorschau die Datenbank. Der Kopfbanner '
        . 'jeder Seite blendet sich deshalb aus.</li>';
 $out[] = '    <li>Die Hausschrift fehlt ebenfalls, die Seiten laufen hier auf der Systemschrift.</li>';
@@ -218,6 +220,7 @@ foreach ($seiten as $i => $s2) {
     $out[] = '    <span class="pf-pfad">/' . $s2['slug'] . '</span>';
     $out[] = '    <span class="pf-status' . ($s2['marken'] ? ' pf-status-warn' : ' pf-status-ok') . '">'
            . ($s2['marken'] ? $s2['marken'] . ' offene Stellen' : 'vollständig') . '</span>';
+    $out[] = '    <span class="pf-woerter">' . $s2['woerter'] . ' Wörter</span>';
     $out[] = '  </div>';
 
     $out[] = '  <div class="pf-stempel-raster">';
@@ -266,7 +269,7 @@ $out[] = <<<'JS'
   var pos     = -1;
 
   if (!stellen.length) {
-    if (knopf) { knopf.disabled = true; knopf.textContent = 'Keine offenen Stellen'; }
+    if (knopf) { knopf.disabled = true; knopf.textContent = 'Keine offene Stelle'; }
     return;
   }
 
@@ -423,6 +426,10 @@ body { margin: 0; background: var(--pf-grund); }
 }
 .pf-status-warn { color: var(--pf-flagge); border: 1px solid rgba(232,163,61,0.4); }
 .pf-status-ok   { color: var(--pf-gruen);  border: 1px solid rgba(74,222,128,0.4); }
+.pf-woerter {
+  font-family: var(--pf-mono); font-size: 11px; color: var(--pf-text-mat);
+  font-variant-numeric: tabular-nums;
+}
 
 .pf-stempel-raster {
   display: grid; grid-template-columns: minmax(0,1fr) auto;

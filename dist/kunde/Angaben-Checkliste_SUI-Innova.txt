@@ -1,23 +1,25 @@
 ================================================================
-SUI INNOVA — ANGABEN FUER DIE NEUEN SEITEN
+SUI INNOVA — ZWOELF ANGABEN, DIE DIE SEITEN STAERKER MACHEN
 ================================================================
 
 Guten Tag Herr Ljatifi
 
 Wir haben sechs neue Seiten für sui-innova.ch vorbereitet.
-Die Texte stehen, aber an einigen Stellen fehlen uns Angaben,
-die nur Sie beantworten können — Fristen, Masse, Gebiete.
+Die Texte sind fertig, Sie müssen nichts schreiben.
 
-Bis diese Angaben da sind, bleiben die Seiten offline. Wir
-stellen bewusst nichts online, wo eine Lücke im Text steht.
+An zwölf Stellen sagen die Texte heute sinngemäss "das klären
+wir anhand Ihrer Unterlagen". Das ist fachlich korrekt und
+stimmt für jedes Projekt. Mit einer konkreten Angabe wird
+daraus aber ein Argument — "wir liefern innert drei Wochen"
+überzeugt einen Bauleiter mehr als "je nach Auslastung".
 
-Wo Sie etwas nicht sagen können oder wollen: schreiben Sie
-"weglassen" daneben. Dann formulieren wir die Stelle um,
-statt eine Zahl zu erfinden.
+Beantworten Sie, was Sie sicher sagen können. Alles andere
+lassen Sie offen — der Text funktioniert auch so. Erfundene
+Zahlen bei Schallschutz oder Fristen wären bei einer
+Reklamation Ihr Problem, deshalb steht dort nichts, was
+wir nicht von Ihnen haben.
 
-Es sind 12 Fragen. Sie fassen 31 Punkte aus
-unserer Planung zusammen, weil dieselbe Angabe auf mehreren
-Seiten gebraucht wird.
+Es sind 12 Fragen. Keine davon ist Pflicht.
 
 
  1. EINSATZGEBIET
@@ -89,8 +91,8 @@ Seiten gebraucht wird.
     Bis zu welcher Qualitätsstufe spachteln Sie? Q1 bis Q4,
     oder nach einer SIA-Norm?
 
-      Falls Sie das je nach Auftrag vereinbaren, schreiben Sie
-      das einfach so — dann formulieren wir es entsprechend.
+      Steht heute als "halten wir vor Arbeitsbeginn fest" im
+      Text. Eine konkrete Stufe ist überzeugender.
 
     ____________________________________________________
 
@@ -102,9 +104,9 @@ Seiten gebraucht wird.
     Welches SilentPanel-System verwenden Sie, und welche Werte
     erreichen Ihre Aufbauten? Arbeiten Sie nach SIA 181?
 
-      Falls Sie keine Messwerte haben: sagen Sie es uns, dann
-      beschreiben wir die Massnahme ohne Zahlen. Erfundene
-      Schallwerte wären bei einer Reklamation Ihr Problem.
+      Heute steht im Text, dass der Schallschutznachweis
+      massgebend ist. Das stimmt immer. Wenn Sie Messwerte
+      haben, nennen Sie sie — wenn nicht, lassen Sie es so.
 
     ____________________________________________________
 
@@ -171,31 +173,25 @@ Seiten gebraucht wird.
 
 
 ----------------------------------------------------------------
-Die betroffenen Seiten im Einzelnen:
+Die sechs Seiten:
 
-  /sanitaer-vorwandelemente
+  sui-innova.ch/sanitaer-vorwandelemente
     Suchbegriff: sanitaer vorwandelemente
-    Offene Angaben: 4
 
-  /sanitaer-gis-elemente-bestellen
+  sui-innova.ch/sanitaer-gis-elemente-bestellen
     Suchbegriff: sanitaer gis elemente bestellen
-    Offene Angaben: 5
 
-  /sanitaer-vorwandelemente-bestellen
+  sui-innova.ch/sanitaer-vorwandelemente-bestellen
     Suchbegriff: sanitaer vorwandelemente bestellen
-    Offene Angaben: 5
 
-  /sanitaer-vorwaende
+  sui-innova.ch/sanitaer-vorwaende
     Suchbegriff: sanitaer vorwaende
-    Offene Angaben: 6
 
-  /gis-elemente-beplanken
+  sui-innova.ch/gis-elemente-beplanken
     Suchbegriff: gis elemente beplanken
-    Offene Angaben: 7
 
-  /sanitaer-vorwandelemente-beplanken
+  sui-innova.ch/sanitaer-vorwandelemente-beplanken
     Suchbegriff: sanitaer vorwandelemente beplanken
-    Offene Angaben: 4
 
 ----------------------------------------------------------------
 EmotionFrame GmbH, Loorenstrasse 4a, 5443 Niederrohrdorf
