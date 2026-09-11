@@ -7,6 +7,42 @@ ensureMediaVariantsColumn();
 
 $mediaItems = $db->fetchAll("SELECT * FROM media ORDER BY created_at DESC");
 
+/**
+ * Taugt dieser Alternativtext etwas?
+ *
+ * Beim Upload setzt das CMS alt_text auf den Dateinamen ohne Endung. Aus
+ * image.jpg wird so "image" — das Feld ist nicht leer, hilft aber niemandem.
+ * Ein blosser Dateiname, eine Kameranummer oder ein Wort sind kein
+ * Alternativtext. Solche Eintraege werden hier wie fehlende behandelt.
+ */
+function altTextTaugt(array $media): bool
+{
+    $alt = trim((string) ($media['alt_text'] ?? ''));
+    if ($alt === '') return false;
+
+    // Identisch mit dem Dateinamen ohne Endung
+    $stamm = pathinfo((string) ($media['original'] ?? ''), PATHINFO_FILENAME);
+    if ($stamm !== '' && mb_strtolower($alt) === mb_strtolower($stamm)) return false;
+
+    // Automatik-Namen aus Kamera, Telefon und Screenshot-Werkzeugen.
+    // Statt nach festen Mustern zu suchen, streichen wir alle Allerweltswoerter,
+    // Zahlen und Trennzeichen. Bleibt nichts uebrig, war es kein Alternativtext,
+    // sondern ein Dateiname — "WhatsApp Image 2024-03-02 at 14.21" etwa.
+    $rest = preg_replace(
+        '/\b(image|img|bild|foto|photo|dsc|dscn|pxl|mvimg|screenshot|bildschirmfoto|'
+        . 'whatsapp|unbenannt|untitled|ohne|titel|kopie|copy|final|neu|new|at|um|von)\b/iu',
+        ' ',
+        $alt
+    );
+    $rest = preg_replace('/[\s_\-0-9().:,;]+/u', '', (string) $rest);
+    if ($rest === '') return false;
+
+    // Ein einzelnes Wort beschreibt kein Bild
+    if (!preg_match('/\s/u', $alt)) return false;
+
+    return true;
+}
+
 // Wie viele Bilder haben noch keine Groessenvarianten?
 $ohneVarianten = 0;
 try {
@@ -18,6 +54,14 @@ try {
     );
 } catch (Throwable $e) {
     $ohneVarianten = 0;
+}
+
+// Bilder, deren Alternativtext noch nichts taugt
+$ohneAlt = 0;
+foreach ($mediaItems as $m) {
+    if (str_starts_with((string) $m['mime_type'], 'image/') && !altTextTaugt($m)) {
+        $ohneAlt++;
+    }
 }
 ?>
 
@@ -83,60 +127,92 @@ try {
         </div>
     <?php endif; ?>
 
+    <!-- Hinweis zu fehlenden Alternativtexten -->
+    <?php if ($ohneAlt > 0): ?>
+        <div class="admin-card mb-6" style="border-left:3px solid #C41018;">
+            <h3 style="font-size:14px;font-weight:600;color:#111;margin:0 0 6px 0;">
+                <?= (int) $ohneAlt ?> Bilder brauchen noch einen Alternativtext
+            </h3>
+            <p style="font-size:13px;color:#6B7280;line-height:1.6;margin:0;">
+                Der Alternativtext beschreibt, was auf dem Bild zu sehen ist. Google liest ihn,
+                und er wird vorgelesen, wenn jemand die Seite nicht sehen kann. Beim Hochladen
+                trägt das CMS den Dateinamen ein — <em>image</em> oder <em>IMG_4213</em> nützt
+                aber niemandem, deshalb zählen solche Einträge hier als fehlend.
+            </p>
+            <p style="font-size:13px;color:#374151;line-height:1.6;margin:10px 0 0 0;">
+                <strong>Gut:</strong> „Verrohrtes GIS-Element in der Werkstatt in Pfäffikon“<br>
+                <strong>Schlecht:</strong> „Sanitär Vorfabrikation GIS Elemente Pfäffikon SZ“
+            </p>
+            <p style="font-size:13px;color:#6B7280;line-height:1.6;margin:8px 0 0 0;">
+                Beschreiben, was zu sehen ist — keine Suchbegriffe aneinanderreihen.
+                Google merkt den Unterschied.
+            </p>
+        </div>
+    <?php endif; ?>
+
     <!-- Media Grid -->
-    <div class="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <?php foreach ($mediaItems as $media): ?>
-            <div class="group relative bg-gray-100 aspect-square overflow-hidden"
-                 x-data="{ showInfo: false }">
+            <?php
+                $istBild  = str_starts_with((string) $media['mime_type'], 'image/');
+                $altFehlt = $istBild && !altTextTaugt($media);
+            ?>
+            <div class="bg-white border border-gray-200 overflow-hidden">
 
-                <?php if (str_starts_with($media['mime_type'], 'image/')): ?>
-                    <img src="<?= e(uploadUrl($media['thumb_path'] ?: $media['path'])) ?>"
-                         alt="<?= e($media['alt_text']) ?>"
-                         class="w-full h-full object-cover">
-                <?php else: ?>
-                    <div class="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                        </svg>
+                <!-- Bild mit Hover-Infos -->
+                <div class="group relative bg-gray-100 aspect-[4/3] overflow-hidden">
+                    <?php if ($istBild): ?>
+                        <img src="<?= e(uploadUrl($media['thumb_path'] ?: $media['path'])) ?>"
+                             alt="<?= e($media['alt_text']) ?>"
+                             class="w-full h-full object-cover">
+                    <?php else: ?>
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($altFehlt): ?>
+                        <span title="Alternativtext fehlt oder ist nur der Dateiname"
+                              style="position:absolute;top:8px;left:8px;z-index:2;background:#C41018;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.06em;line-height:1;padding:4px 7px;border-radius:3px;">
+                            ALT
+                        </span>
+                    <?php endif; ?>
+
+                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end gap-1 p-3">
+                        <span class="text-[12px] text-white/85 truncate"><?= e($media['original']) ?></span>
+                        <span class="text-[12px] text-white/60">
+                            <?= formatFileSize($media['file_size']) ?>
+                            <?php if (!empty($media['width'])): ?>
+                                · <?= (int) $media['width'] ?>×<?= (int) $media['height'] ?>
+                            <?php endif; ?>
+                        </span>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-[12px] text-white/45 font-mono">ID <?= (int) $media['id'] ?></span>
+                            <button @click="deleteMedia(<?= (int) $media['id'] ?>)"
+                                    class="text-[12px] text-brand-accent hover:text-white">
+                                Löschen
+                            </button>
+                        </div>
                     </div>
-                <?php endif; ?>
+                </div>
 
-                <!-- Hinweis, wenn dem Bild der Alternativtext fehlt -->
-                <?php if (str_starts_with($media['mime_type'], 'image/') && trim((string) $media['alt_text']) === ''): ?>
-                    <span title="Alternativtext fehlt"
-                          style="position:absolute;top:6px;left:6px;z-index:2;background:#C41018;color:#fff;font-size:12px;font-weight:700;line-height:1;padding:3px 6px;border-radius:3px;">
-                        ALT
-                    </span>
-                <?php endif; ?>
-
-                <!-- Overlay on Hover -->
-                <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-center gap-1.5 p-2">
-                    <span class="text-[12px] text-white/80 truncate"><?= e($media['original']) ?></span>
-                    <span class="text-[12px] text-white/60">
-                        <?= formatFileSize($media['file_size']) ?>
-                        <?php if (!empty($media['width'])): ?>
-                            · <?= (int) $media['width'] ?>×<?= (int) $media['height'] ?>
-                        <?php endif; ?>
-                    </span>
-
-                    <?php if (str_starts_with($media['mime_type'], 'image/')): ?>
-                        <label class="text-[12px] text-white/50 mt-1">Alternativtext</label>
+                <!-- Alternativtext, dauerhaft sichtbar -->
+                <?php if ($istBild): ?>
+                    <div style="padding:10px;">
+                        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:<?= $altFehlt ? '#C41018' : '#9CA3AF' ?>;margin-bottom:5px;font-weight:600;">
+                            Alternativtext
+                        </label>
                         <input type="text"
+                               id="alt-<?= (int) $media['id'] ?>"
                                value="<?= e($media['alt_text']) ?>"
                                placeholder="Was ist zu sehen?"
                                @change="saveAlt(<?= (int) $media['id'] ?>, $event.target.value)"
-                               @click.stop
-                               style="width:100%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:12px;padding:4px 6px;border-radius:3px;">
-                    <?php endif; ?>
-
-                    <div class="flex items-center justify-between mt-1">
-                        <span class="text-[12px] text-white/40 font-mono">ID <?= $media['id'] ?></span>
-                        <button @click="deleteMedia(<?= $media['id'] ?>)"
-                                class="text-[12px] text-brand-accent hover:text-white">
-                            Löschen
-                        </button>
+                               style="width:100%;background:#fff;border:1px solid <?= $altFehlt ? '#FCA5A5' : '#D1D5DB' ?>;color:#111;font-size:13px;padding:6px 8px;border-radius:3px;">
                     </div>
-                </div>
+                <?php endif; ?>
+
             </div>
         <?php endforeach; ?>
     </div>
