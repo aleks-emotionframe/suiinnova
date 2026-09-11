@@ -71,8 +71,13 @@ Ohne das dauert es, bis Google die neuen Titel sieht.
 WAS SICH SICHTBAR AENDERT
 --------------------------------------------------------
 - Hero-Titel der Startseite lautet neu
-  "Sanitär Vorfabrikation aus Pfäffikon SZ"
+  "GIS Elemente Vorfabrikation aus Pfäffikon SZ"
   (vorher "Präzision in der Vorfabrikation")
+  Hauptkeyword der Startseite ist damit
+  "gis elemente vorfabrikation".
+  Falls die Zeile im Hero zu lang wirkt: im CMS auf
+  "GIS Elemente Vorfabrikation" kuerzen, das Keyword
+  bleibt dabei vollstaendig erhalten.
 - Die erste Ueberschrift jeder Unterseite hat neuen Text
 - Auf der Kontaktseite kommt ein Block Oeffnungszeiten
   dazu, sobald im CMS Zeiten hinterlegt sind

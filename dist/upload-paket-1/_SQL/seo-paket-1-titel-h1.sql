@@ -31,21 +31,23 @@ UPDATE settings SET setting_val = '' WHERE setting_key = 'meta_title_suffix';
 -- Abweichung vom Keyword-Plan, bewusst:
 -- Der Plan weist "sanitär vorfabrikation" UND "gis elemente" beide der
 -- Startseite zu. Zwei Begriffe auf einer Seite konkurrieren gegen-
--- einander. "gis elemente" (70 Suchen/Monat, Schwierigkeit 0) liegt
--- deshalb hier auf /leistungen — die Seite existiert, passt thematisch
--- und hat dadurch erstmals ein eigenes Thema.
+-- einander. Die Aufteilung ist deshalb:
+--   Startseite  → "GIS Elemente Vorfabrikation"  (Hauptkeyword,
+--                 spezifisches Produkt, Kundenentscheid)
+--   Leistungen  → "Sanitär Vorfabrikation"       (Oberbegriff, deckt
+--                 alle vier Leistungen ab)
 -- ------------------------------------------------------------
 
--- Startseite → sanitär vorfabrikation
+-- Startseite → HAUPTKEYWORD: gis elemente vorfabrikation
 UPDATE pages SET
-    meta_title = 'Sanitär Vorfabrikation | SUI Innova GmbH',
-    meta_desc  = 'Sanitär Vorfabrikation aus Pfäffikon SZ: GIS-Elemente fertig verrohrt, Montage, Beplankung und Spachtelung. Senden Sie uns Ihre Pläne für eine Offerte.'
+    meta_title = 'GIS Elemente Vorfabrikation | SUI Innova GmbH',
+    meta_desc  = 'GIS Elemente Vorfabrikation aus Pfäffikon SZ: fertig verrohrt aus der eigenen Werkstatt, inklusive Montage, Beplankung und Spachtelung. Jetzt Offerte anfragen.'
 WHERE is_homepage = 1;
 
--- Leistungen → gis elemente
+-- Leistungen → sanitär vorfabrikation
 UPDATE pages SET
-    meta_title = 'GIS Elemente: Vorfabrikation und Montage | SUI Innova',
-    meta_desc  = 'GIS Elemente fix verrohrt aus der Werkstatt in Pfäffikon SZ, inklusive Montage, Beplankung und Ausflockung. Projekt schildern und Offerte anfordern.'
+    meta_title = 'Sanitär Vorfabrikation: Leistungen | SUI Innova',
+    meta_desc  = 'Sanitär Vorfabrikation aus Pfäffikon SZ: GIS-Elemente verrohren, montieren, beplanken und spachteln — alles aus einer Hand. Pläne senden, Offerte erhalten.'
 WHERE slug = 'leistungen';
 
 -- Referenzen
@@ -106,7 +108,7 @@ SET s.content = JSON_SET(
     s.content,
     '$.heading',
     CASE f.slug
-        WHEN 'leistungen'  THEN 'GIS Elemente: von der Werkstatt bis zur fertigen Wand'
+        WHEN 'leistungen'  THEN 'Sanitär Vorfabrikation: von der Werkstatt bis zur fertigen Wand'
         WHEN 'referenzen'  THEN 'Referenzen: vorfabrizierte Sanitärelemente in Ausführung'
         WHEN 'ueber-uns'   THEN 'Werkstatt und Team in Pfäffikon SZ'
         WHEN 'kontakt'     THEN 'Pläne einsenden und Offerte anfordern'
@@ -120,10 +122,14 @@ WHERE f.slug IN ('leistungen', 'referenzen', 'ueber-uns', 'kontakt', 'impressum'
 -- Startseite separat: Der Hero-Titel steht gross und in Grossbuchstaben.
 -- Die lange Fassung aus dem Keyword-Plan ("Sanitär Vorfabrikation:
 -- GIS-Elemente fertig verrohrt aus Pfäffikon SZ") sprengt den Hero.
--- Der Suchbegriff und der Ort stehen trotzdem drin.
+-- Das Hauptkeyword und der Ort stehen trotzdem drin.
+--
+-- Falls die Zeile im Hero optisch zu lang wirkt: im CMS unter
+-- Startseite -> Hero auf 'GIS Elemente Vorfabrikation' kuerzen.
+-- Das Keyword bleibt dann vollstaendig erhalten.
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
-SET s.content = JSON_SET(s.content, '$.heading', 'Sanitär Vorfabrikation aus Pfäffikon SZ')
+SET s.content = JSON_SET(s.content, '$.heading', 'GIS Elemente Vorfabrikation aus Pfäffikon SZ')
 WHERE p.is_homepage = 1
   AND s.type = 'hero'
   AND JSON_VALID(s.content);
