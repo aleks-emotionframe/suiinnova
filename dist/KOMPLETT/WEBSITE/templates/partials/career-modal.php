@@ -124,7 +124,7 @@ $formLoadedAt   = time();
                         Dateien hierher ziehen oder <span style="color:#C41018;text-decoration:underline;text-underline-offset:2px;">auswählen</span>
                     </div>
                     <div style="font-size:12px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;">
-                        PDF · DOC · JPG · PNG — max. 10 MB, bis zu 5 Dateien
+                        PDF · DOC · JPG · PNG · max. 10 MB, bis zu 5 Dateien
                     </div>
 
                     <input type="file" x-ref="fileInput" name="app_files[]" multiple

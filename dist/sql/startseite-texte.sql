@@ -1,21 +1,33 @@
 -- ============================================================
 -- SUI Innova GmbH — Texte der Startseite schaerfen
 --
--- Vier Stellen, an denen der Text heute nichts behauptet:
+-- Drei Probleme im heutigen Text:
 --
---   "Professionelle Montage"      Jeder Mitbewerber schreibt das.
---   "professionell beplankt"      Ein Adjektiv ist kein Argument.
---   "Unser Arbeitsansatz:"        Danach folgt ein Satz ohne Verb.
---   "gewaehrleistet eine gleich-  Drei abstrakte Substantive
---    bleibend hohe Ausfuehrungs-  hintereinander.
---    qualitaet"
+--   1. "Professionelle Montage", "professionell beplankt"
+--      Ein Adjektiv ist kein Argument. Jeder Mitbewerber
+--      schreibt dasselbe.
 --
--- Ersetzt durch das, was tatsaechlich passiert. Kein neuer
--- Sachverhalt, nur praeziser gesagt.
+--   2. "Unser Arbeitsansatz: Sanitaerelemente in der Werkstatt
+--      unter kontrollierten Bedingungen vorgefertigt und
+--      anschliessend auf der Baustelle montiert."
+--      Kein Satz, es fehlt das finite Verb. Danach drei
+--      abstrakte Substantive: "gewaehrleistet eine
+--      gleichbleibend hohe Ausfuehrungsqualitaet".
+--
+--   3. Die Kartentexte tragen keine Suchbegriffe. Das
+--      Hauptkeyword der Startseite ist "GIS Elemente
+--      Vorfabrikation" — in den Karten kam "GIS-Elemente"
+--      genau einmal vor.
+--
+-- Neu enthaelt jede Karte ein Substantiv, nach dem jemand
+-- sucht: GIS-Elemente, Baustelle, AquaPanel, Nasszellen,
+-- beplanken, spachteln.
+--
+-- Keine Gedankenstriche, keine Floskeln.
 --
 -- SICHERHEIT: Jede Anweisung prueft vorher den Titel der Karte.
--- Stimmt die Reihenfolge auf Ihrer Seite nicht mit der erwarteten
--- ueberein, passiert an der Stelle einfach nichts.
+-- Stimmt die Reihenfolge auf Ihrer Seite nicht mit der
+-- erwarteten ueberein, passiert an der Stelle einfach nichts.
 --
 -- Gefahrlos mehrfach ausfuehrbar.
 -- ============================================================
@@ -25,36 +37,49 @@ SET NAMES utf8mb4;
 
 -- ------------------------------------------------------------
 -- Karte "Montage"
--- vorher: Professionelle Montage direkt auf Ihrer Baustelle
+--
+-- vorher:  Professionelle Montage direkt auf Ihrer Baustelle
+-- Suchbegriffe neu: GIS-Elemente, montiert, Baustelle
 -- ------------------------------------------------------------
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(s.content, '$.items[1].desc',
-    'Unser eigenes Team setzt die Elemente vor Ort — dieselben Leute, die sie gebaut haben')
+    'Unser eigenes Team montiert die GIS-Elemente auf Ihrer Baustelle')
 WHERE p.is_homepage = 1 AND s.type = 'services' AND JSON_VALID(s.content)
   AND LOWER(JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.items[1].title'))) = 'montage';
 
 
 -- ------------------------------------------------------------
 -- Karte "Aqua Panel (Beplankung)"
--- vorher: AquaPanel für Feuchträume und Nasszellen
+--
+-- vorher:  AquaPanel für Feuchträume und Nasszellen
+-- Suchbegriffe neu: AquaPanel, Abdichtung, Plättli, Nasszellen
 -- ------------------------------------------------------------
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(s.content, '$.items[2].desc',
-    'AquaPanel in Nasszellen: der Untergrund für Abdichtung und Plättli')
+    'AquaPanel als Untergrund für Abdichtung und Plättli in Nasszellen')
 WHERE p.is_homepage = 1 AND s.type = 'services' AND JSON_VALID(s.content)
   AND LOWER(JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.items[2].title'))) LIKE 'aqua%';
 
 
 -- ------------------------------------------------------------
 -- Karte "Beplankungen und Spachtelungen"
--- vorher: Fertig montierte GIS-Elemente professionell beplankt und gespachtelt
+--
+-- vorher:  Fertig montierte GIS-Elemente professionell beplankt
+--          und gespachtelt
+--
+-- Der erste Entwurf lautete "Beplankt und gespachtelt, die Wand
+-- geht spachtelfertig ans naechste Gewerk". Zwei Partizipien am
+-- Anfang, kein Substantiv, und der Kartentitel steht schon
+-- darueber. Jetzt steht das Verb "beplanken" drin, nach dem
+-- gesucht wird, dazu GIS-Elemente und die beiden Gewerke, die
+-- danach kommen.
 -- ------------------------------------------------------------
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(s.content, '$.items[3].desc',
-    'Beplankt und gespachtelt — die Wand geht spachtelfertig ans nächste Gewerk')
+    'Wir beplanken die montierten GIS-Elemente und spachteln die Flächen für Maler und Plattenleger')
 WHERE p.is_homepage = 1 AND s.type = 'services' AND JSON_VALID(s.content)
   AND LOWER(JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.items[3].title'))) LIKE 'beplankung%';
 
@@ -64,7 +89,7 @@ WHERE p.is_homepage = 1 AND s.type = 'services' AND JSON_VALID(s.content)
 --
 -- Heute steht abwechselnd "Jetzt entdecken" und "Mehr erfahren",
 -- ohne dass ein Unterschied dahintersteckt. "Entdecken" ist
--- ausserdem Sprache aus dem Onlineshop — ein Bauleiter entdeckt
+-- ausserdem Sprache aus dem Onlineshop. Ein Bauleiter entdeckt
 -- nichts, er prueft, ob jemand den Auftrag kann.
 -- ------------------------------------------------------------
 UPDATE sections s
@@ -80,24 +105,20 @@ WHERE p.is_homepage = 1 AND s.type = 'services' AND JSON_VALID(s.content);
 -- ------------------------------------------------------------
 -- Ueber-uns-Teaser
 --
--- Der zweite Absatz lautete: "Unser Arbeitsansatz: Sanitaerelemente
--- in der Werkstatt unter kontrollierten Bedingungen vorgefertigt und
--- anschliessend auf der Baustelle montiert." Das ist kein Satz, es
--- fehlt das Verb. Danach drei abstrakte Substantive.
---
--- Die Zahl "ueber 25 Fachkraefte" bleibt — das ist die staerkste
--- Angabe auf der ganzen Seite.
+-- Beide Absaetze neu. Ganze Saetze, keine Substantivketten,
+-- kein Gedankenstrich. Die Angabe "ueber 25 Fachkraefte" bleibt,
+-- das ist die staerkste Zahl auf der ganzen Startseite.
 -- ------------------------------------------------------------
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(s.content, '$.body',
     CONCAT(
       '<p>Die SUI Innova GmbH fertigt Sanitärelemente vor und montiert sie. ',
-      'Von Pfäffikon SZ aus, mit über 25 Fachkräften, in der ganzen Schweiz.</p>',
-      '<p>Wir bauen die Elemente in der Werkstatt auf und verrohren sie komplett. ',
+      'Von Pfäffikon SZ aus arbeiten über 25 Fachkräfte in der ganzen Schweiz.</p>',
+      '<p>Wir bauen die GIS-Elemente in der Werkstatt auf und verrohren sie komplett. ',
       'Auf der Baustelle wird gestellt und angeschlossen, nicht mehr zusammengebaut. ',
-      'Das verkürzt die Zeit im Rohbau — und was im Trockenen geprüft wurde, muss ',
-      'vor Ort nicht nachgearbeitet werden.</p>'
+      'Das verkürzt die Zeit im Rohbau. Was im Trockenen geprüft wurde, muss vor Ort ',
+      'nicht nachgearbeitet werden.</p>'
     ))
 WHERE p.is_homepage = 1 AND s.type = 'about-teaser' AND JSON_VALID(s.content);
 

@@ -32,7 +32,7 @@
             <?= e($offlineTitle ?? 'Diese Seite') ?> ist aktuell offline
         </h1>
         <p class="text-white/50 text-sm md:text-base leading-relaxed mb-10">
-            Wir aktualisieren diesen Bereich gerade für Sie. Schauen Sie in Kürze wieder vorbei – die übrigen Seiten sind wie gewohnt erreichbar.
+            Wir aktualisieren diesen Bereich gerade für Sie. Schauen Sie in Kürze wieder vorbei. Die übrigen Seiten sind wie gewohnt erreichbar.
         </p>
 
         <!-- Zurück -->
