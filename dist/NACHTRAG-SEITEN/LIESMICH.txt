@@ -1,0 +1,118 @@
+════════════════════════════════════════════════════════
+DIE SECHS NEUEN SEITEN — WIE ES WEITERGEHT
+════════════════════════════════════════════════════════
+
+
+ZUERST NACHSCHAUEN, WO SIE STEHEN
+────────────────────────────────────────────────────────
+
+CMS -> Seiten. Wie viele Einträge stehen da?
+
+  7 Einträge   Die SQL lief noch nicht. Dann erst
+               SQL/2-ALLES-EINSPIELEN.sql aus dem grossen
+               Paket einspielen, danach hier weiter.
+
+  13 Einträge  Die Seiten sind angelegt. Weiter bei
+               Schritt 1.
+
+
+SCHRITT 1 — SEITEN AUFFRISCHEN
+────────────────────────────────────────────────────────
+
+Nur nötig, wenn Sie die SQL vor dem 11.09. eingespielt
+haben. Im Zweifel einfach machen, es schadet nicht.
+
+Warum: Der Seitenaufbau wurde nachträglich umgestellt.
+Vorher standen alle Abschnitte als eine lange Textspalte
+untereinander, jetzt stehen sie in einem zweispaltigen
+Raster. Die normale SQL repariert das nicht — sie legt
+bestehende Seiten nicht noch einmal an und lässt die alte
+Fassung stehen.
+
+    phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+    -> SQL/seiten-auffrischen.sql hineinkopieren -> OK
+
+Was dabei passiert:
+  - ein gewähltes Kopfbild bleibt erhalten
+  - Titel, Beschreibung und Online-Status bleiben
+  - alles andere an diesen sechs Seiten wird ersetzt
+
+Wer im CMS an diesen Seiten Texte geändert hat, verliert
+sie. Bei noch nicht freigegebenen Seiten ist das gewollt.
+
+Gefahrlos mehrfach ausführbar.
+
+
+SCHRITT 2 — ANSCHAUEN
+────────────────────────────────────────────────────────
+
+Als Admin eingeloggt aufrufen:
+
+    sui-innova.ch/sanitaer-vorwandelemente
+    sui-innova.ch/sanitaer-vorwaende
+    sui-innova.ch/sanitaer-gis-elemente-bestellen
+    sui-innova.ch/sanitaer-vorwandelemente-bestellen
+    sui-innova.ch/gis-elemente-beplanken
+    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+
+Oben steht ein oranger Balken "Offline für Besucher" —
+den sehen nur Sie.
+
+So muss es aussehen: Überschrift, darunter ein Fliesstext,
+dann die Abschnitte zweispaltig nebeneinander mit einem
+kurzen roten Strich über jedem Titel. Danach die
+aufklappbaren Fragen auf hellgrauem Grund, zuletzt der
+dunkle Abschluss mit dem Button.
+
+Steht alles als eine lange Spalte untereinander, lief
+Schritt 1 nicht.
+
+
+SCHRITT 3 — KOPFBILD (optional)
+────────────────────────────────────────────────────────
+
+Die erste Sektion jeder Seite ist ein Bildstreifen ohne
+Bild und wird deshalb gar nicht angezeigt.
+
+CMS -> Seiten -> [Seite] -> erste Sektion -> Bild wählen.
+
+Passende Bilder haben Sie in der Mediathek: verrohrte
+Elemente in der Werkstatt, die Halle, die Lieferwagen.
+Für jede Seite ein anderes, sonst wirkt es beliebig.
+
+
+SCHRITT 4 — ONLINE SCHALTEN
+────────────────────────────────────────────────────────
+
+    phpMyAdmin -> SQL/3-SEITEN-ONLINE-SCHALTEN.sql
+
+Damit passiert alles Weitere von selbst:
+  - die sechs Seiten sind öffentlich
+  - sie stehen in der sitemap.xml
+  - sie erscheinen im Footer unter "Leistungen im Detail"
+  - die Leistungsseite bekommt einen Block mit Links
+
+Alternativ im CMS unter Seiten je Seite ein Klick — dann
+aber die Datei trotzdem einspielen, sie enthält auch die
+interne Verlinkung.
+
+
+SCHRITT 5 — GOOGLE BESCHEID GEBEN
+────────────────────────────────────────────────────────
+
+Search Console -> URL-Prüfung -> Adresse eingeben ->
+"Indexierung beantragen". Für alle sechs einzeln.
+
+Ohne das findet Google die Seiten erst, wenn es das
+nächste Mal die Sitemap liest. Das kann Wochen dauern.
+
+
+DANACH
+────────────────────────────────────────────────────────
+
+Nichts. Die Seiten laufen.
+
+Rechnen Sie mit drei bis sechs Monaten, bis sich bei den
+Positionen etwas bewegt. Die sechs Begriffe haben wenig
+Suchvolumen, dafür sucht danach genau, wer einen Auftrag
+zu vergeben hat.

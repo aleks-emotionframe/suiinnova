@@ -306,6 +306,124 @@ usort($pages, function ($a, $b) use ($reihenfolge) {
 });
 
 // ─────────────────────────────────────────────────────────────
+// Modus: Seiten auffrischen
+// Aufruf: php build_keyword_pages.php refresh
+//
+// Baut die Sektionen der sechs Seiten neu auf. Gedacht fuer den Fall, dass
+// eine aeltere Fassung schon eingespielt wurde: die normale Datei legt
+// bestehende Seiten nicht noch einmal an und wuerde eine veraltete Struktur
+// stehen lassen.
+//
+// Ein allfaellig gewaehltes Kopfbild bleibt erhalten. Alles andere an diesen
+// sechs Seiten wird ersetzt — wer dort im CMS Texte geaendert hat, verliert
+// sie. Bei deaktivierten, noch nicht freigegebenen Seiten ist das der Sinn
+// der Sache.
+// ─────────────────────────────────────────────────────────────
+
+if (($argv[1] ?? '') === 'refresh') {
+    $o = [];
+    $o[] = "-- ============================================================";
+    $o[] = "-- SUI Innova GmbH — Seiten auffrischen";
+    $o[] = "--";
+    $o[] = "-- ERZEUGT VON dist/scripts/build_keyword_pages.php refresh";
+    $o[] = "--";
+    $o[] = "-- Baut die Sektionen der sechs Keyword-Seiten neu auf, in der";
+    $o[] = "-- aktuellen Fassung mit zweispaltigem Raster statt Textwand.";
+    $o[] = "--";
+    $o[] = "-- WANN BRAUCHT MAN DAS:";
+    $o[] = "--   Wenn eine aeltere Fassung der Seiten schon eingespielt wurde.";
+    $o[] = "--   Die normale Datei legt bestehende Seiten nicht noch einmal an";
+    $o[] = "--   und wuerde die alte Struktur stehen lassen.";
+    $o[] = "--";
+    $o[] = "-- WAS PASSIERT:";
+    $o[] = "--   Ein gewaehltes Kopfbild bleibt erhalten. Alles andere an";
+    $o[] = "--   diesen sechs Seiten wird ersetzt. Titel, Beschreibung und";
+    $o[] = "--   der Online-Status der Seiten bleiben unangetastet.";
+    $o[] = "--";
+    $o[] = "-- Gefahrlos mehrfach ausfuehrbar.";
+    $o[] = "-- ============================================================";
+    $o[] = "";
+    $o[] = "SET NAMES utf8mb4;";
+    $o[] = "";
+
+    foreach ($pages as $p) {
+        $slug = $p['slug'];
+
+        $sections = [
+            ['parallax-image', ['image_id' => 0, 'height' => 'medium', 'overlay_text' => '']],
+            ['content-grid', [
+                'heading' => $p['h1'],
+                'lead'    => '<p>' . $p['intro'] . '</p>',
+                'style'   => 'light',
+                'items'   => array_map(
+                    fn($b) => ['title' => $b[0], 'text' => '<p>' . $b[1] . '</p>'],
+                    $p['body']
+                ),
+            ]],
+            ['faq', [
+                'heading'  => 'Fragen und Antworten',
+                'subtitle' => '',
+                'items'    => array_map(
+                    fn($f) => ['question' => $f[0], 'answer' => '<p>' . $f[1] . '</p>'],
+                    $p['faq']
+                ),
+            ]],
+            ['cta-banner', [
+                'heading'     => $p['cta_heading'],
+                'body'        => $p['cta_text'],
+                'button_text' => 'Pläne einsenden',
+                'button_url'  => '/kontakt',
+            ]],
+        ];
+
+        $o[] = "-- ────────────────────────────────────────────────────────────";
+        $o[] = "-- /" . $slug;
+        $o[] = "-- ────────────────────────────────────────────────────────────";
+        $o[] = "SET @pid = (SELECT id FROM pages WHERE slug = " . q($slug) . " LIMIT 1);";
+        $o[] = "";
+        $o[] = "-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen";
+        $o[] = "SET @img = (";
+        $o[] = "    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))";
+        $o[] = "    FROM sections";
+        $o[] = "    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)";
+        $o[] = "    ORDER BY sort_order ASC LIMIT 1";
+        $o[] = ");";
+        $o[] = "";
+        $o[] = "DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;";
+        $o[] = "";
+
+        $sortOrder = 10;
+        foreach ($sections as [$type, $content]) {
+            if ($type === 'parallax-image') {
+                $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
+                $o[] = "SELECT @pid,";
+                $o[] = "       'parallax-image',";
+                $o[] = "       JSON_SET(" . j($content) . ", '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),";
+                $o[] = "       " . $sortOrder . ", 1";
+                $o[] = "FROM DUAL WHERE @pid IS NOT NULL;";
+            } else {
+                $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
+                $o[] = "SELECT @pid, " . q($type) . ", " . j($content) . ", " . $sortOrder . ", 1";
+                $o[] = "FROM DUAL WHERE @pid IS NOT NULL;";
+            }
+            $o[] = "";
+            $sortOrder += 10;
+        }
+    }
+
+    $o[] = "-- ────────────────────────────────────────────────────────────";
+    $o[] = "-- Kontrolle: je Seite muessen vier Sektionen stehen";
+    $o[] = "-- ────────────────────────────────────────────────────────────";
+    $o[] = "-- SELECT p.slug, COUNT(s.id) AS sektionen, GROUP_CONCAT(s.type ORDER BY s.sort_order) AS aufbau";
+    $o[] = "-- FROM pages p JOIN sections s ON s.page_id = p.id";
+    $o[] = "-- WHERE p.slug LIKE 'sanitaer-%' OR p.slug LIKE 'gis-%'";
+    $o[] = "-- GROUP BY p.slug;";
+
+    echo implode("\n", $o) . "\n";
+    exit;
+}
+
+// ─────────────────────────────────────────────────────────────
 // Modus: Interne Verlinkung (erst nach dem Freischalten einspielen)
 // Aufruf: php build_keyword_pages.php links
 // ─────────────────────────────────────────────────────────────
