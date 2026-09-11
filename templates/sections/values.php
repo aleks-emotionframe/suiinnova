@@ -12,7 +12,7 @@ $items   = $content['items'] ?? [];
     <div class="section-container">
         <?php if ($heading): ?>
             <div class="mb-10 md:mb-14 fade-in">
-                <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-wider"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="text-2xl md:text-3xl font-bold uppercase tracking-wider"><?= e($heading) ?></<?= $hTag ?>>
             </div>
         <?php endif; ?>
 

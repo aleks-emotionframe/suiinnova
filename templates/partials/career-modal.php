@@ -44,7 +44,7 @@ $formLoadedAt   = time();
 
         <!-- Header -->
         <div style="padding:32px 40px 24px 40px;border-bottom:1px solid #F3F4F6;">
-            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#C41018;margin-bottom:8px;">Offene Stelle</div>
+            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.25em;color:#C41018;margin-bottom:8px;">Offene Stelle</div>
             <h2 style="font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#111;line-height:1.2;margin:0;">
                 <?= e($careerPosition) ?>
             </h2>
@@ -123,7 +123,7 @@ $formLoadedAt   = time();
                     <div style="font-size:13px;color:#111;font-weight:500;margin-bottom:4px;">
                         Dateien hierher ziehen oder <span style="color:#C41018;text-decoration:underline;text-underline-offset:2px;">auswählen</span>
                     </div>
-                    <div style="font-size:10px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;">
+                    <div style="font-size:12px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;">
                         PDF · DOC · JPG · PNG — max. 10 MB, bis zu 5 Dateien
                     </div>
 
@@ -142,7 +142,7 @@ $formLoadedAt   = time();
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
                                 <span x-text="f.name" style="flex:1;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
-                                <span x-text="(f.size / 1024).toFixed(0) + ' KB'" style="font-size:10px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;"></span>
+                                <span x-text="(f.size / 1024).toFixed(0) + ' KB'" style="font-size:12px;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;"></span>
                             </li>
                         </template>
                     </ul>
@@ -152,7 +152,7 @@ $formLoadedAt   = time();
             <!-- Actions -->
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid #F3F4F6;">
                 <button type="button" @click="open = false; document.body.style.overflow = '';"
-                        style="background:none;border:0;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;color:#6B7280;cursor:pointer;transition:color 0.15s;"
+                        style="background:none;border:0;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;color:#6B7280;cursor:pointer;transition:color 0.15s;"
                         onmouseover="this.style.color='#111'" onmouseout="this.style.color='#6B7280'">
                     Abbrechen
                 </button>
@@ -164,7 +164,7 @@ $formLoadedAt   = time();
                 </button>
             </div>
 
-            <p style="font-size:10px;color:#9CA3AF;text-align:center;text-transform:uppercase;letter-spacing:0.08em;margin-top:16px;">
+            <p style="font-size:12px;color:#9CA3AF;text-align:center;text-transform:uppercase;letter-spacing:0.08em;margin-top:16px;">
                 Ihre Daten werden vertraulich behandelt.
             </p>
         </form>

@@ -19,7 +19,7 @@ $items    = $content['items'] ?? [];
         <!-- Header -->
         <div class="mb-10 md:mb-14 fade-in">
             <?php if ($heading): ?>
-                <h2 class="section-heading"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading"><?= e($heading) ?></<?= $hTag ?>>
             <?php endif; ?>
             <?php if ($subtitle): ?>
                 <div class="section-subtitle"><?= renderRichtext($subtitle) ?></div>
@@ -60,7 +60,7 @@ $items    = $content['items'] ?? [];
                                             <div class="services-card-text" style="color:#1F2937;"><?= renderRichtext($desc) ?></div>
                                         <?php endif; ?>
                                         <?php if ($link): ?>
-                                            <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[11px] font-medium text-gray-900 hover:text-brand-accent transition-colors duration-200 mt-3">
+                                            <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[12px] font-medium text-gray-900 hover:text-brand-accent transition-colors duration-200 mt-3">
                                                 → <?= e($linkText) ?>
                                             </a>
                                         <?php endif; ?>
@@ -77,7 +77,7 @@ $items    = $content['items'] ?? [];
                                         <div class="services-card-text services-card-text--dark" style="color:rgba(255,255,255,0.85);"><?= renderRichtext($desc) ?></div>
                                     <?php endif; ?>
                                     <?php if ($link): ?>
-                                        <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[11px] font-medium transition-colors duration-200 mt-3" style="color:rgba(255,255,255,0.7);"
+                                        <a href="<?= e($link) ?>" class="inline-flex items-center gap-1.5 text-[12px] font-medium transition-colors duration-200 mt-3" style="color:rgba(255,255,255,0.7);"
                                            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
                                             → <?= e($linkText) ?>
                                         </a>

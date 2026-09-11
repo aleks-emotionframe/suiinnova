@@ -25,7 +25,7 @@ $isRight = ($layout === 'image-right');
             <!-- Text -->
             <div class="<?= $isRight ? 'md:order-1' : '' ?> fade-in">
                 <?php if ($heading): ?>
-                    <h2 class="section-heading mb-6"><?= e($heading) ?></h2>
+                    <<?= $hTag = headingTag() ?> class="section-heading mb-6"><?= e($heading) ?></<?= $hTag ?>>
                 <?php endif; ?>
                 <?php if ($body): ?>
                     <div class="text-gray-600 leading-relaxed space-y-4"><?= renderRichtext($body) ?></div>

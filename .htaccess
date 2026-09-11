@@ -25,6 +25,11 @@ DirectoryIndex index.php
     # 301-Redirects fuer alte URLs (aus Site-Migration)
     # Verhindert Traffic-Verlust und rettet Backlink-Autoritaet
     # ────────────────────────────────────────────────
+    # Zweite Startseite abschalten: /startseite lieferte denselben Inhalt
+    # wie / und teilte damit die Autoritaet auf zwei Adressen auf.
+    RewriteRule ^startseite/?$                                     / [R=301,L]
+    RewriteRule ^home/?$                                           / [R=301,L]
+
     RewriteRule ^blog/?$                                           / [R=301,L]
     RewriteRule ^dienstleistungen/?$                               /leistungen [R=301,L]
     RewriteRule ^dienstleistungen/(.*)$                            /leistungen [R=301,L]

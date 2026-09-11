@@ -33,7 +33,7 @@ $bgImage = $imageId ? mediaUrl($imageId) : asset('img/hero-placeholder.jpg');
         <div class="max-w-2xl">
             <!-- Heading -->
             <?php if ($heading): ?>
-                <h1 class="text-[1.6rem] md:text-4xl lg:text-5xl font-bold uppercase tracking-wider leading-tight mb-3 md:mb-4 fade-in"
+                <<?= $hTag = headingTag() ?> class="page-hero-title text-[1.6rem] md:text-4xl lg:text-5xl font-bold uppercase tracking-wider leading-tight mb-3 md:mb-4 fade-in"
                     style="
                         background: linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 40%, #FFFFFF 55%, rgba(255,255,255,0.7) 100%);
                         -webkit-background-clip: text;
@@ -42,12 +42,12 @@ $bgImage = $imageId ? mediaUrl($imageId) : asset('img/hero-placeholder.jpg');
                         filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)) drop-shadow(0 1px 2px rgba(255,255,255,0.15));
                     ">
                     <?= strip_tags($heading, '<strong><b><em><i>') ?>
-                </h1>
+                </<?= $hTag ?>>
             <?php endif; ?>
 
             <!-- Tagline -->
             <?php if ($tagline): ?>
-                <p class="text-[11px] md:text-sm text-white/80 font-medium uppercase tracking-wider mb-4 md:mb-5 fade-in">
+                <p class="text-[12px] md:text-sm text-white/80 font-medium uppercase tracking-wider mb-4 md:mb-5 fade-in">
                     <?= strip_tags($tagline, '<strong><b><em><i>') ?>
                 </p>
             <?php endif; ?>

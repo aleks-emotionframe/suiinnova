@@ -3,16 +3,29 @@
     $reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
     $canonicalUrl = rtrim(SITE_URL, '/') . $reqPath;
 
-    // Titel — kein Duplikat mit Site-Name
+    // ── Seitentitel ─────────────────────────────────────────────
+    // Vorrang hat der im CMS gepflegte SEO-Titel (pages.meta_title).
+    // Der wird 1:1 ausgegeben, damit der Admin die volle Kontrolle ueber
+    // die blaue Zeile im Suchergebnis hat — inkl. Laenge und Reihenfolge.
+    // Nur wenn er fehlt, bauen wir einen Titel aus Seitenname + Firma.
     $siteName = setting('site_name', SITE_NAME);
     $suffix   = setting('meta_title_suffix');
-    if (empty($pageTitle) || $pageTitle === $siteName) {
+
+    // Suffix verwerfen, wenn er nur den Firmennamen wiederholt
+    if ($suffix !== '' && stripos($siteName, $suffix) !== false) {
+        $suffix = '';
+    }
+
+    if (!empty($pageMetaTitle)) {
+        // CMS-Titel gewinnt, unveraendert
+        $finalTitle = $pageMetaTitle;
+    } elseif (empty($pageTitle) || $pageTitle === $siteName) {
         $finalTitle = $siteName . ($suffix ? ' | ' . $suffix : '');
     } elseif (stripos($pageTitle, $siteName) !== false) {
         // pageTitle enthaelt schon "SUI Innova" → nicht doppeln
         $finalTitle = $pageTitle . ($suffix ? ' | ' . $suffix : '');
     } else {
-        $finalTitle = $pageTitle . ' – ' . $siteName . ($suffix ? ' | ' . $suffix : '');
+        $finalTitle = $pageTitle . ' | ' . $siteName . ($suffix ? ' | ' . $suffix : '');
     }
 
     // Effektive Meta-Description
@@ -36,7 +49,7 @@
     <?php endif; ?>
 
     <!-- OpenGraph / Social -->
-    <meta property="og:title" content="<?= e($pageTitle ?? $siteName) ?>">
+    <meta property="og:title" content="<?= e(($pageMetaTitle ?? '') ?: ($pageTitle ?? '') ?: $siteName) ?>">
     <?php if (!empty($effectiveDesc)): ?>
         <meta property="og:description" content="<?= e($effectiveDesc) ?>">
     <?php endif; ?>
@@ -85,10 +98,12 @@
         // Schriftgroessen in px aus dem CMS (einstellbar unter Admin → Einstellungen → Typografie)
         $fsH1        = max(16, min(128, (int) setting('fs_h1',        '64')));
         $fsHeading   = max(14, min(96,  (int) setting('fs_heading',   '48')));
-        $fsSubtitle  = max(10, min(48,  (int) setting('fs_subtitle',  '18')));
-        $fsCardTitle = max(12, min(48,  (int) setting('fs_card_title','24')));
-        $fsBody      = max(10, min(32,  (int) setting('fs_body',      '16')));
-        $fsSmall     = max(8,  min(24,  (int) setting('fs_small',     '14')));
+        // Untergrenze ueberall 12px: Kleinere Schrift wird auf dem Telefon
+        // nicht mehr gelesen, sondern weggezoomt. Fliesstext startet bei 14.
+        $fsSubtitle  = max(14, min(48,  (int) setting('fs_subtitle',  '18')));
+        $fsCardTitle = max(14, min(48,  (int) setting('fs_card_title','24')));
+        $fsBody      = max(14, min(32,  (int) setting('fs_body',      '16')));
+        $fsSmall     = max(12, min(24,  (int) setting('fs_small',     '14')));
     ?>
     <style>
         /* ── Container-Breite ───────────────────────────── */
@@ -109,9 +124,14 @@
             --fs-small:      <?= $fsSmall ?>px;
         }
 
-        /* H1 (Hero-Titel / Seiten-Haupttitel)
-           Desktop: eingestellter Wert | Tablet: 70% | Mobile: 50% | Sehr eng: 42% */
-        main h1 {
+        /* H1 (Hero-Titel)
+           Desktop: eingestellter Wert | Tablet: 70% | Mobile: 50% | Sehr eng: 42%
+
+           Wichtig: Auf Unterseiten traegt die erste Content-Sektion das h1.
+           Die behaelt ihre eigene Groesse, sonst wuerde "Unsere Leistungen"
+           ploetzlich in Hero-Groesse stehen. Die Regel haengt deshalb an der
+           Hero-Klasse, nicht am h1-Tag. */
+        main .page-hero-title {
             font-size: calc(var(--fs-h1) * 0.5) !important;
             line-height: 1.1 !important;
             hyphens: auto;
@@ -120,10 +140,10 @@
             word-break: normal;
         }
         @media (max-width: 400px) {
-            main h1 { font-size: calc(var(--fs-h1) * 0.42) !important; }
+            main .page-hero-title { font-size: calc(var(--fs-h1) * 0.42) !important; }
         }
-        @media (min-width: 768px) { main h1 { font-size: calc(var(--fs-h1) * 0.7) !important; } }
-        @media (min-width: 1024px) { main h1 { font-size: var(--fs-h1) !important; } }
+        @media (min-width: 768px) { main .page-hero-title { font-size: calc(var(--fs-h1) * 0.7) !important; } }
+        @media (min-width: 1024px) { main .page-hero-title { font-size: var(--fs-h1) !important; } }
 
         /* Section-Hauptueberschriften (H2)
            Desktop: eingestellter Wert | Tablet: 80% | Mobile: 60% */
@@ -211,10 +231,10 @@
             <div class="max-w-container-wide mx-auto px-4 md:px-6" style="padding-top:10px;padding-bottom:10px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
                 <span style="display:inline-flex;align-items:center;gap:8px;">
                     <span style="width:8px;height:8px;background:#111827;border-radius:50%;display:inline-block;animation:admin-offline-pulse 1.4s ease-in-out infinite;"></span>
-                    <strong style="text-transform:uppercase;letter-spacing:0.05em;font-size:11px;">Offline für Besucher</strong>
+                    <strong style="text-transform:uppercase;letter-spacing:0.05em;font-size:12px;">Offline für Besucher</strong>
                 </span>
                 <span class="hidden sm:inline" style="color:rgba(17,24,39,0.8);">Diese Seite ist deaktiviert. Nur Sie als Admin sehen sie.</span>
-                <a href="<?= url('admin/pages') ?>" style="margin-left:auto;display:inline-flex;align-items:center;background:#111827;color:#fff;padding:4px 12px;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;text-decoration:none;transition:background 0.2s;"
+                <a href="<?= url('admin/pages') ?>" style="margin-left:auto;display:inline-flex;align-items:center;background:#111827;color:#fff;padding:4px 12px;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;text-decoration:none;transition:background 0.2s;"
                    onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#111827'">
                     Im CMS verwalten
                 </a>
@@ -282,7 +302,7 @@
                     <div style="width:48px;height:2px;background:#C41018;margin:0 auto 24px auto;"></div>
 
                     <!-- Kicker -->
-                    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.28em;color:#C41018;margin-bottom:18px;">
+                    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.28em;color:#C41018;margin-bottom:18px;">
                         Fehler 404
                     </div>
 
@@ -312,7 +332,7 @@
                     <!-- Quicklinks zu den Hauptseiten -->
                     <?php if (!empty($navigation)): ?>
                         <div style="border-top:1px solid #E5E7EB;padding-top:32px;">
-                            <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#9CA3AF;margin-bottom:16px;font-weight:600;">
+                            <p style="font-size:12px;text-transform:uppercase;letter-spacing:0.18em;color:#9CA3AF;margin-bottom:16px;font-weight:600;">
                                 Vielleicht suchen Sie eine dieser Seiten:
                             </p>
                             <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">

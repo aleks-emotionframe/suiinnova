@@ -16,7 +16,7 @@ $isCenter  = ($alignment === 'center');
     <div class="section-container <?= $isCenter ? 'text-center' : '' ?>">
         <div class="<?= $isCenter ? 'max-w-3xl mx-auto' : 'max-w-none' ?> fade-in">
             <?php if ($heading): ?>
-                <h2 class="section-heading mb-6"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading mb-6"><?= e($heading) ?></<?= $hTag ?>>
             <?php endif; ?>
             <?php if ($body): ?>
                 <div class="text-block-body">

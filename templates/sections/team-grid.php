@@ -10,7 +10,7 @@ $items   = $content['items'] ?? [];
     <div class="section-container">
         <?php if ($heading): ?>
             <div class="mb-10 md:mb-14 fade-in">
-                <h2 class="section-heading"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading"><?= e($heading) ?></<?= $hTag ?>>
             </div>
         <?php endif; ?>
 
@@ -30,7 +30,7 @@ $items   = $content['items'] ?? [];
                                     <svg class="w-16 h-16 mb-3 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="0.8">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
                                     </svg>
-                                    <span class="text-[10px] text-gray-300 uppercase tracking-wider">Foto folgt</span>
+                                    <span class="text-[12px] text-gray-300 uppercase tracking-wider">Foto folgt</span>
                                 </div>
                             <?php endif; ?>
                         </div>

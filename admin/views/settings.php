@@ -55,6 +55,9 @@ $schemaDefaults = [
     'company_vat_id'  => 'CHE-145.418.862',
     'geo_lat'         => '47.2011',
     'geo_lng'         => '8.7740',
+    // Leer vorbelegt: Zeiten erst eintragen, wenn sie stimmen. Google zeichnet
+    // nur aus, was auch sichtbar auf der Kontaktseite steht.
+    'opening_hours'   => '',
 ];
 try {
     foreach ($schemaDefaults as $key => $default) {
@@ -116,6 +119,7 @@ $settingGroups = [
             'company_vat_id'        => ['label' => 'UID / MWST-Nummer',                        'type' => 'text', 'hint' => 'Format: CHE-000.000.000 – wird für Schema.org (Firmen-Verifikation) verwendet.'],
             'geo_lat'               => ['label' => 'GPS-Breitengrad (Latitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 47.2011. Aus Google Maps kopieren.'],
             'geo_lng'               => ['label' => 'GPS-Längengrad (Longitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 8.7740.'],
+            'opening_hours'         => ['label' => 'Öffnungszeiten',                          'type' => 'textarea', 'hint' => 'Format: „Mo-Fr 07:00-12:00,13:00-17:00" – mehrere Blöcke mit Semikolon oder neuer Zeile trennen. Erscheint sichtbar auf der Kontaktseite UND als Schema.org-Auszeichnung, damit Google „Heute geöffnet bis …" im Suchergebnis zeigen kann. Leer lassen = wird nirgends angezeigt.'],
         ],
     ],
     'footer' => [

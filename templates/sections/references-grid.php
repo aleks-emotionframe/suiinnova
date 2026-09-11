@@ -26,7 +26,7 @@ if (empty($items)) {
         <!-- Header -->
         <div class="mb-12 md:mb-16 fade-in">
             <?php if ($heading): ?>
-                <h2 class="section-heading"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading"><?= e($heading) ?></<?= $hTag ?>>
             <?php endif; ?>
             <?php if ($subtitle): ?>
                 <div class="section-subtitle"><?= renderRichtext($subtitle) ?></div>

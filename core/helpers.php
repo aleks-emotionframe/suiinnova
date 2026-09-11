@@ -222,6 +222,30 @@ function getGlobalReferences(?int $limit = null, string $source = 'all'): array
 }
 
 /**
+ * Ueberschriften-Ebene fuer Sektionen bestimmen.
+ *
+ * Jede Seite braucht genau eine Hauptueberschrift. Die erste Sektion, die
+ * ueberhaupt eine Ueberschrift ausgibt, bekommt deshalb <h1>, alle weiteren
+ * <h2>. Die Templates rufen die Funktion erst auf, wenn feststeht, dass eine
+ * Ueberschrift gerendert wird — Sektionen ohne Titel verbrauchen das h1 nicht.
+ *
+ * Hintergrund: Vor dieser Aenderung trug nur die Startseite ein h1, weil die
+ * Unterseiten als Kopfbanner parallax-image nutzen und das Template gar keine
+ * Ueberschrift kannte.
+ */
+function headingTag(): string
+{
+    static $h1Used = false;
+
+    if (!$h1Used) {
+        $h1Used = true;
+        return 'h1';
+    }
+
+    return 'h2';
+}
+
+/**
  * Richtext rendern: Wenn der Text schon HTML enthaelt (<p>, <ul> etc.)
  * wird er direkt ausgegeben. Sonst werden Absaetze (Leerzeilen) zu <p>-Tags.
  */

@@ -100,6 +100,61 @@ $localBusiness = [
     ],
     'parentOrganization' => ['@id' => $orgId],
 ];
+
+// Oeffnungszeiten — nur auszeichnen, was auch sichtbar auf der Seite steht.
+// Mit hinterlegten Zeiten zeigt Google "Heute geoeffnet bis" direkt im
+// Suchergebnis. Format im CMS: "Mo-Fr 07:00-12:00,13:00-17:00"
+$openingRaw = trim(setting('opening_hours', ''));
+if ($openingRaw !== '') {
+    $dayMap = [
+        'mo' => 'Monday',   'di' => 'Tuesday', 'mi' => 'Wednesday',
+        'do' => 'Thursday', 'fr' => 'Friday',  'sa' => 'Saturday',
+        'so' => 'Sunday',
+    ];
+    $order = array_keys($dayMap);
+    $specs = [];
+
+    // Zeilen bzw. Semikolon-getrennte Bloecke: "Mo-Fr 07:00-12:00,13:00-17:00"
+    foreach (preg_split('/[;\r\n]+/', $openingRaw) as $block) {
+        $block = trim($block);
+        if ($block === '') continue;
+
+        if (!preg_match('/^([A-Za-zäöü]{2})\s*(?:[-–]\s*([A-Za-zäöü]{2}))?\s+(.+)$/u', $block, $m)) {
+            continue;
+        }
+
+        $from = mb_strtolower($m[1]);
+        $to   = $m[2] !== '' ? mb_strtolower($m[2]) : $from;
+        if (!isset($dayMap[$from]) || !isset($dayMap[$to])) continue;
+
+        $i = array_search($from, $order, true);
+        $j = array_search($to, $order, true);
+        $days = [];
+        for ($k = $i; ; $k = ($k + 1) % 7) {
+            $days[] = $dayMap[$order[$k]];
+            if ($k === $j) break;
+            if (count($days) > 7) break;
+        }
+
+        // Mehrere Zeitfenster pro Tag durch Komma getrennt
+        foreach (explode(',', $m[3]) as $span) {
+            if (!preg_match('/(\d{1,2}[:.]\d{2})\s*[-–]\s*(\d{1,2}[:.]\d{2})/', trim($span), $t)) {
+                continue;
+            }
+            $specs[] = [
+                '@type'     => 'OpeningHoursSpecification',
+                'dayOfWeek' => $days,
+                'opens'     => str_replace('.', ':', $t[1]),
+                'closes'    => str_replace('.', ':', $t[2]),
+            ];
+        }
+    }
+
+    if ($specs) {
+        $localBusiness['openingHoursSpecification'] = $specs;
+    }
+}
+
 $graph[] = $localBusiness;
 
 // 3) WebSite — grundlegende Site-Info

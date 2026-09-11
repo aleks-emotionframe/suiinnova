@@ -17,7 +17,7 @@ $gridCols = match($columns) {
     <div class="section-container">
         <?php if ($heading): ?>
             <div class="mb-12 fade-in">
-                <h2 class="section-heading"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading"><?= e($heading) ?></<?= $hTag ?>>
             </div>
         <?php endif; ?>
 

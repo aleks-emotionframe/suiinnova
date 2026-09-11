@@ -26,7 +26,7 @@ $formLoadedAt = time();
         <!-- Header -->
         <div class="mb-12 md:mb-16 fade-in">
             <?php if ($heading): ?>
-                <h2 class="section-heading"><?= e($heading) ?></h2>
+                <<?= $hTag = headingTag() ?> class="section-heading"><?= e($heading) ?></<?= $hTag ?>>
             <?php endif; ?>
             <?php if ($subtitle): ?>
                 <div class="section-subtitle"><?= renderRichtext($subtitle) ?></div>
@@ -166,6 +166,19 @@ $formLoadedAt = time();
                                class="text-sm text-gray-900 hover:text-brand-accent transition-colors duration-200">
                                 <?= e($email) ?>
                             </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Oeffnungszeiten -->
+                    <?php if ($openingHours = trim(setting('opening_hours', ''))): ?>
+                        <div>
+                            <h3 class="text-xs font-medium uppercase tracking-widest text-gray-500 mb-3">Öffnungszeiten</h3>
+                            <div class="text-sm text-gray-900 space-y-1">
+                                <?php foreach (preg_split('/[;\r\n]+/', $openingHours) as $line): ?>
+                                    <?php $line = trim($line); if ($line === '') continue; ?>
+                                    <p><?= e(str_replace(',', ', ', $line)) ?></p>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     <?php endif; ?>
 

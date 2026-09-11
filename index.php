@@ -55,6 +55,17 @@ if (!$page) {
     render404();
 }
 
+// Kanonische Adresse der Startseite erzwingen.
+// Bisher lieferten / und /startseite denselben Inhalt und denselben Titel.
+// Google sah zwei Seiten, wo eine gemeint ist, und verteilte alles, was die
+// Startseite an Autoritaet aufbaut, auf zwei Adressen. Der Redirect buendelt
+// das wieder. Die .htaccess faengt den Fall schon vorher ab — dieser Guard
+// greift zusaetzlich, falls mod_rewrite auf dem Server nicht aktiv ist.
+if (!empty($page['is_homepage']) && $requestSlug !== '') {
+    header('Location: ' . url(), true, 301);
+    exit;
+}
+
 // Inaktive Seiten: Besucher werden zur Startseite weitergeleitet, Admins sehen die Seite weiter
 if ((int)($page['is_active'] ?? 1) === 0 && !isLoggedIn()) {
     header('Location: ' . url(), true, 302);
@@ -62,11 +73,17 @@ if ((int)($page['is_active'] ?? 1) === 0 && !isLoggedIn()) {
 }
 
 // Seiten-Meta fuers Layout bereitstellen
-$pageTitle   = $page['title'] ?? '';
-$pageDesc    = $page['meta_description'] ?? '';
-$currentSlug = $page['slug'] ?? '';
-$isHomepage  = !empty($page['is_homepage']);
-$sections    = loadSections((int)$page['id']);
+// Wichtig: Die Spalten in `pages` heissen meta_title / meta_desc.
+// Frueher wurde hier meta_description gelesen — eine Spalte, die es nicht
+// gibt. Dadurch blieb die Meta-Description auf jeder Seite leer, obwohl sie
+// im CMS gepflegt war.
+$pageTitle     = $page['title'] ?? '';
+$pageMetaTitle = $page['meta_title'] ?? '';
+$pageDesc      = $page['meta_desc'] ?? '';
+$pageH1        = $page['h1'] ?? '';
+$currentSlug   = $page['slug'] ?? '';
+$isHomepage    = !empty($page['is_homepage']);
+$sections      = loadSections((int)$page['id']);
 
 // Besuch tracken (DSGVO-konform)
 trackVisit($page['slug'] ?? '');

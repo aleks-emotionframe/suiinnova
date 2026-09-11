@@ -23,7 +23,7 @@
         </div>
 
         <!-- Kicker -->
-        <div class="text-[10px] uppercase tracking-[0.25em] text-brand-accent font-semibold mb-3">
+        <div class="text-[12px] uppercase tracking-[0.25em] text-brand-accent font-semibold mb-3">
             Seite wird überarbeitet
         </div>
 

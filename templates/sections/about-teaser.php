@@ -45,7 +45,7 @@ $isImageRight = ($layout === 'image-right');
             <div class="<?= $isImageRight ? 'md:order-1' : '' ?> fade-in">
 
                 <?php if ($heading): ?>
-                    <h2 class="section-heading mb-6"><?= e($heading) ?></h2>
+                    <<?= $hTag = headingTag() ?> class="section-heading mb-6"><?= e($heading) ?></<?= $hTag ?>>
                 <?php endif; ?>
 
                 <?php if ($body): ?>
