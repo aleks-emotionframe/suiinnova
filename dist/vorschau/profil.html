@@ -357,17 +357,36 @@ Elementbau</pre>
 
   <div class="punkt">
     <div class="punkt-kopf">
-      <span class="punkt-titel">Deutschschweiz oder ganze Schweiz</span>
-      <span class="marke m-aendern">entscheiden</span>
+      <span class="punkt-titel">Deutschschweiz statt ganze Schweiz</span>
+      <span class="marke m-ok">erledigt, liegt bereit</span>
     </div>
     <p>
-      Im Profil steht <strong>„in der ganzen Deutschschweiz"</strong>, auf der Website
-      <strong>„in der ganzen Schweiz"</strong>. Beides zusammen geht nicht.
+      Entschieden: überall <strong>Deutschschweiz</strong>. Im Profil steht es schon so.
+      Auf der Website stand es an drei Stellen anders.
     </p>
-    <p>
-      Ich würde Deutschschweiz nehmen: glaubwürdiger für einen Betrieb in Pfäffikon SZ,
-      und es passt zum Einzugsgebiet im Profil. Dann muss der Satz im Über-uns-Teaser
-      angepasst werden. Sagen Sie mir, wie Sie es wollen, das ist eine Zeile.
+    <ul class="liste">
+      <li>Über-uns-Teaser auf der Startseite</li>
+      <li>Beschreibung der Referenzseite fürs Suchergebnis</li>
+      <li>In den strukturierten Daten: <code>areaServed: Country Schweiz</code></li>
+    </ul>
+    <p style="margin-top:10px">
+      Die dritte Stelle ist die wichtigste und war im Quelltext unsichtbar. Das ist die
+      Angabe, die Google maschinenlesbar bekommt, und sie widersprach dem Einzugsgebiet
+      im Profil. Neu kommt sie aus dem CMS, als Liste von Kantonen statt als pauschale
+      Landesangabe.
+    </p>
+    <div class="kopierblock">
+      <pre id="t-gebiet">Schwyz, Zürich, Zug, Luzern, Glarus, St. Gallen</pre>
+      <button class="kopierknopf" type="button" data-ziel="t-gebiet">Kopieren</button>
+    </div>
+    <p class="zeichen">
+      CMS → Einstellungen → Kontakt → Einsatzgebiet (Kantone). Bereits vorbelegt.
+      Ändert sich das Einzugsgebiet im Profil, hier nachziehen.
+    </p>
+    <p style="margin-top:10px">
+      Im Paket <strong>Nachtrag-Deutschschweiz</strong>: zwei Dateien und eine SQL.
+      Ein alleinstehendes „Schweiz" bleibt stehen, die Adresse
+      „8808 Pfäffikon, Schweiz" wird also nicht angefasst.
     </p>
   </div>
 

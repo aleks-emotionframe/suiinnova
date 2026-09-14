@@ -1,0 +1,74 @@
+════════════════════════════════════════════════════════
+GANZE SCHWEIZ WIRD ZU GANZE DEUTSCHSCHWEIZ
+════════════════════════════════════════════════════════
+
+Drei Stellen sagten "ganze Schweiz", das Google-Profil sagt
+"Deutschschweiz". Google liest beides.
+
+
+WO ES ÜBERALL STAND
+────────────────────────────────────────────────────────
+
+1. Über-uns-Teaser auf der Startseite
+   "...mit über 25 Fachkräften in der ganzen Schweiz tätig"
+
+2. Beschreibung der Referenzseite fürs Suchergebnis
+   "...Sanitärinstallationen in der ganzen Schweiz"
+
+3. In den strukturierten Daten, unsichtbar im Quelltext:
+   areaServed: Country "Schweiz"
+
+Punkt 3 ist der wichtigste. Das ist die Angabe, die Google
+maschinenlesbar bekommt, und sie widersprach dem
+Einzugsgebiet im Unternehmensprofil.
+
+
+SCHRITT 1 — ZWEI DATEIEN (FTP)
+────────────────────────────────────────────────────────
+
+Aus "1-DATEIEN":
+
+    templates/partials/schema-jsonld.php   überschreiben
+    admin/views/settings.php               überschreiben
+
+Damit kommt das Einsatzgebiet neu aus dem CMS statt fest
+aus dem Code.
+
+
+SCHRITT 2 — SQL
+────────────────────────────────────────────────────────
+
+    2-SQL/deutschschweiz.sql
+
+Ersetzt die Wortfolge "ganze(n) Schweiz" in allen Texten.
+
+Ein alleinstehendes "Schweiz" bleibt. Die Adresse
+"8808 Pfäffikon, Schweiz" wird also nicht angefasst,
+das ist geprüft.
+
+Gefahrlos mehrfach ausführbar.
+
+
+SCHRITT 3 — EINSATZGEBIET PRÜFEN
+────────────────────────────────────────────────────────
+
+CMS -> Einstellungen -> Kontakt -> Einsatzgebiet (Kantone)
+
+Vorbelegt mit:
+
+    Schwyz, Zürich, Zug, Luzern, Glarus, St. Gallen
+
+Das entspricht dem Einzugsgebiet im Unternehmensprofil.
+Ändert sich dort etwas, hier nachziehen, damit beide
+Angaben gleich bleiben.
+
+Leer lassen bedeutet wieder "ganze Schweiz".
+
+
+WAS GOOGLE DANACH BEKOMMT
+────────────────────────────────────────────────────────
+
+Statt einer pauschalen Landesangabe eine Liste von
+Kantonen, jeder als eigener Eintrag mit dem Hinweis, dass
+er in der Schweiz liegt. Das ist präziser und deckt sich
+mit dem, was im Unternehmensprofil steht.

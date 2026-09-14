@@ -58,6 +58,8 @@ $schemaDefaults = [
     // Leer vorbelegt: Zeiten erst eintragen, wenn sie stimmen. Google zeichnet
     // nur aus, was auch sichtbar auf der Kontaktseite steht.
     'opening_hours'   => '',
+    // Passend zum Einzugsgebiet im Google-Unternehmensprofil
+    'area_served'     => 'Schwyz, Zürich, Zug, Luzern, Glarus, St. Gallen',
 ];
 try {
     foreach ($schemaDefaults as $key => $default) {
@@ -119,6 +121,7 @@ $settingGroups = [
             'company_vat_id'        => ['label' => 'UID / MWST-Nummer',                        'type' => 'text', 'hint' => 'Format: CHE-000.000.000 – wird für Schema.org (Firmen-Verifikation) verwendet.'],
             'geo_lat'               => ['label' => 'GPS-Breitengrad (Latitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 47.2011. Aus Google Maps kopieren.'],
             'geo_lng'               => ['label' => 'GPS-Längengrad (Longitude)',               'type' => 'text', 'hint' => 'Für Google Maps Rich-Snippet. Pfäffikon SZ ≈ 8.7740.'],
+            'area_served'           => ['label' => 'Einsatzgebiet (Kantone)',           'type' => 'text', 'hint' => 'Mit Komma getrennt, z.B. „Schwyz, Zürich, Zug". Wird für Google als Einsatzgebiet ausgezeichnet und sollte mit dem Einzugsgebiet im Google-Unternehmensprofil übereinstimmen. Leer lassen = ganze Schweiz.'],
             'opening_hours'         => ['label' => 'Öffnungszeiten',                          'type' => 'textarea', 'hint' => 'Format: „Mo-Fr 07:00-12:00,13:00-17:00" – mehrere Blöcke mit Semikolon oder neuer Zeile trennen. Erscheint sichtbar auf der Kontaktseite UND als Schema.org-Auszeichnung, damit Google „Heute geöffnet bis …" im Suchergebnis zeigen kann. Leer lassen = wird nirgends angezeigt.'],
         ],
     ],

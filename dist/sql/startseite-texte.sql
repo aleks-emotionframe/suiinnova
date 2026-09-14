@@ -114,7 +114,7 @@ JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(s.content, '$.body',
     CONCAT(
       '<p>Die SUI Innova GmbH fertigt Sanitärelemente vor und montiert sie. ',
-      'Von Pfäffikon SZ aus arbeiten über 25 Fachkräfte in der ganzen Schweiz.</p>',
+      'Von Pfäffikon SZ aus arbeiten über 25 Fachkräfte in der ganzen Deutschschweiz.</p>',
       '<p>Wir bauen die GIS-Elemente in der Werkstatt auf und verrohren sie komplett. ',
       'Auf der Baustelle wird gestellt und angeschlossen, nicht mehr zusammengebaut. ',
       'Das verkürzt die Zeit im Rohbau. Was im Trockenen geprüft wurde, muss vor Ort ',

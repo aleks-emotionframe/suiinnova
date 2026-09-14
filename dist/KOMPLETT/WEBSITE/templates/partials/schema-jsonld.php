@@ -94,12 +94,40 @@ $localBusiness = [
         'latitude'  => (float) $geoLat,
         'longitude' => (float) $geoLng,
     ],
-    'areaServed' => [
-        '@type' => 'Country',
-        'name'  => 'Schweiz',
-    ],
     'parentOrganization' => ['@id' => $orgId],
 ];
+
+// Einsatzgebiet.
+//
+// Hier stand bisher pauschal "Country: Schweiz". Das ist die Angabe, die
+// Google maschinenlesbar bekommt, und sie widersprach dem Einzugsgebiet im
+// Unternehmensprofil, das Kantone auflistet. Jetzt kommt die Liste aus dem
+// CMS und kann mit dem Profil gleichgehalten werden.
+//
+// Format im Feld: Kantone mit Komma getrennt, etwa
+// "Schwyz, Zürich, Zug, Luzern, Glarus, St. Gallen".
+// Leer lassen bedeutet: ganze Schweiz.
+$areaRaw = trim(setting('area_served', ''));
+
+if ($areaRaw !== '') {
+    $gebiete = [];
+    foreach (explode(',', $areaRaw) as $name) {
+        $name = trim($name);
+        if ($name === '') continue;
+        $gebiete[] = [
+            '@type'          => 'AdministrativeArea',
+            'name'           => $name,
+            'containedInPlace' => ['@type' => 'Country', 'name' => 'Schweiz'],
+        ];
+    }
+    if ($gebiete) {
+        $localBusiness['areaServed'] = $gebiete;
+    }
+}
+
+if (empty($localBusiness['areaServed'])) {
+    $localBusiness['areaServed'] = ['@type' => 'Country', 'name' => 'Schweiz'];
+}
 
 // Oeffnungszeiten — nur auszeichnen, was auch sichtbar auf der Seite steht.
 // Mit hinterlegten Zeiten zeigt Google "Heute geoeffnet bis" direkt im
