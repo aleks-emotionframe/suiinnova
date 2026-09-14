@@ -1,0 +1,399 @@
+<title>Unternehmensprofil und Restarbeiten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+  /* ══════════════════════════════════════════════════════════
+     Arbeitsliste. Wird nebenher gelesen, während jemand im
+     Google-Profil klickt. Kopierblöcke müssen sofort als solche
+     erkennbar sein, alles andere tritt zurück.
+     ══════════════════════════════════════════════════════════ */
+  :root {
+    --grund:    #EBEDF0;
+    --blatt:    #FFFFFF;
+    --tinte:    #151A20;
+    --tinte-2:  #4B535F;
+    --tinte-3:  #838C9A;
+    --linie:    #DDE1E6;
+    --rot:      #C41018;
+    --amber:    #B45309;
+    --amber-bg: #FEF6E7;
+    --gruen:    #157F3D;
+    --code-bg:  #1A1F27;
+    --code-tx:  #E6EAF0;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --grund: #12161C; --blatt: #1A1F26; --tinte: #EEF1F5;
+      --tinte-2: #AEB7C3; --tinte-3: #78818F; --linie: #2B323B;
+      --rot: #FF5A62; --amber: #E8A33D; --amber-bg: #2A2114; --gruen: #4ADE80;
+      --code-bg: #0E1217; --code-tx: #DDE3EA;
+    }
+  }
+  :root[data-theme="dark"] {
+    --grund: #12161C; --blatt: #1A1F26; --tinte: #EEF1F5;
+    --tinte-2: #AEB7C3; --tinte-3: #78818F; --linie: #2B323B;
+    --rot: #FF5A62; --amber: #E8A33D; --amber-bg: #2A2114; --gruen: #4ADE80;
+    --code-bg: #0E1217; --code-tx: #DDE3EA;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--grund); color: var(--tinte);
+    font-family: var(--sans); font-size: 15px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .blatt { max-width: 60rem; margin: 0 auto; padding: 0 20px; padding-block: 38px 80px; }
+
+  header.kopf { border-bottom: 2px solid var(--tinte); padding-bottom: 18px; margin-bottom: 30px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--rot); font-weight: 600; margin-bottom: 10px;
+  }
+  h1 { font-size: clamp(25px, 4vw, 34px); line-height: 1.14; margin: 0 0 10px; letter-spacing: -0.015em; text-wrap: balance; }
+  .kopf p { margin: 0; color: var(--tinte-2); max-width: 46rem; }
+
+  h2 {
+    font-family: var(--mono); font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: .13em; color: var(--tinte-3); font-weight: 600;
+    margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--linie);
+  }
+
+  .punkt { background: var(--blatt); border: 1px solid var(--linie); padding: 18px 20px; margin-bottom: 12px; }
+  .punkt-kopf { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .punkt-titel { font-weight: 600; font-size: 16px; }
+  .marke {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 2px; font-weight: 600; white-space: nowrap;
+  }
+  .m-aendern { background: var(--amber-bg); color: var(--amber); }
+  .m-neu     { background: rgba(196,16,24,.1); color: var(--rot); }
+  .m-ok      { background: rgba(21,127,61,.1); color: var(--gruen); }
+  .punkt p { margin: 0 0 8px; color: var(--tinte-2); }
+  .punkt p:last-child { margin-bottom: 0; }
+  .punkt strong { color: var(--tinte); font-weight: 600; }
+
+  .gegen { display: grid; gap: 6px; margin: 10px 0; font-size: 14px; }
+  @media (min-width: 600px) { .gegen { grid-template-columns: 4.5rem 1fr; gap: 6px 14px; } }
+  .gegen dt { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--tinte-3); padding-top: 3px; }
+  .gegen dd { margin: 0; font-family: var(--mono); font-size: 13px; word-break: break-word; }
+  .gegen .weg { color: var(--tinte-3); text-decoration: line-through; }
+  .gegen .hin { color: var(--gruen); }
+
+  .kopierblock { position: relative; margin: 12px 0 4px; }
+  .kopierblock pre {
+    background: var(--code-bg); color: var(--code-tx); margin: 0;
+    padding: 16px 18px; padding-right: 92px; border-radius: 4px;
+    font-family: var(--mono); font-size: 13px; line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word; overflow-x: auto;
+  }
+  .kopierknopf {
+    position: absolute; top: 10px; right: 10px;
+    font-family: var(--sans); font-size: 11.5px; font-weight: 500;
+    background: rgba(255,255,255,.13); color: #fff; border: 0;
+    padding: 5px 11px; border-radius: 3px; cursor: pointer;
+  }
+  .kopierknopf:hover { background: rgba(255,255,255,.24); }
+  .kopierknopf:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .zeichen { font-family: var(--mono); font-size: 11px; color: var(--tinte-3); margin-top: 6px; }
+
+  ul.liste { margin: 8px 0 0; padding-left: 18px; color: var(--tinte-2); }
+  ul.liste li { margin-bottom: 5px; }
+
+  .hinweis {
+    background: var(--amber-bg); border-left: 3px solid var(--amber);
+    padding: 14px 18px; margin: 14px 0 0; font-size: 14px; color: var(--tinte-2);
+  }
+  .hinweis strong { color: var(--amber); }
+
+  .fuss { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--linie); color: var(--tinte-3); font-size: 12.5px; }
+
+  @media print {
+    body { background: #fff; }
+    .kopierknopf { display: none; }
+    .punkt, .kopierblock { break-inside: avoid; }
+  }
+</style>
+
+<div class="blatt">
+
+  <header class="kopf">
+    <div class="eyebrow">SUI Innova · Schlussarbeiten</div>
+    <h1>Unternehmensprofil und was auf der Website noch offen ist</h1>
+    <p>
+      Acht Punkte im Google-Unternehmensprofil, sechs auf der Website.
+      Die Texte zum Einsetzen stehen in den dunklen Feldern.
+    </p>
+  </header>
+
+  <h2>Google-Unternehmensprofil</h2>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Website-Adresse</span>
+      <span class="marke m-aendern">ändern</span>
+    </div>
+    <dl class="gegen">
+      <dt>ist</dt><dd class="weg">https://www.sui-innova.ch/</dd>
+      <dt>soll</dt><dd class="hin">https://sui-innova.ch/</dd>
+    </dl>
+    <p>
+      Die Website leitet <strong>www</strong> dauerhaft auf die Adresse ohne www um. Jeder Klick
+      aus dem Profil macht damit einen Umweg über eine Weiterleitung. Kostet ein
+      Zehntel einer Sekunde und ein bisschen Signal.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Kategorien</span>
+      <span class="marke m-aendern">ändern</span>
+    </div>
+    <dl class="gegen">
+      <dt>weg</dt><dd class="weg">Hausverwaltungsunternehmen</dd>
+      <dt>bleibt</dt><dd>Dienstleistungen im Bereich von sanitären Anlagen (primär)<br>Sanitärtechnik</dd>
+      <dt>prüfen</dt><dd class="hin">Trockenbau</dd>
+    </dl>
+    <p>
+      <strong>Hausverwaltungsunternehmen muss weg.</strong> SUI Innova verwaltet keine
+      Liegenschaften. Eine falsche Kategorie verwässert, wofür Google den Betrieb hält,
+      und zieht ihn in Suchen, die niemandem nützen.
+    </p>
+    <p>
+      Beplankung und Spachtelung sind Trockenbau. Eine passende Kategorie dafür wäre
+      ein zusätzliches Signal für genau die Begriffe, auf die wir die neuen Seiten
+      ausgerichtet haben.
+    </p>
+    <div class="hinweis">
+      <strong>Ehrlich gesagt:</strong> Googles Kategorieliste sehe ich von hier aus nicht,
+      und sie unterscheidet sich je nach Land. Tippen Sie im Kategoriefeld nacheinander
+      <em>Vorfabrikation</em>, <em>Fertigteil</em>, <em>Trockenbau</em>, <em>Bauunternehmen</em>
+      und nehmen Sie, was am nächsten kommt. Die Hauptkategorie zählt am meisten,
+      die weiteren deutlich weniger.
+    </div>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Beschreibung</span>
+      <span class="marke m-aendern">ändern</span>
+    </div>
+    <p>
+      Der jetzige Text ist gut und voller richtiger Begriffe. Nur der letzte Satz ist
+      leer: <em>„steht für effiziente Sanitär-Vorfabrikation, digitale Planung, hohe
+      Qualität und termingerechte Projektabwicklung."</em> Das schreibt jeder.
+    </p>
+    <div class="kopierblock">
+      <pre id="t-beschreibung">Die SUI Innova GmbH in Pfäffikon SZ fertigt Sanitärelemente vor und montiert sie. In unserer Werkstatt bauen wir Geberit GIS Vorwände auf, verrohren sie komplett und liefern sie einbaufertig auf die Baustelle. Auf Wunsch übernehmen wir auch die Montage, die Beplankung mit AquaPanel und die Spachtelung bis zur malerfertigen Wand.
+
+Wir arbeiten für Sanitärinstallateure, Generalunternehmen und Bauleitungen: Wohnungsbau, Gewerbebau, Schulhäuser, Spitäler und Industrieprojekte in der ganzen Deutschschweiz. Über 25 Fachkräfte.
+
+Zum Leistungsangebot gehören Sanitärplanung, CAD-Konstruktion, Wasser- und Abwasserverrohrung, Elementbau, Montage, Beplankung, Spachtelung sowie Ausflockung mit SilentPanel.</pre>
+      <button class="kopierknopf" type="button" data-ziel="t-beschreibung">Kopieren</button>
+    </div>
+    <p class="zeichen">678 von 750 Zeichen. Keine Gedankenstriche, keine Floskeln.</p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Leistungen eintragen</span>
+      <span class="marke m-neu">fehlt ganz</span>
+    </div>
+    <p>
+      Im Profil gibt es unter <strong>Bearbeiten → Leistungen</strong> eine eigene Liste.
+      Die ist heute leer. Jeder Eintrag ist ein Begriff, unter dem Google den Betrieb
+      einsortieren kann, und er erscheint sichtbar im Profil.
+    </p>
+    <div class="kopierblock">
+      <pre id="t-leistungen">Sanitär Vorfabrikation
+GIS-Elemente vorfabrizieren
+Geberit GIS Vorwände montieren
+Beplankung mit AquaPanel
+Spachtelung
+Ausflockung und Schallschutz
+Sanitärplanung und CAD-Konstruktion
+Wasser- und Abwasserverrohrung
+Elementbau</pre>
+      <button class="kopierknopf" type="button" data-ziel="t-leistungen">Kopieren</button>
+    </div>
+    <p class="zeichen">Einzeln eintragen, eine Leistung pro Zeile.</p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Bewertungen</span>
+      <span class="marke m-neu">der grösste Hebel</span>
+    </div>
+    <p>
+      Im Audit steht, wer bei „Sanitär Vorfabrikation" in der Kartenansicht erscheint:
+      Sanivor mit 11 Bewertungen, <strong>Vorfa-Plast mit 3</strong>, PE Fabrikations mit 14.
+    </p>
+    <p>
+      Drei. Das ist die billigste Position auf dieser ganzen Liste. Die letzten zehn
+      Kunden anrufen, zwei Sätze erklären, den Link zum Profil schicken. Wer zehn
+      fragt, bekommt vier.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Fotos</span>
+      <span class="marke m-neu">ergänzen</span>
+    </div>
+    <p>
+      Die Bilder aus der Mediathek passen direkt: verrohrte GIS-Elemente in der
+      Werkstatt, die Halle, die beschrifteten Lieferwagen. Profile mit Fotos werden
+      häufiger angeklickt als solche ohne.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Eröffnungsdatum</span>
+      <span class="marke m-neu">leer</span>
+    </div>
+    <p>
+      Steht auf „Hinzufügen". Ein Gründungsjahr ist ein kleines Vertrauenssignal und
+      in zehn Sekunden eingetragen.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Einzugsgebiet</span>
+      <span class="marke m-ok">so lassen</span>
+    </div>
+    <p>
+      Zug, Glarus, Luzern, Zürich, St. Gallen, Winterthur und die Nachbargemeinden
+      sind eingetragen. Das passt.
+    </p>
+    <div class="hinweis">
+      <strong>Damit Sie es Riad richtig sagen können:</strong> Das Einzugsgebiet bringt
+      keine Platzierungen in Zürich. Google sortiert die Kartenansicht nach der
+      Entfernung zwischen Suchendem und Firmenadresse. Das Gebiet sagt nur, wohin
+      Sie fahren, nicht, wo Sie gefunden werden. Wer in Zürich sucht, sieht Betriebe
+      aus Zürich.
+    </div>
+  </div>
+
+  <h2>Website: was noch offen ist</h2>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Öffnungszeiten ins CMS</span>
+      <span class="marke m-neu">jetzt möglich</span>
+    </div>
+    <p>
+      Das Feld steht seit dem ersten Paket bereit und ist leer, weil mir die Zeiten
+      fehlten. Jetzt stehen sie im Profil. Einsetzen unter
+      <strong>Einstellungen → Kontakt → Öffnungszeiten</strong>:
+    </p>
+    <div class="kopierblock">
+      <pre id="t-zeiten">Mo-Do 07:00-17:30; Fr 07:00-16:30</pre>
+      <button class="kopierknopf" type="button" data-ziel="t-zeiten">Kopieren</button>
+    </div>
+    <p class="zeichen">Genau so, mit Semikolon. Format geprüft, ergibt zwei korrekte Schema-Blöcke ohne Samstag und Sonntag.</p>
+    <p>
+      Danach stehen die Zeiten sichtbar auf der Kontaktseite <em>und</em> ausgezeichnet
+      im Quelltext. Damit kann Google „Heute geöffnet bis 17:30" direkt im Suchergebnis
+      anzeigen. Das war einer der offenen Feinschliff-Punkte aus dem Audit.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Kopfbilder für die sechs neuen Seiten</span>
+      <span class="marke m-neu">offen</span>
+    </div>
+    <p>
+      Jede der sechs Seiten hat als erste Sektion einen Bildstreifen ohne Bild, und
+      der wird deshalb gar nicht angezeigt. Unter <strong>Seiten → [Seite] → erste
+      Sektion</strong> ein Bild wählen. Für jede Seite ein anderes, sonst wirkt es beliebig.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Navigation</span>
+      <span class="marke m-neu">zu entscheiden</span>
+    </div>
+    <p>
+      Die sechs Seiten stehen im Footer unter „Leistungen im Detail" und sind von der
+      Leistungsseite aus verlinkt. Im Hauptmenü stehen sie nicht.
+    </p>
+    <p>
+      Das ist in Ordnung so. Sechs weitere Menüpunkte würden das Menü überladen, und
+      Google findet die Seiten über Footer, Sitemap und den Block auf der
+      Leistungsseite ohnehin.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Ordner dist auf dem Server löschen</span>
+      <span class="marke m-aendern">aufräumen</span>
+    </div>
+    <p>
+      Im FTP liegt ein Ordner <strong>dist</strong>, unser Build-Verzeichnis, das
+      irgendwann versehentlich mit hochgeladen wurde. Die neue .htaccess sperrt den
+      Zugriff, aber löschen ist sauberer. Für den Betrieb wird er nicht gebraucht.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Search Console</span>
+      <span class="marke m-neu">zum Schluss</span>
+    </div>
+    <p>
+      <strong>URL-Prüfung → Adresse eingeben → Indexierung beantragen.</strong>
+      Für die fünf bestehenden Seiten und die sechs neuen, einzeln. Ohne das dauert es
+      Wochen, bis Google die neuen Titel überhaupt sieht.
+    </p>
+  </div>
+
+  <div class="punkt">
+    <div class="punkt-kopf">
+      <span class="punkt-titel">Deutschschweiz oder ganze Schweiz</span>
+      <span class="marke m-aendern">entscheiden</span>
+    </div>
+    <p>
+      Im Profil steht <strong>„in der ganzen Deutschschweiz"</strong>, auf der Website
+      <strong>„in der ganzen Schweiz"</strong>. Beides zusammen geht nicht.
+    </p>
+    <p>
+      Ich würde Deutschschweiz nehmen: glaubwürdiger für einen Betrieb in Pfäffikon SZ,
+      und es passt zum Einzugsgebiet im Profil. Dann muss der Satz im Über-uns-Teaser
+      angepasst werden. Sagen Sie mir, wie Sie es wollen, das ist eine Zeile.
+    </p>
+  </div>
+
+  <div class="fuss">
+    EmotionFrame GmbH · Interne Arbeitsliste · Quellen: SEO-Bericht 03.09.2026,
+    Keyword-Plan 08.09.2026, Unternehmensprofil Stand 14.09.2026
+  </div>
+
+</div>
+
+<script>
+(function () {
+  document.querySelectorAll('.kopierknopf').forEach(function (knopf) {
+    knopf.addEventListener('click', function () {
+      var text = document.getElementById(knopf.dataset.ziel).textContent;
+      var fertig = function (ok) {
+        knopf.textContent = ok ? 'Kopiert' : 'Bitte von Hand markieren';
+        setTimeout(function () { knopf.textContent = 'Kopieren'; }, 2200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { fertig(true); },
+                                                 function () { fertig(false); });
+      } else {
+        fertig(false);
+      }
+    });
+  });
+})();
+</script>
