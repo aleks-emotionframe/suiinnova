@@ -131,6 +131,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Pläne einsenden, Offerte erhalten',
     'cta_text'    => 'Senden Sie uns Ihre Sanitärpläne über das Kontaktformular, wir prüfen sie und melden uns mit einer Offerte.',
+    'textlinks' => [
+        ['beplanken und spachteln wir die Elemente vorgängig', 'gis-elemente-beplanken'],
+        ['montiert unser eigenes Team die Elemente', 'sanitaerelemente-montieren'],
+    ],
     'links' => [
         'sanitaer-gis-elemente-bestellen',
         'gis-elemente-beplanken',
@@ -156,7 +160,7 @@ $seiten[] = [
     'keyword'    => 'sanitär gis elemente bestellen, gis elemente bestellen, gis elemente vorfabrizieren',
     'nav_label'  => 'GIS-Elemente bestellen',
     'meta_title' => 'Sanitär GIS Elemente bestellen | SUI Innova',
-    'meta_desc'  => 'GIS Elemente fix und fertig verrohrt aus Pfäffikon SZ. Pläne senden, Offerte mit Preis und Liefertermin erhalten, auf der Baustelle nur noch stellen und anschliessen.',
+    'meta_desc'  => 'GIS Elemente fix und fertig verrohrt aus Pfäffikon SZ, auf der Baustelle nur noch stellen und anschliessen. Pläne senden, Offerte mit Termin erhalten.',
     'h1'         => 'Sanitär GIS Elemente bestellen: verrohrt ab Werkstatt Pfäffikon',
     'alt'        => 'Fertig verrohrtes Sanitär GIS Element in der Werkstatt von SUI Innova in Pfäffikon SZ',
     'intro'      => 'Wer Sanitär GIS Elemente bestellen will, braucht sie fertig verrohrt, richtig bemasst und termingerecht auf der Baustelle. Genau das liefern wir aus unserer Werkstatt in Pfäffikon SZ. Wir bauen die Elemente nach Ihren Plänen auf, verrohren sie komplett und bereiten sie für den Transport vor. Auf der Baustelle werden sie nur noch gestellt und angeschlossen. Auf Wunsch übernehmen wir zusätzlich die Montage, die Beplankung mit AquaPanel, die Spachtelung und die Ausflockung mit SilentPanel. Sie haben dabei eine Ansprechperson für den ganzen Ablauf. Senden Sie uns Ihre Sanitärpläne oder eine Skizze mit Apparateliste. Wir prüfen die Unterlagen, klären offene Punkte direkt mit Ihnen und erstellen eine Offerte mit Preis und möglichem Liefertermin.',
@@ -188,6 +192,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'GIS Elemente anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Sanitärpläne oder eine Skizze mit Apparateliste, wir prüfen die Unterlagen und schicken Ihnen eine Offerte mit Preis und Liefertermin.',
+    'textlinks' => [
+        ['die Beplankung mit AquaPanel', 'gis-elemente-beplanken'],
+        ['die Montage', 'sanitaerelemente-montieren'],
+    ],
     'links' => [
         'gis-elemente-beplanken',
         'sanitaerelemente-vorfabrizieren',
@@ -244,6 +252,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Beplankung anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Sanitärpläne mit Stückzahl, Wandaufbau und Termin, wir rechnen Ihnen eine Offerte für die Beplankung.',
+    'textlinks' => [
+        ['Vorfabrikation, Montage und Beplankung', 'sanitaerelemente-vorfabrizieren'],
+        ['verrohren und beplanken die GIS Elemente', 'sanitaer-gis-elemente-bestellen'],
+    ],
     'links' => [
         'leistungen',
         'sanitaer-gis-elemente-bestellen',
@@ -265,7 +277,7 @@ $seiten[] = [
     'keyword'    => 'sanitär vorwandelemente',
     'nav_label'  => 'Sanitär Vorwandelemente',
     'meta_title' => 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova',
-    'meta_desc'  => 'Sanitär Vorwandelemente: So sind sie aufgebaut, so werden sie montiert, beplankt und schallentkoppelt. SUI Innova aus Pfäffikon SZ erklärt es und liefert fertig.',
+    'meta_desc'  => 'Sanitär Vorwandelemente: So sind sie aufgebaut, so werden sie montiert, beplankt und schallentkoppelt. SUI Innova aus Pfäffikon SZ erklärt es.',
     'h1'         => 'Sanitär Vorwandelemente: Aufbau, Montage und Beplankung erklärt',
     'alt'        => 'Verzinktes Sanitär Vorwandelement mit verrohrtem Spülkasten in der Werkstatt von SUI Innova in Pfäffikon SZ',
     'intro'      => 'Sanitär Vorwandelemente tragen WC, Waschtisch, Dusche oder Urinal und nehmen Zu- und Ablaufleitungen auf, ohne dass die Rohre sichtbar bleiben. Der Kern ist ein verzinkter Stahlrahmen, der am Boden und an der Rohbauwand verschraubt wird. Danach folgen Beplankung, Spachtelung und im Nassbereich die Abdichtung. Auf dieser Seite lesen Sie, wie ein solches Element aufgebaut ist, welche Masse die Planung bestimmen, warum die Beplankung im Nassbereich anderen Regeln folgt und an welcher Stelle im Bauablauf über die Schallentkopplung entschieden wird. SUI Innova aus Pfäffikon SZ fertigt GIS-Elemente in der eigenen Werkstatt fix und fertig verrohrt vor, montiert sie auf der Baustelle und übernimmt Beplankung und Spachtelung. Sie erhalten die Wand als eine Leistung, nicht in Einzelteilen.',
@@ -293,6 +305,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Pläne einsenden, Offerte erhalten',
     'cta_text'    => 'Senden Sie uns Ihre Sanitärpläne, wir prüfen die Elemente und schicken Ihnen eine Offerte mit Stückzahl, Terminen und Preis.',
+    'textlinks' => [
+        ['GIS-Elemente', 'sanitaer-gis-elemente-bestellen'],
+        ['Beplankung und Spachtelung', 'sanitaer-vorwandelemente-beplanken'],
+    ],
     'links' => [
         'leistungen',
         'sanitaer-gis-elemente-bestellen',
@@ -315,7 +331,7 @@ $seiten[] = [
     'keyword'    => 'sanitär vorwandelemente bestellen',
     'nav_label'  => 'Vorwandelemente bestellen',
     'meta_title' => 'Sanitär Vorwandelemente bestellen | SUI Innova GmbH',
-    'meta_desc'  => 'Sanitär Vorwandelemente bestellen: verrohrte GIS-Elemente aus Pfäffikon SZ, auf Mass vorfabriziert. Pläne einsenden und Offerte mit Massen und Liefertermin erhalten.',
+    'meta_desc'  => 'Sanitär Vorwandelemente bestellen: verrohrte GIS-Elemente aus Pfäffikon SZ, auf Mass vorfabriziert. Pläne einsenden, Offerte mit Liefertermin erhalten.',
     'h1'         => 'Sanitär Vorwandelemente bestellen: verrohrt ab Werkstatt Pfäffikon',
     'alt'        => 'Verrohrtes GIS-Vorwandelement für WC und Waschtisch in der Werkstatt in Pfäffikon SZ',
     'intro'      => 'Sie können bei SUI Innova Sanitär Vorwandelemente bestellen, die fertig verrohrt aus unserer Werkstatt in Pfäffikon SZ auf Ihre Baustelle kommen. Wir fertigen die GIS-Elemente nach Ihren Plänen, prüfen die Leitungsführung vorgängig und liefern nach Absprache auf den vereinbarten Termin. Auf Wunsch montiert unser eigenes Team die Elemente, beplankt sie mit AquaPanel und spachtelt, bis die Wand bereit für Abdichtung und Plättli ist. Für Sie bedeutet das weniger Schnittstellen und eine Ansprechperson für Vorfabrikation und Einbau. Wir arbeiten für Sanitärbetriebe, Generalunternehmen und Bauherrschaften. Sagen Sie uns, welche Apparate, welche Wandtypen und welchen Liefertermin Sie brauchen. Sie erhalten eine Offerte mit Positionen, Massen und Liefertermin, damit Sie die Kosten sauber rechnen können.',
@@ -344,6 +360,10 @@ $seiten[] = [
     // Der Plan nennt nur das erste Ziel. Eine Seite mit einem einzigen
     // ausgehenden Link ist eine Sackgasse, die beiden anderen sind die
     // naechstliegenden Schritte fuer jemanden, der hier landet.
+    'textlinks' => [
+        ['GIS-Elemente', 'sanitaer-gis-elemente-bestellen'],
+        ['beplankt sie mit AquaPanel', 'sanitaer-vorwandelemente-beplanken'],
+    ],
     'links' => [
         'sanitaer-gis-elemente-bestellen',
         'sanitaer-vorwandelemente',
@@ -393,6 +413,10 @@ $seiten[] = [
     // Der Plan nennt nur das erste Ziel, und das ist bis zur Freischaltung
     // offline. Ohne die beiden anderen haette die Seite bis dahin gar
     // keinen ausgehenden Link.
+    'textlinks' => [
+        ['GIS-Elemente', 'sanitaer-gis-elemente-bestellen'],
+        ['beplankt sie bis zur spachtelfertigen Wand', 'gis-elemente-beplanken'],
+    ],
     'links' => [
         'sanitaerelemente-vorfabrizieren',
         'leistungen',
@@ -413,7 +437,7 @@ $seiten[] = [
     'keyword'    => 'sanitär vorwandelemente beplanken',
     'nav_label'  => 'Vorwandelemente beplanken',
     'meta_title' => 'Sanitär Vorwandelemente beplanken | SUI Innova',
-    'meta_desc'  => 'Sanitär Vorwandelemente beplanken: Wir plattieren verrohrte Vorwandelemente in Nasszellen und trockenen Räumen, auf Wunsch spachtelfertig. Pläne senden, Offerte erhalten.',
+    'meta_desc'  => 'Sanitär Vorwandelemente beplanken: in Nasszellen mit AquaPanel, in trockenen Räumen mit Gipsplatten, auf Wunsch spachtelfertig. Pläne einsenden.',
     'h1'         => 'Sanitär Vorwandelemente beplanken: von der Montage bis zur spachtelfertigen Wand',
     'alt'        => 'Mit AquaPanel beplanktes Sanitär Vorwandelement mit ausgeschnittener Revisionsöffnung',
     'intro'      => 'Sanitär Vorwandelemente beplanken heisst: Das verrohrte Element bekommt seine Hülle, und die Wand ist bereit für Plättli oder Farbe. Diesen Schritt übernehmen wir auf Ihrer Baustelle, im Neubau wie im Umbau. Wir wählen die Platte nach Raum, schneiden um Rohrdurchführungen und Revisionsöffnungen zu, befestigen im vorgegebenen Raster und spachteln auf Wunsch. In Nasszellen arbeiten wir mit AquaPanel, in trockenen Bereichen mit der passenden Gipsplatte. Wir kommen auch dann, wenn ein anderer Betrieb die Elemente gesetzt hat. Sie erhalten eine Offerte mit Fläche, Plattentyp und Termin, damit Sie Ihre Folgegewerke planen können. Senden Sie uns Ihre Pläne, wir melden uns mit einem Terminvorschlag.',
@@ -441,6 +465,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Beplankung anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Grundrisse und die Elementliste, wir rechnen die Fläche aus und melden uns mit Offerte und Montagetermin.',
+    'textlinks' => [
+        ['Wir fabrizieren GIS-Elemente', 'sanitaerelemente-vorfabrizieren'],
+        ['montieren sie mit dem eigenen Team', 'sanitaerelemente-montieren'],
+    ],
     'links' => [
         'sanitaer-vorwandelemente',
         'sanitaer-vorwandelemente-bestellen',
@@ -485,6 +513,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Vorfabrikation anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Grundrisse und Sanitärpläne, wir prüfen sie und melden uns mit einer Offerte.',
+    'textlinks' => [
+        ['das Beplanken mit AquaPanel', 'gis-elemente-beplanken'],
+        ['Montage und Beplankung übernimmt unser eigenes Team', 'sanitaerelemente-montieren'],
+    ],
     'links' => [
         'leistungen',
         'sanitaer-gis-elemente-bestellen',
@@ -531,6 +563,10 @@ $seiten[] = [
     ],
     'cta_heading' => 'Montage anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Grundrisse und Sanitärpläne über das Kontaktformular, wir prüfen die Masse und melden uns mit Offerte und Terminvorschlag.',
+    'textlinks' => [
+        ['fix und fertig verrohrt', 'sanitaerelemente-vorfabrizieren'],
+        ['beplanken wir die Wände direkt anschliessend mit AquaPanel', 'gis-elemente-beplanken'],
+    ],
     'links' => [
         'leistungen',
         'sanitaerelemente-vorfabrizieren',
@@ -603,6 +639,61 @@ function linkBlock(array $ziele, array $anker, string $eigenerSlug): ?array
     ]];
 }
 
+/**
+ * Links im Fliesstext setzen.
+ *
+ * Die Linkliste am Seitenende ist sauber, aber ein Link mitten im Satz
+ * wiegt bei Google mehr und wird oefter geklickt. Hier wird je Seite das
+ * ERSTE Vorkommen einer Formulierung zum Link auf die passende Seite.
+ *
+ * Nur das erste Vorkommen: derselbe Link dreimal auf einer Seite bringt
+ * nichts und liest sich wie eine Werbeflaeche.
+ *
+ * $gesetzt merkt sich seitenweit, was schon verlinkt ist, damit Einleitung
+ * und Abschnitte nicht denselben Link doppelt setzen.
+ */
+function textlinkSetzen(string $html, array $paare, array &$gesetzt): string
+{
+    foreach ($paare as [$suchtext, $ziel]) {
+        if (isset($gesetzt[$ziel])) continue;
+        $stelle = mb_strpos($html, $suchtext);
+        if ($stelle === false) continue;
+
+        $html = mb_substr($html, 0, $stelle)
+              . '<a href="/' . $ziel . '">' . $suchtext . '</a>'
+              . mb_substr($html, $stelle + mb_strlen($suchtext));
+        $gesetzt[$ziel] = true;
+    }
+    return $html;
+}
+
+/**
+ * Das Inhaltsraster einer Seite: Einleitung plus Abschnitte, mit den
+ * Links im Fliesstext. Eine Stelle fuer alle drei Aufrufer, sonst laufen
+ * SQL und Vorschau auseinander.
+ */
+function inhaltsRaster(array $p, string $heading): array
+{
+    $gesetzt = [];
+    $paare   = $p['textlinks'] ?? [];
+
+    $lead  = textlinkSetzen('<p>' . $p['intro'] . '</p>', $paare, $gesetzt);
+    $items = [];
+    foreach ($p['body'] as $b) {
+        $items[] = [
+            'title' => $b[0],
+            'text'  => textlinkSetzen('<p>' . $b[1] . '</p>', $paare, $gesetzt),
+        ];
+    }
+
+    return [
+        'heading' => $heading,
+        'lead'    => $lead,
+        'style'   => 'light',
+        'items'   => $items,
+    ];
+}
+
 /** Die vier bis fuenf Sektionen einer Keyword-Seite. */
 function sektionen(array $p, array $anker): array
 {
@@ -617,15 +708,7 @@ function sektionen(array $p, array $anker): array
         'alt'          => $p['alt'],
     ]];
 
-    $s[] = ['content-grid', [
-        'heading' => $p['h1'],
-        'lead'    => '<p>' . $p['intro'] . '</p>',
-        'style'   => 'light',
-        'items'   => array_map(
-            fn($b) => ['title' => $b[0], 'text' => '<p>' . $b[1] . '</p>'],
-            $p['body']
-        ),
-    ]];
+    $s[] = ['content-grid', inhaltsRaster($p, $p['h1'])];
 
     $s[] = ['faq', [
         'heading'  => 'Fragen und Antworten',
@@ -686,6 +769,22 @@ if (($argv[1] ?? '') === 'pruefen') {
         foreach ($p['links'] ?? [] as $z) {
             if (!isset($anker[$z])) $fehler[] = $p['slug'] . ": Linkziel /$z unbekannt";
         }
+
+        // Fliesstext-Links: die Formulierung muss im Text stehen, sonst
+        // faellt der Link stillschweigend weg und niemand merkt es.
+        $volltext = $p['intro'];
+        foreach ($p['body'] as $b) $volltext .= ' ' . $b[1];
+        foreach ($p['textlinks'] ?? [] as [$suchtext, $ziel]) {
+            if (!isset($anker[$ziel])) {
+                $fehler[] = $p['slug'] . ": Fliesstext-Link auf unbekanntes /$ziel";
+            }
+            if ($ziel === $p['slug']) {
+                $fehler[] = $p['slug'] . ": Fliesstext-Link zeigt auf die Seite selbst";
+            }
+            if (mb_strpos($volltext, $suchtext) === false) {
+                $fehler[] = $p['slug'] . ": Formulierung \"$suchtext\" steht nicht im Text";
+            }
+        }
     }
 
     foreach ($nurLinks as $quelle => $ziele) {
@@ -720,15 +819,7 @@ if (($argv[1] ?? '') === 'daten') {
         // die Vorschau eine Seite vor, die es so nicht gibt.
         if ($p['modus'] === 'ergaenzen') {
             $sek = [
-                ['type' => 'content-grid', 'content' => [
-                    'heading' => $p['h1'],
-                    'lead'    => '<p>' . $p['intro'] . '</p>',
-                    'style'   => 'light',
-                    'items'   => array_map(
-                        fn($b) => ['title' => $b[0], 'text' => '<p>' . $b[1] . '</p>'],
-                        $p['body']
-                    ),
-                ]],
+                ['type' => 'content-grid', 'content' => inhaltsRaster($p, $p['h1'])],
                 ['type' => 'faq', 'content' => [
                     'heading'  => 'Fragen und Antworten',
                     'subtitle' => '',
@@ -840,6 +931,16 @@ foreach ($seiten as $p) {
         $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL AND type = 'text-block'";
         $o[] = "  AND (content LIKE '%Leistungen im Detail%' OR content LIKE '%Passend dazu%');";
         $o[] = "";
+        $o[] = "-- Die drei Sektionen, die dieses Skript selbst anlegt, fallen";
+        $o[] = "-- vorher weg und werden gleich neu geschrieben. Sonst bliebe";
+        $o[] = "-- beim zweiten Durchlauf die aeltere Textfassung stehen: die";
+        $o[] = "-- Seite hat ihr eigenes Layout, sie wird nicht komplett neu";
+        $o[] = "-- aufgebaut wie die anderen. Leistungskarten, Kopfbilder und";
+        $o[] = "-- Handlungsaufforderung bleiben unberuehrt.";
+        $o[] = "DELETE FROM sections";
+        $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL";
+        $o[] = "  AND type IN ('content-grid', 'faq', 'link-list');";
+        $o[] = "";
         $o[] = "-- Sortierung auf Zehnerschritte bringen, damit dazwischen Platz ist.";
         $o[] = "-- Mehrfach ausgefuehrt kommt dasselbe Ergebnis heraus.";
         $o[] = "SET @r = 0;";
@@ -874,15 +975,7 @@ foreach ($seiten as $p) {
         $o[] = "";
 
         $zusatz = [
-            [25, 'content-grid', [
-                'heading' => '',
-                'lead'    => '<p>' . $p['intro'] . '</p>',
-                'style'   => 'light',
-                'items'   => array_map(
-                    fn($b) => ['title' => $b[0], 'text' => '<p>' . $b[1] . '</p>'],
-                    $p['body']
-                ),
-            ]],
+            [25, 'content-grid', inhaltsRaster($p, '')],
             [26, 'faq', [
                 'heading'  => 'Fragen und Antworten',
                 'subtitle' => '',
@@ -898,9 +991,7 @@ foreach ($seiten as $p) {
         foreach ($zusatz as [$sort, $typ, $inhalt]) {
             $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
             $o[] = "SELECT @pid, " . q($typ) . ", " . j($inhalt) . ", " . $sort . ", 1";
-            $o[] = "FROM DUAL";
-            $o[] = "WHERE @pid IS NOT NULL";
-            $o[] = "  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND type = " . q($typ) . ");";
+            $o[] = "FROM DUAL WHERE @pid IS NOT NULL;";
             $o[] = "";
         }
 
@@ -960,6 +1051,46 @@ foreach ($nurLinks as $quelle => $ziele) {
     $o[] = "";
     $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
     $o[] = "SELECT @pid, 'link-list', " . j($lb[1]) . ", @sort, 1";
+    $o[] = "FROM DUAL WHERE @pid IS NOT NULL;";
+    $o[] = "";
+}
+
+
+// ── Startseite: Linkblock auf alle neun Leistungsseiten ──
+//
+// Die Startseite ist die staerkste Seite der Website. Bisher zeigte sie
+// auf die Leistungsseiten nur ueber den Footer, und der steht auf jeder
+// Seite gleich. Ein Link im Inhalt der Startseite wiegt deutlich mehr.
+//
+// Die Startseite wird ueber is_homepage gefunden, nicht ueber den Slug:
+// welcher Slug die Startseite ist, kann sich aendern.
+$startseiteZiele = array_keys($anker);
+$sb = linkBlock($startseiteZiele, $anker, '');
+if ($sb) {
+    $sb[1]['heading'] = 'Unsere Leistungen im Detail';
+
+    $o[] = "-- ════════════════════════════════════════════════════════════";
+    $o[] = "-- Startseite — Linkblock auf die neun Leistungsseiten";
+    $o[] = "-- ════════════════════════════════════════════════════════════";
+    $o[] = "SET @pid = (SELECT id FROM pages WHERE is_homepage = 1 LIMIT 1);";
+    $o[] = "";
+    $o[] = "DELETE FROM sections";
+    $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL AND type = 'link-list';";
+    $o[] = "";
+    $o[] = "-- Sortierung auf Zehnerschritte, damit dazwischen Platz bleibt.";
+    $o[] = "SET @r = 0;";
+    $o[] = "UPDATE sections SET sort_order = (@r := @r + 10)";
+    $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;";
+    $o[] = "";
+    $o[] = "-- Der Block gehoert hinter den Inhalt und vor die letzte";
+    $o[] = "-- Handlungsaufforderung. Gibt es keine, kommt er ganz unten hin.";
+    $o[] = "SET @cta = (SELECT MAX(sort_order) FROM sections";
+    $o[] = "            WHERE page_id = @pid AND type = 'cta-banner');";
+    $o[] = "SET @sort = COALESCE(@cta - 5,";
+    $o[] = "            (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));";
+    $o[] = "";
+    $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
+    $o[] = "SELECT @pid, 'link-list', " . j($sb[1]) . ", @sort, 1";
     $o[] = "FROM DUAL WHERE @pid IS NOT NULL;";
     $o[] = "";
 }
