@@ -126,6 +126,9 @@ return [
                 'large'  => 'Gross (750px)',
             ]],
             'overlay_text' => ['type' => 'text', 'label' => 'Text auf Bild (optional)'],
+            // Alt-Text je Seite statt je Bild: dasselbe Werkstattbild steht auf
+            // mehreren Seiten, der Text darf hier den Suchbegriff der Seite tragen.
+            'alt' => ['type' => 'text', 'label' => 'Bildbeschreibung für Google und Screenreader'],
         ],
     ],
 
@@ -155,6 +158,18 @@ return [
             'items'   => ['type' => 'repeater', 'label' => 'Abschnitte', 'fields' => [
                 'title' => ['type' => 'text',     'label' => 'Titel'],
                 'text'  => ['type' => 'richtext', 'label' => 'Text'],
+            ]],
+        ],
+    ],
+
+    'link-list' => [
+        'label' => 'Linkliste zu anderen Seiten',
+        'icon'  => 'link',
+        'fields' => [
+            'heading' => ['type' => 'text', 'label' => 'Überschrift'],
+            'items'   => ['type' => 'repeater', 'label' => 'Links', 'fields' => [
+                'slug' => ['type' => 'text', 'label' => 'Adresse der Zielseite, ohne Schrägstrich'],
+                'text' => ['type' => 'text', 'label' => 'Linktext, beschreibt die Zielseite'],
             ]],
         ],
     ],

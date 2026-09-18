@@ -11,6 +11,15 @@ $imageUrl   = $imageId ? mediaUrl($imageId) : ($content['image_url'] ?? '');
 $height     = $content['height'] ?? 'medium';
 $overlayText = $content['overlay_text'] ?? '';
 
+// Alternativtext des Kopfbilds.
+//
+// Das Bild stammt aus der Mediathek und wird auf mehreren Seiten verwendet,
+// sein Alt-Text in der Mediathek beschreibt deshalb nur das Motiv. Hier
+// darf jede Seite einen eigenen Text setzen, der den Suchbegriff der Seite
+// traegt. Ist keiner gesetzt, bleibt das Bild wie bisher schmueckend und
+// damit fuer Screenreader stumm.
+$bildAlt = trim((string) ($content['alt'] ?? ''));
+
 $heightClass = match($height) {
     'small'  => 'h-[300px] md:h-[400px] lg:h-[500px]',
     'large'  => 'h-[500px] md:h-[750px] lg:h-[800px]',
@@ -32,14 +41,14 @@ $parallaxDesktopUrl = $imageId ? mediaVariantUrl($imageId, 1600) : $imageUrl;
          Nur auf Mobile sichtbar, deshalb reicht eine kleine Variante. -->
     <?php if ($imageId): ?>
         <?= responsiveImg($imageId, [
-            'alt'   => '',
+            'alt'   => $bildAlt,
             'sizes' => '100vw',
             'class' => 'absolute inset-0 w-full object-cover pointer-events-none parallax-img',
             'style' => 'height: 130%; top: -15%;',
             'attrs' => ['data-parallax' => ''],
         ]) ?>
     <?php else: ?>
-        <img src="<?= e($imageUrl) ?>" alt=""
+        <img src="<?= e($imageUrl) ?>" alt="<?= e($bildAlt) ?>"
              class="absolute inset-0 w-full object-cover pointer-events-none parallax-img"
              style="height: 130%; top: -15%;"
              loading="lazy" decoding="async">

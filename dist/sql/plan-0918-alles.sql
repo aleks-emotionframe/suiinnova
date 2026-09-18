@@ -1,0 +1,495 @@
+-- ============================================================
+-- SUI Innova GmbH
+-- Umsetzung des Keyword-Plans vom 18.09.2026
+--
+-- ERZEUGT VON dist/scripts/build_plan_0918.php
+-- Nicht von Hand bearbeiten, sondern den Generator anpassen.
+--
+-- Zwoelf Suchbegriffe auf neun Seiten, davon zwei neu.
+--
+-- WICHTIG: ZUERST die Dateien hochladen, DANN diese SQL.
+-- Die Sektion parallax-image bekommt ein Feld fuer den
+-- Bild-Alt-Text. Ohne die neue Vorlage bleibt er wirkungslos.
+--
+-- Die beiden neuen Seiten werden DEAKTIVIERT angelegt.
+-- Freischalten mit 2-NEUE-SEITEN-ONLINE.sql.
+--
+-- Gefahrlos mehrfach ausfuehrbar.
+-- ============================================================
+
+SET NAMES utf8mb4;
+
+SET @next_sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM pages);
+
+-- ════════════════════════════════════════════════════════════
+-- /leistungen
+-- Suchbegriff: sanitär vorfabrikation
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'leistungen' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär Vorfabrikation: Leistungen | SUI Innova',
+                 meta_desc  = 'Sanitär Vorfabrikation aus Pfäffikon SZ: verrohrte GIS-Elemente, Beplankung, Aqua Panel und Montage. Pläne einsenden und Offerte erhalten.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Die Seite hat ein eigenes Layout mit Leistungskarten.
+-- Das bleibt. Die Hauptueberschrift wird gesetzt, Einleitung,
+-- Abschnitte, Fragen und der Linkblock kommen dazu.
+
+-- Die alte Linkliste aus Paket 3b faellt weg. Sie stand als
+-- Textblock mit fest geschriebenen Links in der Seite und
+-- wird durch die neue Sektion link-list ersetzt.
+DELETE FROM sections
+WHERE page_id = @pid AND @pid IS NOT NULL AND type = 'text-block'
+  AND (content LIKE '%Leistungen im Detail%' OR content LIKE '%Passend dazu%');
+
+-- Sortierung auf Zehnerschritte bringen, damit dazwischen Platz ist.
+-- Mehrfach ausgefuehrt kommt dasselbe Ergebnis heraus.
+SET @r = 0;
+UPDATE sections SET sort_order = (@r := @r + 10)
+WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;
+
+-- Hauptueberschrift: die erste Sektion mit Ueberschrift wird zur H1.
+UPDATE sections s
+JOIN (
+    SELECT MIN(sort_order) AS ers FROM sections
+    WHERE page_id = @pid AND is_active = 1 AND JSON_VALID(content)
+      AND JSON_UNQUOTE(JSON_EXTRACT(content, '$.heading')) IS NOT NULL
+      AND JSON_UNQUOTE(JSON_EXTRACT(content, '$.heading')) <> ''
+) f ON f.ers = s.sort_order
+SET s.content = JSON_SET(s.content, '$.heading', 'Sanitär Vorfabrikation: verrohrte GIS-Elemente aus unserer Werkstatt')
+WHERE s.page_id = @pid AND @pid IS NOT NULL;
+
+-- Bild-Alt-Text auf dem Kopfbanner.
+UPDATE sections SET content = JSON_SET(content, '$.alt', 'Verrohrtes GIS-Element in der Werkstatt von SUI Innova in Pfäffikon SZ')
+WHERE page_id = @pid AND @pid IS NOT NULL
+  AND type = 'parallax-image' AND JSON_VALID(content)
+  AND sort_order = (SELECT ers FROM (
+      SELECT MIN(sort_order) AS ers FROM sections
+      WHERE page_id = @pid AND type = 'parallax-image') x);
+
+-- Handlungsaufforderung auf den Wortlaut aus dem Plan.
+UPDATE sections SET content = JSON_SET(content,
+        '$.heading', 'Pläne einsenden, Offerte erhalten',
+        '$.body',    'Senden Sie uns Ihre Sanitärpläne über das Kontaktformular, wir prüfen sie und melden uns mit einer Offerte.')
+WHERE page_id = @pid AND @pid IS NOT NULL
+  AND type = 'cta-banner' AND JSON_VALID(content);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"","lead":"<p>Sie erhalten von uns GIS-Elemente, die bereits verrohrt auf die Baustelle kommen. Unsere Sanitär Vorfabrikation umfasst Trinkwasser- und Abwasserleitungen, die wir in der Werkstatt in Pfäffikon SZ am Element montieren. Auf Wunsch beplanken und spachteln wir die Elemente vorgängig, mit Gipsplatten oder mit Aqua Panel für Nasszellen. Danach montiert unser eigenes Team die Elemente direkt bei Ihnen auf der Baustelle. Sie koordinieren also nicht vier Firmen, sondern sprechen mit einer. Das verkürzt die Zeit auf der Baustelle, weil das Verrohren nicht mehr am Gerüst oder im Rohbau stattfindet. Senden Sie uns Ihre Sanitärpläne, wir prüfen sie und melden uns mit einer Offerte.</p>","style":"light","items":[{"title":"Wir verrohren die Elemente, bevor sie die Werkstatt verlassen","text":"<p>Trinkwasser- und Abwasserleitungen installieren wir direkt am GIS-Element. Das Element kommt einbaufertig auf die Baustelle. Ihre Monteure setzen es, schliessen an und sind fertig. Arbeiten in der Werkstatt lassen sich besser kontrollieren als Arbeiten im Rohbau bei Wind und Wetter.</p>"},{"title":"Beplankung und Spachtelung sparen einen Handwerkerwechsel","text":"<p>Auf Wunsch verkleiden wir die Elemente mit Gipsplatten und spachteln sie fertig. Die Wand ist dann bereit für Plättli oder Anstrich. So entfällt ein zusätzlicher Termin mit dem Gipser. Welche Spachtelstufe nötig ist, richtet sich nach dem Belag, der auf die Wand kommt. Nennen Sie uns Plättli, Anstrich oder SilentPanel, dann legen wir die Stufe vor Produktionsstart fest.</p>"},{"title":"Aqua Panel für Duschen und Nassräume","text":"<p>In Nasszellen setzen wir Aqua Panel als Untergrund für Abdichtung und Plättli ein. Die Platten vertragen Feuchtigkeit deutlich besser als Standard-Gipsplatten. Wir verwenden sie in Bädern, Duschen und in industriellen Nassräumen. Sagen Sie uns beim Anfragen, welche Räume nass werden, dann planen wir den Aufbau entsprechend.</p>"},{"title":"Unser eigenes Team montiert auf Ihrer Baustelle","text":"<p>Die Montage übernehmen unsere Monteure, nicht ein zugekaufter Subunternehmer. Sie haben damit denselben Ansprechpartner wie für die Vorfabrikation. Termine stimmen wir vorgängig mit Ihrer Bauleitung ab. Wenn auf der Baustelle etwas ändert, passen wir in der Werkstatt an.</p>"},{"title":"So läuft eine Anfrage ab","text":"<p>Sie senden uns die Sanitär- und Grundrisspläne. Wir prüfen die Elemente, klären offene Punkte mit Ihnen und stellen eine Offerte. Nach Ihrer Freigabe legen wir den Liefertermin fest und starten die Vorfabrikation. Den verbindlichen Termin halten wir in der Offerte schriftlich fest, damit Ihre Bauleitung damit planen kann.</p>"},{"title":"Für wen wir arbeiten","text":"<p>Wir liefern an Sanitärinstallateure, Generalunternehmer und Bauleitungen. Typisch sind Wohnbauten mit wiederkehrenden Nasszellen, wo sich die Vorfabrikation rechnet. Einzelne Elemente für kleinere Umbauten fertigen wir ebenfalls. Nennen Sie uns die Stückzahl, dann rechnen wir die Offerte darauf.</p>"}]}', 25, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND type = 'content-grid');
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was kostet ein vorfabriziertes GIS-Element?","answer":"<p>Der Preis hängt von Grösse, Anzahl Anschlüsse und Beplankung ab. Wir rechnen die Elemente anhand Ihrer Pläne und schicken Ihnen eine Offerte mit einzelnen Positionen.</p>"},{"question":"Liefern Sie auch ausserhalb der Region Pfäffikon SZ?","answer":"<p>Unsere Werkstatt steht in Pfäffikon SZ, von dort liefern wir in der ganzen Deutschschweiz auf die Baustelle. Nennen Sie uns die Adresse der Baustelle, dann halten wir Anlieferung und Transport in der Offerte fest.</p>"},{"question":"Müssen die Pläne fertig sein, damit Sie offerieren können?","answer":"<p>Für eine verbindliche Offerte brauchen wir die Sanitärpläne mit Anschlusspositionen. Für eine grobe Einschätzung genügen Grundrisse und die Anzahl Nasszellen. Offene Punkte klären wir vorgängig mit Ihnen.</p>"}]}', 26, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND type = 'faq');
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"}]}', 27, 1
+FROM DUAL
+WHERE @pid IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM sections WHERE page_id = @pid AND type = 'link-list');
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaer-gis-elemente-bestellen
+-- Suchbegriff: sanitär gis elemente bestellen, gis elemente bestellen, gis elemente vorfabrizieren
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-gis-elemente-bestellen' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär GIS Elemente bestellen | SUI Innova',
+                 meta_desc  = 'GIS Elemente fix und fertig verrohrt aus Pfäffikon SZ. Pläne senden, Offerte mit Preis und Liefertermin erhalten, auf der Baustelle nur noch stellen und anschliessen.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Fertig verrohrtes Sanitär GIS Element in der Werkstatt von SUI Innova in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitär GIS Elemente bestellen: verrohrt ab Werkstatt Pfäffikon","lead":"<p>Wer Sanitär GIS Elemente bestellen will, braucht sie fertig verrohrt, richtig bemasst und termingerecht auf der Baustelle. Genau das liefern wir aus unserer Werkstatt in Pfäffikon SZ. Wir bauen die Elemente nach Ihren Plänen auf, verrohren sie komplett und bereiten sie für den Transport vor. Auf der Baustelle werden sie nur noch gestellt und angeschlossen. Auf Wunsch übernehmen wir zusätzlich die Montage, die Beplankung mit AquaPanel, die Spachtelung und die Ausflockung mit SilentPanel. Sie haben dabei eine Ansprechperson für den ganzen Ablauf. Senden Sie uns Ihre Sanitärpläne oder eine Skizze mit Apparateliste. Wir prüfen die Unterlagen, klären offene Punkte direkt mit Ihnen und erstellen eine Offerte mit Preis und möglichem Liefertermin.</p>","style":"light","items":[{"title":"So läuft die Bestellung ab: vier Schritte bis zur Lieferung","text":"<p>Sie senden uns die Sanitärpläne, die Apparateliste und den gewünschten Liefertermin. Wir prüfen die Unterlagen und melden uns bei Unklarheiten, bevor wir rechnen. Nach Ihrer Freigabe der Offerte planen wir die Produktion ein und bestätigen den Termin. Dann bauen und verrohren wir die Elemente und liefern sie auf die Baustelle.</p>"},{"title":"Was wir für die Offerte von Ihnen brauchen","text":"<p>Am schnellsten geht es mit Sanitärplänen im Massstab, einer Apparateliste und Angaben zu Wandhöhe und Anschlusssituation. Auch eine saubere Handskizze reicht für einen ersten Preis. Nennen Sie uns dazu den Wunschtermin und den Ort der Baustelle. Fehlt etwas, fragen wir vorgängig nach, statt Annahmen zu treffen.</p>"},{"title":"Fix und fertig verrohrt statt auf der Baustelle zusammenbauen","text":"<p>In der Werkstatt arbeiten wir witterungsunabhängig und an einem eingerichteten Platz. Die Leitungen werden montiert, befestigt und für die Druckprobe vorbereitet. Auf der Baustelle entfällt damit ein grosser Teil der Installationszeit. Das entlastet den Bauablauf besonders bei mehreren gleichen Nasszellen.</p>"},{"title":"GIS Elemente vorfabrizieren lassen: für welche Projekte es sich rechnet","text":"<p>Sinnvoll wird die Vorfabrikation, sobald sich Nasszellen wiederholen, etwa im Wohnungsbau, in Überbauungen oder bei Sanierungen ganzer Steigzonen. Gleiche Elemente lassen sich in Serie aufbauen, das verkürzt die Zeit auf der Baustelle. Auch bei engen Platzverhältnissen ist die Vorfertigung ein Vorteil, weil weniger Material und weniger Arbeitsschritte vor Ort nötig sind. Bei Einzelstücken prüfen wir gerne, ob sich der Aufwand lohnt.</p>"},{"title":"GIS Elemente bestellen: Einzelelemente und ganze Nasszellen","text":"<p>Wir montieren die GIS Ständer, setzen die Elemente für WC, Waschtisch, Dusche und Badewanne ein und verrohren Wasser und Abwasser vollständig. Die Elemente verlassen unsere Werkstatt in einem Zustand, in dem sie nur noch gestellt, befestigt und angeschlossen werden. Das verkürzt die Arbeitszeit auf der Baustelle und reduziert Schnittstellen. Sanitärinstallateure, Generalunternehmen und Bauherrschaften bestellen bei uns Einzelelemente ebenso wie ganze Nasszellen.</p>"},{"title":"Montage, Beplankung und Spachtelung auf Wunsch dazu","text":"<p>Unser eigenes Team stellt die Elemente auf der Baustelle und richtet sie aus. Danach beplanken wir mit AquaPanel als Untergrund für Abdichtung und Plättli. Auf Wunsch spachteln wir die Flächen und flocken mit SilentPanel aus. Sie entscheiden, ob Sie nur die Lieferung oder die fertige Wand bestellen.</p>"},{"title":"Lieferung und Transport in der ganzen Deutschschweiz","text":"<p>Die Elemente werden transportsicher vorbereitet und nach Absprache angeliefert. Wir liefern ab Werkstatt Pfäffikon SZ in der ganzen Deutschschweiz. Sagen Sie uns vorgängig, wie die Zufahrt aussieht und ob ein Kran oder Stapler vor Ort ist. So planen wir die Abladung passend zur Baustelle.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Wie lange dauert es, bis ich die GIS Elemente erhalte?","answer":"<p>Die Dauer hängt von Stückzahl, Ausführung und aktueller Auslastung ab. Nach Prüfung Ihrer Pläne nennen wir Ihnen in der Offerte einen konkreten Liefertermin.</p>"},{"question":"Kann ich auch einzelne Elemente bestellen?","answer":"<p>Ja, wir fertigen sowohl Einzelelemente als auch Serien für mehrere gleiche Nasszellen. Sagen Sie uns die Stückzahl, dann rechnen wir Ihnen den Preis entsprechend.</p>"},{"question":"Muss ich die Montage bei Ihnen bestellen?","answer":"<p>Nein, Sie können die Elemente auch nur liefern lassen und selbst stellen. Wenn Sie die Montage, die Beplankung und die Spachtelung dazunehmen, kommt alles aus einer Hand.</p>"},{"question":"Reicht eine Skizze statt eines fertigen Sanitärplans?","answer":"<p>Für eine erste Einschätzung und eine Richtofferte genügt eine Skizze mit Apparateliste. Für die Produktion brauchen wir danach verbindliche Masse und Anschlusspositionen. Offene Punkte klären wir vorgängig mit Ihnen.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"GIS Elemente anfragen","body":"Senden Sie uns Ihre Sanitärpläne oder eine Skizze mit Apparateliste, wir prüfen die Unterlagen und schicken Ihnen eine Offerte mit Preis und Liefertermin.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /gis-elemente-beplanken
+-- Suchbegriff: gis elemente beplanken, gis elemente montieren
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'gis-elemente-beplanken' LIMIT 1);
+
+UPDATE pages SET meta_title = 'GIS Elemente beplanken in Pfäffikon SZ | SUI Innova',
+                 meta_desc  = 'GIS Elemente beplanken lassen: verrohrt, beplankt und gespachtelt aus der Werkstatt in Pfäffikon SZ oder direkt auf Ihrer Baustelle. Senden Sie uns Ihre Pläne.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Mit AquaPanel beplanktes GIS Element in der Werkstatt in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"GIS Elemente beplanken: von der Vorfabrikation bis zur fertigen Wand","lead":"<p>Wir beplanken GIS Elemente in unserer Werkstatt in Pfäffikon SZ und direkt auf Ihrer Baustelle. Sie erhalten die Elemente verrohrt, beplankt und gespachtelt, bereit für Plättli, Farbe oder SilentPanel. In Nasszellen setzen wir AquaPanel als Untergrund für Abdichtung und Plättli ein, in trockenen Bereichen Gipsplatten nach Ihrem Wandaufbau. Wir arbeiten mit Sanitärfirmen, Generalunternehmen und Bauleitungen zusammen und richten uns nach Ihrem Bauprogramm. Vorfabrikation, Montage und Beplankung kommen aus einer Hand. Das spart Schnittstellen auf der Baustelle: Sie koordinieren nicht mehr zwischen Sanitär, Schreiner und Gipser, sondern sprechen mit einem Ansprechpartner. Nennen Sie uns Stückzahl, Wandaufbau und Termin, dann rechnen wir Ihnen eine Offerte.</p>","style":"light","items":[{"title":"In der Werkstatt beplankt, auf der Baustelle nur noch versetzt","text":"<p>Wir verrohren und beplanken die GIS Elemente vorgängig in unserer Werkstatt in Pfäffikon SZ. Auf der Baustelle wird das Element versetzt, angeschlossen und fertig gespachtelt. Das verkürzt die Zeit, in der Ihre Leute im Rohbau gebunden sind. Zudem arbeiten wir witterungsunabhängig, auch wenn die Baustelle noch nicht geschlossen ist. Den Liefertermin halten wir in der Offerte fest.</p>"},{"title":"AquaPanel in der Nasszelle, Gipsplatten im trockenen Bereich","text":"<p>In Duschen, Bädern und WC-Anlagen beplanken wir mit AquaPanel. Die Platte bleibt formstabil, wenn Feuchtigkeit auf sie trifft, und dient als Untergrund für Abdichtung und Plättli. In trockenen Bereichen verwenden wir Gipsplatten nach Ihrem Wandaufbau. Welche Plattenart und welche Stärke wo zum Einsatz kommt, halten wir vor Produktionsstart schriftlich fest.</p>"},{"title":"Spachtelqualität nach Ihrem Ausbaustandard","text":"<p>Wir spachteln die Stösse und Schraubstellen so weit, wie es der nachfolgende Belag verlangt. Für Plättli genügt eine andere Stufe als für eine gestrichene Wand oder für SilentPanel. Sagen Sie uns, was auf die Wand kommt, dann legen wir die Spachtelstufe fest. So vermeiden Sie Nacharbeiten, wenn der Maler oder Plattenleger übernimmt.</p>"},{"title":"Vorbereitung entscheidet über das Montagetempo","text":"<p>Vor der Montage prüfen wir Achsmasse, Bodenaufbau und Anschlusspunkte am Plan. Passen die Masse nicht, klären wir das vorgängig mit Ihnen und nicht erst mit dem Element an der Wand. Wir markieren die Positionen auf dem Rohboden und kontrollieren, ob Rohrdurchführungen und Schächte frei sind. So steht das erste Element kurz nach Anlieferung an seinem Platz.</p>"},{"title":"So montieren wir GIS Elemente auf der Baustelle","text":"<p>Wir stellen das Element auf, richten es lot- und waagrecht aus und verschrauben die Ständer mit Boden und Wand. Anschliessend verbinden wir die vorfabrizierten Rohrstränge mit der Steigzone und setzen Befestigungen für Keramik und Armaturen. Abflüsse und Wasserleitungen werden gefasst, damit später keine Schallbrücken entstehen. Auf Wunsch führen wir die Dichtheitsprüfung durch und protokollieren sie.</p>"},{"title":"Ein Team statt drei Schnittstellen","text":"<p>Vorfabrikation, Montage und Beplankung laufen bei uns über dieselbe Ansprechperson. Sie melden Änderungen an einer Stelle, nicht an drei. Verschiebt sich Ihr Bauprogramm, planen wir die Montagetage um. Das reduziert Rückfragen auf der Baustelle und Wartezeiten zwischen den Gewerken.</p>"},{"title":"Wir beplanken auch Elemente, die nicht von uns kommen","text":"<p>Sind die GIS Elemente bereits gesetzt oder von einer anderen Firma geliefert, übernehmen wir nur die Beplankung. Unser Team kommt in der ganzen Deutschschweiz auf Ihre Baustelle und arbeitet nach Ihrem Terminplan. Vorgängig schauen wir uns Pläne oder Fotos an und klären den Wandaufbau.</p>"},{"title":"Was wir für die Offerte brauchen","text":"<p>Schicken Sie uns die Sanitärpläne, die Stückzahl der Elemente und den gewünschten Wandaufbau. Nennen Sie zusätzlich den Montagetermin und den Belag, der auf die Beplankung kommt. Darauf rechnen wir Ihnen eine Offerte mit Positionen für Vorfabrikation, Montage und Beplankung. Fehlen Angaben, fragen wir nach, bevor wir eine Zahl nennen.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Beplanken Sie GIS Elemente auch direkt auf der Baustelle?","answer":"<p>Ja. Wir beplanken in unserer Werkstatt in Pfäffikon SZ oder vor Ort auf Ihrer Baustelle. Welche Variante sinnvoll ist, hängt von Zugang, Bauprogramm und Stückzahl ab.</p>"},{"question":"Welche Platten verwenden Sie für Nasszellen?","answer":"<p>In Nasszellen beplanken wir mit AquaPanel, weil die Platte als Untergrund für Abdichtung und Plättli geeignet ist. In trockenen Bereichen setzen wir Gipsplatten ein. Den Aufbau legen wir vor der Produktion mit Ihnen fest.</p>"},{"question":"Übernehmen Sie auch das Spachteln?","answer":"<p>Ja, wir spachteln die beplankten Elemente bis zu der Stufe, die Ihr Belag verlangt. Für Plättli, Farbe oder SilentPanel gelten unterschiedliche Anforderungen. Teilen Sie uns den geplanten Belag mit, dann stimmen wir die Spachtelung darauf ab.</p>"},{"question":"Montieren Sie auch GIS Elemente, die nicht von Ihnen vorfabriziert wurden?","answer":"<p>Ja, wir versetzen und beplanken auch Elemente, die Sie selber bestellt haben. Senden Sie uns vorgängig den Wandaufbau und die Anschlusspläne, damit wir die Montage richtig kalkulieren. Bei fremden Elementen prüfen wir vor Ort den Zustand der Verrohrung.</p>"},{"question":"Wie lange dauert die Montage eines GIS Elements?","answer":"<p>Das hängt von Grösse, Anzahl Anschlüsse und Zugang zur Baustelle ab. Weil die Elemente verrohrt ankommen, bleibt auf der Baustelle vor allem Versetzen, Ausrichten und Anschliessen. Nach Sichtung Ihrer Pläne weisen wir die Montagezeit pro Element in der Offerte aus.</p>"},{"question":"In welcher Region montieren Sie?","answer":"<p>Unsere Werkstatt steht in Pfäffikon SZ, von dort fahren unsere Monteure in der ganzen Deutschschweiz auf die Baustellen. Fragen Sie mit Ihrer Ortschaft an, dann sagen wir Ihnen, ob wir den Auftrag übernehmen.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Beplankung anfragen","body":"Senden Sie uns Ihre Sanitärpläne mit Stückzahl, Wandaufbau und Termin, wir rechnen Ihnen eine Offerte für die Beplankung.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaer-vorwandelemente
+-- Suchbegriff: sanitär vorwandelemente
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwandelemente' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova',
+                 meta_desc  = 'Sanitär Vorwandelemente: So sind sie aufgebaut, so werden sie montiert, beplankt und schallentkoppelt. SUI Innova aus Pfäffikon SZ erklärt es und liefert fertig.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Verzinktes Sanitär Vorwandelement mit verrohrtem Spülkasten in der Werkstatt von SUI Innova in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitär Vorwandelemente: Aufbau, Montage und Beplankung erklärt","lead":"<p>Sanitär Vorwandelemente tragen WC, Waschtisch, Dusche oder Urinal und nehmen Zu- und Ablaufleitungen auf, ohne dass die Rohre sichtbar bleiben. Der Kern ist ein verzinkter Stahlrahmen, der am Boden und an der Rohbauwand verschraubt wird. Danach folgen Beplankung, Spachtelung und im Nassbereich die Abdichtung. Auf dieser Seite lesen Sie, wie ein solches Element aufgebaut ist, welche Masse die Planung bestimmen, warum die Beplankung im Nassbereich anderen Regeln folgt und an welcher Stelle im Bauablauf über die Schallentkopplung entschieden wird. SUI Innova aus Pfäffikon SZ fertigt GIS-Elemente in der eigenen Werkstatt fix und fertig verrohrt vor, montiert sie auf der Baustelle und übernimmt Beplankung und Spachtelung. Sie erhalten die Wand als eine Leistung, nicht in Einzelteilen.</p>","style":"light","items":[{"title":"Ein Vorwandelement ist Tragwerk und Installationsraum zugleich","text":"<p>Der Stahlrahmen nimmt die Lasten von WC, Waschtisch oder Stützgriff auf und leitet sie in Boden und Rohbauwand. Gleichzeitig entsteht zwischen Rahmen und Beplankung der Raum für Spülkasten, Wasserleitungen und Abwasserrohre. Beide Funktionen hängen zusammen: Wer die Leitungsführung ändert, verändert auch die Befestigungspunkte. Deshalb wird ein Element geplant, bevor es gebaut wird, und nicht erst auf der Baustelle zurechtgeschnitten.</p>"},{"title":"Die Masse ergeben sich aus Apparat, Raumhöhe und Plättliraster","text":"<p>Höhe und Breite eines Elements richten sich nach dem gewählten Apparat, der Sitzhöhe des WCs und der gewünschten Ablagekante. Die Bautiefe bestimmt, wie viel Platz Spülkasten und Abwasserrohr brauchen. Halbhohe Vorwände enden auf Ablagehöhe, raumhohe Varianten laufen bis zur Decke durch. Sinnvoll ist, die Höhe früh mit dem Plättliraster abzugleichen, damit oben keine schmale Schnittreihe entsteht. Halbhoch und raumhoch fertigen wir beide; welches Mass für Ihre Nasszelle passt, legen wir anhand der Pläne und der gewählten Apparate fest.</p>"},{"title":"Vorfabrikation verlegt die Arbeit von der Baustelle in die Werkstatt","text":"<p>In der Werkstatt wird das Element auf der Lehre gebaut, verrohrt und kontrolliert. Auf der Baustelle bleibt das Versetzen, Ausrichten und Anschliessen. Das verkürzt die Zeit, in der andere Gewerke auf dem gleichen Quadratmeter warten. Bei Serien mit gleichen Nasszellen wirkt sich das besonders stark aus, weil jedes Element gleich aufgebaut ist.</p>"},{"title":"Im Nassbereich entscheidet die Beplankung über die Abdichtung","text":"<p>Gipskarton eignet sich für trockene Zonen, im Spritzwasserbereich braucht es eine feuchtebeständige Platte als Untergrund. SUI Innova setzt dort AquaPanel als Träger für Abdichtung und Plättli ein. Die Plattenstösse liegen versetzt zu den Profilen, die Fugen werden gespachtelt und armiert. Erst danach folgt die Verbundabdichtung, dann der Belag.</p>"},{"title":"Schallentkopplung wird beim Versetzen entschieden, nicht nachträglich","text":"<p>Trittschall und Körperschall wandern über starre Verbindungen in die Rohdecke und in Nachbarräume. Deshalb kommen Dämmstreifen unter die Bodenprofile, die Rohre werden in Schellen mit Einlage geführt und der Apparat wird vom Baukörper getrennt befestigt. Wird das beim Versetzen übersehen, lässt es sich nach der Plättliarbeit kaum noch korrigieren. Klären Sie die Anforderung vorgängig mit der Bauleitung.</p>"},{"title":"So läuft ein Auftrag bei SUI Innova ab","text":"<p>Sie senden uns die Sanitär- und Grundrisspläne. Wir prüfen die Elemente, klären offene Punkte und erstellen eine Offerte. Nach Freigabe fertigen wir in Pfäffikon SZ vor, liefern nach Termin und montieren mit dem eigenen Team. Beplankung und Spachtelung übernehmen wir auf Wunsch gleich mit. Den verbindlichen Liefertermin halten wir in der Offerte fest.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist der Unterschied zwischen einem Vorwandelement und einer Vorwand?","answer":"<p>Das Vorwandelement ist der tragende Rahmen samt Installation für einen Apparat. Die Vorwand ist die fertige Wandfläche, die aus einem oder mehreren Elementen, der Beplankung und der Spachtelung entsteht.</p>"},{"question":"Braucht es im Bad zwingend eine feuchtebeständige Platte?","answer":"<p>Im Spritzwasserbereich von Dusche und Badewanne ja, dort dient eine Platte wie AquaPanel als Untergrund für die Abdichtung. In trockenen Zonen des gleichen Raums genügt in der Regel Gipskarton. Die Zoneneinteilung legt die Bauleitung fest.</p>"},{"question":"Kann ein Vorwandelement auch vor einer Leichtbauwand stehen?","answer":"<p>Ja, sofern die Befestigung auf ein tragfähiges Profil oder eine Auswechslung trifft. Die Lasten aus WC und Ablagen müssen sauber in Boden und Wand eingeleitet werden. Wir prüfen das anhand Ihrer Pläne.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Pläne einsenden, Offerte erhalten","body":"Senden Sie uns Ihre Sanitärpläne, wir prüfen die Elemente und schicken Ihnen eine Offerte mit Stückzahl, Terminen und Preis.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaer-vorwandelemente-bestellen
+-- Suchbegriff: sanitär vorwandelemente bestellen
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwandelemente-bestellen' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär Vorwandelemente bestellen | SUI Innova GmbH',
+                 meta_desc  = 'Sanitär Vorwandelemente bestellen: verrohrte GIS-Elemente aus Pfäffikon SZ, auf Mass vorfabriziert. Pläne einsenden und Offerte mit Massen und Liefertermin erhalten.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Verrohrtes GIS-Vorwandelement für WC und Waschtisch in der Werkstatt in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitär Vorwandelemente bestellen: verrohrt ab Werkstatt Pfäffikon","lead":"<p>Sie können bei SUI Innova Sanitär Vorwandelemente bestellen, die fertig verrohrt aus unserer Werkstatt in Pfäffikon SZ auf Ihre Baustelle kommen. Wir fertigen die GIS-Elemente nach Ihren Plänen, prüfen die Leitungsführung vorgängig und liefern nach Absprache auf den vereinbarten Termin. Auf Wunsch montiert unser eigenes Team die Elemente, beplankt sie mit AquaPanel und spachtelt, bis die Wand bereit für Abdichtung und Plättli ist. Für Sie bedeutet das weniger Schnittstellen und eine Ansprechperson für Vorfabrikation und Einbau. Wir arbeiten für Sanitärbetriebe, Generalunternehmen und Bauherrschaften. Sagen Sie uns, welche Apparate, welche Wandtypen und welchen Liefertermin Sie brauchen. Sie erhalten eine Offerte mit Positionen, Massen und Liefertermin, damit Sie die Kosten sauber rechnen können.</p>","style":"light","items":[{"title":"So läuft eine Bestellung ab","text":"<p>Sie senden uns Ihre Grundriss- und Sanitärpläne, per Mail oder über das Kontaktformular. Wir klären Apparatetypen, Wandhöhen, Wandstärken und die Anschlusspunkte und melden uns bei Unklarheiten direkt bei Ihnen. Danach erhalten Sie eine Offerte mit Positionen, Massen und Liefertermin. Nach Ihrer Freigabe produzieren wir die Elemente und liefern sie auf den abgesprochenen Termin.</p>"},{"title":"Was Sie bei uns bestellen können","text":"<p>Wir fertigen GIS-Elemente für WC, Waschtisch, Dusche, Badewanne, Urinal und Küche. Die Elemente kommen verrohrt, mit gesetzten Apparateträgern und beschrifteten Anschlüssen. Auf Wunsch liefern wir komplette Nasszellenwände statt einzelner Elemente. Welche Systeme und Fabrikate wir für Ihr Projekt verbauen, richtet sich nach Ihrer Ausschreibung. Nennen Sie sie uns bei der Anfrage.</p>"},{"title":"Montage und Beplankung dazu bestellen","text":"<p>Sie müssen die Elemente nicht selbst einbauen. Unser Team montiert sie auf der Baustelle, richtet sie aus und befestigt sie am Rohbau. Anschliessend beplanken wir mit AquaPanel, dem üblichen Untergrund für Abdichtung und Plättli in Nasszellen, und spachteln die Flächen. So übergeben wir Ihnen die Wand in einem Zug.</p>"},{"title":"Angaben, die wir für eine Offerte brauchen","text":"<p>Am schnellsten geht es, wenn Sie uns die Pläne mit Massen, die Apparateliste und den gewünschten Liefertermin schicken. Nennen Sie auch die Wandstärke, die Deckenhöhe und ob es sich um eine Trennwand oder eine Vorwand handelt. Sagen Sie uns, ob Sie nur die Elemente oder auch Montage und Beplankung wollen. Fehlende Angaben klären wir telefonisch, bevor wir rechnen.</p>"},{"title":"Liefergebiet und Termine","text":"<p>Wir liefern von Pfäffikon SZ aus in der ganzen Deutschschweiz auf Ihre Baustelle. Den Liefertermin halten wir in der Offerte fest, damit Sie Ihre Bauetappen darauf abstimmen können. Bei mehreren Etappen liefern wir gestaffelt nach Ihrem Bauprogramm.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Wie lange dauert es von der Bestellung bis zur Lieferung?","answer":"<p>Der Vorlauf hängt von der Stückzahl und von den Apparaten ab. Den verbindlichen Termin nennen wir in der Offerte, bevor Sie freigeben.</p>"},{"question":"Kann ich auch nur ein einzelnes Vorwandelement bestellen?","answer":"<p>Ja. Wir fertigen einzelne Elemente für Umbauten ebenso wie Serien für ganze Geschosse. Nennen Sie uns die Stückzahl, dann rechnen wir die Position.</p>"},{"question":"Was kostet ein vorfabriziertes Sanitär Vorwandelement?","answer":"<p>Der Preis richtet sich nach Grösse, Apparaten, Verrohrung und danach, ob Montage und Beplankung dazukommen. Sie erhalten eine Offerte mit einzelnen Positionen.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Vorwandelemente anfragen","body":"Senden Sie uns Ihre Pläne und die Apparateliste, Sie erhalten eine Offerte mit Positionen, Massen und Liefertermin.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaer-vorwaende
+-- Suchbegriff: sanitär vorwände
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwaende' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär Vorwände vorfabriziert | SUI Innova GmbH',
+                 meta_desc  = 'Sanitär Vorwände fertig verrohrt aus unserer Werkstatt in Pfäffikon SZ, dazu Montage und Beplankung. Pläne einsenden, Sie erhalten eine Offerte.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Vorfabrizierte Sanitär Vorwand mit verrohrten GIS-Elementen in der Werkstatt in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitär Vorwände: vorfabriziert, montiert, beplankt","lead":"<p>Sanitär Vorwände liefern wir fertig verrohrt auf Ihre Baustelle. In unserer Werkstatt in Pfäffikon SZ bauen wir die GIS-Elemente nach Ihren Plänen auf Mass zusammen, danach montiert sie unser eigenes Team vor Ort und beplankt sie bis zur spachtelfertigen Wand. Damit wandert ein grosser Teil der Sanitärinstallation von der Baustelle in die Halle. Das spart Schnittstellen, verkürzt die Wartezeit für die Folgegewerke und macht den Bauablauf planbar. Für Nasszellen und Feuchträume setzen wir AquaPanel ein, bei Schallschutzanforderungen SilentPanel und Ausflockung. Sie haben eine Ansprechperson für Vorfabrikation, Montage und Beplankung, vom ersten Plan bis zur übergebenen Wand. Senden Sie uns Ihre Pläne mit der Adresse der Baustelle. Wir prüfen sie und melden uns mit einer Offerte.</p>","style":"light","items":[{"title":"Die Elemente verlassen unsere Werkstatt fertig verrohrt","text":"<p>Wir konfektionieren die Vorwandelemente nach Ihren Plänen und verrohren sie in der Halle. Wasser- und Abwasserleitungen sind gesetzt, die Anschlüsse sitzen dort, wo der Plan sie vorsieht. Auf der Baustelle wird das Element nur noch gestellt, ausgerichtet und angeschlossen. So verlagern Sie Arbeitsstunden aus dem engen Rohbau in die Werkstatt.</p>"},{"title":"Unser Team montiert die Vorwände selbst","text":"<p>Montiert wird von den gleichen Leuten, die für den Ablauf verantwortlich sind. Das heisst: keine Übergabe an eine dritte Firma und keine Diskussion darüber, wer welches Detail geplant hat. Wir richten die Wände aus, befestigen sie am Rohbau und kontrollieren die Anschlusspunkte. Abweichungen auf der Baustelle klären wir direkt mit Ihrer Bauleitung.</p>"},{"title":"AquaPanel in der Nasszelle, SilentPanel beim Schallschutz","text":"<p>In Feuchträumen beplanken wir mit AquaPanel als Untergrund für Abdichtung und Plättli. Wo Schallschutzwerte gefordert sind, arbeiten wir mit SilentPanel und Ausflockung der Hohlräume. Welcher Aufbau nötig ist, lesen wir aus Ihren Plänen und dem Schallschutznachweis heraus. Sie erhalten die Wand spachtelfertig, das Folgegewerk kann direkt weiterarbeiten.</p>"},{"title":"Ein Ansprechpartner statt drei Gewerke","text":"<p>Vorfabrikation, Montage und Beplankung kommen von uns. Damit fällt die klassische Lücke zwischen Sanitär und Trockenbau weg, an der Termine sonst kippen. Sie koordinieren eine Firma und erhalten eine Rechnung für den ganzen Umfang. Für Rückfragen während der Ausführung haben Sie eine feste Kontaktperson.</p>"},{"title":"So läuft eine Anfrage ab","text":"<p>Sie senden uns die Sanitär- und Grundrisspläne mit der Adresse der Baustelle. Wir prüfen Stückzahlen, Aufbauten und Zugänglichkeit und stellen Ihnen eine Offerte zu. Nach der Freigabe vereinbaren wir den Liefer- und Montagetermin mit Ihrer Bauleitung und halten ihn schriftlich fest.</p>"},{"title":"Wohin wir liefern","text":"<p>Unsere Werkstatt steht in Pfäffikon SZ, geliefert und montiert wird in der ganzen Deutschschweiz. Für grössere Bauvorhaben teilen wir die Lieferung in Etappen, damit auf der Baustelle kein Lagerplatz blockiert wird. Wir stimmen Kranzeiten und Zufahrt vorgängig mit Ihnen ab. Bei knappen Platzverhältnissen legen wir die Elementgrössen entsprechend fest.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist der Unterschied zwischen Sanitär Vorwänden und einzelnen Vorwandelementen?","answer":"<p>Ein Vorwandelement trägt ein einzelnes Objekt, etwa ein WC oder ein Lavabo. Eine Sanitär Vorwand ist die zusammengesetzte, verrohrte und beplankte Wand für die ganze Nasszelle. Wir liefern beides, vom Einzelelement bis zur spachtelfertigen Wand.</p>"},{"question":"Müssen die Pläne bereits definitiv sein?","answer":"<p>Für eine Offerte genügen Pläne im aktuellen Stand, wir weisen Sie auf offene Punkte hin. Für die Vorfabrikation brauchen wir freigegebene Masse und Anschlusspunkte, weil die Verrohrung in der Werkstatt fix gesetzt wird. Änderungen danach kosten Zeit und Geld.</p>"},{"question":"Übernehmen Sie auch nur die Beplankung?","answer":"<p>Ja, wir beplanken auch Elemente, die eine andere Firma gestellt hat. Wir schauen vorgängig an, ob Aufbau und Befestigung für AquaPanel oder SilentPanel geeignet sind. Melden Sie sich mit den Plänen und dem gewünschten Termin.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Sanitär Vorwände anfragen","body":"Senden Sie uns Ihre Pläne mit der Adresse der Baustelle, wir prüfen sie und melden uns mit einer Offerte.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaer-vorwandelemente-beplanken
+-- Suchbegriff: sanitär vorwandelemente beplanken
+-- ════════════════════════════════════════════════════════════
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwandelemente-beplanken' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitär Vorwandelemente beplanken | SUI Innova',
+                 meta_desc  = 'Sanitär Vorwandelemente beplanken: Wir plattieren verrohrte Vorwandelemente in Nasszellen und trockenen Räumen, auf Wunsch spachtelfertig. Pläne senden, Offerte erhalten.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Mit AquaPanel beplanktes Sanitär Vorwandelement mit ausgeschnittener Revisionsöffnung"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitär Vorwandelemente beplanken: von der Montage bis zur spachtelfertigen Wand","lead":"<p>Sanitär Vorwandelemente beplanken heisst: Das verrohrte Element bekommt seine Hülle, und die Wand ist bereit für Plättli oder Farbe. Diesen Schritt übernehmen wir auf Ihrer Baustelle, im Neubau wie im Umbau. Wir wählen die Platte nach Raum, schneiden um Rohrdurchführungen und Revisionsöffnungen zu, befestigen im vorgegebenen Raster und spachteln auf Wunsch. In Nasszellen arbeiten wir mit AquaPanel, in trockenen Bereichen mit der passenden Gipsplatte. Wir kommen auch dann, wenn ein anderer Betrieb die Elemente gesetzt hat. Sie erhalten eine Offerte mit Fläche, Plattentyp und Termin, damit Sie Ihre Folgegewerke planen können. Senden Sie uns Ihre Pläne, wir melden uns mit einem Terminvorschlag.</p>","style":"light","items":[{"title":"Die Plattenwahl entscheidet über die Lebensdauer der Nasszelle","text":"<p>In Duschen, Bädern und WC-Anlagen verbauen wir AquaPanel als Untergrund für Abdichtung und Plättli. Die Platte nimmt Feuchtigkeit nicht auf und bleibt auch bei Spritzwasser formstabil. In Korridoren, Küchen und trockenen Räumen genügt die passende Gipsplatte. Wir halten die Vorgaben des Elementherstellers und des Plattenlieferanten ein, damit Ihre Garantie bestehen bleibt.</p>"},{"title":"Zuschnitt um Rohrdurchführungen und Revisionsöffnungen","text":"<p>Jede Durchführung wird gebohrt oder gefräst, nicht gebrochen. Revisionsöffnungen halten wir so aus, dass der Rahmen später ohne Nacharbeit passt. Wir markieren die Lage der Leitungen auf der Platte, bevor wir schrauben, damit kein Rohr getroffen wird. So bleibt die Wand dicht und die Sanitärinstallation zugänglich.</p>"},{"title":"Befestigung im vorgegebenen Raster","text":"<p>Die Schraubabstände richten sich nach Plattentyp und Untergrund. Wir arbeiten im Raster des Ständerwerks und setzen die Schrauben bündig, ohne das Papier oder die Deckschicht zu verletzen. Stösse werden versetzt angeordnet, damit später keine Risse durchschlagen. Auf Wunsch spachteln wir Fugen und Schraubenköpfe bis zur Weiterbearbeitung durch den Maler oder Plattenleger.</p>"},{"title":"Auch wenn ein anderer Betrieb die Elemente gesetzt hat","text":"<p>Wir übernehmen die Beplankung als einzelne Leistung. Vorgängig prüfen wir, ob die Elemente lot- und fluchtrecht stehen und ob die Verrohrung abgedrückt ist. Abweichungen melden wir Ihnen schriftlich, bevor wir die Platten montieren. Damit verschieben sich keine Verantwortlichkeiten auf unsere Arbeit.</p>"},{"title":"Von der Vorfabrikation bis zur fertigen Wand aus einer Hand","text":"<p>Wir fabrizieren GIS-Elemente in unserer Werkstatt in Pfäffikon SZ vor, montieren sie mit dem eigenen Team und beplanken sie anschliessend. Sie koordinieren damit eine Schnittstelle weniger. Wenn Sie nur einen Teilschritt brauchen, buchen Sie nur diesen. Wie viele Nasszellen pro Tag beplankt werden, hängt von Fläche und Zugang ab; die Montagetage halten wir in der Offerte fest.</p>"},{"title":"So läuft die Offerte ab","text":"<p>Sie senden uns Grundrisse, Schnitte und die Elementliste. Wir rechnen die Fläche aus, halten den Plattentyp je Raum fest und nennen einen Montagetermin. Änderungen auf der Baustelle bestätigen wir vor der Ausführung schriftlich.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Welche Platten verwenden Sie in der Nasszelle?","answer":"<p>In Duschen, Bädern und WC-Anlagen setzen wir AquaPanel als Untergrund für Abdichtung und Plättli ein. In trockenen Räumen verbauen wir die passende Gipsplatte. Die Wahl halten wir in der Offerte pro Raum fest.</p>"},{"question":"Beplanken Sie auch Elemente, die wir selbst gesetzt haben?","answer":"<p>Ja. Wir prüfen vorgängig Lot, Flucht und den Zustand der Verrohrung und melden Ihnen allfällige Abweichungen schriftlich. Danach montieren wir die Platten.</p>"},{"question":"Spachteln Sie die Wand auch?","answer":"<p>Auf Wunsch spachteln wir Fugen und Schraubenköpfe, sodass der Maler oder Plattenleger direkt weiterarbeiten kann. Sie entscheiden, ob Sie die Wand beplankt oder spachtelfertig übernehmen möchten. Der Umfang steht in der Offerte.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Beplankung anfragen","body":"Senden Sie uns Ihre Grundrisse und die Elementliste, wir rechnen die Fläche aus und melden uns mit Offerte und Montagetermin.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaerelemente-vorfabrizieren
+-- Suchbegriff: sanitärelemente vorfabrizieren
+-- ════════════════════════════════════════════════════════════
+
+INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
+SELECT 'Sanitärelemente vorfabrizieren', 'sanitaerelemente-vorfabrizieren', 'Sanitärelemente vorfabrizieren | SUI Innova GmbH', 'Sanitärelemente vorfabrizieren lassen: verrohrte GIS-Elemente aus der Werkstatt in Pfäffikon SZ, geliefert und montiert. Pläne senden, Offerte erhalten.', 0, 0, @next_sort + 0
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaerelemente-vorfabrizieren');
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaerelemente-vorfabrizieren' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitärelemente vorfabrizieren | SUI Innova GmbH',
+                 meta_desc  = 'Sanitärelemente vorfabrizieren lassen: verrohrte GIS-Elemente aus der Werkstatt in Pfäffikon SZ, geliefert und montiert. Pläne senden, Offerte erhalten.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Vorfabriziertes und verrohrtes Sanitärelement in der Werkstatt von SUI Innova in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitärelemente vorfabrizieren: verrohrt aus der Werkstatt in Pfäffikon SZ","lead":"<p>Wenn Sie Sanitärelemente vorfabrizieren lassen, verlagern Sie Arbeit von der Baustelle in unsere Werkstatt in Pfäffikon SZ. Wir bauen die GIS-Elemente nach Ihren Plänen auf, verrohren sie und liefern sie einbaufertig an. Auf der Baustelle bleibt das Versetzen, Anschliessen und bei Bedarf das Beplanken mit AquaPanel. Das spart Wege, reduziert Koordination zwischen den Handwerkern und hält den Bauablauf ruhiger. Wir arbeiten für Sanitärunternehmen, Generalunternehmer und Bauherrschaften, von der einzelnen Nasszelle bis zu Serien für ganze Geschosse. Montage und Beplankung übernimmt unser eigenes Team, Sie haben also einen Ansprechpartner statt drei. Senden Sie uns Ihre Grundrisse und Sanitärpläne, wir rechnen die Elemente aus und melden uns mit einer Offerte.</p>","style":"light","items":[{"title":"Was wir unter Vorfabrikation verstehen","text":"<p>Wir bauen die GIS-Elemente im Gestell auf, setzen Spülkästen, Halter und Befestigungen und verrohren Zuleitungen und Abläufe. Geprüft und beschriftet verlassen die Elemente unsere Werkstatt. Auf der Baustelle werden sie versetzt und an die Steigzonen angeschlossen. So entsteht aus vielen Einzelschritten ein Element, das in kurzer Zeit steht.</p>"},{"title":"Ihre Pläne sind die Grundlage","text":"<p>Wir arbeiten nach Ihren Sanitär- und Architekturplänen. Aus den Grundrissen leiten wir Höhen, Achsmasse und Anschlusspunkte ab und klären offene Punkte vorgängig mit Ihnen ab. Änderungen vor Produktionsstart nehmen wir auf, ohne dass die Baustelle stillsteht. Sie erhalten vor der Fertigung die Freigabeunterlagen zur Kontrolle.</p>"},{"title":"Weniger Arbeitsgänge auf der Baustelle","text":"<p>In der Werkstatt arbeiten wir auf gleicher Höhe, mit fixen Arbeitsplätzen und ohne Wetter. Das macht die Arbeit schneller und die Qualität gleichmässiger als am Bau. Auf der Baustelle sinkt die Zahl der Handwerker, die gleichzeitig im gleichen Schacht arbeiten. Für Sie heisst das eine kürzere Belegung der Nasszellen im Terminprogramm.</p>"},{"title":"Montage und Beplankung aus derselben Hand","text":"<p>Unser Team liefert die Elemente an und montiert sie vor Ort. Auf Wunsch beplanken wir anschliessend mit AquaPanel als Untergrund für Abdichtung und Plättli und spachteln die Flächen. Sie koordinieren also nicht zwischen Lieferant, Sanitär und Trockenbau. Was wir übernehmen, halten wir vorgängig schriftlich fest.</p>"},{"title":"Von der Einzelwohnung bis zur Serie","text":"<p>Bei wiederkehrenden Grundrissen fertigen wir die Elemente in Serie, was Aufbau und Kontrolle vereinfacht. Bei Umbauten und einzelnen Nasszellen bauen wir die Elemente auf das bestehende Mass. Sprechen Sie uns früh an, dann planen wir die Produktion in Ihr Terminprogramm ein.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Welche Unterlagen brauchen Sie für eine Offerte?","answer":"<p>Grundrisse mit den Nasszellen und, falls vorhanden, den Sanitärplan mit Apparateliste. Fehlt etwas, klären wir die offenen Punkte telefonisch. Auf dieser Basis rechnen wir die Elemente aus und senden Ihnen eine Offerte.</p>"},{"question":"Übernehmen Sie auch die Montage auf der Baustelle?","answer":"<p>Ja, unser eigenes Team versetzt und befestigt die Elemente vor Ort. Auf Wunsch beplanken wir anschliessend mit AquaPanel und spachteln die Flächen. Sie entscheiden, wo unsere Arbeit endet.</p>"},{"question":"Lohnt sich Vorfabrikation auch bei wenigen Nasszellen?","answer":"<p>Auch bei kleinen Mengen entlastet die Vorfabrikation den Bauablauf, weil die Verrohrung bereits fertig ist. Bei Serien wird der Vorteil grösser, weil sich der Aufbau wiederholt. Wir sagen Ihnen nach Sichtung der Pläne offen, ob es sich für Ihr Projekt rechnet.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Vorfabrikation anfragen","body":"Senden Sie uns Ihre Grundrisse und Sanitärpläne, wir prüfen sie und melden uns mit einer Offerte.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /sanitaerelemente-montieren
+-- Suchbegriff: sanitärelemente montieren
+-- ════════════════════════════════════════════════════════════
+
+INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
+SELECT 'Sanitärelemente montieren', 'sanitaerelemente-montieren', 'Sanitärelemente montieren | SUI Innova GmbH', 'Sanitärelemente montieren lassen: Unser Team aus Pfäffikon SZ setzt GIS- und Vorwandelemente auf Ihrer Baustelle. Pläne senden, Offerte erhalten.', 0, 0, @next_sort + 10
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'sanitaerelemente-montieren');
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaerelemente-montieren' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Sanitärelemente montieren | SUI Innova GmbH',
+                 meta_desc  = 'Sanitärelemente montieren lassen: Unser Team aus Pfäffikon SZ setzt GIS- und Vorwandelemente auf Ihrer Baustelle. Pläne senden, Offerte erhalten.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Monteur richtet ein vorfabriziertes GIS-Element in einer Nasszelle im Rohbau aus"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Sanitärelemente montieren: Unser Team kommt auf Ihre Baustelle","lead":"<p>Sie wollen Sanitärelemente montieren lassen, ohne dass Ihr Bauprogramm ins Rutschen kommt. Wir übernehmen diesen Schritt: Unser eigenes Montageteam stellt die GIS- und Vorwandelemente auf Ihrer Baustelle auf, richtet sie aus, befestigt sie und verbindet die Rohrführungen. Die Elemente kommen fix und fertig verrohrt aus unserer Werkstatt in Pfäffikon SZ, deshalb bleibt die Arbeit vor Ort kurz. Auf Wunsch beplanken wir die Wände direkt anschliessend mit AquaPanel, damit Abdichtung und Plättli folgen können. Sie erhalten vorgängig eine Offerte auf Basis Ihrer Pläne, mit klarer Abgrenzung, was wir ausführen und was bei Ihnen bleibt. Senden Sie uns Ihre Grundrisse und Sanitärpläne, wir melden uns mit Terminvorschlag und Preis.</p>","style":"light","items":[{"title":"Vorfabriziert montieren heisst weniger Zeit auf der Baustelle","text":"<p>Wir verrohren die Elemente in der Werkstatt, nicht im Rohbau. Auf der Baustelle bleiben Aufstellen, Ausrichten, Befestigen und das Verbinden der Anschlüsse. Das verkürzt die Zeit, in der Ihre Nasszellen für andere Gewerke blockiert sind. Gleichzeitig arbeiten wir in der Werkstatt unter gleichbleibenden Bedingungen, was Nachbesserungen vor Ort reduziert.</p>"},{"title":"So läuft die Montage bei uns ab","text":"<p>Sie senden Grundrisse und Sanitärpläne, wir prüfen Masse, Achsen und Anschlusspunkte. Danach erhalten Sie eine Offerte mit Leistungsumfang und Termin. Wir fabrizieren die Elemente vor, liefern sie auf die Baustelle und montieren sie mit unserem eigenen Team. Zum Abschluss übergeben wir die Wände im vereinbarten Zustand, entweder montiert oder bereits beplankt.</p>"},{"title":"GIS-Elemente und Vorwandelemente aus einer Hand","text":"<p>Wir montieren GIS-Elemente und Sanitär Vorwandelemente für Bad, Dusche, WC und Küche. Weil Vorfabrikation und Montage bei uns im gleichen Haus liegen, klärt sich eine Rückfrage zur Verrohrung mit einem Telefonat. Sie brauchen keine Schnittstelle zwischen Lieferant und Monteur zu koordinieren. Änderungen im letzten Moment nehmen wir auf, solange sie technisch machbar sind.</p>"},{"title":"Beplankung mit AquaPanel direkt im Anschluss","text":"<p>Nach der Montage beplanken wir die Vorwände auf Wunsch mit AquaPanel. Das ergibt einen Untergrund, auf dem Abdichtung und Plättli aufgebaut werden können. Fugen und Übergänge spachteln wir nach Absprache. So wandert Ihre Nasszelle in einem Durchgang vom Rohbau zum plättlibereiten Zustand.</p>"},{"title":"Wer mit uns arbeitet","text":"<p>Wir arbeiten für Sanitärunternehmen, Generalunternehmer und Bauleitungen in der ganzen Deutschschweiz. Bei Serien mit gleichen Nasszellen lohnt sich die Vorfabrikation besonders, weil sich der Aufbau wiederholt. Auch einzelne Umbauten führen wir aus, sofern die Zugänglichkeit passt.</p>"},{"title":"Was Sie für die Offerte bereitstellen","text":"<p>Am schnellsten geht es mit Grundriss, Sanitärplan und Angaben zur Wandkonstruktion. Nützlich sind zudem der gewünschte Montagetermin und die Information, ob wir beplanken sollen. Fehlt etwas, fragen wir nach, bevor wir rechnen. Sie erhalten eine Offerte, die Vorfabrikation, Lieferung, Montage und allfällige Beplankung getrennt ausweist.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Montieren Sie auch Sanitärelemente, die wir selbst geliefert haben?","answer":"<p>Sprechen Sie uns darauf an. Wir prüfen das anhand Ihrer Pläne und Produktangaben und sagen Ihnen, ob wir die Montage übernehmen.</p>"},{"question":"Wie lange dauert die Montage der Elemente vor Ort?","answer":"<p>Das hängt von Anzahl, Zugänglichkeit und Vorbereitung des Rohbaus ab. Weil die Elemente verrohrt ankommen, entfällt die Verrohrung auf der Baustelle. Nach Sichtung Ihrer Pläne nennen wir Ihnen eine Dauer in der Offerte.</p>"},{"question":"Übernehmen Sie nach der Montage auch die Beplankung?","answer":"<p>Ja, wir beplanken die Vorwände mit AquaPanel als Untergrund für Abdichtung und Plättli. Spachtelarbeiten führen wir nach Absprache aus. Sie entscheiden, in welchem Zustand wir übergeben.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Montage anfragen","body":"Senden Sie uns Ihre Grundrisse und Sanitärpläne über das Kontaktformular, wir prüfen die Masse und melden uns mit Offerte und Terminvorschlag.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /referenzen — nur der Linkblock
+-- ════════════════════════════════════════════════════════════
+SET @pid = (SELECT id FROM pages WHERE slug = 'referenzen' LIMIT 1);
+
+-- Vorhandenen Block ersetzen, sonst anhaengen. Die zweite
+-- Bedingung raeumt die alte Fassung als Textblock mit weg.
+DELETE FROM sections
+WHERE page_id = @pid AND @pid IS NOT NULL
+  AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));
+
+-- Erst nach dem Loeschen zaehlen, sonst waechst die Sortierung
+-- bei jedem Durchlauf um zehn.
+SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"}]}', @sort, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /kontakt — nur der Linkblock
+-- ════════════════════════════════════════════════════════════
+SET @pid = (SELECT id FROM pages WHERE slug = 'kontakt' LIMIT 1);
+
+-- Vorhandenen Block ersetzen, sonst anhaengen. Die zweite
+-- Bedingung raeumt die alte Fassung als Textblock mit weg.
+DELETE FROM sections
+WHERE page_id = @pid AND @pid IS NOT NULL
+  AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));
+
+-- Erst nach dem Loeschen zaehlen, sonst waechst die Sortierung
+-- bei jedem Durchlauf um zehn.
+SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', @sort, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ────────────────────────────────────────────────────────────
+-- Kontrolle
+-- ────────────────────────────────────────────────────────────
+-- SELECT slug, is_active, LEFT(meta_title, 60) FROM pages ORDER BY sort_order;
+-- SELECT p.slug, COUNT(s.id) AS sektionen,
+--        GROUP_CONCAT(s.type ORDER BY s.sort_order) AS aufbau
+-- FROM pages p LEFT JOIN sections s ON s.page_id = p.id
+-- GROUP BY p.slug ORDER BY p.sort_order;

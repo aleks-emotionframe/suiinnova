@@ -30,7 +30,48 @@ require_once $root . '/core/helpers.php';
 /** Bilder gibt es in der Vorschau nicht — Sektionen blenden sich selbst aus */
 function getMediaStub(int $id): ?array { return null; }
 
-// ── Inhalte aus der erzeugten SQL lesen ────────────────────────
+/**
+ * Ersatz fuer die Anmeldung. In der Vorschau ist niemand eingeloggt.
+ * Die echte Funktion steht in core/auth.php, das hier nicht geladen wird.
+ */
+if (!function_exists('isLoggedIn')) {
+    function isLoggedIn(): bool { return false; }
+}
+
+/**
+ * Ersatz fuer die Datenbank.
+ *
+ * Nur getLivePageSlugs() fragt aus einer Sektionsvorlage heraus die
+ * Datenbank ab: sie prueft, welche Zielseiten online sind. In der Vorschau
+ * sollen alle Links sichtbar sein, auch die auf die noch nicht
+ * freigeschalteten Seiten — sonst laege genau das nicht vor, was
+ * gegengelesen werden soll.
+ */
+$db = new class {
+    public function fetchAll(string $sql, array $params = []): array
+    {
+        return array_map(fn($s) => ['slug' => $s], $params);
+    }
+    public function fetch(string $sql, array $params = []): ?array { return null; }
+};
+
+// ── Inhalte laden ──────────────────────────────────────────────
+//
+// Erste Wahl ist dist/vorschau/daten.json. Die Datei schreibt der
+// jeweils aktuelle Generator mit dem Aufruf "daten" und liefert Seiten
+// und Sektionen fertig aufbereitet. Fehlt sie, faellt die Vorschau auf
+// das alte Verfahren zurueck und liest die Inhalte aus der erzeugten
+// SQL heraus.
+$datenFile = $root . '/dist/vorschau/daten.json';
+if (is_file($datenFile)) {
+    $seiten = json_decode((string) file_get_contents($datenFile), true);
+    if (!is_array($seiten) || !$seiten) {
+        fwrite(STDERR, "dist/vorschau/daten.json ist leer oder kaputt.\n");
+        exit(1);
+    }
+    goto gerendert;
+}
+
 $sqlFile = $root . '/dist/sql/seo-paket-3-keyword-seiten.sql';
 if (!is_file($sqlFile)) {
     fwrite(STDERR, "SQL nicht gefunden. Erst build_keyword_pages.php laufen lassen.\n");
@@ -78,6 +119,8 @@ foreach ($pageMatches as $i => $pm) {
         'sektionen'  => $sektionen,
     ];
 }
+
+gerendert:
 
 // ── Unterprozess-Modus: genau eine Seite rendern ───────────────
 // Wird vom Hauptlauf pro Seite einmal aufgerufen, damit headingTag()
@@ -172,7 +215,8 @@ $out[] = '<header class="pf-kopf">';
 $out[] = '  <div class="pf-kopf-zeile">';
 $out[] = '    <div class="pf-marke">';
 $out[] = '      <span class="pf-marke-titel">Korrekturlauf</span>';
-$out[] = '      <span class="pf-marke-sub">SUI Innova · sechs neue Seiten · noch nicht hochgeladen</span>';
+$out[] = '      <span class="pf-marke-sub">SUI Innova · ' . count($seiten)
+       . ' Seiten · noch nicht hochgeladen</span>';
 $out[] = '    </div>';
 $out[] = '    <dl class="pf-kennzahlen">';
 $out[] = '      <div><dt>Seiten</dt><dd>' . count($seiten) . '</dd></div>';

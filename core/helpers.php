@@ -244,6 +244,8 @@ function getFooterServicePages(): array
         'sanitaer-vorwandelemente-beplanken',
         'sanitaer-gis-elemente-bestellen',
         'sanitaer-vorwandelemente-bestellen',
+        'sanitaerelemente-vorfabrizieren',
+        'sanitaerelemente-montieren',
     ];
 
     try {
@@ -259,6 +261,45 @@ function getFooterServicePages(): array
     }
 
     return $rows;
+}
+
+/**
+ * Von einer Liste Slugs diejenigen zurueckgeben, die online sind.
+ *
+ * Interne Links werden zusammen mit den Seiten eingespielt, auf die sie
+ * zeigen. Neue Seiten gehen aber absichtlich deaktiviert online, damit ein
+ * Mensch sie vorher anschaut. Ohne diesen Filter zeigte der Linkblock in
+ * der Zwischenzeit auf eine Seite, die 404 liefert. Fuer einen Besucher
+ * ist das eine Sackgasse, fuer Google ein Zeichen kaputter Struktur.
+ *
+ * Als Admin eingeloggt werden alle Slugs zurueckgegeben, damit die
+ * Kontrolle der neuen Seiten ueber die Links moeglich ist.
+ *
+ * @param string[] $slugs
+ * @return string[] Slugs in der Reihenfolge der Eingabe
+ */
+function getLivePageSlugs(array $slugs): array
+{
+    global $db;
+
+    $slugs = array_values(array_unique(array_filter($slugs, 'is_string')));
+    if (!$slugs) return [];
+
+    $nurAktive = isLoggedIn() ? '' : ' AND is_active = 1';
+
+    try {
+        $platzhalter = implode(',', array_fill(0, count($slugs), '?'));
+        $rows = $db->fetchAll(
+            "SELECT slug FROM pages WHERE slug IN ({$platzhalter}){$nurAktive}",
+            $slugs
+        );
+    } catch (Exception $e) {
+        return [];
+    }
+
+    $vorhanden = array_column($rows, 'slug');
+
+    return array_values(array_filter($slugs, fn($s) => in_array($s, $vorhanden, true)));
 }
 
 /**
