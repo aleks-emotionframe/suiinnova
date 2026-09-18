@@ -103,6 +103,28 @@ niemand auf einer Fehlerseite landet.
 
 
 ════════════════════════════════════════════════════════
+SCHRITT 4b — TEXTE AUF DEN BILDSTREIFEN WEG
+════════════════════════════════════════════════════════
+
+    SQL/3-BILDTEXTE-WEG.sql
+
+Entfernt die zwei weissen Zeilen über den Bildstreifen:
+
+    /leistungen   ALLES AUS EINER HAND
+    /referenzen   PRÄZISION IN JEDER VERBINDUNG
+
+Mit dem Text verschwindet auch die dunkle Fläche, die heute
+über dem ganzen Bild liegt, damit die Schrift lesbar bleibt.
+Die Bilder stehen danach wieder klar da.
+
+Unabhängig von den anderen Schritten, kann auch vorher oder
+später laufen.
+
+Geht auch von Hand: CMS -> Seiten -> [Seite] -> Sektion
+"Parallax Bildstreifen" -> Feld "Text auf Bild" leeren.
+
+
+════════════════════════════════════════════════════════
 SCHRITT 5 — GOOGLE BESCHEID GEBEN
 ════════════════════════════════════════════════════════
 
