@@ -1,0 +1,91 @@
+════════════════════════════════════════════════════════
+SUI INNOVA — VOLLSTÄNDIGES FTP-PAKET
+════════════════════════════════════════════════════════
+
+Diesen Ordner öffnen, ALLES darin markieren, nach
+sui-innova.ch ziehen, überschreiben.
+
+Keine Auswahl treffen, keine Pfade prüfen. Die Struktur
+ist dieselbe wie im FTP-Stammverzeichnis.
+
+An der Datenbank ist NICHTS mehr zu tun. Die ist fertig
+und korrekt, das hat die Diagnose bestätigt.
+
+
+DARIN LIEGEN
+
+    .htaccess
+    index.php
+    robots.txt
+    admin/
+    config/
+    core/
+    templates/
+
+Zwei Hinweise:
+
+  .htaccess beginnt mit einem Punkt. Manche FTP-Programme
+  blenden solche Dateien aus. In FileZilla unter Server ->
+  "Versteckte Dateien anzeigen" einschalten, sonst fehlt
+  sie.
+
+  config/ enthält absichtlich nur sections.php. Ihre
+  config.php mit den Zugangsdaten bleibt unberührt.
+
+  assets/ und uploads/ sind nicht dabei, daran hat sich
+  nichts geändert.
+
+
+WAS IN DIESEM PAKET NEU IST
+
+  1) Links im Fliesstext waren unsichtbar
+
+     Die Links waren im Quelltext vorhanden, sahen aber aus
+     wie normaler Text. Es fehlte die Farbregel für Links
+     im Einleitungsabsatz. Nur wo ein Link zufällig in
+     einem der Abschnitte darunter landete, war er rot.
+     Deshalb sahen Sie auf zwei Seiten einen oder zwei
+     Links und sonst keine.
+
+     Jetzt sind alle 18 rot und unterstrichen.
+
+  2) Das Layout lief nicht durch
+
+     Überschrift, Fragen und der dunkle Abschluss gingen
+     über die volle Breite, das Inhaltsraster und die
+     Linkliste hörten bei zwei Dritteln auf. Drei
+     verschiedene rechte Kanten auf einer Seite.
+
+     Jetzt kommt auf grossen Bildschirmen eine dritte
+     Spalte dazu, statt dass die Breite begrenzt wird.
+     Alles läuft gleich weit, und die Zeilen bleiben
+     trotzdem kurz genug zum Lesen.
+
+     Eine Spalte auf dem Telefon, zwei ab Tablet, drei ab
+     1280 Pixel.
+
+
+SO PRÜFEN SIE, OB ES GEKLAPPT HAT
+
+  sui-innova.ch/sanitaer-vorwandelemente aufrufen,
+  danach einmal Strg+F5 (leert den Zwischenspeicher).
+
+  Im Einleitungstext oben müssen zwei rote, unterstrichene
+  Stellen sein:
+
+      "GIS-Elemente"
+      "Beplankung und Spachtelung"
+
+  Weiter unten steht der Block "Passend dazu" mit sieben
+  Links, auf einem grossen Bildschirm dreispaltig.
+
+  Auf der Startseite: zwischen dem Inhalt und dem dunklen
+  Abschluss steht "Unsere Leistungen im Detail" mit neun
+  Links. Falls nicht: Rechtsklick -> Seitenquelltext,
+  Strg+F nach "Unsere Leistungen im Detail". Steht es im
+  Quelltext, aber Sie sehen es nicht, melden Sie sich.
+
+
+────────────────────────────────────────────────────────
+EmotionFrame GmbH, Loorenstrasse 4a, 5443 Niederrohrdorf
+hello@emotionframe.ch

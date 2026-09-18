@@ -1,0 +1,136 @@
+# ============================================================
+# SUI Innova GmbH — .htaccess (Hostpoint)
+# ============================================================
+
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ────────────────────────────────────────────────
+    # Build-Verzeichnis sperren
+    # Enthaelt Generatoren, SQL-Migrationen und Upload-Pakete. Gehoert
+    # nicht auf den Server, ist aber ueber FTP dorthin gelangt. Als erste
+    # Regel, damit kein spaeterer Treffer daran vorbeikommt.
+    # ────────────────────────────────────────────────
+    RewriteRule ^dist(/|$) - [F,L]
+
+    # ────────────────────────────────────────────────
+    # HTTPS erzwingen
+    # ────────────────────────────────────────────────
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+    # ────────────────────────────────────────────────
+    # www → non-www (Canonical-Konsistenz)
+    # ────────────────────────────────────────────────
+    RewriteCond %{HTTP_HOST} ^www\.sui-innova\.ch$ [NC]
+    RewriteRule ^(.*)$ https://sui-innova.ch/$1 [R=301,L]
+
+    # ────────────────────────────────────────────────
+    # 301-Redirects fuer alte URLs (aus Site-Migration)
+    # Verhindert Traffic-Verlust und rettet Backlink-Autoritaet
+    # ────────────────────────────────────────────────
+    # Zweite Startseite abschalten: /startseite lieferte denselben Inhalt
+    # wie / und teilte damit die Autoritaet auf zwei Adressen auf.
+    RewriteRule ^startseite/?$                                     / [R=301,L]
+    RewriteRule ^home/?$                                           / [R=301,L]
+
+    RewriteRule ^blog/?$                                           / [R=301,L]
+    RewriteRule ^dienstleistungen/?$                               /leistungen [R=301,L]
+    RewriteRule ^dienstleistungen/(.*)$                            /leistungen [R=301,L]
+    RewriteRule ^unternehmen/?$                                    /ueber-uns [R=301,L]
+    RewriteRule ^montage-sanit(ae|ä)r-vorwandsysteme---gis-montagen/?$  /leistungen [R=301,L]
+    RewriteRule ^vorfabrikation/?$                                 /leistungen [R=301,L]
+    RewriteRule ^montage/?$                                        /leistungen [R=301,L]
+    RewriteRule ^aqua-?panel/?$                                    /leistungen [R=301,L]
+    RewriteRule ^beplankung(en)?/?$                                /leistungen [R=301,L]
+    RewriteRule ^gis-elemente?/?$                                  /leistungen [R=301,L]
+
+    # ────────────────────────────────────────────────
+    # Trailing-Slash-Konsistenz (kein trailing slash)
+    # ────────────────────────────────────────────────
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+    # ────────────────────────────────────────────────
+    # Statische Assets direkt ausliefern
+    # ────────────────────────────────────────────────
+    RewriteCond %{REQUEST_URI} ^/(assets|uploads)/
+    RewriteRule ^ - [L]
+
+    # robots.txt und sitemap.xml direkt
+    RewriteRule ^robots\.txt$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^sitemap\.xml$ index.php?page=sitemap.xml [QSA,L]
+
+    # ────────────────────────────────────────────────
+    # Alles andere → index.php (Front-Controller)
+    # ────────────────────────────────────────────────
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+</IfModule>
+
+# ────────────────────────────────────────────────
+# Sicherheits-Header
+# ────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
+
+# ────────────────────────────────────────────────
+# Sensible Dateien schuetzen
+# ────────────────────────────────────────────────
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|composer\.(json|lock)|package(-lock)?\.json)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(md|log|sql)$">
+    Require all denied
+</FilesMatch>
+
+
+# Config- und Core-PHP-Dateien nur ueber Front-Controller aufrufbar
+<FilesMatch "^(config|bootstrap|db|helpers|auth|router|contact|application|sitemap)\.php$">
+    <If "%{REQUEST_URI} =~ m#^/(config|core)/#">
+        Require all denied
+    </If>
+</FilesMatch>
+
+# ────────────────────────────────────────────────
+# Caching fuer statische Assets
+# ────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# ────────────────────────────────────────────────
+# Kompression (Text-Assets)
+# ────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/xml application/json
+    AddOutputFilterByType DEFLATE application/xml+rss image/svg+xml
+</IfModule>
+
+# ────────────────────────────────────────────────
+# 404-Seite
+# ────────────────────────────────────────────────
+ErrorDocument 404 /index.php

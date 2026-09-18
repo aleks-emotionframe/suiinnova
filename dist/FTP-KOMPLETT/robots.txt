@@ -1,0 +1,18 @@
+# robots.txt für SUI Innova GmbH
+# https://sui-innova.ch/robots.txt
+
+User-agent: *
+Allow: /
+
+# Admin-Bereich und interne Ordner ausschliessen
+Disallow: /admin/
+Disallow: /uploads/applications/
+Disallow: /uploads/tmp/
+Disallow: /config/
+Disallow: /core/
+
+# Query-basierte Duplikate ausschliessen
+Disallow: /*?page=
+
+# Sitemap
+Sitemap: https://sui-innova.ch/sitemap.xml
