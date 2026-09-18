@@ -1,0 +1,164 @@
+════════════════════════════════════════════════════════
+SUI INNOVA — KEYWORD-PLAN VOM 18.09.2026
+════════════════════════════════════════════════════════
+
+Erstellt 18.09.2026 von EmotionFrame GmbH
+
+Zwölf Suchbegriffe auf neun Seiten. Sieben bestehende Seiten
+werden überarbeitet, zwei kommen neu dazu.
+
+Das Abschlusspaket vom 14.09. bleibt gültig. Dieses Paket
+baut darauf auf und ersetzt es nicht.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 1 — SECHS DATEIEN HOCHLADEN
+════════════════════════════════════════════════════════
+
+Im Ordner WEBSITE liegen sechs Dateien in vier Ordnern:
+
+    admin/views/settings.php
+    config/sections.php
+    core/helpers.php
+    templates/partials/cookie-banner.php
+    templates/sections/link-list.php          (neu)
+    templates/sections/parallax-image.php
+
+Die Ordnerstruktur ist dieselbe wie im FTP unter
+sui-innova.ch. Ordner WEBSITE öffnen, alle vier Ordner
+markieren, nach sui-innova.ch ziehen, überschreiben.
+
+⚠ ZUERST die Dateien, DANN die SQL.
+
+Die SQL legt Sektionen vom Typ "link-list" an. Ohne die
+neue Vorlage zeigen die Seiten an dieser Stelle nichts an.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 2 — DATENBANK
+════════════════════════════════════════════════════════
+
+Hostpoint Control Panel -> Datenbanken -> phpMyAdmin
+-> Datenbank bifitudo_suinnova -> Reiter "SQL"
+
+    SQL/1-ALLES-EINSPIELEN.sql
+
+komplett hineinkopieren, OK.
+
+Mehrfach ausführbar. Getestet: dreimal hintereinander,
+gleiches Ergebnis, keine Duplikate.
+
+Rote Fehlermeldung = melden Sie sich, nicht weitermachen.
+
+Was danach anders ist:
+
+  Sieben Seiten haben neue Titel, Beschreibungen,
+  Überschriften, Texte und Fragen.
+
+  Zwei neue Seiten sind angelegt, aber noch OFFLINE.
+
+  Jede Seite hat unten einen Block "Passend dazu" mit
+  Links auf die verwandten Seiten.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 3 — DIE ZWEI NEUEN SEITEN ANSCHAUEN
+════════════════════════════════════════════════════════
+
+Als Admin eingeloggt aufrufbar:
+
+    sui-innova.ch/sanitaerelemente-vorfabrizieren
+    sui-innova.ch/sanitaerelemente-montieren
+
+So muss es aussehen: Kopfbild, Überschrift, Fliesstext,
+dann die Abschnitte ZWEISPALTIG nebeneinander mit einem
+kurzen roten Strich über jedem Titel. Danach aufklappbare
+Fragen auf hellgrau, dann die Liste "Passend dazu", zuletzt
+der dunkle Abschluss mit Button.
+
+KOPFBILD WÄHLEN:
+Seiten -> [Seite] -> erste Sektion -> Bild.
+Für jede Seite ein anderes.
+
+Die Bildbeschreibung ist bereits eingetragen und steht in
+derselben Sektion unter dem Bild. Nicht löschen, Google
+liest sie.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 4 — FREISCHALTEN
+════════════════════════════════════════════════════════
+
+Wenn beide Seiten passen:
+
+    SQL/2-NEUE-SEITEN-ONLINE.sql
+
+Damit sind sie öffentlich, stehen in der sitemap.xml und
+erscheinen im Footer. Alles automatisch.
+
+Erst ab diesem Moment erscheinen sie auch in den Blöcken
+"Passend dazu" auf den anderen Seiten. Solange sie offline
+sind, lässt die Website diese Links von selbst weg, damit
+niemand auf einer Fehlerseite landet.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 5 — GOOGLE BESCHEID GEBEN
+════════════════════════════════════════════════════════
+
+Search Console -> URL-Prüfung -> Adresse eingeben ->
+"Indexierung beantragen". Für jede einzeln, neun Stück:
+
+    sui-innova.ch/leistungen
+    sui-innova.ch/sanitaer-gis-elemente-bestellen
+    sui-innova.ch/gis-elemente-beplanken
+    sui-innova.ch/sanitaer-vorwandelemente
+    sui-innova.ch/sanitaer-vorwandelemente-bestellen
+    sui-innova.ch/sanitaer-vorwaende
+    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+    sui-innova.ch/sanitaerelemente-vorfabrizieren
+    sui-innova.ch/sanitaerelemente-montieren
+
+Ohne das dauert es Wochen, bis Google die neuen Texte sieht.
+
+
+════════════════════════════════════════════════════════
+ZWEI STELLEN, DIE SIE KENNEN SOLLTEN
+════════════════════════════════════════════════════════
+
+1) sui-innova.ch/sanitaer-vorwandelemente-beplanken steht
+   heute auf Platz 1 und wird in der KI-Übersicht zitiert.
+   Titel und Überschrift bleiben deshalb unverändert, nur
+   der Text darunter wird ausgebaut.
+
+2) sui-innova.ch/sanitaer-gis-elemente-bestellen steht auf
+   Platz 2, ebenfalls mit KI-Zitat. Der Titel ändert sich
+   minimal, von "Sanitär GIS Elemente bestellen | SUI Innova
+   GmbH" auf "Sanitär GIS Elemente bestellen | SUI Innova".
+   Der Suchbegriff steht unverändert vorne.
+
+   Beobachten Sie diese beiden Positionen in den nächsten
+   vier Wochen. Rutscht eine ab, melden Sie sich.
+
+
+════════════════════════════════════════════════════════
+KONTROLLE
+════════════════════════════════════════════════════════
+
+sui-innova.ch/leistungen -> Rechtsklick -> Quelltext
+Mit Strg+F suchen:
+
+  <title>       Steht "Sanitär Vorfabrikation" drin?
+  <h1           Genau einmal?
+  Passend       Kommt der Linkblock vor?
+  alt="Verr     Steht die Bildbeschreibung im Kopfbild?
+
+
+════════════════════════════════════════════════════════
+BEILAGE
+════════════════════════════════════════════════════════
+
+Checkliste_Keyword-Plan.txt
+
+Punkt für Punkt, was aus dem Plan umgesetzt ist und was
+nicht, mit Begründung.

@@ -196,7 +196,7 @@
                     "items": [
                         {
                             "slug": "gis-elemente-beplanken",
-                            "text": "GIS Elemente beplanken und montieren"
+                            "text": "GIS Elemente montieren lassen"
                         },
                         {
                             "slug": "sanitaerelemente-vorfabrizieren",
@@ -317,7 +317,7 @@
                         },
                         {
                             "slug": "sanitaer-gis-elemente-bestellen",
-                            "text": "Sanitär GIS Elemente bestellen"
+                            "text": "GIS Elemente verrohrt bestellen"
                         },
                         {
                             "slug": "sanitaerelemente-vorfabrizieren",
@@ -438,7 +438,7 @@
                         },
                         {
                             "slug": "sanitaerelemente-montieren",
-                            "text": "Sanitärelemente montieren"
+                            "text": "Montage von Sanitär Vorwandelementen"
                         },
                         {
                             "slug": "sanitaer-vorwandelemente-bestellen",
@@ -539,7 +539,7 @@
                     "items": [
                         {
                             "slug": "sanitaer-gis-elemente-bestellen",
-                            "text": "Sanitär GIS Elemente bestellen"
+                            "text": "GIS Elemente bestellen"
                         },
                         {
                             "slug": "sanitaer-vorwandelemente",
@@ -749,7 +749,7 @@
                         },
                         {
                             "slug": "gis-elemente-beplanken",
-                            "text": "GIS Elemente beplanken und montieren"
+                            "text": "Beplankung von GIS Elementen"
                         }
                     ]
                 }

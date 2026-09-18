@@ -55,6 +55,38 @@ $anker = [
     'sanitaerelemente-montieren'         => 'Sanitärelemente montieren',
 ];
 
+/**
+ * Ankertexte, die im Plan von einer bestimmten Quellseite aus abweichen.
+ *
+ * Die Tabelle oben nennt je Zielseite einen Standardtext. Wo der Plan von
+ * einer Quellseite aus einen anderen Text vorschlaegt UND dieser Text die
+ * Zielseite beschreibt, gilt der Text aus dem Plan. Abwechslung im
+ * Ankertext ist ausserdem natuerlicher als derselbe Satz auf acht Seiten.
+ *
+ *   [Quellseite][Zielseite] => Text aus dem Plan
+ */
+$ankerAusnahmen = [
+    'sanitaer-gis-elemente-bestellen' => [
+        'gis-elemente-beplanken' => 'GIS Elemente montieren lassen',
+    ],
+    'gis-elemente-beplanken' => [
+        'sanitaer-gis-elemente-bestellen' => 'GIS Elemente verrohrt bestellen',
+    ],
+    'sanitaer-vorwandelemente' => [
+        'sanitaerelemente-montieren' => 'Montage von Sanitär Vorwandelementen',
+    ],
+    'sanitaer-vorwandelemente-bestellen' => [
+        'sanitaer-gis-elemente-bestellen' => 'GIS Elemente bestellen',
+    ],
+    'sanitaer-vorwandelemente-beplanken' => [
+        'gis-elemente-beplanken' => 'Beplankung von GIS Elementen',
+    ],
+    'referenzen' => [
+        'sanitaer-gis-elemente-bestellen' => 'vorfabrizierte GIS Elemente bestellen',
+        'gis-elemente-beplanken'          => 'beplankte GIS Elemente aus unserer Werkstatt',
+    ],
+];
+
 $seiten = [];
 
 
@@ -554,11 +586,14 @@ function j(array $data): string
  */
 function linkBlock(array $ziele, array $anker, string $eigenerSlug): ?array
 {
+    global $ankerAusnahmen;
+
     $items = [];
     foreach ($ziele as $slug) {
         if ($slug === $eigenerSlug) continue;
         if (!isset($anker[$slug])) continue;
-        $items[] = ['slug' => $slug, 'text' => $anker[$slug]];
+        $text = $ankerAusnahmen[$eigenerSlug][$slug] ?? $anker[$slug];
+        $items[] = ['slug' => $slug, 'text' => $text];
     }
     if (!$items) return null;
 
