@@ -452,6 +452,82 @@ SELECT @pid, 'cta-banner', '{"heading":"Montage anfragen","body":"Senden Sie uns
 FROM DUAL WHERE @pid IS NOT NULL;
 
 -- ════════════════════════════════════════════════════════════
+-- /ausflockung-nasszellen
+-- Suchbegriff: ausflockung nasszellen
+-- ════════════════════════════════════════════════════════════
+
+INSERT INTO pages (title, slug, meta_title, meta_desc, is_active, is_homepage, sort_order)
+SELECT 'Ausflockung Nasszellen', 'ausflockung-nasszellen', 'Ausflockung Nasszellen: Schallschutz | SUI Innova', 'Ausflockung in Nasszellen gegen Körperschall: Hohlräume der Vorwand ausgeflockt, Rohre entkoppelt, SilentPanel beplankt. SUI Innova aus Pfäffikon SZ.', 0, 0, @next_sort + 20
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM pages WHERE slug = 'ausflockung-nasszellen');
+
+SET @pid = (SELECT id FROM pages WHERE slug = 'ausflockung-nasszellen' LIMIT 1);
+
+UPDATE pages SET meta_title = 'Ausflockung Nasszellen: Schallschutz | SUI Innova',
+                 meta_desc  = 'Ausflockung in Nasszellen gegen Körperschall: Hohlräume der Vorwand ausgeflockt, Rohre entkoppelt, SilentPanel beplankt. SUI Innova aus Pfäffikon SZ.'
+WHERE id = @pid AND @pid IS NOT NULL;
+
+-- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
+SET @img = (
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(content, '$.image_id'))
+    FROM sections
+    WHERE page_id = @pid AND type = 'parallax-image' AND JSON_VALID(content)
+    ORDER BY sort_order ASC LIMIT 1
+);
+
+DELETE FROM sections WHERE page_id = @pid AND @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'parallax-image',
+       JSON_SET('{"image_id":0,"height":"medium","overlay_text":"","alt":"Ausgeflockter Hohlraum einer Sanitärvorwand vor der Beplankung in der Werkstatt in Pfäffikon SZ"}', '$.image_id', CAST(COALESCE(@img, 0) AS UNSIGNED)),
+       10, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'content-grid', '{"heading":"Ausflockung in Nasszellen: Schallschutz, der beim Versetzen entschieden wird","lead":"<p>Die Ausflockung füllt den Hohlraum zwischen Ständerwerk und Beplankung, damit Spülgeräusche nicht als Körperschall in die Nachbarräume wandern. Sie ist einer der wenigen Schritte, die sich später nicht mehr nachholen lassen: Ist die Wand beplankt und geplättelt, kommt niemand mehr an den Hohlraum. Wir flocken die Vorwände <a href=\\"/sanitaerelemente-vorfabrizieren\\">in unserer Werkstatt in Pfäffikon SZ aus</a>, bevor sie beplankt werden, und setzen in Nasszellen <a href=\\"/sanitaer-vorwandelemente-beplanken\\">SilentPanel und AquaPanel</a> ein. Ebenso wichtig wie das Material ist die Entkopplung: Dämmstreifen unter den Bodenprofilen, Rohrschellen mit Einlage, der Apparat getrennt vom Baukörper befestigt. Welcher Wert für Ihr Projekt gilt, steht im Schallschutznachweis. Senden Sie ihn mit den Sanitärplänen, wir richten den Aufbau danach aus.</p>","style":"light","items":[{"title":"Warum Ausflockung und nicht nur eine Dämmmatte","text":"<p>Eine lose eingelegte Matte lässt Luft zwischen Rohr und Platte stehen, und genau dieser Hohlraum wirkt wie ein Resonanzkörper. Die Ausflockung füllt den Raum dicht aus, auch dort, wo eine Matte nicht hinkommt, zwischen Rohrbogen, Spülkasten und Ständer. Das Füllmaterial nimmt die Schwingung auf, bevor sie die Platte erreicht. Deshalb flocken wir aus, statt nur zu dämmen.</p>"},{"title":"Entkopplung entscheidet mehr als das Füllmaterial","text":"<p>Körperschall wandert über jede starre Verbindung. Ist das Element direkt auf den Rohboden geschraubt, nützt die beste Ausflockung wenig. Wir setzen Dämmstreifen unter die Bodenprofile, führen die Leitungen in Schellen mit Einlage und befestigen den Apparat vom Baukörper getrennt. Erst diese drei Punkte zusammen mit der Ausflockung ergeben einen Aufbau, der hält, was der Nachweis verlangt.</p>"},{"title":"SilentPanel in der Nasszelle, AquaPanel an der nassen Wand","text":"<p>Die Beplankung ist der letzte Teil des Aufbaus. Wo Schallschutzwerte gefordert sind, arbeiten wir mit SilentPanel. Im Spritzwasserbereich von Dusche und Badewanne kommt AquaPanel als Untergrund für Abdichtung und Plättli dazu. Beides schliesst sich nicht aus, die Zonen werden im Plan festgelegt. Welche Platte wo sitzt, halten wir vor Produktionsstart schriftlich fest.</p>"},{"title":"In der Werkstatt ausgeflockt statt im Rohbau","text":"<p>Auf der Baustelle wird eine Vorwand ausgeflockt, wenn sie steht, und dann muss sofort beplankt werden. In der Werkstatt läuft derselbe Schritt am liegenden Element, kontrolliert und ohne Zeitdruck. Das Element kommt ausgeflockt und beplankt auf die Baustelle. Für Sie heisst das: ein Arbeitsgang weniger im Rohbau und ein Schritt weniger, der vergessen werden kann.</p>"},{"title":"Der Schallschutznachweis gibt vor, was nötig ist","text":"<p>In der Schweiz regelt die SIA 181 den Schallschutz im Hochbau. Welche Anforderung für Ihr Gebäude gilt, legt der Nachweis des Projekts fest, nicht ein Prospekt. Schicken Sie uns den Nachweis mit den Sanitärplänen, dann wählen wir Füllung, Entkopplung und Beplankung danach aus. Fehlt der Nachweis, fragen wir bei Ihrer Bauleitung nach, bevor wir rechnen.</p>"},{"title":"Wo sich der Aufwand besonders lohnt","text":"<p>Kritisch sind Wände zwischen Nasszelle und Schlafraum und Wände zwischen zwei Wohnungen. Dort fällt jedes Spülgeräusch auf, und eine Reklamation nach dem Einzug kostet den Aufbruch der Plättli. Im Mehrfamilienhaus und im Alterszentrum planen wir die Ausflockung deshalb von Anfang an mit. Bei einem einzelnen Gäste-WC an einer Aussenwand besprechen wir offen, ob sich der Aufwand lohnt.</p>"}]}', 20, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Kann man eine Vorwand nachträglich ausflocken?","answer":"<p>Nur, solange die Beplankung noch offen ist. Ist die Wand geplättelt, kommt man an den Hohlraum nicht mehr heran, ohne den Belag aufzubrechen. Deshalb wird über die Ausflockung beim Versetzen entschieden und nicht am Schluss.</p>"},{"question":"Welchen Schallschutzwert erreichen Ihre Aufbauten?","answer":"<p>Das hängt vom gesamten Aufbau ab, nicht nur von der Vorwand: Rohdecke, Trennwand, Bodenaufbau und Befestigung zählen mit. Welcher Wert für Ihr Gebäude gefordert ist, steht im Schallschutznachweis nach SIA 181. Senden Sie ihn mit, dann stimmen wir den Aufbau darauf ab.</p>"},{"question":"Flocken Sie auch Elemente aus, die nicht von Ihnen kommen?","answer":"<p>Ja, solange die Beplankung noch nicht montiert ist. Wir schauen vorgängig an, ob Ständerwerk und Rohrführung die Entkopplung überhaupt zulassen, und melden Ihnen Abweichungen schriftlich, bevor wir anfangen.</p>"}]}', 30, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"}]}', 40, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'cta-banner', '{"heading":"Schallschutznachweis senden, Offerte erhalten","body":"Senden Sie uns die Sanitärpläne und den Schallschutznachweis, wir legen den Aufbau fest und melden uns mit einer Offerte.","button_text":"Pläne einsenden","button_url":"/kontakt"}', 50, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
+-- /ueber-uns — nur der Linkblock
+-- ════════════════════════════════════════════════════════════
+SET @pid = (SELECT id FROM pages WHERE slug = 'ueber-uns' LIMIT 1);
+
+-- Vorhandenen Block ersetzen, sonst anhaengen. Die zweite
+-- Bedingung raeumt die alte Fassung als Textblock mit weg.
+DELETE FROM sections
+WHERE page_id = @pid AND @pid IS NOT NULL
+  AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));
+
+-- Sortierung auf Zehnerschritte, damit dazwischen Platz bleibt.
+SET @r = 0;
+UPDATE sections SET sort_order = (@r := @r + 10)
+WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;
+
+-- Der Block gehoert vor die letzte Handlungsaufforderung, nicht
+-- dahinter: nach dem Abschluss mit Knopf liest niemand weiter.
+-- Gibt es keine, kommt er ans Seitenende.
+SET @cta = (SELECT MAX(sort_order) FROM sections
+            WHERE page_id = @pid AND type = 'cta-banner');
+SET @sort = COALESCE(@cta - 5,
+            (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));
+
+INSERT INTO sections (page_id, type, content, sort_order, is_active)
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', @sort, 1
+FROM DUAL WHERE @pid IS NOT NULL;
+
+-- ════════════════════════════════════════════════════════════
 -- /referenzen — nur der Linkblock
 -- ════════════════════════════════════════════════════════════
 SET @pid = (SELECT id FROM pages WHERE slug = 'referenzen' LIMIT 1);
@@ -462,12 +538,21 @@ DELETE FROM sections
 WHERE page_id = @pid AND @pid IS NOT NULL
   AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));
 
--- Erst nach dem Loeschen zaehlen, sonst waechst die Sortierung
--- bei jedem Durchlauf um zehn.
-SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);
+-- Sortierung auf Zehnerschritte, damit dazwischen Platz bleibt.
+SET @r = 0;
+UPDATE sections SET sort_order = (@r := @r + 10)
+WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;
+
+-- Der Block gehoert vor die letzte Handlungsaufforderung, nicht
+-- dahinter: nach dem Abschluss mit Knopf liest niemand weiter.
+-- Gibt es keine, kommt er ans Seitenende.
+SET @cta = (SELECT MAX(sort_order) FROM sections
+            WHERE page_id = @pid AND type = 'cta-banner');
+SET @sort = COALESCE(@cta - 5,
+            (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"vorfabrizierte GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"beplankte GIS Elemente aus unserer Werkstatt"}]}', @sort, 1
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"vorfabrizierte GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"beplankte GIS Elemente aus unserer Werkstatt"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', @sort, 1
 FROM DUAL WHERE @pid IS NOT NULL;
 
 -- ════════════════════════════════════════════════════════════
@@ -481,12 +566,21 @@ DELETE FROM sections
 WHERE page_id = @pid AND @pid IS NOT NULL
   AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));
 
--- Erst nach dem Loeschen zaehlen, sonst waechst die Sortierung
--- bei jedem Durchlauf um zehn.
-SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);
+-- Sortierung auf Zehnerschritte, damit dazwischen Platz bleibt.
+SET @r = 0;
+UPDATE sections SET sort_order = (@r := @r + 10)
+WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;
+
+-- Der Block gehoert vor die letzte Handlungsaufforderung, nicht
+-- dahinter: nach dem Abschluss mit Knopf liest niemand weiter.
+-- Gibt es keine, kommt er ans Seitenende.
+SET @cta = (SELECT MAX(sort_order) FROM sections
+            WHERE page_id = @pid AND type = 'cta-banner');
+SET @sort = COALESCE(@cta - 5,
+            (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', @sort, 1
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"}]}', @sort, 1
 FROM DUAL WHERE @pid IS NOT NULL;
 
 -- ════════════════════════════════════════════════════════════
@@ -510,7 +604,7 @@ SET @sort = COALESCE(@cta - 5,
             (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'link-list', '{"heading":"Unsere Leistungen im Detail","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"}]}', @sort, 1
+SELECT @pid, 'link-list', '{"heading":"Unsere Leistungen im Detail","items":[{"slug":"leistungen","text":"Sanitär Vorfabrikation: alle Leistungen"},{"slug":"sanitaer-gis-elemente-bestellen","text":"Sanitär GIS Elemente bestellen"},{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken und montieren"},{"slug":"sanitaer-vorwandelemente","text":"Sanitär Vorwandelemente: Aufbau und Montage"},{"slug":"sanitaer-vorwandelemente-bestellen","text":"Sanitär Vorwandelemente bestellen"},{"slug":"sanitaer-vorwaende","text":"Sanitär Vorwände vorfabriziert und montiert"},{"slug":"sanitaer-vorwandelemente-beplanken","text":"Sanitär Vorwandelemente beplanken"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"},{"slug":"sanitaerelemente-montieren","text":"Sanitärelemente montieren"},{"slug":"ausflockung-nasszellen","text":"Ausflockung und Schallschutz in Nasszellen"}]}', @sort, 1
 FROM DUAL WHERE @pid IS NOT NULL;
 
 -- ────────────────────────────────────────────────────────────
@@ -524,9 +618,7 @@ FROM DUAL WHERE @pid IS NOT NULL;
 
 -- ════════════════════════════════════════════════════════════
 -- Nachtrag: Cookie-Banner ohne Gedankenstrich
---
--- Nur, wenn der Text noch eine der bekannten alten Fassungen
--- ist. Ein selbst geschriebener Text bleibt unangetastet.
+-- Nur, wenn der Text noch eine der bekannten alten Fassungen ist.
 -- ════════════════════════════════════════════════════════════
 
 UPDATE settings

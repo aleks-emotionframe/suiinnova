@@ -246,6 +246,7 @@ function getFooterServicePages(): array
         'sanitaer-vorwandelemente-bestellen',
         'sanitaerelemente-vorfabrizieren',
         'sanitaerelemente-montieren',
+        'ausflockung-nasszellen',
     ];
 
     try {

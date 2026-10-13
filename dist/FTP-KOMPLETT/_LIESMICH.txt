@@ -1,5 +1,6 @@
 ════════════════════════════════════════════════════════
 SUI INNOVA — VOLLSTÄNDIGES FTP-PAKET
+Stand 13.10.2026
 ════════════════════════════════════════════════════════
 
 Diesen Ordner öffnen, ALLES darin markieren, nach
@@ -7,9 +8,6 @@ sui-innova.ch ziehen, überschreiben.
 
 Keine Auswahl treffen, keine Pfade prüfen. Die Struktur
 ist dieselbe wie im FTP-Stammverzeichnis.
-
-An der Datenbank ist NICHTS mehr zu tun. Die ist fertig
-und korrekt, das hat die Diagnose bestätigt.
 
 
 DARIN LIEGEN
@@ -22,12 +20,9 @@ DARIN LIEGEN
     core/
     templates/
 
-Zwei Hinweise:
-
   .htaccess beginnt mit einem Punkt. Manche FTP-Programme
   blenden solche Dateien aus. In FileZilla unter Server ->
-  "Versteckte Dateien anzeigen" einschalten, sonst fehlt
-  sie.
+  "Versteckte Dateien anzeigen" einschalten.
 
   config/ enthält absichtlich nur sections.php. Ihre
   config.php mit den Zugangsdaten bleibt unberührt.
@@ -36,54 +31,71 @@ Zwei Hinweise:
   nichts geändert.
 
 
-WAS IN DIESEM PAKET NEU IST
+DANACH DIE DATENBANK
 
-  1) Links im Fliesstext waren unsichtbar
+In phpMyAdmin, Datenbank bifitudo_suinnova, Reiter
+Importieren (nicht hineinkopieren, die Datei ist gross):
 
-     Die Links waren im Quelltext vorhanden, sahen aber aus
-     wie normaler Text. Es fehlte die Farbregel für Links
-     im Einleitungsabsatz. Nur wo ein Link zufällig in
-     einem der Abschnitte darunter landete, war er rot.
-     Deshalb sahen Sie auf zwei Seiten einen oder zwei
-     Links und sonst keine.
+    SQL/1-ALLES-EINSPIELEN.sql
 
-     Jetzt sind alle 18 rot und unterstrichen.
-
-  2) Das Layout lief nicht durch
-
-     Überschrift, Fragen und der dunkle Abschluss gingen
-     über die volle Breite, das Inhaltsraster und die
-     Linkliste hörten bei zwei Dritteln auf. Drei
-     verschiedene rechte Kanten auf einer Seite.
-
-     Jetzt kommt auf grossen Bildschirmen eine dritte
-     Spalte dazu, statt dass die Breite begrenzt wird.
-     Alles läuft gleich weit, und die Zeilen bleiben
-     trotzdem kurz genug zum Lesen.
-
-     Eine Spalte auf dem Telefon, zwei ab Tablet, drei ab
-     1280 Pixel.
+Mehrfach ausführbar, es entstehen keine Duplikate.
 
 
-SO PRÜFEN SIE, OB ES GEKLAPPT HAT
+WAS IN DIESEM DURCHGANG NEU IST
 
-  sui-innova.ch/sanitaer-vorwandelemente aufrufen,
-  danach einmal Strg+F5 (leert den Zwischenspeicher).
+  1) /ueber-uns verlinkt jetzt weiter
 
-  Im Einleitungstext oben müssen zwei rote, unterstrichene
-  Stellen sein:
+     431 Impressionen, Position 2,65. Nach der Startseite
+     Ihre stärkste Seite, und sie zeigte im Text auf gar
+     nichts. Jetzt auf vier Leistungsseiten.
 
-      "GIS-Elemente"
-      "Beplankung und Spachtelung"
+  2) /referenzen verlinkt sechs statt drei Seiten
 
-  Weiter unten steht der Block "Passend dazu" mit sieben
-  Links, auf einem grossen Bildschirm dreispaltig.
+  3) Die Linkblöcke stehen vor dem Schlussknopf
 
-  Auf der Startseite: zwischen dem Inhalt und dem dunklen
-  Abschluss steht "Unsere Leistungen im Detail" mit neun
-  Links. Falls nicht: Rechtsklick -> Seitenquelltext,
-  Strg+F nach "Unsere Leistungen im Detail". Steht es im
-  Quelltext, aber Sie sehen es nicht, melden Sie sich.
+     Vorher standen sie auf /referenzen und /kontakt
+     darunter. Nach dem Abschluss liest niemand weiter.
+
+  4) Neue Seite "Ausflockung Nasszellen", noch OFFLINE
+
+     Siehe unten.
+
+
+DIE NEUE SEITE
+
+Die Search Console zeigt für "ausflockung nasszellen"
+28 Impressionen in drei Monaten auf Position 34, ohne
+dass eine einzige Seite das Thema behandelt.
+
+    sui-innova.ch/ausflockung-nasszellen
+
+Als Admin eingeloggt aufrufbar. Bitte lesen, dann im CMS
+ein Kopfbild wählen (erste Sektion, Bild).
+
+Die Seite nennt bewusst keine Dezibelwerte. Welcher Wert
+gilt, steht im Schallschutznachweis des Projekts. Eine
+Zahl auf der Website wäre bei einer Reklamation ein
+Versprechen.
+
+Wenn sie passt:
+
+    SQL/4-AUSFLOCKUNG-ONLINE.sql
+
+Erst dann erscheint sie in der Sitemap, im Footer und in
+den Linkblöcken der anderen Seiten. Solange sie offline
+ist, lässt die Website diese Links von selbst weg.
+
+
+NOCH ZU PRÜFEN, UNABHÄNGIG VON DIESEM PAKET
+
+    https://www.sui-innova.ch/
+
+aufrufen. Springt die Adresse auf sui-innova.ch ohne www,
+ist alles gut. Bleibt www stehen, melden Sie sich: dann
+ist Ihre .htaccess älter als gedacht, und das wiegt
+schwerer als jede interne Verlinkung. In der Search
+Console stehen auf der www-Adresse 59 Klicks und 439
+Impressionen, die eigentlich der Hauptadresse gehören.
 
 
 ────────────────────────────────────────────────────────

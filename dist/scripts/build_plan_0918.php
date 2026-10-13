@@ -53,6 +53,7 @@ $anker = [
     'sanitaer-vorwandelemente-beplanken' => 'Sanitär Vorwandelemente beplanken',
     'sanitaerelemente-vorfabrizieren'    => 'Sanitärelemente vorfabrizieren lassen',
     'sanitaerelemente-montieren'         => 'Sanitärelemente montieren',
+    'ausflockung-nasszellen'             => 'Ausflockung und Schallschutz in Nasszellen',
 ];
 
 /**
@@ -576,13 +577,107 @@ $seiten[] = [
 
 
 // ═════════════════════════════════════════════════════════════
-// Seiten, die im Plan nur als Linkquelle vorkommen
+// 10) NEU: /ausflockung-nasszellen
+//
+// Nicht aus dem Keyword-Plan, sondern aus der Search Console vom
+// 13.10.2026: "ausflockung nasszellen" bringt 28 Impressionen in
+// drei Monaten auf Position 34, ohne dass eine einzige Seite das
+// Thema behandelt. Google zeigt die Website trotzdem, weil das
+// Wort im Text der Leistungsseiten vorkommt.
+//
+// Verwandte Begriffe aus demselben Export: "beplankung" (2),
+// "vorwandsystem" (2), "vorwandinstallation" (2).
+//
+// Die Seite nennt bewusst keine Dezibelwerte. Welcher Wert gilt,
+// steht im Schallschutznachweis des Projekts, und eine Zahl auf
+// der Website waere bei einer Reklamation ein Versprechen.
+// ═════════════════════════════════════════════════════════════
+$seiten[] = [
+    'slug'       => 'ausflockung-nasszellen',
+    'modus'      => 'neu',
+    'keyword'    => 'ausflockung nasszellen',
+    'nav_label'  => 'Ausflockung Nasszellen',
+    'meta_title' => 'Ausflockung Nasszellen: Schallschutz | SUI Innova',
+    'meta_desc'  => 'Ausflockung in Nasszellen gegen Körperschall: Hohlräume der Vorwand ausgeflockt, Rohre entkoppelt, SilentPanel beplankt. SUI Innova aus Pfäffikon SZ.',
+    'h1'         => 'Ausflockung in Nasszellen: Schallschutz, der beim Versetzen entschieden wird',
+    'alt'        => 'Ausgeflockter Hohlraum einer Sanitärvorwand vor der Beplankung in der Werkstatt in Pfäffikon SZ',
+    'intro'      => 'Die Ausflockung füllt den Hohlraum zwischen Ständerwerk und Beplankung, damit Spülgeräusche nicht als Körperschall in die Nachbarräume wandern. Sie ist einer der wenigen Schritte, die sich später nicht mehr nachholen lassen: Ist die Wand beplankt und geplättelt, kommt niemand mehr an den Hohlraum. Wir flocken die Vorwände in unserer Werkstatt in Pfäffikon SZ aus, bevor sie beplankt werden, und setzen in Nasszellen SilentPanel und AquaPanel ein. Ebenso wichtig wie das Material ist die Entkopplung: Dämmstreifen unter den Bodenprofilen, Rohrschellen mit Einlage, der Apparat getrennt vom Baukörper befestigt. Welcher Wert für Ihr Projekt gilt, steht im Schallschutznachweis. Senden Sie ihn mit den Sanitärplänen, wir richten den Aufbau danach aus.',
+    'body' => [
+        ['Warum Ausflockung und nicht nur eine Dämmmatte',
+         'Eine lose eingelegte Matte lässt Luft zwischen Rohr und Platte stehen, und genau dieser Hohlraum wirkt wie ein Resonanzkörper. Die Ausflockung füllt den Raum dicht aus, auch dort, wo eine Matte nicht hinkommt, zwischen Rohrbogen, Spülkasten und Ständer. Das Füllmaterial nimmt die Schwingung auf, bevor sie die Platte erreicht. Deshalb flocken wir aus, statt nur zu dämmen.'],
+        ['Entkopplung entscheidet mehr als das Füllmaterial',
+         'Körperschall wandert über jede starre Verbindung. Ist das Element direkt auf den Rohboden geschraubt, nützt die beste Ausflockung wenig. Wir setzen Dämmstreifen unter die Bodenprofile, führen die Leitungen in Schellen mit Einlage und befestigen den Apparat vom Baukörper getrennt. Erst diese drei Punkte zusammen mit der Ausflockung ergeben einen Aufbau, der hält, was der Nachweis verlangt.'],
+        ['SilentPanel in der Nasszelle, AquaPanel an der nassen Wand',
+         'Die Beplankung ist der letzte Teil des Aufbaus. Wo Schallschutzwerte gefordert sind, arbeiten wir mit SilentPanel. Im Spritzwasserbereich von Dusche und Badewanne kommt AquaPanel als Untergrund für Abdichtung und Plättli dazu. Beides schliesst sich nicht aus, die Zonen werden im Plan festgelegt. Welche Platte wo sitzt, halten wir vor Produktionsstart schriftlich fest.'],
+        ['In der Werkstatt ausgeflockt statt im Rohbau',
+         'Auf der Baustelle wird eine Vorwand ausgeflockt, wenn sie steht, und dann muss sofort beplankt werden. In der Werkstatt läuft derselbe Schritt am liegenden Element, kontrolliert und ohne Zeitdruck. Das Element kommt ausgeflockt und beplankt auf die Baustelle. Für Sie heisst das: ein Arbeitsgang weniger im Rohbau und ein Schritt weniger, der vergessen werden kann.'],
+        ['Der Schallschutznachweis gibt vor, was nötig ist',
+         'In der Schweiz regelt die SIA 181 den Schallschutz im Hochbau. Welche Anforderung für Ihr Gebäude gilt, legt der Nachweis des Projekts fest, nicht ein Prospekt. Schicken Sie uns den Nachweis mit den Sanitärplänen, dann wählen wir Füllung, Entkopplung und Beplankung danach aus. Fehlt der Nachweis, fragen wir bei Ihrer Bauleitung nach, bevor wir rechnen.'],
+        ['Wo sich der Aufwand besonders lohnt',
+         'Kritisch sind Wände zwischen Nasszelle und Schlafraum und Wände zwischen zwei Wohnungen. Dort fällt jedes Spülgeräusch auf, und eine Reklamation nach dem Einzug kostet den Aufbruch der Plättli. Im Mehrfamilienhaus und im Alterszentrum planen wir die Ausflockung deshalb von Anfang an mit. Bei einem einzelnen Gäste-WC an einer Aussenwand besprechen wir offen, ob sich der Aufwand lohnt.'],
+    ],
+    'faq' => [
+        ['Kann man eine Vorwand nachträglich ausflocken?',
+         'Nur, solange die Beplankung noch offen ist. Ist die Wand geplättelt, kommt man an den Hohlraum nicht mehr heran, ohne den Belag aufzubrechen. Deshalb wird über die Ausflockung beim Versetzen entschieden und nicht am Schluss.'],
+        ['Welchen Schallschutzwert erreichen Ihre Aufbauten?',
+         'Das hängt vom gesamten Aufbau ab, nicht nur von der Vorwand: Rohdecke, Trennwand, Bodenaufbau und Befestigung zählen mit. Welcher Wert für Ihr Gebäude gefordert ist, steht im Schallschutznachweis nach SIA 181. Senden Sie ihn mit, dann stimmen wir den Aufbau darauf ab.'],
+        ['Flocken Sie auch Elemente aus, die nicht von Ihnen kommen?',
+         'Ja, solange die Beplankung noch nicht montiert ist. Wir schauen vorgängig an, ob Ständerwerk und Rohrführung die Entkopplung überhaupt zulassen, und melden Ihnen Abweichungen schriftlich, bevor wir anfangen.'],
+    ],
+    'cta_heading' => 'Schallschutznachweis senden, Offerte erhalten',
+    'cta_text'    => 'Senden Sie uns die Sanitärpläne und den Schallschutznachweis, wir legen den Aufbau fest und melden uns mit einer Offerte.',
+    'textlinks' => [
+        ['SilentPanel und AquaPanel', 'sanitaer-vorwandelemente-beplanken'],
+        ['in unserer Werkstatt in Pfäffikon SZ aus', 'sanitaerelemente-vorfabrizieren'],
+    ],
+    'links' => [
+        'leistungen',
+        'sanitaer-vorwandelemente',
+        'sanitaer-vorwandelemente-beplanken',
+        'sanitaerelemente-vorfabrizieren',
+    ],
+];
+
+
+// ═════════════════════════════════════════════════════════════
+// Seiten, die selbst kein Suchbegriff-Ziel sind, aber verlinken
+//
+// Die Zuteilung folgt den Zahlen aus der Search Console vom
+// 13.10.2026, drei Monate:
+//
+//   /ueber-uns    431 Impressionen, Position 2.65, 23 Klicks.
+//                 Nach der Startseite die staerkste Seite, und sie
+//                 verlinkte im Text auf gar nichts. Die ganze Kraft
+//                 blieb dort liegen.
+//
+//   /referenzen   155 Impressionen, Position 2.48. Verlinkte nur
+//                 drei Seiten, keine davon die beiden neuen.
+//
+// Ziel der Verteilung: /sanitaer-vorwandelemente (241 Impressionen,
+// Position 8.11, dichteste Seite an der ersten Ergebnisseite) und
+// die beiden neuen Seiten (nur 11 eingehende Links laut Export)
+// bekommen am meisten dazu. Damit stehen sie ueber /impressum und
+// /datenschutz, die mit je 14 Links bisher die bestverlinkten
+// Seiten der ganzen Website waren.
+//
+// Bewusst NICHT verstaerkt: /sanitaer-vorwaende (Position 21) und
+// /sanitaer-vorwandelemente-bestellen (Position 22). Von dort holt
+// keine interne Verlinkung auf Seite eins, da fehlt Inhalt.
 // ═════════════════════════════════════════════════════════════
 $nurLinks = [
+    'ueber-uns' => [
+        'leistungen',
+        'sanitaer-vorwandelemente',
+        'sanitaerelemente-vorfabrizieren',
+        'sanitaerelemente-montieren',
+    ],
     'referenzen' => [
         'leistungen',
         'sanitaer-gis-elemente-bestellen',
         'gis-elemente-beplanken',
+        'sanitaer-vorwandelemente',
+        'sanitaerelemente-vorfabrizieren',
+        'sanitaerelemente-montieren',
     ],
     'kontakt' => [
         'leistungen',
@@ -592,6 +687,7 @@ $nurLinks = [
         'sanitaer-vorwaende',
         'sanitaer-vorwandelemente-beplanken',
         'sanitaerelemente-montieren',
+        'sanitaerelemente-vorfabrizieren',
     ],
 ];
 
@@ -759,10 +855,20 @@ if (($argv[1] ?? '') === 'pruefen') {
         if ($tl > 62) $fehler[] = $p['slug'] . ": Titel $tl Zeichen, zu lang";
         $dl = mb_strlen($p['meta_desc']);
         if ($dl < 100 || $dl > 170) $fehler[] = $p['slug'] . ": Beschreibung $dl Zeichen";
-        // Keyword muss in H1 vorkommen
-        $kw = explode(',', $p['keyword'])[0];
-        $norm = fn($s) => mb_strtolower(str_replace(['-', 'ä', 'ö', 'ü'], [' ', 'ä', 'ö', 'ü'], $s));
-        if (!str_contains($norm($p['h1']), $norm(trim($kw)))) {
+        // Keyword muss in der H1 vorkommen.
+        //
+        // Nicht als starre Zeichenkette: "Ausflockung in Nasszellen" ist
+        // deutsches Deutsch, "Ausflockung Nasszellen" waere Katalogsprache.
+        // Geprueft wird deshalb, ob alle Woerter des Suchbegriffs in der
+        // richtigen Reihenfolge vorkommen. Fuellwoerter dazwischen sind
+        // erlaubt, eine fehlende oder vertauschte Haelfte faellt auf.
+        $kw   = explode(',', $p['keyword'])[0];
+        $norm = fn($s) => mb_strtolower(preg_replace('/[^\p{L}\p{N}]+/u', ' ', $s));
+        $muster = '/' . implode('.{0,12}', array_map(
+            fn($w) => preg_quote($w, '/'),
+            preg_split('/\s+/', trim($norm($kw)))
+        )) . '/u';
+        if (!preg_match($muster, $norm($p['h1']))) {
             $fehler[] = $p['slug'] . ": Hauptkeyword \"$kw\" fehlt in der H1";
         }
         // Ziele der Links muessen existieren
@@ -1045,9 +1151,18 @@ foreach ($nurLinks as $quelle => $ziele) {
     $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL";
     $o[] = "  AND (type = 'link-list' OR (type = 'text-block' AND content LIKE '%Passend dazu%'));";
     $o[] = "";
-    $o[] = "-- Erst nach dem Loeschen zaehlen, sonst waechst die Sortierung";
-    $o[] = "-- bei jedem Durchlauf um zehn.";
-    $o[] = "SET @sort = (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid);";
+    $o[] = "-- Sortierung auf Zehnerschritte, damit dazwischen Platz bleibt.";
+    $o[] = "SET @r = 0;";
+    $o[] = "UPDATE sections SET sort_order = (@r := @r + 10)";
+    $o[] = "WHERE page_id = @pid AND @pid IS NOT NULL ORDER BY sort_order, id;";
+    $o[] = "";
+    $o[] = "-- Der Block gehoert vor die letzte Handlungsaufforderung, nicht";
+    $o[] = "-- dahinter: nach dem Abschluss mit Knopf liest niemand weiter.";
+    $o[] = "-- Gibt es keine, kommt er ans Seitenende.";
+    $o[] = "SET @cta = (SELECT MAX(sort_order) FROM sections";
+    $o[] = "            WHERE page_id = @pid AND type = 'cta-banner');";
+    $o[] = "SET @sort = COALESCE(@cta - 5,";
+    $o[] = "            (SELECT COALESCE(MAX(sort_order), 0) + 10 FROM sections WHERE page_id = @pid));";
     $o[] = "";
     $o[] = "INSERT INTO sections (page_id, type, content, sort_order, is_active)";
     $o[] = "SELECT @pid, 'link-list', " . j($lb[1]) . ", @sort, 1";
