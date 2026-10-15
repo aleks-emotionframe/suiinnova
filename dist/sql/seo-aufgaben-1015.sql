@@ -105,6 +105,26 @@ WHERE slug = 'kontakt';
 
 
 -- ════════════════════════════════════════════════════════════
+-- Ueber uns
+--
+-- Nachtrag vom 15.10.2026, zweiter Durchlauf des Berichts:
+-- Position 3, Impressionen von 134 auf 164 gestiegen, Klicks von
+-- 10 auf 8 gefallen. Die alte Beschreibung sagte "Lernen Sie
+-- Team, Ablauf und Anspruch kennen" und damit nichts, was jemand
+-- wissen will. Jetzt stehen die drei Zahlen und Fakten darin,
+-- die den Unterschied zu einem Zwischenhaendler ausmachen.
+--
+-- Die Angabe "ueber 25 Fachkraefte" steht bereits auf der
+-- Startseite, sie ist nicht neu erfunden.
+-- ════════════════════════════════════════════════════════════
+
+UPDATE pages SET
+    meta_title = 'Über uns: Werkstatt und Team in Pfäffikon SZ | SUI Innova',
+    meta_desc  = 'Über 25 Fachkräfte, eigene Werkstatt in Pfäffikon SZ, eigenes Montageteam. So entsteht bei SUI Innova ein verrohrtes GIS-Element, vom Plan bis zur Wand.'
+WHERE slug = 'ueber-uns';
+
+
+-- ════════════════════════════════════════════════════════════
 -- Seite Ausflockung Nasszellen freischalten
 --
 -- Der Bericht meldet sie als nicht indexiert und in keiner

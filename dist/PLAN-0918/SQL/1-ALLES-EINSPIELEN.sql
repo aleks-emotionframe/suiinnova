@@ -191,7 +191,7 @@ FROM DUAL WHERE @pid IS NOT NULL;
 SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwandelemente' LIMIT 1);
 
 UPDATE pages SET meta_title = 'Sanitär Vorwandelemente: Aufbau und Montage | SUI Innova',
-                 meta_desc  = 'Was ist ein Vorwandelement? Ein Stahlrahmen, der WC und Waschtisch trägt und die Leitungen aufnimmt. Aufbau, Masse, Beplankung und Montage erklärt.'
+                 meta_desc  = 'Was ist ein Vorwandelement? Vorwandelemente Sanitär sind Stahlrahmen, die WC und Waschtisch tragen und die Leitungen aufnehmen. Aufbau und Montage erklärt.'
 WHERE id = @pid AND @pid IS NOT NULL;
 
 -- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
