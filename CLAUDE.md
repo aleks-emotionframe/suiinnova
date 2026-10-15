@@ -22,10 +22,14 @@ Fehler, der am 15.10.2026 schon einmal passiert ist.
 | | |
 | --- | --- |
 | **Geschäft** | Vorfabrikation von GIS-Elementen: in der Werkstatt in Pfäffikon SZ aufgebaut, verrohrt, auf Wunsch beplankt und gespachtelt, vom eigenen Team montiert |
-| **Kunden** | Sanitärinstallateure, Generalunternehmer, Bauleitungen, Bauherrschaften |
-| **Ausdrücklich NICHT** | Private mit defektem Hahn, Badumbau, Notfalldienst |
+| **Kunden** | Generalunternehmen, Totalunternehmen, Bauleiter, Architekten, Sanitärunternehmen |
+| **Ausdrücklich NICHT** | Private, Badumbau, Sanitärservice |
 | **Hauptkeyword Startseite** | GIS Elemente Vorfabrikation (Kundenentscheid, fliegt nicht aus dem Titel) |
 | **Einsatzgebiet** | ganze Deutschschweiz, nicht "ganze Schweiz" |
+
+Quelle: Geschäftsprofil im Export des SEO Kompass vom 15.10.2026, vom
+Kunden selbst ausgefüllt. Es hat Vorrang vor jedem To-do und vor dem,
+was in älteren Texten steht.
 
 ### Begriffe, die passend klingen und es nicht sind
 
