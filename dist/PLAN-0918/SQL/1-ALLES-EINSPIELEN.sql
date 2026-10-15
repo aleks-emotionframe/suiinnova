@@ -147,8 +147,8 @@ FROM DUAL WHERE @pid IS NOT NULL;
 
 SET @pid = (SELECT id FROM pages WHERE slug = 'gis-elemente-beplanken' LIMIT 1);
 
-UPDATE pages SET meta_title = 'GIS Elemente beplanken in Pfäffikon SZ | SUI Innova',
-                 meta_desc  = 'GIS Elemente beplanken lassen: verrohrt, beplankt und gespachtelt aus der Werkstatt in Pfäffikon SZ oder direkt auf Ihrer Baustelle. Senden Sie uns Ihre Pläne.'
+UPDATE pages SET meta_title = 'GIS Elemente beplanken lassen: AquaPanel | SUI Innova',
+                 meta_desc  = 'GIS Elemente beplanken lassen: AquaPanel in der Nasszelle, Gipsplatten im trockenen Bereich, auf Wunsch spachtelfertig. Pläne senden, Offerte erhalten.'
 WHERE id = @pid AND @pid IS NOT NULL;
 
 -- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
@@ -190,8 +190,8 @@ FROM DUAL WHERE @pid IS NOT NULL;
 
 SET @pid = (SELECT id FROM pages WHERE slug = 'sanitaer-vorwandelemente' LIMIT 1);
 
-UPDATE pages SET meta_title = 'Sanitär Vorwandelemente: Aufbau, Montage | SUI Innova',
-                 meta_desc  = 'Sanitär Vorwandelemente: So sind sie aufgebaut, so werden sie montiert, beplankt und schallentkoppelt. SUI Innova aus Pfäffikon SZ erklärt es.'
+UPDATE pages SET meta_title = 'Sanitär Vorwandelemente: Aufbau und Montage | SUI Innova',
+                 meta_desc  = 'Was ist ein Vorwandelement? Ein Stahlrahmen, der WC und Waschtisch trägt und die Leitungen aufnimmt. Aufbau, Masse, Beplankung und Montage erklärt.'
 WHERE id = @pid AND @pid IS NOT NULL;
 
 -- Gewaehltes Kopfbild merken, bevor die Sektionen fallen.
@@ -215,7 +215,7 @@ SELECT @pid, 'content-grid', '{"heading":"Sanitär Vorwandelemente: Aufbau, Mont
 FROM DUAL WHERE @pid IS NOT NULL;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist der Unterschied zwischen einem Vorwandelement und einer Vorwand?","answer":"<p>Das Vorwandelement ist der tragende Rahmen samt Installation für einen Apparat. Die Vorwand ist die fertige Wandfläche, die aus einem oder mehreren Elementen, der Beplankung und der Spachtelung entsteht.</p>"},{"question":"Braucht es im Bad zwingend eine feuchtebeständige Platte?","answer":"<p>Im Spritzwasserbereich von Dusche und Badewanne ja, dort dient eine Platte wie AquaPanel als Untergrund für die Abdichtung. In trockenen Zonen des gleichen Raums genügt in der Regel Gipskarton. Die Zoneneinteilung legt die Bauleitung fest.</p>"},{"question":"Kann ein Vorwandelement auch vor einer Leichtbauwand stehen?","answer":"<p>Ja, sofern die Befestigung auf ein tragfähiges Profil oder eine Auswechslung trifft. Die Lasten aus WC und Ablagen müssen sauber in Boden und Wand eingeleitet werden. Wir prüfen das anhand Ihrer Pläne.</p>"}]}', 30, 1
+SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"question":"Was ist ein Vorwandelement?","answer":"<p>Ein Vorwandelement ist ein verzinkter Stahlrahmen, der vor die Rohbauwand gestellt wird. Er trägt WC, Waschtisch, Dusche oder Urinal und nimmt im Innenraum die Zu- und Ablaufleitungen samt Spülkasten auf. Nach dem Versetzen wird er beplankt und gespachtelt, danach ist von der Installation nichts mehr zu sehen.</p>"},{"question":"Was ist der Unterschied zwischen einem Vorwandelement und einer Vorwand?","answer":"<p>Das Vorwandelement ist der tragende Rahmen samt Installation für einen Apparat. Die Vorwand ist die fertige Wandfläche, die aus einem oder mehreren Elementen, der Beplankung und der Spachtelung entsteht.</p>"},{"question":"Braucht es im Bad zwingend eine feuchtebeständige Platte?","answer":"<p>Im Spritzwasserbereich von Dusche und Badewanne ja, dort dient eine Platte wie AquaPanel als Untergrund für die Abdichtung. In trockenen Zonen des gleichen Raums genügt in der Regel Gipskarton. Die Zoneneinteilung legt die Bauleitung fest.</p>"},{"question":"Kann ein Vorwandelement auch vor einer Leichtbauwand stehen?","answer":"<p>Ja, sofern die Befestigung auf ein tragfähiges Profil oder eine Auswechslung trifft. Die Lasten aus WC und Ablagen müssen sauber in Boden und Wand eingeleitet werden. Wir prüfen das anhand Ihrer Pläne.</p>"}]}', 30, 1
 FROM DUAL WHERE @pid IS NOT NULL;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)

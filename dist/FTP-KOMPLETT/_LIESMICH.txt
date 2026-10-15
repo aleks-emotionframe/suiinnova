@@ -1,101 +1,92 @@
 ════════════════════════════════════════════════════════
-SUI INNOVA — VOLLSTÄNDIGES FTP-PAKET
-Stand 13.10.2026
+SUI INNOVA — FTP-PAKET
+Stand 15.10.2026
 ════════════════════════════════════════════════════════
 
 Diesen Ordner öffnen, ALLES darin markieren, nach
 sui-innova.ch ziehen, überschreiben.
 
-Keine Auswahl treffen, keine Pfade prüfen. Die Struktur
-ist dieselbe wie im FTP-Stammverzeichnis.
-
-
-DARIN LIEGEN
-
-    .htaccess
-    index.php
-    robots.txt
-    admin/
-    config/
-    core/
-    templates/
-
-  .htaccess beginnt mit einem Punkt. Manche FTP-Programme
-  blenden solche Dateien aus. In FileZilla unter Server ->
-  "Versteckte Dateien anzeigen" einschalten.
+  .htaccess beginnt mit einem Punkt. In FileZilla unter
+  Server -> "Versteckte Dateien anzeigen" einschalten,
+  sonst fehlt genau die Datei, um die es diesmal geht.
 
   config/ enthält absichtlich nur sections.php. Ihre
   config.php mit den Zugangsdaten bleibt unberührt.
 
-  assets/ und uploads/ sind nicht dabei, daran hat sich
-  nichts geändert.
-
 
 DANACH DIE DATENBANK
 
-In phpMyAdmin, Datenbank bifitudo_suinnova, Reiter
-Importieren (nicht hineinkopieren, die Datei ist gross):
+phpMyAdmin, Datenbank bifitudo_suinnova, Reiter
+Importieren (nicht hineinkopieren, Datei 1 ist gross).
+In dieser Reihenfolge:
 
     SQL/1-ALLES-EINSPIELEN.sql
+    SQL/5-SEO-AUFGABEN-15-10.sql
 
-Mehrfach ausführbar, es entstehen keine Duplikate.
-
-
-WAS IN DIESEM DURCHGANG NEU IST
-
-  1) /ueber-uns verlinkt jetzt weiter
-
-     431 Impressionen, Position 2,65. Nach der Startseite
-     Ihre stärkste Seite, und sie zeigte im Text auf gar
-     nichts. Jetzt auf vier Leistungsseiten.
-
-  2) /referenzen verlinkt sechs statt drei Seiten
-
-  3) Die Linkblöcke stehen vor dem Schlussknopf
-
-     Vorher standen sie auf /referenzen und /kontakt
-     darunter. Nach dem Abschluss liest niemand weiter.
-
-  4) Neue Seite "Ausflockung Nasszellen", noch OFFLINE
-
-     Siehe unten.
+Beide mehrfach ausführbar.
 
 
-DIE NEUE SEITE
+WAS SICH ÄNDERT
 
-Die Search Console zeigt für "ausflockung nasszellen"
-28 Impressionen in drei Monaten auf Position 34, ohne
-dass eine einzige Seite das Thema behandelt.
+Weiterleitungen (.htaccess)
 
-    sui-innova.ch/ausflockung-nasszellen
+  http://www.sui-innova.ch/ ging bisher über zwei
+  Sprünge: erst auf https://www, dann auf https ohne www.
+  Jetzt in einem Schritt.
 
-Als Admin eingeloggt aufrufbar. Bitte lesen, dann im CMS
-ein Kopfbild wählen (erste Sektion, Bild).
+  Dasselbe galt für alle alten Adressen aus der Migration,
+  /startseite, /dienstleistungen, /vorfabrikation und so
+  weiter. Die landeten auf http statt https und wurden
+  danach nochmals umgeleitet. Jetzt stehen die Ziele
+  absolut mit https und ohne www.
 
-Die Seite nennt bewusst keine Dezibelwerte. Welcher Wert
-gilt, steht im Schallschutznachweis des Projekts. Eine
-Zahl auf der Website wäre bei einer Reklamation ein
-Versprechen.
+  Gegen einen echten Apache getestet, siebzehn Fälle. Alle
+  jetzt einstufig, die kanonische Adresse antwortet mit
+  200, /dist bleibt gesperrt, robots.txt erreichbar.
 
-Wenn sie passt:
+Startseite
 
-    SQL/4-AUSFLOCKUNG-ONLINE.sql
+  Titel:  GIS Elemente Vorfabrikation Pfäffikon SZ | SUI Innova
+  H1:     GIS Elemente Vorfabrikation in Pfäffikon SZ
+  Zeile darunter: Sanitär Vorfabrikation und Montage aus Pfäffikon SZ
+  Dazu ein Absatz mit Adresse und Leistungen im
+  Über-uns-Block.
 
-Erst dann erscheint sie in der Sitemap, im Footer und in
-den Linkblöcken der anderen Seiten. Solange sie offline
-ist, lässt die Website diese Links von selbst weg.
+Kontakt
+
+  Titel und Beschreibung nennen jetzt Adresse, Telefon und
+  Mail. Bei einer Kontaktseite ist das der Grund, warum
+  jemand klickt.
+
+Sanitär Vorwandelemente
+
+  Beschreibung beantwortet die Frage "Was ist ein
+  Vorwandelement?". Dieselbe Frage steht neu als erste
+  unter "Fragen und Antworten".
+
+GIS Elemente beplanken
+
+  Titel und Beschreibung nennen AquaPanel und den
+  spachtelfertigen Zustand statt nur den Ort.
+
+Ausflockung Nasszellen
+
+  Seite ist jetzt online. Damit steht sie in der
+  sitemap.xml, im Footer und in den Linkblöcken von vier
+  Seiten. Bitte im CMS noch ein Kopfbild wählen.
 
 
-NOCH ZU PRÜFEN, UNABHÄNGIG VON DIESEM PAKET
+SCHON VORHER IN ORDNUNG, NICHTS ZU TUN
 
-    https://www.sui-innova.ch/
+  Canonical zeigt überall auf die Adresse ohne www.
+  Die sitemap.xml enthält nur Adressen ohne www.
+  robots.txt nennt die richtige Sitemap.
 
-aufrufen. Springt die Adresse auf sui-innova.ch ohne www,
-ist alles gut. Bleibt www stehen, melden Sie sich: dann
-ist Ihre .htaccess älter als gedacht, und das wiegt
-schwerer als jede interne Verlinkung. In der Search
-Console stehen auf der www-Adresse 59 Klicks und 439
-Impressionen, die eigentlich der Hauptadresse gehören.
+  Diese drei Punkte standen auf der Aufgabenliste, waren
+  aber bereits umgesetzt. Die Verwechslung kommt daher,
+  dass in der Search Console eine Sitemap mit www
+  eingetragen ist. Das ist eine Eintragung dort, kein
+  Fehler auf der Website.
 
 
 ────────────────────────────────────────────────────────

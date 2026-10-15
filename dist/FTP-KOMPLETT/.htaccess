@@ -17,15 +17,22 @@ DirectoryIndex index.php
     RewriteRule ^dist(/|$) - [F,L]
 
     # ────────────────────────────────────────────────
-    # HTTPS erzwingen
+    # Eine kanonische Adresse: https, ohne www
+    #
+    # Frueher liefen das hier in zwei Regeln, und http://www brauchte
+    # deshalb zwei Spruenge: erst auf https://www, dann auf https ohne
+    # www. Jede zusaetzliche Weiterleitung kostet Ladezeit und ein
+    # bisschen von dem, was ein Link an Gewicht weitergibt.
+    #
+    # Die erste Regel schreibt das Ziel jetzt fest hin statt
+    # %{HTTP_HOST} zu uebernehmen. Damit landet http://www in einem
+    # Schritt auf https://sui-innova.ch.
     # ────────────────────────────────────────────────
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+    RewriteRule ^(.*)$ https://sui-innova.ch/$1 [R=301,L]
 
-    # ────────────────────────────────────────────────
-    # www → non-www (Canonical-Konsistenz)
-    # ────────────────────────────────────────────────
+    # Bleibt fuer den Fall https://www, der die Regel oben nicht trifft.
     RewriteCond %{HTTP_HOST} ^www\.sui-innova\.ch$ [NC]
     RewriteRule ^(.*)$ https://sui-innova.ch/$1 [R=301,L]
 
@@ -33,27 +40,34 @@ DirectoryIndex index.php
     # 301-Redirects fuer alte URLs (aus Site-Migration)
     # Verhindert Traffic-Verlust und rettet Backlink-Autoritaet
     # ────────────────────────────────────────────────
+    # Die Ziele stehen absolut mit https und ohne www. Mit einem
+    # relativen Ziel baut Apache die Adresse aus dem auf, was es selbst
+    # sieht, und hinter dem TLS-Abschluss von Hostpoint ist das http.
+    # Jede dieser Umleitungen lief dann ueber zwei Spruenge: erst auf
+    # http ohne www, dann von der Regel oben auf https.
+    #
     # Zweite Startseite abschalten: /startseite lieferte denselben Inhalt
     # wie / und teilte damit die Autoritaet auf zwei Adressen auf.
-    RewriteRule ^startseite/?$                                     / [R=301,L]
-    RewriteRule ^home/?$                                           / [R=301,L]
+    RewriteRule ^startseite/?$                                     https://sui-innova.ch/ [R=301,L]
+    RewriteRule ^home/?$                                           https://sui-innova.ch/ [R=301,L]
 
-    RewriteRule ^blog/?$                                           / [R=301,L]
-    RewriteRule ^dienstleistungen/?$                               /leistungen [R=301,L]
-    RewriteRule ^dienstleistungen/(.*)$                            /leistungen [R=301,L]
-    RewriteRule ^unternehmen/?$                                    /ueber-uns [R=301,L]
-    RewriteRule ^montage-sanit(ae|ä)r-vorwandsysteme---gis-montagen/?$  /leistungen [R=301,L]
-    RewriteRule ^vorfabrikation/?$                                 /leistungen [R=301,L]
-    RewriteRule ^montage/?$                                        /leistungen [R=301,L]
-    RewriteRule ^aqua-?panel/?$                                    /leistungen [R=301,L]
-    RewriteRule ^beplankung(en)?/?$                                /leistungen [R=301,L]
-    RewriteRule ^gis-elemente?/?$                                  /leistungen [R=301,L]
+    RewriteRule ^blog/?$                                           https://sui-innova.ch/ [R=301,L]
+    RewriteRule ^dienstleistungen/?$                               https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^dienstleistungen/(.*)$                            https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^unternehmen/?$                                    https://sui-innova.ch/ueber-uns [R=301,L]
+    RewriteRule ^montage-sanit(ae|ä)r-vorwandsysteme---gis-montagen/?$  https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^vorfabrikation/?$                                 https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^montage/?$                                        https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^aqua-?panel/?$                                    https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^beplankung(en)?/?$                                https://sui-innova.ch/leistungen [R=301,L]
+    RewriteRule ^gis-elemente?/?$                                  https://sui-innova.ch/leistungen [R=301,L]
 
     # ────────────────────────────────────────────────
     # Trailing-Slash-Konsistenz (kein trailing slash)
+    # Auch hier absolut, aus demselben Grund.
     # ────────────────────────────────────────────────
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.+)/$ /$1 [R=301,L]
+    RewriteRule ^(.+)/$ https://sui-innova.ch/$1 [R=301,L]
 
     # ────────────────────────────────────────────────
     # Statische Assets direkt ausliefern
