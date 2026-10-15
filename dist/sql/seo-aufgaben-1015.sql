@@ -35,22 +35,31 @@ WHERE is_homepage = 1;
 -- ------------------------------------------------------------
 -- Hauptueberschrift und Zeile darunter
 --
--- Die H1 nimmt den Ort auf. Die Zeile direkt darunter traegt
--- "Sanitär in Pfäffikon SZ" woertlich, das ist der Begriff, zu
--- dem die Startseite heute 10 Impressionen auf Position 11.9
--- bekommt, ohne einen einzigen Klick.
+-- Die H1 nimmt den Ort auf.
+--
+-- Die Zeile darunter stand kurzzeitig auf "Sanitär in Pfäffikon
+-- SZ", weil der Bericht den Begriff verlangt hat. Zurueckgestellt
+-- nach Pruefung der Suchanfragen: "sanitär pfäffikon" und
+-- "badumbau pfäffikon" stehen auf Position 1 und bringen null
+-- Klicks, ueber alle Anfragen dieser Art 35 Impressionen und
+-- kein einziger Klick. Wer so sucht, will einen Installateur fuer
+-- die eigene Wohnung, nicht einen Vorfertiger fuer Bauleitungen.
+-- Mehr Sichtbarkeit dort bringt nur Besucher, die sofort wieder
+-- gehen.
+--
+-- "Sanitär" bleibt stehen, das stimmt ja. Es ist "Sanitär plus
+-- Ort allein", das die falschen Leute anzieht.
 --
 -- Laenge beachtet: Der Hero-Titel stand schon einmal zu lang in
--- der Seite und brach mitten im Wort um. 43 Zeichen bleiben
--- unter der Grenze, bei der das wieder passiert. Gemessen bei
--- 375, 414 und 1920 Pixel: drei Zeilen, kein Wort zerrissen.
+-- der Seite und brach mitten im Wort um. Gemessen bei 375, 414
+-- und 1920 Pixel: kein Wort zerrissen.
 -- ------------------------------------------------------------
 UPDATE sections s
 JOIN pages p ON p.id = s.page_id
 SET s.content = JSON_SET(
         s.content,
         '$.heading', 'GIS Elemente Vorfabrikation in Pfäffikon SZ',
-        '$.tagline', 'Sanitär in Pfäffikon SZ: Vorfabrikation und Montage von GIS-Elementen'
+        '$.tagline', 'Sanitär Vorfabrikation und Montage aus Pfäffikon SZ'
     )
 WHERE p.is_homepage = 1
   AND s.type = 'hero'
