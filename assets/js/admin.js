@@ -346,6 +346,106 @@ function mediaManager() {
             setTimeout(() => window.location.reload(), 500);
         },
 
+        // ── Groessenvarianten fuer den Bestand nachgenerieren ──
+        // Laeuft in Haeppchen, weil ein grosses JPEG beim Umwandeln viel
+        // Arbeitsspeicher braucht. Der Endpunkt meldet, wie viele noch offen
+        // sind, und wir rufen ihn so lange erneut auf, bis nichts mehr kommt.
+        regenerating: false,
+        regenDone: 0,
+        regenLeft: null,
+        regenLog: '',
+
+        async regenerateVariants() {
+            if (this.regenerating) return;
+            if (!confirm(
+                'Für alle bestehenden Bilder werden jetzt kleinere Varianten erzeugt.\n\n' +
+                'Das kann je nach Anzahl ein paar Minuten dauern. Das Fenster bitte ' +
+                'offen lassen. Die Originalbilder bleiben unverändert.'
+            )) return;
+
+            this.regenerating = true;
+            this.regenDone = 0;
+            this.regenLeft = null;
+            this.regenLog = 'Wird gestartet …';
+
+            // Sicherheitsnetz gegen Endlosschleifen, falls der Server
+            // unerwartet immer dieselbe Anzahl zurueckmeldet
+            let guard = 0;
+
+            while (this.regenerating && guard < 500) {
+                guard++;
+
+                const formData = new FormData();
+                formData.append('csrf_token', typeof CSRF_TOKEN !== 'undefined' ? CSRF_TOKEN : '');
+
+                let data;
+                try {
+                    const resp = await fetch('/admin/api/regenerate-variants.php', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    data = await resp.json();
+                } catch (err) {
+                    this.regenLog = 'Netzwerkfehler — abgebrochen.';
+                    this.showToast('Netzwerkfehler beim Umwandeln', 'error');
+                    break;
+                }
+
+                if (data.error) {
+                    this.regenLog = data.error;
+                    this.showToast(data.error, 'error');
+                    break;
+                }
+
+                const batch = (data.verarbeitet || []).length;
+                this.regenDone += batch;
+                this.regenLeft = data.verbleibend;
+
+                const last = (data.verarbeitet || []).slice(-1)[0];
+                this.regenLog = this.regenDone + ' umgewandelt, noch ' + data.verbleibend + ' offen'
+                    + (last ? ' — zuletzt ' + last.datei : '');
+
+                if (data.done) {
+                    this.regenLog = 'Fertig: ' + this.regenDone + ' Bilder umgewandelt.'
+                        + (data.webp ? '' : ' (Server kann kein WebP, es wurden JPEGs erzeugt.)');
+                    this.showToast('Alle Bilder umgewandelt', 'success');
+                    break;
+                }
+
+                // Nichts passiert und trotzdem nicht fertig: aussteigen,
+                // statt den Server im Kreis laufen zu lassen.
+                if (batch === 0) {
+                    this.regenLog = 'Keine weiteren Bilder verarbeitbar. Offen: ' + data.verbleibend;
+                    break;
+                }
+            }
+
+            this.regenerating = false;
+        },
+
+        // Alternativtext eines Bildes speichern
+        async saveAlt(mediaId, altText) {
+            const formData = new FormData();
+            formData.append('media_id', mediaId);
+            formData.append('alt_text', altText);
+            formData.append('csrf_token', typeof CSRF_TOKEN !== 'undefined' ? CSRF_TOKEN : '');
+
+            try {
+                const resp = await fetch('/admin/api/save-media-alt.php', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    this.showToast('Alternativtext gespeichert', 'success');
+                } else {
+                    this.showToast(data.error || 'Speichern fehlgeschlagen', 'error');
+                }
+            } catch (err) {
+                this.showToast('Netzwerkfehler beim Speichern', 'error');
+            }
+        },
+
         async deleteMedia(mediaId) {
             if (!confirm('Dieses Medium wirklich löschen?')) return;
 

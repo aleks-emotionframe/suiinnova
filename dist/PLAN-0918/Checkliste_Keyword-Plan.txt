@@ -1,0 +1,436 @@
+════════════════════════════════════════════════════════════════
+CHECKLISTE ZUM KEYWORD-PLAN VOM 18.09.2026
+════════════════════════════════════════════════════════════════
+
+Punkt für Punkt, was umgesetzt ist. Am Schluss steht, was nicht
+umgesetzt ist, mit Begründung.
+
+Der Plan verlangt je Suchbegriff neun Dinge: Seitentitel,
+Meta-Description, Hauptüberschrift, Bild-Alt-Text, Einleitung,
+Aufbau der Seite, Fragen und Antworten, interne Verlinkung,
+Handlungsaufforderung.
+
+
+════════════════════════════════════════════════════════════════
+DIE ZWÖLF SUCHBEGRIFFE
+════════════════════════════════════════════════════════════════
+
+ 1  sanitär vorfabrikation                    /leistungen
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        47 Zeichen, unverändert wie im Plan
+    [x] Meta-Description  138 Zeichen, neu
+    [x] Hauptüberschrift   neu gesetzt
+    [x] Bild-Alt-Text      am Kopfbild hinterlegt
+    [x] Einleitung         neu
+    [x] Aufbau             6 Abschnitte
+    [x] Fragen             3
+    [x] Verlinkung         8 ausgehende Links
+    [x] Handlungsaufford.  neu
+
+    Die bestehenden Leistungskarten bleiben stehen. Der neue
+    Text kommt darunter. Die Seite ist als einzige nicht neu
+    aufgebaut worden, weil sie ein eigenes Layout hat.
+
+
+ 2  gis elemente vorfabrizieren               /sanitaer-gis-elemente-bestellen
+    ────────────────────────────────────────────────────────────
+    [ ] Seitentitel        siehe Begründung 1 unten
+    [ ] Meta-Description   siehe Begründung 1 unten
+    [ ] Hauptüberschrift   siehe Begründung 1 unten
+    [x] Bild-Alt-Text      am Kopfbild hinterlegt
+    [x] Einleitung         Inhalt in die Seite eingearbeitet
+    [x] Aufbau             als Zwischentitel "GIS Elemente
+                           vorfabrizieren lassen: für welche
+                           Projekte es sich rechnet"
+    [x] Fragen             "Reicht eine Skizze statt eines
+                           fertigen Sanitärplans?" übernommen
+    [x] Verlinkung         umgesetzt
+    [x] Handlungsaufford.  umgesetzt
+
+
+ 3  gis elemente bestellen                    /sanitaer-gis-elemente-bestellen
+    Heute auf Position 11
+    ────────────────────────────────────────────────────────────
+    [ ] Seitentitel        siehe Begründung 1 unten
+    [ ] Meta-Description   siehe Begründung 1 unten
+    [ ] Hauptüberschrift   siehe Begründung 1 unten
+    [x] Bild-Alt-Text      am Kopfbild hinterlegt
+    [x] Einleitung         Inhalt eingearbeitet
+    [x] Aufbau             als Zwischentitel "GIS Elemente
+                           bestellen: Einzelelemente und ganze
+                           Nasszellen"
+    [x] Fragen             übernommen
+    [x] Verlinkung         umgesetzt
+    [x] Handlungsaufford.  umgesetzt
+
+
+ 4  gis elemente montieren                    /gis-elemente-beplanken
+    ────────────────────────────────────────────────────────────
+    [ ] Seitentitel        siehe Begründung 2 unten
+    [ ] Meta-Description   siehe Begründung 2 unten
+    [ ] Hauptüberschrift   siehe Begründung 2 unten
+    [x] Bild-Alt-Text      am Kopfbild hinterlegt
+    [x] Einleitung         Inhalt eingearbeitet
+    [x] Aufbau             3 Abschnitte wörtlich übernommen,
+                           darunter "So montieren wir GIS
+                           Elemente auf der Baustelle"
+    [x] Fragen             alle 3 übernommen
+    [x] Verlinkung         umgesetzt
+    [x] Handlungsaufford.  umgesetzt
+
+
+ 5  sanitärelemente vorfabrizieren            NEUE SEITE
+    ────────────────────────────────────────────────────────────
+    [x] Seite angelegt     /sanitaerelemente-vorfabrizieren
+    [x] Seitentitel        48 Zeichen, wörtlich wie im Plan
+    [x] Meta-Description  152 Zeichen, wörtlich
+    [x] Hauptüberschrift   wörtlich
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 5 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         3 ausgehende, 4 eingehende Links
+    [x] Handlungsaufford.  umgesetzt
+    [x] Navigation         erscheint im Footer, sobald online
+
+
+ 6  sanitärelemente montieren                 NEUE SEITE
+    ────────────────────────────────────────────────────────────
+    [x] Seite angelegt     /sanitaerelemente-montieren
+    [x] Seitentitel        43 Zeichen, wörtlich
+    [x] Meta-Description  145 Zeichen, wörtlich
+    [x] Hauptüberschrift   wörtlich
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 6 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         3 ausgehende, 4 eingehende Links
+    [x] Handlungsaufford.  umgesetzt
+    [x] Navigation         erscheint im Footer, sobald online
+
+
+ 7  sanitär vorwandelemente                   /sanitaer-vorwandelemente
+    Heute auf Position 9
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        53 Zeichen, unverändert wie im Plan
+    [x] Meta-Description  161 Zeichen, neu
+    [x] Hauptüberschrift   unverändert wie im Plan
+    [x] Bild-Alt-Text      am Kopfbild hinterlegt
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 6 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         7 ausgehende Links
+    [x] Handlungsaufford.  umgesetzt
+
+
+ 8  sanitär gis elemente bestellen            /sanitaer-gis-elemente-bestellen
+    Heute auf Position 2, mit Zitat in der KI-Übersicht
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        43 Zeichen, wörtlich wie im Plan
+    [x] Meta-Description  166 Zeichen, wörtlich
+    [x] Hauptüberschrift   wörtlich
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 5 Abschnitte, dazu 2 aus den
+                           Begriffen 2 und 3
+    [x] Fragen             alle 3, dazu 1 aus Begriff 2
+    [x] Verlinkung         2 ausgehende, 5 eingehende Links
+    [x] Handlungsaufford.  wörtlich
+
+
+ 9  sanitär vorwandelemente bestellen         /sanitaer-vorwandelemente-bestellen
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        51 Zeichen, wörtlich
+    [x] Meta-Description  165 Zeichen, wörtlich
+    [x] Hauptüberschrift   wörtlich
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 5 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         3 ausgehende Links
+    [x] Handlungsaufford.  wörtlich
+
+
+10  sanitär vorwände                          /sanitaer-vorwaende
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        48 Zeichen, unverändert wie im Plan
+    [x] Meta-Description  144 Zeichen, neu
+    [x] Hauptüberschrift   unverändert wie im Plan
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 6 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         3 ausgehende Links
+    [x] Handlungsaufford.  wörtlich
+
+
+11  gis elemente beplanken                    /gis-elemente-beplanken
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        51 Zeichen, wörtlich
+    [x] Meta-Description  159 Zeichen, wörtlich
+    [x] Hauptüberschrift   unverändert wie im Plan
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 5 Abschnitte, dazu 3 aus
+                           Begriff 4
+    [x] Fragen             alle 3, dazu 3 aus Begriff 4
+    [x] Verlinkung         6 ausgehende Links
+    [x] Handlungsaufford.  wörtlich
+
+
+12  sanitär vorwandelemente beplanken         /sanitaer-vorwandelemente-beplanken
+    Heute auf Position 1, mit Zitat in der KI-Übersicht
+    ────────────────────────────────────────────────────────────
+    [x] Seitentitel        46 Zeichen, unverändert wie im Plan
+    [x] Meta-Description  170 Zeichen, wörtlich
+    [x] Hauptüberschrift   unverändert wie im Plan
+    [x] Bild-Alt-Text      wörtlich
+    [x] Einleitung         wörtlich
+    [x] Aufbau             alle 6 Abschnitte
+    [x] Fragen             alle 3
+    [x] Verlinkung         3 ausgehende Links
+    [x] Handlungsaufford.  wörtlich
+
+
+════════════════════════════════════════════════════════════════
+BEGRÜNDUNGEN
+════════════════════════════════════════════════════════════════
+
+1) DREI TITEL FÜR EINE SEITE
+
+   Der Plan weist /sanitaer-gis-elemente-bestellen drei
+   verschiedene Seitentitel, drei Beschreibungen und drei
+   Hauptüberschriften zu:
+
+     Seite 8   "GIS Elemente vorfabrizieren | SUI Innova GmbH"
+     Seite 11  "GIS Elemente bestellen | SUI Innova GmbH"
+     Seite 25  "Sanitär GIS Elemente bestellen | SUI Innova"
+
+   Eine Seite hat einen Titel. Das ist keine Entscheidung,
+   sondern eine Eigenschaft von HTML.
+
+   Genommen ist Seite 25. Grund: Unter genau diesem Suchbegriff
+   steht die Seite heute auf Position 2 und wird in der
+   KI-Übersicht zitiert. Ein Titelwechsel gefährdet beides.
+
+   Die Alternative wären drei eigene Seiten gewesen. Dagegen
+   spricht der Plan selbst: die drei Texte überschneiden sich
+   zu rund siebzig Prozent, teils Satz für Satz. Drei so
+   ähnliche Seiten ranken gegeneinander statt gegen die
+   Konkurrenz, und die gefährdete Seite wäre ausgerechnet die
+   auf Position 2.
+
+   Umgesetzt ist deshalb: ein Titel, und die Inhalte der
+   anderen beiden Abschnitte als eigene Zwischentitel auf
+   derselben Seite. Beide Suchbegriffe stehen damit wörtlich
+   in einer Überschrift der Seite.
+
+
+2) ZWEI TITEL FÜR EINE SEITE
+
+   Derselbe Fall bei /gis-elemente-beplanken:
+
+     Seite 14  "GIS Elemente montieren | SUI Innova GmbH"
+     Seite 33  "GIS Elemente beplanken in Pfäffikon SZ | SUI Innova"
+
+   Genommen ist Seite 33, weil die Adresse der Seite
+   /gis-elemente-beplanken lautet. Ein Titel "GIS Elemente
+   montieren" unter dieser Adresse wäre für Google und für
+   Besucher widersprüchlich.
+
+   Die drei Montage-Abschnitte und die drei Montage-Fragen von
+   Seite 14 stehen auf derselben Seite. Der Suchbegriff "GIS
+   Elemente montieren" kommt darin wörtlich als Zwischentitel
+   vor.
+
+   Zusätzlich deckt die neue Seite /sanitaerelemente-montieren
+   die Montage-Absicht mit einer eigenen Seite ab.
+
+
+3) FÜNFUNDZWANZIG PLATZHALTER
+
+   Der Plan setzt 25 Mal [ANGABE FEHLT: ...] in den Text:
+   Lieferfristen, Mindestmengen, Spachtelqualitäten,
+   Plattenstärken, Tagesleistungen, Preisrahmen.
+
+   Diese Stellen sind umformuliert, nicht mit erfundenen
+   Zahlen gefüllt. Statt "Lieferfrist [ANGABE FEHLT]" steht
+   jetzt "Den verbindlichen Termin halten wir in der Offerte
+   fest". Das stimmt für jedes Projekt und ist bei einer
+   Reklamation belastbar.
+
+   Eine Ausnahme: das Einsatzgebiet ist bekannt. Überall, wo
+   der Plan danach fragt, steht jetzt "in der ganzen
+   Deutschschweiz".
+
+   Auf den Seiten ist damit keine Stelle mehr offen. Die
+   zwölf Fragen aus der früheren Angaben-Checkliste bleiben
+   trotzdem sinnvoll: "wir liefern innert drei Wochen"
+   überzeugt einen Bauleiter mehr als "je nach Auslastung".
+
+
+4) LINKTEXTE, DIE DIE FALSCHE SEITE BESCHREIBEN
+
+   Der Plan nennt 48 Mal, welche Seite auf welche verlinken
+   soll und mit welchem Linktext. Nach Abzug der Mehrfach-
+   nennungen und eines Verweises einer Seite auf sich selbst
+   sind das 39 Verbindungen.
+
+   ALLE 39 SIND UMGESETZT. Dazu kommen 9 weitere, siehe unten.
+
+   Bei den Linktexten ist es anders. An 28 der 39 Stellen
+   beschreibt der vorgeschlagene Linktext die Seite, auf der
+   er steht, nicht die Seite, auf die er zeigt.
+
+   Beispiel aus Seite 5 des Plans:
+     "Von sui-innova.ch/gis-elemente-beplanken auf /leistungen
+      mit dem Linktext GIS Elemente beplanken lassen"
+
+   Google liest einen Linktext als Beschreibung des ZIELS.
+   Dieser Link würde /leistungen also für "GIS Elemente
+   beplanken" stärken, wo /gis-elemente-beplanken ranken soll.
+   Die beiden Seiten arbeiteten gegeneinander.
+
+   Umgesetzt ist deshalb: Quelle und Ziel jedes Links genau
+   wie im Plan. Der Linktext aus dem Plan wörtlich überall
+   dort, wo er das Ziel benennt, das sind 11 Stellen. An den
+   anderen 28 der Suchbegriff der Zielseite.
+
+   NEUN LINKS ZUSÄTZLICH
+
+   Der Plan nennt für /sanitaer-vorwaende und für
+   /sanitaer-vorwandelemente-bestellen nur je einen
+   ausgehenden Link, für die beiden neuen Seiten gar keinen.
+   Eine Seite mit einem einzigen Link nach vorne ist eine
+   Sackgasse. Bei /sanitaer-vorwaende zeigte der eine Link
+   ausserdem auf eine Seite, die bis zur Freischaltung
+   offline ist.
+
+   Ergänzt sind deshalb je zwei bis drei naheliegende Ziele.
+
+
+5) MEHRFACHE LINKS AUF DIESELBE SEITE
+
+   Weil drei Suchbegriffe auf /sanitaer-gis-elemente-bestellen
+   zeigen, verlangt der Plan von /leistungen aus drei Links
+   auf dieselbe Seite, mit drei verschiedenen Linktexten.
+
+   Umgesetzt ist ein Link pro Zielseite. Zwei Gründe: Google
+   wertet bei mehreren Links auf dieselbe Seite in der Regel
+   nur den ersten Linktext, und eine Liste, in der dieselbe
+   Seite dreimal mit verschiedenen Namen steht, verwirrt
+   einen Bauleiter.
+
+   Bei /gis-elemente-beplanken sind beide Linktexte zu einem
+   zusammengezogen: "GIS Elemente beplanken und montieren".
+
+
+6) VIER BESCHREIBUNGEN SIND LÄNGER ALS EMPFOHLEN
+
+   Der Plan gibt für vier Seiten Meta-Descriptions mit 161 bis
+   170 Zeichen vor. Google schneidet in der Regel bei rund 160
+   ab.
+
+   Übernommen sind sie trotzdem wörtlich, weil der Plan die
+   Zeichenzahl selbst ausweist und sie damit so gewollt sind.
+   Abgeschnitten wird jeweils nur der Schlusssatz "Offerte
+   erhalten", der Suchbegriff steht vorne. Auf die Position
+   hat das keinen Einfluss.
+
+   Wenn Sie es sauber wollen, kürzen wir die vier auf 155
+   Zeichen. Sagen Sie Bescheid.
+
+
+════════════════════════════════════════════════════════════════
+ZUSÄTZLICH GEMACHT, WEIL BEIM PRÜFEN AUFGEFALLEN
+════════════════════════════════════════════════════════════════
+
+TOTE LINKS VERHINDERT
+
+   Die beiden neuen Seiten gehen absichtlich deaktiviert
+   online, damit sie jemand vorher anschaut. Die internen
+   Links darauf kommen aber mit derselben SQL.
+
+   Im lokalen Durchlauf zeigte sich: zwischen Schritt 2 und
+   Schritt 4 hätten sieben Links auf eine Seite gezeigt, die
+   404 liefert.
+
+   Die Linkliste ist deshalb keine feste Liste im Text mehr,
+   sondern eine Sektion, die beim Ausliefern prüft, ob die
+   Zielseite online ist. Ist sie es nicht, fällt der Link weg.
+   Ist keiner mehr übrig, verschwindet der ganze Block.
+
+
+BILD-ALT-TEXT JE SEITE
+
+   Der Plan gibt je Seite einen eigenen Alt-Text für das
+   Kopfbild vor. Bisher konnte ein Bild nur einen Alt-Text
+   haben, den aus der Mediathek. Dasselbe Werkstattbild steht
+   aber auf mehreren Seiten.
+
+   Die Kopfbild-Sektion hat jetzt ein eigenes Feld dafür. Die
+   neun Texte aus dem Plan sind eingetragen.
+
+
+COOKIE-BANNER OHNE GEDANKENSTRICH
+
+   Beim Durchklicken der fertigen Seiten stand auf jeder ein
+   Gedankenstrich im Cookie-Banner. Der Text kam nicht aus der
+   Datenbank, sondern aus einer Vorgabe im Programmcode, an
+   zwei Stellen. Die Bereinigung vom letzten Mal hat nur die
+   Datenbank erfasst.
+
+   Beide Vorgaben sind ersetzt. Die SQL zieht den Text in der
+   Datenbank nach, aber nur, wenn dort noch eine der bekannten
+   alten Fassungen steht. Ein selbst geschriebener Text bleibt
+   unangetastet.
+
+   Nebenbei war der Satz kein ganzer Satz: "Cookies und, mit
+   Ihrer Einwilligung, Statistik-Cookies". Jetzt steht dort:
+   "Wir verwenden technisch notwendige Cookies. Mit Ihrer
+   Einwilligung kommen Statistik-Cookies von Google Analytics
+   dazu, für die anonyme Auswertung der Nutzung."
+
+
+ALTE LINKLISTE ENTFERNT
+
+   Auf /leistungen stand seit dem letzten Paket ein Block
+   "Leistungen im Detail" mit fest geschriebenen Links. Er
+   wird durch den neuen Block ersetzt, sonst stünden zwei
+   Linklisten untereinander.
+
+
+════════════════════════════════════════════════════════════════
+WIE GEPRÜFT WURDE
+════════════════════════════════════════════════════════════════
+
+Eine Kopie der Datenbank im heutigen Zustand, lokal auf
+MariaDB 10.11.
+
+  [x] SQL dreimal hintereinander: gleiches Ergebnis, keine
+      Duplikate, keine Fehlermeldung
+  [x] Client absichtlich auf latin1 gestellt, um die
+      Zeichensalat-Falle nachzustellen: alle Umlaute korrekt
+  [x] Danach die echten Vorlagen gerendert, alle neun Seiten
+      im Browser aufgerufen
+  [x] Je Seite genau eine Hauptüberschrift
+  [x] Auszeichnung für Fragen und Antworten auf jeder Seite
+      vorhanden
+  [x] Sitemap zieht automatisch nach, 13 Adressen
+  [x] Footer zeigt nach der Freischaltung acht Leistungsseiten
+  [x] Kein Gedankenstrich in einem sichtbaren Text, auf allen
+      elf aufgerufenen Seiten einzeln gezählt
+  [x] Nirgends mehr "ganze Schweiz" statt "Deutschschweiz"
+  [x] Alle internen Links angeklickt, kein totes Ziel
+  [x] Kein offener Platzhalter
+  [x] Titel und Beschreibungen in der Länge geprüft
+  [x] Darstellung auf 1440 und auf 390 Pixel Breite geprüft
+
+Nicht geprüft werden konnte die Live-Website selbst. Von
+unserer Arbeitsumgebung aus ist sui-innova.ch nicht
+erreichbar. Nach dem Einspielen bitte kurz durchklicken.
+
+
+────────────────────────────────────────────────────────────────
+EmotionFrame GmbH, Loorenstrasse 4a, 5443 Niederrohrdorf
+hello@emotionframe.ch

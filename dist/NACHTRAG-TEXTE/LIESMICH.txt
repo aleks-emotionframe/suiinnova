@@ -1,0 +1,92 @@
+════════════════════════════════════════════════════════
+TEXTE: GEDANKENSTRICHE RAUS, SUCHBEGRIFFE REIN
+════════════════════════════════════════════════════════
+
+SCHRITT 1 — DREI DATEIEN (FTP)
+────────────────────────────────────────────────────────
+
+Aus "1-DATEIEN":
+
+    templates/page-offline.php              überschreiben
+    templates/partials/career-modal.php     überschreiben
+    templates/partials/cookie-banner.php    überschreiben
+
+Das sind die drei Stellen, an denen ein Gedankenstrich fest
+im Code stand und nicht aus der Datenbank kommt.
+
+
+SCHRITT 2 — ZWEI SQL
+────────────────────────────────────────────────────────
+
+phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL",
+nacheinander:
+
+    2-SQL/startseite-texte.sql
+    2-SQL/gedankenstriche-entfernen.sql
+
+Beide gefahrlos mehrfach ausführbar.
+
+
+WAS DIE STARTSEITEN-SQL ÄNDERT
+────────────────────────────────────────────────────────
+
+MONTAGE
+  vorher   Professionelle Montage direkt auf Ihrer Baustelle
+  nachher  Unser eigenes Team montiert die GIS-Elemente
+           auf Ihrer Baustelle
+
+AQUA PANEL
+  vorher   AquaPanel für Feuchträume und Nasszellen
+  nachher  AquaPanel als Untergrund für Abdichtung und
+           Plättli in Nasszellen
+
+BEPLANKUNGEN UND SPACHTELUNGEN
+  vorher   Fertig montierte GIS-Elemente professionell
+           beplankt und gespachtelt
+  nachher  Wir beplanken die montierten GIS-Elemente und
+           spachteln die Flächen für Maler und Plattenleger
+
+LINK-TEXTE
+  überall "Mehr erfahren" statt abwechselnd mit
+  "Jetzt entdecken"
+
+ÜBER-UNS-TEASER
+  Beide Absätze neu. Ganze Sätze statt Substantivketten.
+
+VORFABRIKATION bleibt unverändert. "GIS-Elemente fix und
+fertig verrohrt aus unserer Werkstatt" ist der beste Satz
+auf der Seite.
+
+
+WAS DIE ZWEITE SQL ÄNDERT
+────────────────────────────────────────────────────────
+
+Entfernt rund 30 Gedankenstriche aus allen Texten in der
+Datenbank: Seiteninhalte, Beschreibungen fürs Suchergebnis,
+Cookie-Banner, Karriere-Text, Referenzen.
+
+Ersetzt wird durch ein Komma. Wo danach ein vollständiger
+Hauptsatz folgt, durch einen Punkt:
+
+    technische Frage – schreiben Sie uns
+    technische Frage. Schreiben Sie uns
+
+NICHT angefasst werden:
+
+    GIS-Elemente          Bindestrich im Wort
+    Sanitär-Vorwandsystem Bindestrich im Wort
+    Mo-Fr 07:00-12:00     Zeitspanne
+
+Die Ersetzung greift nur, wenn links und rechts vom Strich
+ein Leerzeichen steht. Geprüft.
+
+
+KONTROLLE
+────────────────────────────────────────────────────────
+
+Nach dem Einspielen in phpMyAdmin ausführen:
+
+  SELECT COUNT(*) FROM sections
+  WHERE content LIKE '% — %' OR content LIKE '% – %';
+
+Muss 0 ergeben.

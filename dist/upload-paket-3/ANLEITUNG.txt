@@ -1,0 +1,134 @@
+========================================================
+SUI INNOVA — SEO PAKET 3
+Sechs neue Seiten aus dem Keyword-Plan
+========================================================
+
+WICHTIG: Paket 1 und 2 muessen vorher drauf sein.
+
+Die Texte sind VOLLSTAENDIG. Keine offene Stelle mehr.
+
+Die Seiten werden trotzdem OFFLINE angelegt: neue oeffentliche
+Seiten auf einer Kundenwebsite gehen erst online, wenn jemand
+sie gesehen hat. Das Freischalten ist ein Klick je Seite, oder
+eine SQL fuer alle sechs auf einmal.
+
+
+SCHRITT 1 — DATEIEN HOCHLADEN (FTP)
+--------------------------------------------------------
+Alle Ordner ins Hauptverzeichnis kopieren, bestehende
+Dateien ueberschreiben:
+
+  config/    -> ueber den bestehenden Ordner
+  core/      -> ueber den bestehenden Ordner
+  templates/ -> ueber den bestehenden Ordner
+
+Neu dazu kommt eine Datei:
+  templates/sections/faq.php
+
+Den Ordner _SQL und die Checkliste NICHT hochladen.
+
+
+SCHRITT 2 — SQL EINSPIELEN
+--------------------------------------------------------
+phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+
+Nur diese eine Datei einspielen:
+  _SQL/seo-paket-3-keyword-seiten.sql
+
+Die Dateien 3b und 3c kommen spaeter, siehe Schritt 5.
+Jetzt noch NICHT einspielen.
+
+Danach sind im CMS unter "Seiten" sechs neue Eintraege da,
+alle auf "Offline".
+
+
+SCHRITT 3 — SEITEN ANSCHAUEN
+--------------------------------------------------------
+Als Admin eingeloggt koennen Sie die Seiten aufrufen,
+obwohl sie offline sind:
+
+  sui-innova.ch/sanitaer-vorwandelemente
+  sui-innova.ch/sanitaer-vorwaende
+  sui-innova.ch/gis-elemente-beplanken
+  sui-innova.ch/sanitaer-vorwandelemente-beplanken
+  sui-innova.ch/sanitaer-gis-elemente-bestellen
+  sui-innova.ch/sanitaer-vorwandelemente-bestellen
+
+Oben auf jeder Seite erscheint der orange Balken
+"Offline fuer Besucher" — den sehen nur Sie.
+
+Lesen Sie die sechs Seiten einmal durch. Sie sind fertig,
+aber es ist Ihr Kunde und Ihr Name darunter.
+
+
+SCHRITT 4 — KOPFBILD WAEHLEN (optional)
+--------------------------------------------------------
+Jede Seite hat als erste Sektion einen Parallax-Bildstreifen
+ohne Bild. Solange kein Bild gewaehlt ist, wird die Sektion
+gar nicht angezeigt.
+
+Im CMS unter Seiten -> [Seite] -> erste Sektion ein Bild
+auswaehlen. Empfohlen, aber nicht zwingend.
+
+
+SCHRITT 5 — ONLINE SCHALTEN
+--------------------------------------------------------
+a) Alle sechs auf einmal:
+     _SQL/seo-paket-3c-seiten-online.sql
+
+   Oder im CMS unter "Seiten" je Seite ein Klick.
+
+b) DANACH die interne Verlinkung:
+     _SQL/seo-paket-3b-interne-links.sql
+
+   Die haengt an die Leistungsseite einen Block mit Links
+   auf alle sechs neuen Seiten. Vorher eingespielt wuerden
+   diese Links ins Leere zeigen — deshalb diese Reihenfolge.
+
+c) Menue ergaenzen, falls die Seiten in die Navigation
+   sollen: CMS -> Navigation.
+
+d) Search Console -> URL-Pruefung -> jede der sechs
+   Adressen eingeben -> "Indexierung beantragen".
+
+
+SCHRITT 6 — SPAETER: ANGABEN VOM KUNDEN
+--------------------------------------------------------
+Die Seiten sind fertig und koennen so bleiben. Die Datei
+"Angaben-Checkliste_SUI-Innova.txt" ist optional.
+
+An zwoelf Stellen sagen die Texte heute sinngemaess "das
+klaeren wir anhand Ihrer Unterlagen". Das ist fachlich
+korrekt und stimmt fuer jedes Projekt.
+
+Mit einer konkreten Angabe wird daraus aber ein Argument:
+"wir liefern innert drei Wochen" ueberzeugt einen Bauleiter
+mehr als "je nach Auslastung". Wichtigste Frage ist Nummer 1,
+das Einsatzgebiet — die zaehlt fuer die lokale Suche am
+meisten.
+
+Kein Zeitdruck. Beim naechsten Telefonat mit Riad durchgehen
+und die Antworten im CMS einarbeiten.
+
+
+WAS DIE SEITEN KOENNEN
+--------------------------------------------------------
+Jede Seite hat einen Frage-Antwort-Block. Der ist
+aufklappbar und wird zusaetzlich so ausgezeichnet, dass
+Google die Fragen direkt im Suchergebnis aufklappen darf.
+
+Alle 18 Fragen sind ausgezeichnet. Die Mechanik nimmt eine
+Frage automatisch aus der Auszeichnung, wenn in der Antwort
+eine offene Stelle steht — das greift nur, falls spaeter
+jemand eine einbaut.
+
+
+ERWARTUNG
+--------------------------------------------------------
+Diese sechs Begriffe haben laut Keyword-Plan wenig bis gar
+kein gemessenes Suchvolumen. Das heisst nicht, dass sie
+nichts bringen: es sind Fachbegriffe, nach denen genau die
+Leute suchen, die einen Auftrag zu vergeben haben.
+
+Rechnen Sie mit wenigen, dafuer sehr gezielten Anfragen —
+und mit drei bis sechs Monaten, bis sich etwas bewegt.

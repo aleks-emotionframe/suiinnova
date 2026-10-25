@@ -126,6 +126,9 @@ return [
                 'large'  => 'Gross (750px)',
             ]],
             'overlay_text' => ['type' => 'text', 'label' => 'Text auf Bild (optional)'],
+            // Alt-Text je Seite statt je Bild: dasselbe Werkstattbild steht auf
+            // mehreren Seiten, der Text darf hier den Suchbegriff der Seite tragen.
+            'alt' => ['type' => 'text', 'label' => 'Bildbeschreibung für Google und Screenreader'],
         ],
     ],
 
@@ -138,6 +141,48 @@ return [
             'alignment' => ['type' => 'select',   'label' => 'Ausrichtung', 'options' => [
                 'left'   => 'Links',
                 'center' => 'Zentriert',
+            ]],
+        ],
+    ],
+
+    'content-grid' => [
+        'label' => 'Inhaltsraster',
+        'icon'  => 'layout-grid',
+        'fields' => [
+            'heading' => ['type' => 'text',     'label' => 'Überschrift'],
+            'lead'    => ['type' => 'richtext', 'label' => 'Einleitung (grösser gesetzt)'],
+            'style'   => ['type' => 'select',   'label' => 'Hintergrund', 'options' => [
+                'light' => 'Weiss',
+                'gray'  => 'Hellgrau',
+            ]],
+            'items'   => ['type' => 'repeater', 'label' => 'Abschnitte', 'fields' => [
+                'title' => ['type' => 'text',     'label' => 'Titel'],
+                'text'  => ['type' => 'richtext', 'label' => 'Text'],
+            ]],
+        ],
+    ],
+
+    'link-list' => [
+        'label' => 'Linkliste zu anderen Seiten',
+        'icon'  => 'link',
+        'fields' => [
+            'heading' => ['type' => 'text', 'label' => 'Überschrift'],
+            'items'   => ['type' => 'repeater', 'label' => 'Links', 'fields' => [
+                'slug' => ['type' => 'text', 'label' => 'Adresse der Zielseite, ohne Schrägstrich'],
+                'text' => ['type' => 'text', 'label' => 'Linktext, beschreibt die Zielseite'],
+            ]],
+        ],
+    ],
+
+    'faq' => [
+        'label' => 'Fragen und Antworten',
+        'icon'  => 'help-circle',
+        'fields' => [
+            'heading'  => ['type' => 'text',     'label' => 'Überschrift'],
+            'subtitle' => ['type' => 'text',     'label' => 'Untertitel (optional)'],
+            'items'    => ['type' => 'repeater', 'label' => 'Fragen', 'fields' => [
+                'question' => ['type' => 'text',     'label' => 'Frage'],
+                'answer'   => ['type' => 'richtext', 'label' => 'Antwort'],
             ]],
         ],
     ],

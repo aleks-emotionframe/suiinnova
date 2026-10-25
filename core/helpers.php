@@ -169,7 +169,7 @@ function setFlash(string $type, string $message): void
 }
 
 /**
- * Flash-Nachricht holen und loeschen
+ * Flash-Nachricht holen und löschen
  */
 function getFlash(): ?array
 {
@@ -179,6 +179,172 @@ function getFlash(): ?array
         return $flash;
     }
     return null;
+}
+
+/**
+ * Globale Referenzen aus der DB holen.
+ * $source: 'all' = alle aktiven (Referenzen-Seite),
+ *          'featured' = nur Startseiten-Auswahl (max. 6, in home_order)
+ */
+function getGlobalReferences(?int $limit = null, string $source = 'all'): array
+{
+    global $db;
+
+    try {
+        if ($source === 'featured') {
+            $sql = "SELECT id, title, description, category, city, year, image_id
+                    FROM ref_items
+                    WHERE is_active = 1 AND is_featured_home = 1
+                    ORDER BY home_order ASC, sort_order ASC, id ASC";
+        } else {
+            $sql = "SELECT id, title, description, category, city, year, image_id
+                    FROM ref_items
+                    WHERE is_active = 1
+                    ORDER BY sort_order ASC, id ASC";
+        }
+        if ($limit && $limit > 0) {
+            $sql .= " LIMIT " . (int)$limit;
+        }
+        $rows = $db->fetchAll($sql);
+
+        // Auf Template-Felder mappen (title, desc, location, year, image_id)
+        return array_map(fn($r) => [
+            'id'       => $r['id'],
+            'title'    => $r['title'],
+            'desc'     => $r['description'],
+            'location' => $r['category'],   // erster Tag
+            'year'     => $r['city'],       // zweiter Tag (im Template "year" genannt, zeigt die Stadt)
+            'image_id' => $r['image_id'],
+        ], $rows);
+    } catch (Exception $e) {
+        return [];
+    }
+}
+
+/**
+ * Die vertiefenden Leistungsseiten fuer den Footer.
+ *
+ * Gibt nur zurueck, was auch wirklich online ist. Deaktivierte Seiten leiten
+ * Besucher auf die Startseite um — ein Footer-Link dorthin waere eine
+ * Sackgasse und fuer Google ein Zeichen kaputter Seitenstruktur. Solange
+ * keine der Seiten freigeschaltet ist, faellt die ganze Spalte weg.
+ *
+ * Die Liste steht bewusst hier und nicht in der Datenbank: sie aendert sich
+ * selten, und so ist an einer Stelle nachlesbar, was in den Footer gehoert.
+ * Kommt eine Seite dazu, hier den Slug ergaenzen.
+ */
+function getFooterServicePages(): array
+{
+    global $db;
+
+    $slugs = [
+        'sanitaer-vorwandelemente',
+        'sanitaer-vorwaende',
+        'gis-elemente-beplanken',
+        'sanitaer-vorwandelemente-beplanken',
+        'sanitaer-gis-elemente-bestellen',
+        'sanitaer-vorwandelemente-bestellen',
+        'sanitaerelemente-vorfabrizieren',
+        'sanitaerelemente-montieren',
+        'ausflockung-nasszellen',
+    ];
+
+    try {
+        $platzhalter = implode(',', array_fill(0, count($slugs), '?'));
+        $rows = $db->fetchAll(
+            "SELECT slug, title FROM pages
+             WHERE is_active = 1 AND slug IN ({$platzhalter})
+             ORDER BY sort_order ASC",
+            $slugs
+        );
+    } catch (Exception $e) {
+        return [];
+    }
+
+    return $rows;
+}
+
+/**
+ * Von einer Liste Slugs diejenigen zurueckgeben, die online sind.
+ *
+ * Interne Links werden zusammen mit den Seiten eingespielt, auf die sie
+ * zeigen. Neue Seiten gehen aber absichtlich deaktiviert online, damit ein
+ * Mensch sie vorher anschaut. Ohne diesen Filter zeigte der Linkblock in
+ * der Zwischenzeit auf eine Seite, die 404 liefert. Fuer einen Besucher
+ * ist das eine Sackgasse, fuer Google ein Zeichen kaputter Struktur.
+ *
+ * Als Admin eingeloggt werden alle Slugs zurueckgegeben, damit die
+ * Kontrolle der neuen Seiten ueber die Links moeglich ist.
+ *
+ * @param string[] $slugs
+ * @return string[] Slugs in der Reihenfolge der Eingabe
+ */
+function getLivePageSlugs(array $slugs): array
+{
+    global $db;
+
+    $slugs = array_values(array_unique(array_filter($slugs, 'is_string')));
+    if (!$slugs) return [];
+
+    $nurAktive = isLoggedIn() ? '' : ' AND is_active = 1';
+
+    try {
+        $platzhalter = implode(',', array_fill(0, count($slugs), '?'));
+        $rows = $db->fetchAll(
+            "SELECT slug FROM pages WHERE slug IN ({$platzhalter}){$nurAktive}",
+            $slugs
+        );
+    } catch (Exception $e) {
+        return [];
+    }
+
+    $vorhanden = array_column($rows, 'slug');
+
+    return array_values(array_filter($slugs, fn($s) => in_array($s, $vorhanden, true)));
+}
+
+/**
+ * Offene Platzhalter sichtbar machen.
+ *
+ * Die Textvorschlaege aus dem Keyword-Plan enthalten Stellen, die nur der
+ * Kunde beantworten kann — Einsatzradius, Spachtelqualitaet, Lieferfristen.
+ * Sie stehen als [ANGABE FEHLT: ...] im Text und werden hier rot markiert,
+ * damit beim Durchsehen keine uebersehen wird.
+ *
+ * Seiten mit offenen Platzhaltern gehoeren nicht online. Deshalb werden sie
+ * deaktiviert angelegt — nur eingeloggte Admins sehen sie.
+ */
+function markPlaceholders(string $html): string
+{
+    return (string) preg_replace(
+        '/\[ANGABE FEHLT:\s*([^\]]+)\]/u',
+        '<mark class="angabe-fehlt" title="Diese Angabe fehlt noch und muss vom Kunden kommen">$1</mark>',
+        $html
+    );
+}
+
+/**
+ * Ueberschriften-Ebene fuer Sektionen bestimmen.
+ *
+ * Jede Seite braucht genau eine Hauptueberschrift. Die erste Sektion, die
+ * ueberhaupt eine Ueberschrift ausgibt, bekommt deshalb <h1>, alle weiteren
+ * <h2>. Die Templates rufen die Funktion erst auf, wenn feststeht, dass eine
+ * Ueberschrift gerendert wird — Sektionen ohne Titel verbrauchen das h1 nicht.
+ *
+ * Hintergrund: Vor dieser Aenderung trug nur die Startseite ein h1, weil die
+ * Unterseiten als Kopfbanner parallax-image nutzen und das Template gar keine
+ * Ueberschrift kannte.
+ */
+function headingTag(): string
+{
+    static $h1Used = false;
+
+    if (!$h1Used) {
+        $h1Used = true;
+        return 'h1';
+    }
+
+    return 'h2';
 }
 
 /**
@@ -201,7 +367,7 @@ function renderRichtext(?string $text): string
         $clean = strip_tags($text, $allowedTags);
         // Doppelte <br> bereinigen
         $clean = preg_replace('/(<br\s*\/?>){3,}/i', '<br><br>', $clean);
-        return $clean;
+        return markPlaceholders($clean);
     }
 
     // Plain-Text: Absaetze bei Doppel-Zeilenumbruch, <br> bei einfachem
@@ -214,5 +380,5 @@ function renderRichtext(?string $text): string
             $html .= '<p>' . nl2br($p) . '</p>';
         }
     }
-    return $html ?: '<p>' . nl2br($text) . '</p>';
+    return markPlaceholders($html ?: '<p>' . nl2br($text) . '</p>');
 }

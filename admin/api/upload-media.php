@@ -67,6 +67,7 @@ if (!move_uploaded_file($file['tmp_name'], $absolutePath)) {
 $width = null;
 $height = null;
 $thumbPath = null;
+$variants = [];
 
 if (str_starts_with($mimeType, 'image/') && $mimeType !== 'image/svg+xml') {
     $imageInfo = getimagesize($absolutePath);
@@ -75,12 +76,24 @@ if (str_starts_with($mimeType, 'image/') && $mimeType !== 'image/svg+xml') {
         $height = $imageInfo[1];
     }
 
-    // Thumbnail generieren
-    $thumbPath = createThumbnail($absolutePath, $filename);
+    // Thumbnail generieren (AVIF: graceful skip wenn PHP-Server kein AVIF kann)
+    try {
+        $thumbPath = createThumbnail($absolutePath, $filename);
+    } catch (Throwable $e) {
+        $thumbPath = null;
+    }
+
+    // Groessenvarianten fuer srcset. Schlaegt das fehl, bleibt es beim
+    // Original — die Seite funktioniert weiter, nur eben ohne srcset.
+    try {
+        $variants = generateImageVariants($absolutePath, $filename);
+    } catch (Throwable $e) {
+        $variants = [];
+    }
 }
 
 // In DB speichern
-$mediaId = $db->insert('media', [
+$mediaRow = [
     'filename'   => $filename,
     'original'   => $originalName,
     'mime_type'  => $mimeType,
@@ -90,7 +103,14 @@ $mediaId = $db->insert('media', [
     'alt_text'   => pathinfo($originalName, PATHINFO_FILENAME),
     'path'       => $relativePath,
     'thumb_path' => $thumbPath,
-]);
+];
+
+// Varianten nur mitschreiben, wenn die Spalte wirklich da ist (Self-Heal)
+if (ensureMediaVariantsColumn()) {
+    $mediaRow['variants'] = $variants ? json_encode($variants) : null;
+}
+
+$mediaId = $db->insert('media', $mediaRow);
 
 echo json_encode([
     'success' => true,
@@ -122,13 +142,20 @@ function createThumbnail(string $sourcePath, string $filename): ?string
 
     [$origW, $origH, $type] = $imageInfo;
 
-    // Source laden
-    $source = match($type) {
-        IMAGETYPE_JPEG => imagecreatefromjpeg($sourcePath),
-        IMAGETYPE_PNG  => imagecreatefrompng($sourcePath),
-        IMAGETYPE_WEBP => function_exists('imagecreatefromwebp') ? imagecreatefromwebp($sourcePath) : null,
-        default        => null,
-    };
+    // Source laden (AVIF nur wenn PHP-Build es unterstuetzt)
+    $avifType = defined('IMAGETYPE_AVIF') ? IMAGETYPE_AVIF : null;
+    $source = null;
+    try {
+        $source = match (true) {
+            $type === IMAGETYPE_JPEG                                                   => imagecreatefromjpeg($sourcePath),
+            $type === IMAGETYPE_PNG                                                    => imagecreatefrompng($sourcePath),
+            $type === IMAGETYPE_WEBP && function_exists('imagecreatefromwebp')         => imagecreatefromwebp($sourcePath),
+            $avifType && $type === $avifType && function_exists('imagecreatefromavif') => imagecreatefromavif($sourcePath),
+            default                                                                    => null,
+        };
+    } catch (Throwable $e) {
+        $source = null;
+    }
 
     if (!$source) return null;
 

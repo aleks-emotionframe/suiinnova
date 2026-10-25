@@ -1,0 +1,103 @@
+════════════════════════════════════════════════════════
+DIE SECHS SEITEN AUF DEN NEUEN AUFBAU BRINGEN
+════════════════════════════════════════════════════════
+
+Die Seiten sind online, zeigen aber noch die alte Fassung:
+alle Abschnitte als eine lange Spalte untereinander.
+
+Der neue Aufbau stellt sie zweispaltig nebeneinander. Die
+normale SQL macht das nicht — sie erkennt bestehende Seiten
+am Slug und überspringt sie.
+
+
+⚠ REIHENFOLGE IST HIER WICHTIG ⚠
+────────────────────────────────────────────────────────
+
+ERST die Dateien, DANN die SQL. Nicht umgekehrt.
+
+Die SQL stellt die Sektionen auf den Typ "content-grid" um.
+Fehlt die zugehörige Vorlage auf dem Server, zeigt die Seite
+an dieser Stelle gar nichts mehr — der Text bleibt zwar in
+der Datenbank, ist aber für Besucher unsichtbar.
+
+Deshalb sind die Ordner durchnummeriert.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 1 — DATEIEN HOCHLADEN
+────────────────────────────────────────────────────────
+
+Aus dem Ordner "1-ZUERST-DIESE-DATEIEN":
+
+    templates/  ->  über den bestehenden Ordner
+    config/     ->  über den bestehenden Ordner
+    core/       ->  über den bestehenden Ordner
+
+Drei Dateien:
+
+    templates/sections/content-grid.php   ist neu
+    config/sections.php                   überschreiben
+    core/router.php                       überschreiben
+
+content-grid.php ist die Vorlage, ohne die es nicht geht.
+sections.php meldet den neuen Typ im CMS an.
+router.php warnt künftig, wenn eine Vorlage fehlt, statt
+den Inhalt stillschweigend zu verschlucken.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 2 — SQL EINSPIELEN
+────────────────────────────────────────────────────────
+
+phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+-> 2-DANN-DIESE-SQL/seiten-auffrischen.sql hineinkopieren
+
+Was passiert:
+  - ein gewähltes Kopfbild bleibt erhalten
+  - Titel, Beschreibung und Online-Status bleiben
+  - alles andere an diesen sechs Seiten wird ersetzt
+
+Gefahrlos mehrfach ausführbar.
+
+
+────────────────────────────────────────────────────────
+SCHRITT 3 — KONTROLLE
+────────────────────────────────────────────────────────
+
+sui-innova.ch/sanitaer-vorwandelemente aufrufen.
+
+So muss es aussehen:
+
+    Überschrift
+    Fliesstext darunter, etwa 70 Zeichen breit
+
+    Abschnitt links    |    Abschnitt rechts
+    Abschnitt links    |    Abschnitt rechts
+    Abschnitt links    |    Abschnitt rechts
+
+Über jedem Abschnitts-Titel steht eine dünne graue Linie
+mit einem kurzen ROTEN Strich am linken Anfang.
+
+Wenn alles weiterhin untereinander steht: die SQL lief nicht.
+
+Wenn ein gelber Kasten "Vorlage fehlt: content-grid"
+erscheint: Schritt 1 wurde übersprungen oder die Datei ist
+nicht am richtigen Ort gelandet. Den Kasten sehen nur Sie
+als eingeloggter Admin, Besucher sehen an der Stelle nichts.
+
+
+────────────────────────────────────────────────────────
+DANACH NOCH
+────────────────────────────────────────────────────────
+
+Kopfbild wählen, das macht optisch am meisten aus:
+
+    CMS -> Seiten -> [Seite] -> erste Sektion -> Bild
+
+Die erste Sektion ist ein Bildstreifen ohne Bild und wird
+deshalb gar nicht angezeigt. Passende Bilder liegen in der
+Mediathek: verrohrte Elemente, die Halle, die Lieferwagen.
+Für jede Seite ein anderes, sonst wirkt es beliebig.
+
+Und falls noch nicht geschehen: in der Search Console für
+alle sechs Adressen die Indexierung beantragen.

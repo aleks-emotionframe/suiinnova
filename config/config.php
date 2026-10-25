@@ -41,10 +41,11 @@ define('ALLOWED_MIME_TYPES', [
     'image/jpeg',
     'image/png',
     'image/webp',
+    'image/avif',
     'image/svg+xml',
     'application/pdf',
 ]);
-define('ALLOWED_EXTENSIONS', ['jpg', 'jpeg', 'png', 'webp', 'svg', 'pdf']);
+define('ALLOWED_EXTENSIONS', ['jpg', 'jpeg', 'png', 'webp', 'avif', 'svg', 'pdf']);
 
 // --- Thumbnail ---
 define('THUMB_WIDTH', 400);

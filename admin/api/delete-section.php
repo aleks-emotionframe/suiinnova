@@ -3,7 +3,7 @@ define("BASE_PATH", dirname(dirname(__DIR__)));
 require_once BASE_PATH . "/core/bootstrap.php";
 requireAuth();
 /**
- * AJAX: Section loeschen
+ * AJAX: Section löschen
  */
 
 header('Content-Type: application/json');

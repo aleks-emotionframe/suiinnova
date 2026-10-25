@@ -1,0 +1,66 @@
+════════════════════════════════════════════════════════
+NACHTRAG — ALTERNATIVTEXTE BEQUEMER PFLEGEN
+════════════════════════════════════════════════════════
+
+Eine einzige Datei, keine SQL.
+
+    WEBSITE/admin/views/media.php
+        -> nach sui-innova.ch/admin/views/ kopieren,
+           bestehende Datei überschreiben
+
+Danach im CMS die Seite Medien neu laden.
+
+
+WAS SICH ÄNDERT
+────────────────────────────────────────────────────────
+
+Vorher war das Feld "Alternativtext" nur zu sehen, solange
+die Maus über dem Bild stand. Für ein Bild ging das, für
+elf war es eine Zumutung.
+
+Jetzt steht unter jedem Bild ein Feld, immer sichtbar.
+Reinschreiben, wegklicken, gespeichert.
+
+
+WICHTIGER ALS DAS
+────────────────────────────────────────────────────────
+
+Beim Hochladen trägt das CMS automatisch den Dateinamen
+als Alternativtext ein. Aus image.jpg wird "image".
+
+Das Feld ist damit nicht leer — die rote ALT-Markierung
+schlug deshalb nicht an, obwohl der Text wertlos ist.
+
+Neu erkennt das CMS solche Einträge und behandelt sie wie
+fehlende:
+
+    leer
+    identisch mit dem Dateinamen
+    image, IMG_4213, DSC01234
+    WhatsApp Image 2024-03-02 at 14.21
+    Screenshot 2024-05-01 um 10.12
+    Kopie von Bild 3
+    ein einzelnes Wort
+
+Oben auf der Medien-Seite steht jetzt, wie viele Bilder
+noch einen brauchen. Die Zahl wird höher sein als die elf
+aus dem Audit — das Audit hat die Website gemessen, hier
+zählen wir die Bilder in der Verwaltung.
+
+
+WIE EIN GUTER ALTERNATIVTEXT AUSSIEHT
+────────────────────────────────────────────────────────
+
+Gut:      Verrohrtes GIS-Element in der Werkstatt in
+          Pfäffikon
+
+Schlecht: Sanitär Vorfabrikation GIS Elemente Pfäffikon SZ
+
+Beschreiben, was zu sehen ist. Keine Suchbegriffe
+aneinanderreihen — Google merkt den Unterschied, und der
+Text wird vorgelesen, wenn jemand die Seite nicht sehen
+kann.
+
+Bilder, die nur Schmuck sind, brauchen keinen Text.
+Bei SUI Innova sind die Bilder aber das Verkaufsargument,
+also lohnt sich die Mühe.

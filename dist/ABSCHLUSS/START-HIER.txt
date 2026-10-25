@@ -1,0 +1,204 @@
+════════════════════════════════════════════════════════
+SUI INNOVA — ABSCHLUSSPAKET
+════════════════════════════════════════════════════════
+
+Erstellt 14.09.2026 von EmotionFrame GmbH
+
+DIESES PAKET ERSETZT ALLES BISHERIGE.
+
+Alle früheren ZIPs und alle Nachträge können weg. Hier ist
+alles drin, in der richtigen Reihenfolge, und es ist egal,
+was Sie schon eingespielt haben.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 1 — DATEIEN HOCHLADEN
+════════════════════════════════════════════════════════
+
+Im Ordner WEBSITE liegen genau diese Einträge:
+
+    .htaccess
+    index.php
+    admin/
+    assets/
+    config/
+    core/
+    templates/
+
+Dieselbe Struktur wie im FTP unter sui-innova.ch.
+
+ALLES aus WEBSITE markieren, nach sui-innova.ch ziehen,
+überschreiben. Nichts aussuchen. 33 Dateien.
+
+Ordner, die im FTP existieren und hier fehlen (uploads,
+dist), bleiben unberührt.
+
+⚠ ZUERST die Dateien, DANN die SQL. Die SQL stellt Sektionen
+auf einen Typ um, dessen Vorlage sonst noch fehlt. Die sechs
+neuen Seiten würden dann nichts anzeigen.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 2 — DATENBANK
+════════════════════════════════════════════════════════
+
+Hostpoint Control Panel -> Datenbanken -> phpMyAdmin
+-> Datenbank bifitudo_suinnova -> Reiter "SQL"
+
+    SQL/1-ALLES-EINSPIELEN.sql
+
+komplett hineinkopieren, OK.
+
+Neun Abschnitte, alle mehrfach ausführbar. Im Zweifel
+einfach nochmal laufen lassen, es entstehen keine
+Duplikate. Getestet: dreimal hintereinander, gleiches
+Ergebnis.
+
+Rote Fehlermeldung = melden Sie sich, nicht weitermachen.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 3 — DREI SACHEN IM CMS
+════════════════════════════════════════════════════════
+
+a) MEDIEN -> "Bilder jetzt umwandeln"
+   Fenster offen lassen bis "Fertig". Dauert ein paar
+   Minuten. Erst danach sind die Seiten wirklich schnell.
+
+b) EINSTELLUNGEN -> KONTAKT -> Öffnungszeiten
+
+       Mo-Do 07:00-17:30; Fr 07:00-16:30
+
+   Genau so, mit Semikolon. Danach stehen die Zeiten auf
+   der Kontaktseite und Google kann "Heute geöffnet bis
+   17:30" im Suchergebnis zeigen.
+
+c) EINSTELLUNGEN -> KONTAKT -> Einsatzgebiet (Kantone)
+   Ist vorbelegt mit:
+
+       Schwyz, Zürich, Zug, Luzern, Glarus, St. Gallen
+
+   Muss mit dem Einzugsgebiet im Google-Unternehmensprofil
+   übereinstimmen. Ändert sich dort etwas, hier nachziehen.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 4 — DIE SECHS NEUEN SEITEN
+════════════════════════════════════════════════════════
+
+Sie sind in der Datenbank, aber offline. Als Admin
+eingeloggt aufrufbar:
+
+    sui-innova.ch/sanitaer-vorwandelemente
+    sui-innova.ch/sanitaer-vorwaende
+    sui-innova.ch/sanitaer-gis-elemente-bestellen
+    sui-innova.ch/sanitaer-vorwandelemente-bestellen
+    sui-innova.ch/gis-elemente-beplanken
+    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+
+So muss es aussehen: Überschrift, Fliesstext, dann die
+Abschnitte ZWEISPALTIG nebeneinander mit einem kurzen roten
+Strich über jedem Titel. Danach aufklappbare Fragen auf
+hellgrau, zuletzt der dunkle Abschluss mit Button.
+
+Steht alles untereinander in einer Spalte: Schritt 2 lief
+nicht durch.
+
+Kommt ein gelber Kasten "Vorlage fehlt": Schritt 1 lief
+nicht durch.
+
+KOPFBILD WÄHLEN (lohnt sich am meisten):
+Seiten -> [Seite] -> erste Sektion -> Bild.
+Die erste Sektion ist ein Bildstreifen ohne Bild und wird
+deshalb gar nicht angezeigt. Für jede Seite ein anderes.
+
+WENN ALLES PASST:
+
+    SQL/2-SEITEN-ONLINE-SCHALTEN.sql
+
+Damit sind die Seiten öffentlich, stehen in der sitemap.xml,
+erscheinen im Footer und sind von der Leistungsseite
+verlinkt. Alles automatisch.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 5 — GOOGLE BESCHEID GEBEN
+════════════════════════════════════════════════════════
+
+Search Console -> URL-Prüfung -> Adresse eingeben ->
+"Indexierung beantragen". Für jede einzeln, elf Stück:
+
+    sui-innova.ch
+    sui-innova.ch/leistungen
+    sui-innova.ch/referenzen
+    sui-innova.ch/ueber-uns
+    sui-innova.ch/kontakt
+    sui-innova.ch/sanitaer-vorwandelemente
+    sui-innova.ch/sanitaer-vorwaende
+    sui-innova.ch/sanitaer-gis-elemente-bestellen
+    sui-innova.ch/sanitaer-vorwandelemente-bestellen
+    sui-innova.ch/gis-elemente-beplanken
+    sui-innova.ch/sanitaer-vorwandelemente-beplanken
+
+Ohne das dauert es Wochen, bis Google die neuen Titel sieht.
+
+
+════════════════════════════════════════════════════════
+SCHRITT 6 — AUFRÄUMEN
+════════════════════════════════════════════════════════
+
+Den Ordner "dist" per FTP löschen. Das ist unser
+Build-Verzeichnis, versehentlich mit hochgeladen. Die
+.htaccess sperrt den Zugriff, aber löschen ist sauberer.
+
+
+════════════════════════════════════════════════════════
+KONTROLLE
+════════════════════════════════════════════════════════
+
+sui-innova.ch/startseite aufrufen
+  -> muss auf sui-innova.ch umleiten
+
+Startseite -> Rechtsklick -> Seitenquelltext anzeigen
+Mit Strg+F suchen:
+
+  <title>       Steht "GIS Elemente Vorfabrikation" drin,
+                Firmenname nur einmal?
+  descriptio    Steht da ein Satz?
+  <h1           Genau einmal?
+  srcset        Kommt mehrfach vor?
+  areaServed    Stehen da Kantone statt "Schweiz"?
+
+Auf sui-innova.ch/referenzen: F12 -> Netzwerk -> neu laden.
+Vorher waren es 4,93 MB.
+
+
+════════════════════════════════════════════════════════
+WAS NICHT IN DIESEM PAKET IST
+════════════════════════════════════════════════════════
+
+Das Google-Unternehmensprofil. Dafür gibt es die separate
+Arbeitsliste mit den fertigen Texten zum Kopieren.
+
+Kurzfassung:
+  Website-Adresse auf sui-innova.ch ohne www
+  Kategorie "Hausverwaltungsunternehmen" löschen
+  Beschreibung ersetzen
+  Leistungen eintragen, neun Stück
+  Fotos hochladen
+  Bewertungen sammeln
+
+Der letzte Punkt ist der wichtigste. Der Betrieb auf Platz
+zwei in der Kartenansicht hat drei Bewertungen.
+
+
+════════════════════════════════════════════════════════
+NOCH IM PAKET
+════════════════════════════════════════════════════════
+
+Angaben-Checkliste_SUI-Innova.txt
+
+Zwölf freiwillige Fragen an Riad. An zwölf Stellen sagen
+die neuen Texte "das klären wir anhand Ihrer Unterlagen".
+Korrekt, aber mit einer konkreten Angabe wird daraus ein
+Argument. Kein Zeitdruck.

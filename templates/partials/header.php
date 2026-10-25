@@ -9,6 +9,11 @@
 $logoUrl = setting('logo_url', asset('img/SUI-Innova_Logo.webp'));
 $logoWhiteUrl = asset('img/SUI-Innova_Logo_white.webp');
 $isHomepage = !empty($isHomepage);
+
+$careerVisible = setting('career_visible', '1') === '1';
+$careerText    = setting('career_text', '');
+$careerBtn     = setting('career_button_text', 'Jetzt bewerben');
+$showCareer    = $careerVisible && $careerText !== '';
 ?>
 
 <!-- Header -->
@@ -69,8 +74,20 @@ $isHomepage = !empty($isHomepage);
                 <?php endforeach; ?>
             </nav>
 
-            <!-- CTA Button (Desktop) -->
-            <div class="hidden md:flex items-center">
+            <!-- CTA Bereich (Desktop): Karriere-Badge + Kontakt -->
+            <div class="hidden md:flex items-center gap-3">
+                <?php if ($showCareer): ?>
+                    <button type="button"
+                            @click="$dispatch('open-career-modal')"
+                            class="inline-flex items-center h-10 px-5 rounded-md text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
+                            style="background:#C41018;letter-spacing:0.1em;"
+                            title="<?= e($careerText) ?>">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#fff;margin-right:10px;animation:career-pulse-anim 2s ease-in-out infinite;"></span>
+                        <span class="hidden xl:inline"><?= e($careerText) ?></span>
+                        <span class="xl:hidden"><?= e($careerBtn) ?></span>
+                    </button>
+                <?php endif; ?>
+
                 <a href="<?= url('kontakt') ?>"
                    class="inline-flex items-center h-10 px-6 rounded-md text-sm font-medium uppercase tracking-wider transition-all duration-300"
                    :class="scrolled
@@ -80,6 +97,15 @@ $isHomepage = !empty($isHomepage);
                     Kontakt
                 </a>
             </div>
+
+            <?php if ($showCareer): ?>
+            <style>
+                @keyframes career-pulse-anim {
+                    0%, 100% { opacity: 1; }
+                    50%      { opacity: 0.4; }
+                }
+            </style>
+            <?php endif; ?>
 
             <!-- Mobile Menu Button -->
             <button
@@ -123,6 +149,18 @@ $isHomepage = !empty($isHomepage);
             class="absolute top-0 right-0 w-72 h-full bg-white shadow-lg"
         >
             <div class="flex flex-col py-6">
+                <?php if ($showCareer): ?>
+                    <button type="button"
+                            @click="mobileMenuOpen = false; $dispatch('open-career-modal')"
+                            class="mx-4 mb-4 flex items-center gap-3 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white"
+                            style="background:#C41018;">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full" style="background:rgba(255,255,255,0.2);">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        </span>
+                        <span class="flex-1"><?= e($careerText) ?></span>
+                    </button>
+                <?php endif; ?>
+
                 <?php foreach ($navigation as $item): ?>
                     <?php
                     $href = $item['url'] ?: url($item['page_slug'] ?? '');
