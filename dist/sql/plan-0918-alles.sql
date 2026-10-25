@@ -133,7 +133,7 @@ SELECT @pid, 'faq', '{"heading":"Fragen und Antworten","subtitle":"","items":[{"
 FROM DUAL WHERE @pid IS NOT NULL;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)
-SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"gis-elemente-beplanken","text":"GIS Elemente montieren lassen"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"}]}', 40, 1
+SELECT @pid, 'link-list', '{"heading":"Passend dazu","items":[{"slug":"gis-elemente-beplanken","text":"GIS Elemente beplanken lassen"},{"slug":"sanitaerelemente-vorfabrizieren","text":"Sanitärelemente vorfabrizieren lassen"}]}', 40, 1
 FROM DUAL WHERE @pid IS NOT NULL;
 
 INSERT INTO sections (page_id, type, content, sort_order, is_active)

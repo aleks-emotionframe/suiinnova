@@ -3,8 +3,9 @@
 SEO-Auftrag vom 25.10.2026
 ════════════════════════════════════════════════════════
 
-Die Adresse der Seite bleibt gleich. Keine andere Seite
-wird verändert.
+Die Adresse der Seite bleibt gleich. Auf einer zweiten
+Seite, /sanitaer-gis-elemente-bestellen, ändert sich nur
+ein Linktext.
 
 
 SCHRITT 1: EINE DATEI (FTP)
@@ -21,19 +22,29 @@ Schritten als vier Zeilen ohne Nummern da.
 ⚠ ZUERST die Datei, DANN die SQL.
 
 
-SCHRITT 2: EINE SQL
+SCHRITT 2: ZWEI SQL
 ────────────────────────────────────────────────────────
 
-phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
+phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL",
+nacheinander, jede komplett hineinkopieren, OK:
 
     2-SQL/gis-beplankung-2510.sql
+    2-SQL/anker-gis-bestellen-2510.sql
 
-komplett hineinkopieren, OK. Gefahrlos mehrfach
-ausführbar. Das gewählte Kopfbild bleibt.
+Beide gefahrlos mehrfach ausführbar.
 
-Die SQL baut die Seite aus dem Generator neu auf. Wurde
-der Text dieser Seite seit September von Hand im CMS
-geändert, ist diese Änderung danach weg.
+Die erste baut /gis-elemente-beplanken aus dem Generator
+neu auf. Das gewählte Kopfbild bleibt. Wurde der Text
+dieser Seite seit September von Hand im CMS geändert,
+ist diese Änderung danach weg.
+
+Die zweite ändert auf /sanitaer-gis-elemente-bestellen im
+Block "Passend dazu" nur den Linktext auf diese Seite:
+
+  vorher   GIS Elemente montieren lassen
+  nachher  GIS Elemente beplanken lassen
+
+Der Rest jener Seite bleibt unberührt.
 
 
 WAS SICH ÄNDERT

@@ -70,7 +70,7 @@ $anker = [
  */
 $ankerAusnahmen = [
     'sanitaer-gis-elemente-bestellen' => [
-        'gis-elemente-beplanken' => 'GIS Elemente montieren lassen',
+        'gis-elemente-beplanken' => 'GIS Elemente beplanken lassen',
     ],
     'gis-elemente-beplanken' => [
         'sanitaer-gis-elemente-bestellen' => 'GIS Elemente verrohrt bestellen',
