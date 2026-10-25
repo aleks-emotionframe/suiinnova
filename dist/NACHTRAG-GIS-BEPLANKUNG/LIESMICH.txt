@@ -7,7 +7,7 @@ Die Adresse der Seite bleibt gleich. Keine andere Seite
 wird verändert.
 
 
-SCHRITT 1 — EINE DATEI (FTP)
+SCHRITT 1: EINE DATEI (FTP)
 ────────────────────────────────────────────────────────
 
 Aus "1-DATEIEN":
@@ -21,7 +21,7 @@ Schritten als vier Zeilen ohne Nummern da.
 ⚠ ZUERST die Datei, DANN die SQL.
 
 
-SCHRITT 2 — EINE SQL
+SCHRITT 2: EINE SQL
 ────────────────────────────────────────────────────────
 
 phpMyAdmin -> bifitudo_suinnova -> Reiter "SQL"
