@@ -75,6 +75,10 @@ $isCenter  = ($alignment === 'center');
         margin: 0.5em 0 1em 1.5em;
         padding: 0;
     }
+    /* Das CSS-Grundgeruest nimmt Listen Punkte und Nummern weg. Ohne diese
+       Zeilen stand ein Ablauf in vier Schritten als vier lose Absaetze da. */
+    .text-block-body ul { list-style: disc; }
+    .text-block-body ol { list-style: decimal; }
     .text-block-body li { margin-bottom: 0.4em; }
     .text-block-body br { display: block; content: ''; margin-top: 0.25em; }
 </style>

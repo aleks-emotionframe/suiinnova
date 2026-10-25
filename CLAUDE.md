@@ -100,6 +100,7 @@ https://claude.ai/code/artifact/4dcfeaea-5666-45aa-9e17-83951a501762
 
     dist/scripts/build_plan_0918.php            Keyword-Seiten, SQL
     dist/scripts/build_plan_0918.php pruefen    Selbstkontrolle
+    dist/scripts/build_plan_0918.php seite <slug>  SQL nur fuer eine Seite
     dist/scripts/build_plan_0918.php daten      Daten für die Vorschau
     dist/scripts/build_preview.php              Vorschau als HTML
 

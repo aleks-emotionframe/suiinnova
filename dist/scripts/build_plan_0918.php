@@ -33,6 +33,8 @@
  *   php dist/scripts/build_plan_0918.php            SQL
  *   php dist/scripts/build_plan_0918.php checkliste Fragen an den Kunden
  *   php dist/scripts/build_plan_0918.php pruefen    Selbstkontrolle
+ *   php dist/scripts/build_plan_0918.php seite gis-elemente-beplanken
+ *                                                   SQL nur fuer eine Seite
  */
 
 // ─────────────────────────────────────────────────────────────
@@ -210,17 +212,24 @@ $seiten[] = [
 // 3) /gis-elemente-beplanken
 //    Zwei Suchbegriffe: "gis elemente beplanken" und "gis elemente
 //    montieren". Plan Seiten 14 und 33.
+//
+//    SEO-Auftrag vom 25.10.2026: dazu "gis beplankung" (Position 8,6).
+//    Der Begriff stand bis dahin nirgends im Text. Titel und
+//    Beschreibung nach Vorgabe, drei Abschnitte mit eigener H2 statt
+//    Zwischentitel im Raster, Fragen zusammengefuehrt statt gedoppelt.
+//    Ablauf und "Elemente anderer Lieferanten" standen vorher als
+//    Abschnitte im Raster und sind dorthin umgezogen, nicht neu.
 // ═════════════════════════════════════════════════════════════
 $seiten[] = [
     'slug'       => 'gis-elemente-beplanken',
     'modus'      => 'neubau',
-    'keyword'    => 'gis elemente beplanken, gis elemente montieren',
+    'keyword'    => 'gis elemente beplanken, gis beplankung, gis elemente montieren',
     'nav_label'  => 'GIS-Elemente beplanken',
-    'meta_title' => 'GIS Elemente beplanken lassen: AquaPanel | SUI Innova',
-    'meta_desc'  => 'GIS Elemente beplanken lassen: AquaPanel in der Nasszelle, Gipsplatten im trockenen Bereich, auf Wunsch spachtelfertig. Pläne senden, Offerte erhalten.',
+    'meta_title' => 'GIS Beplankung: GIS Elemente beplanken | SUI Innova',
+    'meta_desc'  => 'GIS Elemente beplanken in der Werkstatt oder auf der Baustelle: AquaPanel, Gipsplatten, spachtelfertig. Pläne senden, Offerte erhalten.',
     'h1'         => 'GIS Elemente beplanken: von der Vorfabrikation bis zur fertigen Wand',
     'alt'        => 'Mit AquaPanel beplanktes GIS Element in der Werkstatt in Pfäffikon SZ',
-    'intro'      => 'Wir beplanken GIS Elemente in unserer Werkstatt in Pfäffikon SZ und direkt auf Ihrer Baustelle. Sie erhalten die Elemente verrohrt, beplankt und gespachtelt, bereit für Plättli, Farbe oder SilentPanel. In Nasszellen setzen wir AquaPanel als Untergrund für Abdichtung und Plättli ein, in trockenen Bereichen Gipsplatten nach Ihrem Wandaufbau. Wir arbeiten mit Sanitärfirmen, Generalunternehmen und Bauleitungen zusammen und richten uns nach Ihrem Bauprogramm. Vorfabrikation, Montage und Beplankung kommen aus einer Hand. Das spart Schnittstellen auf der Baustelle: Sie koordinieren nicht mehr zwischen Sanitär, Schreiner und Gipser, sondern sprechen mit einem Ansprechpartner. Nennen Sie uns Stückzahl, Wandaufbau und Termin, dann rechnen wir Ihnen eine Offerte.',
+    'intro'      => 'GIS Elemente beplanken wir in unserer Werkstatt in Pfäffikon SZ oder direkt auf Ihrer Baustelle, je nachdem, was zu Ihrem Bauablauf passt. Nach der GIS Beplankung ist das Element verrohrt, beplankt und auf Wunsch gespachtelt, bereit für Plättli, Farbe oder SilentPanel. In Nasszellen setzen wir AquaPanel als Untergrund für Abdichtung und Plättli ein, in trockenen Bereichen Gipsplatten nach Ihrem Wandaufbau. Wir arbeiten mit Generalunternehmen, Totalunternehmen, Sanitärunternehmen, Bauleitungen und Architekten zusammen und richten uns nach Ihrem Bauprogramm. Vorfabrikation, Montage und Beplankung kommen aus einer Hand. Das spart Schnittstellen auf der Baustelle: Sie koordinieren nicht mehr zwischen Sanitär, Schreiner und Gipser, sondern sprechen mit einem Ansprechpartner. Nennen Sie uns Stückzahl, Wandaufbau und Termin, dann rechnen wir Ihnen eine Offerte.',
     'body' => [
         ['In der Werkstatt beplankt, auf der Baustelle nur noch versetzt',
          'Wir verrohren und beplanken die GIS Elemente vorgängig in unserer Werkstatt in Pfäffikon SZ. Auf der Baustelle wird das Element versetzt, angeschlossen und fertig gespachtelt. Das verkürzt die Zeit, in der Ihre Leute im Rohbau gebunden sind. Zudem arbeiten wir witterungsunabhängig, auch wenn die Baustelle noch nicht geschlossen ist. Den Liefertermin halten wir in der Offerte fest.'],
@@ -234,27 +243,52 @@ $seiten[] = [
          'Wir stellen das Element auf, richten es lot- und waagrecht aus und verschrauben die Ständer mit Boden und Wand. Anschliessend verbinden wir die vorfabrizierten Rohrstränge mit der Steigzone und setzen Befestigungen für Keramik und Armaturen. Abflüsse und Wasserleitungen werden gefasst, damit später keine Schallbrücken entstehen. Auf Wunsch führen wir die Dichtheitsprüfung durch und protokollieren sie.'],
         ['Ein Team statt drei Schnittstellen',
          'Vorfabrikation, Montage und Beplankung laufen bei uns über dieselbe Ansprechperson. Sie melden Änderungen an einer Stelle, nicht an drei. Verschiebt sich Ihr Bauprogramm, planen wir die Montagetage um. Das reduziert Rückfragen auf der Baustelle und Wartezeiten zwischen den Gewerken.'],
-        ['Wir beplanken auch Elemente, die nicht von uns kommen',
-         'Sind die GIS Elemente bereits gesetzt oder von einer anderen Firma geliefert, übernehmen wir nur die Beplankung. Unser Team kommt in der ganzen Deutschschweiz auf Ihre Baustelle und arbeitet nach Ihrem Terminplan. Vorgängig schauen wir uns Pläne oder Fotos an und klären den Wandaufbau.'],
-        ['Was wir für die Offerte brauchen',
-         'Schicken Sie uns die Sanitärpläne, die Stückzahl der Elemente und den gewünschten Wandaufbau. Nennen Sie zusätzlich den Montagetermin und den Belag, der auf die Beplankung kommt. Darauf rechnen wir Ihnen eine Offerte mit Positionen für Vorfabrikation, Montage und Beplankung. Fehlen Angaben, fragen wir nach, bevor wir eine Zahl nennen.'],
+    ],
+    // Abschnitte mit eigener H2. "vor" steht zwischen Einleitung und
+    // Raster, "nach" zwischen Raster und Fragen.
+    'abschnitte_vor' => [
+        ['GIS Beplankung: Was dazugehört',
+         '<p>Zur GIS Beplankung gehören vier Punkte, die wir vorab mit Ihnen festlegen:</p>'
+         . '<ul>'
+         . '<li><strong>Plattenart je Bereich:</strong> AquaPanel in Duschen, Bädern und WC-Anlagen, Gipsplatten im trockenen Bereich nach Ihrem Wandaufbau.</li>'
+         . '<li><strong>Schriftlich festgehalten:</strong> Plattenart und Stärke halten wir vor Produktionsstart schriftlich fest.</li>'
+         . '<li><strong>Spachtelstufe nach Belag:</strong> Plättli, Farbe und SilentPanel verlangen unterschiedliche Stufen. Sie nennen uns den Belag, wir legen die Spachtelstufe fest.</li>'
+         . '<li><strong>Ort nach Wunsch:</strong> Wir beplanken in unserer Werkstatt in Pfäffikon SZ oder auf Ihrer Baustelle.</li>'
+         . '</ul>'],
+    ],
+    'abschnitte_nach' => [
+        ['Vom Plan zur beplankten Wand in vier Schritten',
+         '<ol>'
+         . '<li>Sie senden uns die Sanitärpläne, die Stückzahl der Elemente, den gewünschten Wandaufbau, den Montagetermin und den Belag, der auf die Beplankung kommt.</li>'
+         . '<li>Wir rechnen Ihnen eine Offerte mit Positionen für Vorfabrikation, Montage und Beplankung. Fehlen Angaben, fragen wir nach, bevor wir eine Zahl nennen.</li>'
+         . '<li>Vor Produktionsstart halten wir Plattenart, Stärke und Liefertermin schriftlich fest.</li>'
+         . '<li>Wir beplanken in unserer Werkstatt, und Sie erhalten das Element bereit zum Versetzen. Oder wir beplanken direkt auf Ihrer Baustelle.</li>'
+         . '</ol>'],
+        ['Nur die Beplankung: auch für Elemente anderer Lieferanten',
+         '<p>Sind die GIS Elemente bereits gesetzt oder von einer anderen Firma geliefert, übernehmen wir nur die Beplankung. Unser Team kommt in der ganzen Deutschschweiz auf Ihre Baustelle und arbeitet nach Ihrem Terminplan. Vorgängig schauen wir uns Pläne oder Fotos an und klären den Wandaufbau.</p>'],
     ],
     'faq' => [
+        ['Welche Platten verwenden Sie bei der GIS Beplankung?',
+         'In Duschen, Bädern und WC-Anlagen beplanken wir mit AquaPanel. Die Platte bleibt formstabil, wenn Feuchtigkeit auf sie trifft, und dient als Untergrund für Abdichtung und Plättli. In trockenen Bereichen verwenden wir Gipsplatten nach Ihrem Wandaufbau. Plattenart und Stärke halten wir vor Produktionsstart schriftlich fest.'],
         ['Beplanken Sie GIS Elemente auch direkt auf der Baustelle?',
          'Ja. Wir beplanken in unserer Werkstatt in Pfäffikon SZ oder vor Ort auf Ihrer Baustelle. Welche Variante sinnvoll ist, hängt von Zugang, Bauprogramm und Stückzahl ab.'],
-        ['Welche Platten verwenden Sie für Nasszellen?',
-         'In Nasszellen beplanken wir mit AquaPanel, weil die Platte als Untergrund für Abdichtung und Plättli geeignet ist. In trockenen Bereichen setzen wir Gipsplatten ein. Den Aufbau legen wir vor der Produktion mit Ihnen fest.'],
-        ['Übernehmen Sie auch das Spachteln?',
-         'Ja, wir spachteln die beplankten Elemente bis zu der Stufe, die Ihr Belag verlangt. Für Plättli, Farbe oder SilentPanel gelten unterschiedliche Anforderungen. Teilen Sie uns den geplanten Belag mit, dann stimmen wir die Spachtelung darauf ab.'],
-        ['Montieren Sie auch GIS Elemente, die nicht von Ihnen vorfabriziert wurden?',
-         'Ja, wir versetzen und beplanken auch Elemente, die Sie selber bestellt haben. Senden Sie uns vorgängig den Wandaufbau und die Anschlusspläne, damit wir die Montage richtig kalkulieren. Bei fremden Elementen prüfen wir vor Ort den Zustand der Verrohrung.'],
+        ['Wie weit spachteln Sie die beplankten Elemente?',
+         'Wir spachteln Stösse und Schraubstellen so weit, wie es der nachfolgende Belag verlangt. Für Plättli genügt eine andere Stufe als für eine gestrichene Wand oder für SilentPanel. Sie sagen uns, was auf die Wand kommt, wir legen die Spachtelstufe fest.'],
+        // Ersetzt "Montieren Sie auch GIS Elemente, die nicht von Ihnen
+        // vorfabriziert wurden?". Dieselbe Frage zweimal waere doppelt,
+        // die Angaben zur Montage fremder Elemente bleiben in der Antwort.
+        ['Können Sie auch GIS Elemente beplanken, die nicht von Ihnen stammen?',
+         'Ja. Sind die Elemente bereits gesetzt oder von einer anderen Firma geliefert, übernehmen wir nur die Beplankung. Wir kommen dafür in der ganzen Deutschschweiz auf Ihre Baustelle. Elemente, die Sie selber bestellt haben, versetzen wir auf Wunsch auch. Senden Sie uns vorgängig den Wandaufbau und die Anschlusspläne, damit wir richtig kalkulieren. Bei fremden Elementen prüfen wir vor Ort den Zustand der Verrohrung.'],
+        ['Was brauchen Sie für die Offerte?',
+         'Wir brauchen die Sanitärpläne, die Stückzahl der Elemente und den gewünschten Wandaufbau. Dazu nennen Sie uns den Montagetermin und den Belag, der auf die Beplankung kommt. Fehlen Angaben, fragen wir nach, bevor wir eine Zahl nennen.'],
         ['Wie lange dauert die Montage eines GIS Elements?',
          'Das hängt von Grösse, Anzahl Anschlüsse und Zugang zur Baustelle ab. Weil die Elemente verrohrt ankommen, bleibt auf der Baustelle vor allem Versetzen, Ausrichten und Anschliessen. Nach Sichtung Ihrer Pläne weisen wir die Montagezeit pro Element in der Offerte aus.'],
         ['In welcher Region montieren Sie?',
          'Unsere Werkstatt steht in Pfäffikon SZ, von dort fahren unsere Monteure in der ganzen Deutschschweiz auf die Baustellen. Fragen Sie mit Ihrer Ortschaft an, dann sagen wir Ihnen, ob wir den Auftrag übernehmen.'],
     ],
-    'cta_heading' => 'Beplankung anfragen',
+    'cta_heading' => 'GIS Beplankung anfragen',
     'cta_text'    => 'Senden Sie uns Ihre Sanitärpläne mit Stückzahl, Wandaufbau und Termin, wir rechnen Ihnen eine Offerte für die Beplankung.',
+    'cta_button'  => 'Pläne senden, Offerte erhalten',
     'textlinks' => [
         ['Vorfabrikation, Montage und Beplankung', 'sanitaerelemente-vorfabrizieren'],
         ['verrohren und beplanken die GIS Elemente', 'sanitaer-gis-elemente-bestellen'],
@@ -810,7 +844,26 @@ function sektionen(array $p, array $anker): array
         'alt'          => $p['alt'],
     ]];
 
-    $s[] = ['content-grid', inhaltsRaster($p, $p['h1'])];
+    // Abschnitte mit eigener H2 kommen als Textblock. Stehen welche vor
+    // dem Raster, wird es geteilt: Hauptueberschrift und Einleitung
+    // oben, die Zwischentitel danach. Die Links im Fliesstext werden
+    // vorher in einem Durchgang gesetzt, damit keiner doppelt kommt.
+    $textblock = fn($a) => ['text-block', [
+        'heading'   => $a[0],
+        'body'      => $a[1],
+        'alignment' => 'left',
+    ]];
+    $raster = inhaltsRaster($p, $p['h1']);
+
+    if (!empty($p['abschnitte_vor'])) {
+        $s[] = ['content-grid', ['items' => []] + $raster];
+        foreach ($p['abschnitte_vor'] as $a) $s[] = $textblock($a);
+        $s[] = ['content-grid', ['heading' => '', 'lead' => ''] + $raster];
+    } else {
+        $s[] = ['content-grid', $raster];
+    }
+
+    foreach ($p['abschnitte_nach'] ?? [] as $a) $s[] = $textblock($a);
 
     $s[] = ['faq', [
         'heading'  => 'Fragen und Antworten',
@@ -827,7 +880,7 @@ function sektionen(array $p, array $anker): array
     $s[] = ['cta-banner', [
         'heading'     => $p['cta_heading'],
         'body'        => $p['cta_text'],
-        'button_text' => CTA_BUTTON,
+        'button_text' => $p['cta_button'] ?? CTA_BUTTON,
         'button_url'  => CTA_URL,
     ]];
 
@@ -847,10 +900,18 @@ if (($argv[1] ?? '') === 'pruefen') {
                . $p['alt'] . ' ' . $p['intro'] . ' ' . $p['cta_heading'] . ' ' . $p['cta_text'];
         foreach ($p['body'] as $b) $alles .= ' ' . $b[0] . ' ' . $b[1];
         foreach ($p['faq']  as $f) $alles .= ' ' . $f[0] . ' ' . $f[1];
+        foreach (array_merge($p['abschnitte_vor'] ?? [], $p['abschnitte_nach'] ?? []) as $a) {
+            $alles .= ' ' . $a[0] . ' ' . $a[1];
+        }
+        $alles .= ' ' . ($p['cta_button'] ?? '');
 
         // Gedankenstriche
         if (preg_match('/[\x{2012}-\x{2015}]/u', $alles)) {
             $fehler[] = $p['slug'] . ': Gedankenstrich im Text';
+        }
+        // Schweizer Schreibweise
+        if (str_contains($alles, 'ß')) {
+            $fehler[] = $p['slug'] . ': Eszett im Text, in der Schweiz ss';
         }
         // Offene Platzhalter
         if (str_contains($alles, 'ANGABE FEHLT')) {
@@ -974,22 +1035,49 @@ if (($argv[1] ?? '') === 'daten') {
 // SQL erzeugen
 // ─────────────────────────────────────────────────────────────
 
+// ── Nur eine Seite ──
+// Aufruf: php dist/scripts/build_plan_0918.php seite <slug>
+//
+// Fuer Nachtraege an einer einzelnen Seite. Die volle Datei baut alle
+// Seiten neu auf und ueberschriebe damit alles, was seither im CMS an
+// anderen Seiten geaendert wurde. Linkbloecke anderer Seiten und die
+// Startseite bleiben hier deshalb draussen.
+$nurSeite = ($argv[1] ?? '') === 'seite' ? (string) ($argv[2] ?? '') : null;
+if ($nurSeite !== null) {
+    $seiten = array_values(array_filter($seiten, fn($p) => $p['slug'] === $nurSeite));
+    if (!$seiten) {
+        fwrite(STDERR, "Unbekannte Seite: /$nurSeite\n");
+        exit(1);
+    }
+    $nurLinks = [];
+}
+
 $o = [];
 $o[] = "-- ============================================================";
 $o[] = "-- SUI Innova GmbH";
-$o[] = "-- Umsetzung des Keyword-Plans vom 18.09.2026";
-$o[] = "--";
-$o[] = "-- ERZEUGT VON dist/scripts/build_plan_0918.php";
-$o[] = "-- Nicht von Hand bearbeiten, sondern den Generator anpassen.";
-$o[] = "--";
-$o[] = "-- Zwoelf Suchbegriffe auf neun Seiten, davon zwei neu.";
-$o[] = "--";
-$o[] = "-- WICHTIG: ZUERST die Dateien hochladen, DANN diese SQL.";
-$o[] = "-- Die Sektion parallax-image bekommt ein Feld fuer den";
-$o[] = "-- Bild-Alt-Text. Ohne die neue Vorlage bleibt er wirkungslos.";
-$o[] = "--";
-$o[] = "-- Die beiden neuen Seiten werden DEAKTIVIERT angelegt.";
-$o[] = "-- Freischalten mit 2-NEUE-SEITEN-ONLINE.sql.";
+if ($nurSeite !== null) {
+    $o[] = "-- Nachtrag fuer eine Seite: /" . $nurSeite;
+    $o[] = "--";
+    $o[] = "-- ERZEUGT VON dist/scripts/build_plan_0918.php seite " . $nurSeite;
+    $o[] = "-- Nicht von Hand bearbeiten, sondern den Generator anpassen.";
+    $o[] = "--";
+    $o[] = "-- Baut nur diese eine Seite neu auf. Das gewaehlte Kopfbild";
+    $o[] = "-- bleibt, alle anderen Seiten bleiben unberuehrt.";
+} else {
+    $o[] = "-- Umsetzung des Keyword-Plans vom 18.09.2026";
+    $o[] = "--";
+    $o[] = "-- ERZEUGT VON dist/scripts/build_plan_0918.php";
+    $o[] = "-- Nicht von Hand bearbeiten, sondern den Generator anpassen.";
+    $o[] = "--";
+    $o[] = "-- Zwoelf Suchbegriffe auf neun Seiten, davon zwei neu.";
+    $o[] = "--";
+    $o[] = "-- WICHTIG: ZUERST die Dateien hochladen, DANN diese SQL.";
+    $o[] = "-- Die Sektion parallax-image bekommt ein Feld fuer den";
+    $o[] = "-- Bild-Alt-Text. Ohne die neue Vorlage bleibt er wirkungslos.";
+    $o[] = "--";
+    $o[] = "-- Die beiden neuen Seiten werden DEAKTIVIERT angelegt.";
+    $o[] = "-- Freischalten mit 2-NEUE-SEITEN-ONLINE.sql.";
+}
 $o[] = "--";
 $o[] = "-- Gefahrlos mehrfach ausfuehrbar.";
 $o[] = "-- ============================================================";
@@ -1187,7 +1275,7 @@ foreach ($nurLinks as $quelle => $ziele) {
 // welcher Slug die Startseite ist, kann sich aendern.
 $startseiteZiele = array_keys($anker);
 $sb = linkBlock($startseiteZiele, $anker, '');
-if ($sb) {
+if ($sb && $nurSeite === null) {
     $sb[1]['heading'] = 'Unsere Leistungen im Detail';
 
     $o[] = "-- ════════════════════════════════════════════════════════════";
