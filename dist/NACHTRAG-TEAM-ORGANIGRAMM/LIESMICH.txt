@@ -1,0 +1,50 @@
+════════════════════════════════════════════════════════
+TEAM: GANZE FOTOS, DAZU EIN ORGANIGRAMM
+════════════════════════════════════════════════════════
+
+Keine SQL nötig. Nur zwei Dateien per FTP.
+
+
+SCHRITT 1: ZWEI DATEIEN (FTP)
+────────────────────────────────────────────────────────
+
+Aus "1-DATEIEN", nach sui-innova.ch ziehen, überschreiben:
+
+    config/sections.php
+    templates/sections/team-grid.php
+
+
+WAS SICH ÄNDERT
+────────────────────────────────────────────────────────
+
+FOTOS
+  Vorher wurde jedes Foto in einen festen Hochformat-Rahmen
+  gezwängt und oben und unten abgeschnitten. Jetzt ist
+  immer das ganze Foto zu sehen.
+
+  Tipp: Alle Teamfotos im selben Format zuschneiden, dann
+  sind die Karten gleich hoch.
+
+ORGANIGRAMM
+  In der Team-Sektion gibt es zwei neue Felder:
+
+    Organigramm: Überschrift      z.B. "Organigramm"
+    Organigramm: Bild             aus den Medien wählen
+
+  Das Organigramm erscheint unter dem Team über die ganze
+  Breite. Ein Klick öffnet es in Originalgrösse.
+  Ist kein Bild gewählt, erscheint nichts.
+
+
+SCHRITT 2: ORGANIGRAMM EINFÜGEN (CMS)
+────────────────────────────────────────────────────────
+
+Seiten -> Über uns -> Sektion "Team" -> unten die zwei
+neuen Felder ausfüllen -> Speichern.
+
+Am besten als PNG oder JPG, mindestens 2000 Pixel breit,
+damit die Schrift beim Vergrössern scharf bleibt.
+
+Liegt das Organigramm bereits als PDF in den Medien, geht
+auch das: dann erscheint statt des Bildes ein Knopf
+"Organigramm öffnen (PDF)".

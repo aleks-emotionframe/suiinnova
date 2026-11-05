@@ -211,6 +211,8 @@ return [
                 'name'     => ['type' => 'text',  'label' => 'Name'],
                 'role'     => ['type' => 'text',  'label' => 'Position'],
             ]],
+            'org_heading'  => ['type' => 'text',  'label' => 'Organigramm: Überschrift (z.B. Organigramm)'],
+            'org_image_id' => ['type' => 'media', 'label' => 'Organigramm: Bild (erscheint unter dem Team)'],
         ],
     ],
 
